@@ -35,4 +35,12 @@ export default tseslint.config(
       }],
     },
   },
+
+  // src/icons/lucide.ts is the ONLY file allowed to import from lucide-react
+  {
+    files: ['src/icons/lucide.ts'],
+    rules: {
+      'no-restricted-imports': 'off',
+    },
+  },
 )
