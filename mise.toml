@@ -1,0 +1,11 @@
+# Tool versions for contributors who use mise.
+#
+# Optional — `make install` and pnpm work without mise as long as node/pnpm
+# are on PATH. If you prefer pinned versions, install mise
+# (https://mise.jdx.dev/) and run `make mise-setup`.
+#
+# Consumers importing @concavetrillion/pd-ui don't need mise — they consume
+# the published npm package from pd-index-npm.
+
+[tools]
+node = "24"     # Active LTS — matches workspace sibling repos

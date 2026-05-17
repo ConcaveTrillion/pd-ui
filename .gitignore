@@ -1,0 +1,48 @@
+# Node
+node_modules/
+.pnpm-store/
+
+# Build output
+dist/
+storybook-static/
+
+# TypeScript incremental build cache
+*.tsbuildinfo
+
+# Coverage
+coverage/
+
+# Environment
+.env
+.env.local
+.env.*.local
+
+# Vite
+.vite/
+
+# Testing
+test-results/
+playwright-report/
+
+# Codegen artifacts (committed output lives in src/types/generated/)
+.codegen/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Editors
+.vscode/
+.idea/
+*.swp
+
+# Claude Code session state — agent memory canonical home is
+# /workspaces/ocr-container/.claude/agent-memory/, not per-repo. If you
+# see a .claude/ tree here, it is leakage; clean it up.
+.claude/
+
+# AI=1 make output capture log
+.ci-ai.log
+
+# ship-issue bot temp cache
+.ship-issue-tmp/
