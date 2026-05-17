@@ -72,6 +72,8 @@
     "test": "vitest run",
     "build": "vite build",
     "codegen": "node scripts/codegen-fetch.mjs && node scripts/codegen-emit.mjs && node scripts/codegen-tsgen.mjs",
-    "codegen:check": "node scripts/codegen-fetch.mjs && node scripts/codegen-emit.mjs && node scripts/codegen-tsgen.mjs && git diff --exit-code src/types/generated/"
+    "codegen:check": "node scripts/codegen-fetch.mjs && node scripts/codegen-emit.mjs && node scripts/codegen-tsgen.mjs && git diff --exit-code src/types/generated/",
+    "sync:design-system": "node scripts/sync-design-system.mjs",
+    "codegen:theme-check": "node scripts/sync-design-system.mjs --check"
   }
 }

@@ -47,4 +47,21 @@ describe('package.json contract', () => {
     const reactVersion = peers['react'] as string
     expect(reactVersion).toMatch(/\^18/)
   })
+
+  it('exports has ./theme/tokens.css subpath', () => {
+    const exports = pkg['exports'] as Record<string, unknown>
+    expect(exports).toHaveProperty('./theme/tokens.css')
+    expect(exports['./theme/tokens.css']).toBe('./theme/tokens.css')
+  })
+
+  it('exports has ./theme/primitives.css subpath', () => {
+    const exports = pkg['exports'] as Record<string, unknown>
+    expect(exports).toHaveProperty('./theme/primitives.css')
+    expect(exports['./theme/primitives.css']).toBe('./theme/primitives.css')
+  })
+
+  it('files includes "theme" directory', () => {
+    const files = pkg['files'] as string[]
+    expect(files).toContain('theme')
+  })
 })
