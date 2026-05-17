@@ -3,7 +3,7 @@
 #
 # AI=1 captures verbose output to .ci-ai.log; stdout shows pass/fail.
 
-.PHONY: install lint typecheck test build frontend-build codegen codegen-check theme-check ci help \
+.PHONY: install lint typecheck test build frontend-build codegen codegen-check theme-check storybook storybook-build ci help \
         mise-download mise-setup mise-doctor
 
 LOG_FILE := .ci-ai.log
@@ -39,6 +39,8 @@ help:
 	@echo "  frontend-build alias for build"
 	@echo "  codegen        fetch wheels + emit JSON + generate TS (placeholder)"
 	@echo "  codegen-check  run codegen and check git diff (placeholder)"
+	@echo "  storybook      start Storybook dev server"
+	@echo "  storybook-build  build Storybook static site"
 	@echo "  ci             install + lint + typecheck + test + build + codegen-check"
 	@echo ""
 	@echo "  mise-download  Download the mise binary"
@@ -70,6 +72,12 @@ codegen-check:
 
 theme-check:
 	$(call _pnpm,run codegen:theme-check)
+
+storybook:
+	$(call _pnpm,run storybook)
+
+storybook-build:
+	$(call _pnpm,run build-storybook)
 
 ci: install lint typecheck test build codegen-check theme-check
 

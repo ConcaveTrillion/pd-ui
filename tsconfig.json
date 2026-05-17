@@ -16,6 +16,10 @@
     "resolveJsonModule": true,
     "types": ["vitest/globals", "@testing-library/jest-dom"]
   },
-  "include": ["src/**/*.ts", "src/**/*.tsx", "tests/**/*.ts", "tests/**/*.tsx"],
+  "include": [
+    "src/**/*.ts", "src/**/*.tsx",
+    "tests/**/*.ts", "tests/**/*.tsx",
+    ".storybook/**/*.ts"
+  ],
   "exclude": ["tests/fixtures/**"]
 }
