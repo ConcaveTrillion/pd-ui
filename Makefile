@@ -63,10 +63,10 @@ build:
 frontend-build: build
 
 codegen:
-	@echo "codegen placeholder — wired in M4"
+	$(call _pnpm,run codegen)
 
 codegen-check:
-	@echo "codegen-check placeholder — wired in M4"
+	$(call _pnpm,run codegen:check)
 
 theme-check:
 	$(call _pnpm,run codegen:theme-check)
