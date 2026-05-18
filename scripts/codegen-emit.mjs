@@ -65,7 +65,28 @@ async function main() {
   console.log(`codegen:emit complete — wrote ${schemaOut}`)
 
   if (!opts.bookToolsOnly) {
-    console.log('Note: pd-ocr-ops emit not yet implemented; re-run without --book-tools-only when ready.')
+    const opsSchemaOut =
+      process.env['CODEGEN_OPS_SCHEMA_OUT'] ??
+      join(REPO_ROOT, '.codegen', 'ocr-ops.schema.json')
+
+    console.log(`Running pd_ocr_ops.schemas via ${pythonBin}`)
+    console.log(`Output: ${opsSchemaOut}`)
+
+    const opsResult = execFileSync(pythonBin, ['-m', 'pd_ocr_ops.schemas'], {
+      encoding: 'utf-8',
+      cwd: REPO_ROOT,
+    })
+
+    let opsParsed
+    try {
+      opsParsed = JSON.parse(opsResult)
+    } catch (err) {
+      console.error('pd_ocr_ops.schemas output is not valid JSON:', err.message)
+      process.exit(1)
+    }
+
+    writeFileSync(opsSchemaOut, JSON.stringify(opsParsed, null, 2) + '\n', 'utf-8')
+    console.log(`codegen:emit (ocr-ops) complete — wrote ${opsSchemaOut}`)
   }
 }
 

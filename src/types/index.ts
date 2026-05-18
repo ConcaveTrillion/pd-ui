@@ -17,7 +17,23 @@
  */
 
 export * from './generated/book-tools'
-// export * from './generated/suite'  // re-enable once pd-ocr-ops codegen lands
+// Named re-exports from ocr-ops (avoid wildcard — book-tools and ocr-ops both
+// export `components`, `paths`, `webhooks`, etc. which would conflict).
+export type {
+  SuiteApp,
+  InstalledApp,
+  LayerColors,
+  CommonUiPrefs,
+  UiPrefs,
+  LaunchResultOpened,
+  LaunchResultRequiresHostConfig,
+  StageResult,
+  JobStatus,
+  JobEvent,
+  JobSpec,
+  LaunchResult,
+} from './generated/ocr-ops.js'
+export type { JobState } from './job-state.js'
 
 import type { Word, Block, Page } from './generated/book-tools'
 

@@ -4,9 +4,9 @@ import { createRef } from 'react';
 import { JobStatusPip } from './JobStatusPip.js';
 
 describe('JobStatusPip', () => {
-  it('renders with done state — correct testid, .pip class, green token', () => {
-    render(<JobStatusPip state="done" />);
-    const el = screen.getByTestId('job-status-pip-done');
+  it('renders with succeeded state — correct testid, .pip class, green token', () => {
+    render(<JobStatusPip state="succeeded" />);
+    const el = screen.getByTestId('job-status-pip-succeeded');
     expect(el.classList.contains('pip')).toBe(true);
     expect(el.style.color).toBe('var(--exact)');
   });
@@ -23,16 +23,22 @@ describe('JobStatusPip', () => {
     expect(el.style.color).toBe('var(--ink-3)');
   });
 
-  it('renders with error state — red token var(--mismatch)', () => {
-    render(<JobStatusPip state="error" />);
-    const el = screen.getByTestId('job-status-pip-error');
+  it('renders with failed state — red token var(--mismatch)', () => {
+    render(<JobStatusPip state="failed" />);
+    const el = screen.getByTestId('job-status-pip-failed');
     expect(el.style.color).toBe('var(--mismatch)');
   });
 
+  it('renders with cancelled state — fuzzy token var(--fuzzy)', () => {
+    render(<JobStatusPip state="cancelled" />);
+    const el = screen.getByTestId('job-status-pip-cancelled');
+    expect(el.style.color).toBe('var(--fuzzy)');
+  });
+
   it('custom label prop overrides default state text', () => {
-    render(<JobStatusPip state="done" label="Finished" />);
+    render(<JobStatusPip state="succeeded" label="Finished" />);
     expect(screen.getByText('Finished')).toBeTruthy();
-    expect(screen.queryByText('done')).toBeNull();
+    expect(screen.queryByText('succeeded')).toBeNull();
   });
 
   it('omitting label renders the state string as the label', () => {
@@ -41,8 +47,8 @@ describe('JobStatusPip', () => {
   });
 
   it('additional className is merged', () => {
-    render(<JobStatusPip state="done" className="custom-cls" />);
-    const el = screen.getByTestId('job-status-pip-done');
+    render(<JobStatusPip state="succeeded" className="custom-cls" />);
+    const el = screen.getByTestId('job-status-pip-succeeded');
     expect(el.classList.contains('pip')).toBe(true);
     expect(el.classList.contains('custom-cls')).toBe(true);
   });

@@ -8,7 +8,7 @@ const meta: Meta<typeof JobStatusPip> = {
   argTypes: {
     state: {
       control: 'select',
-      options: ['queued', 'running', 'done', 'error'],
+      options: ['queued', 'running', 'succeeded', 'failed', 'cancelled'],
     },
     label: { control: 'text' },
   },
@@ -17,8 +17,8 @@ const meta: Meta<typeof JobStatusPip> = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-export const Done: Story = {
-  args: { state: 'done' },
+export const Succeeded: Story = {
+  args: { state: 'succeeded' },
 };
 
 export const Running: Story = {
@@ -29,8 +29,12 @@ export const Queued: Story = {
   args: { state: 'queued' },
 };
 
-export const Error: Story = {
-  args: { state: 'error' },
+export const Failed: Story = {
+  args: { state: 'failed' },
+};
+
+export const Cancelled: Story = {
+  args: { state: 'cancelled' },
 };
 
 export const AllStates: Story = {
@@ -38,8 +42,9 @@ export const AllStates: Story = {
     <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
       <JobStatusPip state="queued" />
       <JobStatusPip state="running" />
-      <JobStatusPip state="done" />
-      <JobStatusPip state="error" />
+      <JobStatusPip state="succeeded" />
+      <JobStatusPip state="failed" />
+      <JobStatusPip state="cancelled" />
     </div>
   ),
 };
@@ -49,8 +54,9 @@ export const CustomLabels: Story = {
     <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
       <JobStatusPip state="queued" label="Pending" />
       <JobStatusPip state="running" label="In Progress" />
-      <JobStatusPip state="done" label="Complete" />
-      <JobStatusPip state="error" label="Failed" />
+      <JobStatusPip state="succeeded" label="Complete" />
+      <JobStatusPip state="failed" label="Failed" />
+      <JobStatusPip state="cancelled" label="Cancelled" />
     </div>
   ),
 };
