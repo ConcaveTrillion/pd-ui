@@ -120,3 +120,11 @@ export type { FieldRowProps } from './FieldRow.js';
 
 // cn utility
 export { cn } from './cn.js';
+
+// Layout components
+export { PageSplitView } from './PageSplitView.js';
+export type { PageSplitViewProps } from './PageSplitView.js';
+
+// Composite dialog shells
+export { BaseJobConfigDialog } from './BaseJobConfigDialog.js';
+export type { BaseJobConfigDialogProps, BaseJobConfig } from './BaseJobConfigDialog.js';
