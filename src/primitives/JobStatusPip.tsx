@@ -1,0 +1,45 @@
+import * as React from 'react';
+import { cn } from './cn.js';
+
+export type JobState = 'queued' | 'running' | 'done' | 'error';
+
+export interface JobStatusPipProps extends React.HTMLAttributes<HTMLDivElement> {
+  state: JobState;
+  label?: string;
+}
+
+// Map job state to the CSS custom property token used for color.
+// The .pip class uses `color` to drive bg (at 10%) and border (at 33%)
+// via inline color-mix — so a single CSS variable drives all three.
+const stateToken: Record<JobState, string> = {
+  done:    'var(--exact)',
+  running: 'var(--ocr)',
+  queued:  'var(--ink-3)',
+  error:   'var(--mismatch)',
+};
+
+export const JobStatusPip = React.forwardRef<HTMLDivElement, JobStatusPipProps>(
+  function JobStatusPip({ state, label, className, style, ...props }, ref) {
+    const token = stateToken[state];
+    const displayLabel = label !== undefined ? label : state;
+    return (
+      <div
+        ref={ref}
+        data-testid={`job-status-pip-${state}`}
+        className={cn('pip', state === 'running' ? 'pip--running' : '', className)}
+        style={{
+          color: token,
+          background: `color-mix(in srgb, ${token} 10%, transparent)`,
+          borderColor: `color-mix(in srgb, ${token} 33%, transparent)`,
+          ...style,
+        }}
+        {...props}
+      >
+        <span className="dot" style={{ background: token }} />
+        <span>{displayLabel}</span>
+      </div>
+    );
+  },
+);
+
+JobStatusPip.displayName = 'JobStatusPip';

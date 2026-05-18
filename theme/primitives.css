@@ -77,6 +77,22 @@ a { color: inherit; text-decoration: none; }
 }
 .pip .dot { width: 5px; height: 5px; border-radius: 50%; }
 
+/* running spin ring for job-state pip */
+@keyframes pip-spin { to { transform: rotate(360deg); } }
+.pip--running {
+  position: relative;
+}
+.pip--running::after {
+  content: '';
+  position: absolute;
+  inset: -2px;
+  border-radius: 11px;
+  border: 1px solid color-mix(in srgb, var(--ocr) 50%, transparent);
+  border-top-color: transparent;
+  animation: pip-spin 1.2s linear infinite;
+  pointer-events: none;
+}
+
 /* tri-state chip — none / some / all */
 .chip3 {
   display: inline-flex; align-items: center; gap: 8px;

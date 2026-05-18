@@ -17,6 +17,9 @@ export type { ChipProps, ChipVariant } from './Chip.js';
 export { StatusPip } from './StatusPip.js';
 export type { StatusPipProps, StatusPipStatus } from './StatusPip.js';
 
+export { JobStatusPip } from './JobStatusPip.js';
+export type { JobStatusPipProps, JobState } from './JobStatusPip.js';
+
 export { KeyCap } from './KeyCap.js';
 export type { KeyCapProps } from './KeyCap.js';
 
