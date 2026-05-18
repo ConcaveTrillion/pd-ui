@@ -20,6 +20,7 @@
  *   useUIPrefs()          — full UIPrefs state + setters
  *   useTheme()            — 'dark' | 'light'
  *   useDensity()          — 'compact' | 'normal' | 'comfortable'
+ *   useFontScale()        — number (0.8–1.4)
  *   useLayerColor(layer)  — CSS color string
  *   useStatusColor(status)— CSS color string
  *   useAccentColor()      — { fg, bg }
@@ -65,6 +66,7 @@ export {
   useUIPrefs,
   useTheme,
   useDensity,
+  useFontScale,
   useLayerColor,
   useStatusColor,
   useAccentColor,

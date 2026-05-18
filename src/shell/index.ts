@@ -30,6 +30,12 @@ export { LauncherSlot } from './LauncherSlot.js';
 export { LauncherTile } from './LauncherTile.js';
 export type { LauncherTileProps } from './LauncherTile.js';
 
+// ─── SettingsSlot ─────────────────────────────────────────────────────────────
+export { SettingsSlot } from './SettingsSlot.js';
+
+// ─── UIPrefsApplicator ────────────────────────────────────────────────────────
+export { UIPrefsApplicator } from './UIPrefsApplicator.js';
+
 // ─── SuiteSiblings (M8.4) ─────────────────────────────────────────────────────
 export { SuiteSiblingsContext, useSuiteSiblingsContext } from './SuiteSiblingsContext.js';
 export type { SuiteSiblingsContextValue } from './SuiteSiblingsContext.js';

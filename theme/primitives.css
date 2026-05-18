@@ -354,3 +354,17 @@ a { color: inherit; text-decoration: none; }
 ::-webkit-scrollbar-track { background: transparent; }
 ::-webkit-scrollbar-thumb { background: var(--border-2); border-radius: 5px; }
 ::-webkit-scrollbar-thumb:hover { background: var(--border-3); }
+
+/* ── Density overrides ───────────────────────────────────────────────── */
+
+[data-density="compact"] {
+  --shell-header-h: 44px;
+}
+
+[data-density="comfortable"] {
+  --shell-header-h: 64px;
+}
+
+/* Table row padding responds to density */
+[data-density="compact"] td { padding-block: 4px; }
+[data-density="comfortable"] td { padding-block: 12px; }

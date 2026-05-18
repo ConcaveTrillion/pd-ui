@@ -11,6 +11,7 @@
  * Hooks:
  *   useTheme()          → 'dark' | 'light'
  *   useDensity()        → 'compact' | 'normal' | 'comfortable'
+ *   useFontScale()      → number (0.8–1.4)
  *   useLayerColor(layer) → string (CSS var fallback when not overridden)
  *   useStatusColor(status) → string
  *   useAccentColor()    → { fg: string; bg: string }
@@ -48,6 +49,8 @@ export interface UIPrefsStoreState {
   setTheme: (theme: UIPrefs['theme']) => void;
   /** Update density and debounce-persist common prefs. */
   setDensity: (density: UIPrefs['density']) => void;
+  /** Update font scale (clamped to [0.8, 1.4]) and persist common prefs. */
+  setFontScale: (scale: number) => void;
   /** Update an app-specific pref and debounce-persist. */
   setAppPref: (key: string, value: unknown) => void;
 
@@ -71,19 +74,26 @@ export function createUIPrefsStore(config: UIPrefsConfig) {
     });
 
     return {
-      prefs: { theme: 'dark', density: 'normal' },
+      prefs: { theme: 'dark', density: 'normal', fontScale: 1.0 },
       loading: true,
 
       setTheme: (theme) => {
         const prefs = { ...get().prefs, theme };
         set({ prefs });
-        void config.persistCommon({ theme, density: prefs.density });
+        void config.persistCommon({ theme, density: prefs.density, fontScale: prefs.fontScale });
       },
 
       setDensity: (density) => {
         const prefs = { ...get().prefs, density };
         set({ prefs });
-        void config.persistCommon({ theme: prefs.theme, density });
+        void config.persistCommon({ theme: prefs.theme, density, fontScale: prefs.fontScale });
+      },
+
+      setFontScale: (scale) => {
+        const fontScale = Math.min(1.4, Math.max(0.8, scale));
+        const prefs = { ...get().prefs, fontScale };
+        set({ prefs });
+        void config.persistCommon({ theme: prefs.theme, density: prefs.density, fontScale });
       },
 
       setAppPref: (key, value) => {

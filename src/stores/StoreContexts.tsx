@@ -134,6 +134,12 @@ export function useDensity() {
   return useStore(store, (s) => s.prefs.density);
 }
 
+export function useFontScale() {
+  const store = React.useContext(UIPrefsStoreContext);
+  if (!store) throw new Error('useFontScale() must be used inside <UIPrefsStoreProvider>');
+  return useStore(store, (s) => s.prefs.fontScale);
+}
+
 export function useLayerColor(layer: 'block' | 'para' | 'line' | 'word') {
   const store = React.useContext(UIPrefsStoreContext);
   if (!store) throw new Error('useLayerColor() must be used inside <UIPrefsStoreProvider>');

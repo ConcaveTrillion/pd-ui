@@ -55,6 +55,9 @@ const WHITELIST: ReadonlySet<string> = new Set([
   // Store context providers — covered by component stories that use AppShell
   'stores/StoreContexts.tsx',
 
+  // UIPrefsApplicator is a zero-render side-effect component exercised by AppShell
+  'shell/UIPrefsApplicator.tsx',
+
   // FieldRow is a layout helper documented alongside Field
   'primitives/FieldRow.tsx',
 ]);

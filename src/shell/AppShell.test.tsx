@@ -1,5 +1,6 @@
 /**
  * AppShell tests — covering #157 (types/context), #158 (grid skeleton).
+ * Updated for built-in header (always rendered) and UIPrefsApplicator.
  */
 import * as React from 'react';
 import { render, screen } from '@testing-library/react';
@@ -12,7 +13,7 @@ import type { AppShellProps } from './types.js';
 
 function noopPrefsConfig(): AppShellProps['uiPrefsConfig'] {
   return {
-    load: () => Promise.resolve({ theme: 'dark' as const, density: 'normal' as const }),
+    load: () => Promise.resolve({ theme: 'dark' as const, density: 'normal' as const, fontScale: 1.0 }),
     persistCommon: () => Promise.resolve(),
     persistApp: () => Promise.resolve(),
   };
@@ -56,13 +57,23 @@ describe('AppShell — grid skeleton (#158)', () => {
     expect(screen.getByTestId('app-shell')).toBeTruthy();
   });
 
-  it('renders header slot when provided', () => {
+  it('always renders the header zone (built-in header by default)', () => {
+    render(<AppShell {...minimalProps()} />);
+    expect(screen.getByTestId('app-shell-header')).toBeTruthy();
+  });
+
+  it('renders built-in header with appDisplayName when no custom header provided', () => {
+    render(<AppShell {...minimalProps({ appDisplayName: 'My Suite App' })} />);
+    expect(screen.getByText('My Suite App')).toBeTruthy();
+  });
+
+  it('renders custom header content when header prop is provided', () => {
     render(
       <AppShell
-        {...minimalProps({ header: <div data-testid="slot-header">header</div> })}
+        {...minimalProps({ header: <div data-testid="custom-header">custom</div> })}
       />,
     );
-    expect(screen.getByTestId('slot-header')).toBeTruthy();
+    expect(screen.getByTestId('custom-header')).toBeTruthy();
   });
 
   it('renders rail slot when provided', () => {
@@ -92,9 +103,9 @@ describe('AppShell — grid skeleton (#158)', () => {
     expect(screen.getByTestId('slot-rightPanel')).toBeTruthy();
   });
 
-  it('does not render header wrapper when header slot is absent', () => {
+  it('built-in header renders the settings gear button', () => {
     render(<AppShell {...minimalProps()} />);
-    expect(screen.queryByTestId('app-shell-header')).toBeNull();
+    expect(screen.getByTestId('settings-slot-trigger')).toBeTruthy();
   });
 });
 

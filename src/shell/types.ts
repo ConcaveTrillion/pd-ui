@@ -28,6 +28,8 @@ export interface InstalledApp extends SuiteApp {
 export interface UIPrefs {
   theme: 'dark' | 'light';
   density: 'compact' | 'normal' | 'comfortable';
+  /** Font scale multiplier applied via CSS zoom. Range [0.8, 1.4]. Default 1.0. */
+  fontScale: number;
   /** Layer colors keyed by layer name. Falls back to CSS token defaults when absent. */
   layerColors?: Partial<Record<'block' | 'para' | 'line' | 'word', string>>;
   /** Status colors keyed by status name. Falls back to CSS token defaults when absent. */
@@ -46,8 +48,8 @@ export interface UIPrefs {
 export interface UIPrefsConfig {
   /** Async loader; called once on first subscribe. */
   load: () => Promise<UIPrefs>;
-  /** Called when common prefs (theme, density) change. */
-  persistCommon: (prefs: Pick<UIPrefs, 'theme' | 'density'>) => Promise<void>;
+  /** Called when common prefs (theme, density, fontScale) change. */
+  persistCommon: (prefs: Pick<UIPrefs, 'theme' | 'density' | 'fontScale'>) => Promise<void>;
   /** Called when app-specific prefs change. */
   persistApp: (appPrefs: Record<string, unknown>) => Promise<void>;
 }

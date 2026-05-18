@@ -9,6 +9,7 @@ const STUB_PREFS_CONFIG: UIPrefsConfig = {
     Promise.resolve({
       theme: 'dark',
       density: 'comfortable',
+      fontScale: 1.0,
     }),
   persistCommon: () => Promise.resolve(),
   persistApp: () => Promise.resolve(),
@@ -217,6 +218,29 @@ export const MinimalMain: Story = {
         main={
           <div style={{ padding: '24px', color: 'var(--ink-1)' }}>
             Just the main slot — no header, rail, drawer, or right panel.
+          </div>
+        }
+      />
+    </div>
+  ),
+};
+
+/**
+ * Built-in header — no custom `header` prop; AppShell renders icon + name +
+ * settings gear automatically.
+ */
+export const BuiltInHeader: Story = {
+  render: () => (
+    <div style={{ width: '100vw', height: '100vh' }}>
+      <AppShell
+        appId="demo-builtin"
+        appDisplayName="pd-ui Demo App"
+        appIconUrl=""
+        uiPrefsConfig={STUB_PREFS_CONFIG}
+        main={
+          <div style={{ padding: '24px', color: 'var(--ink-1)' }}>
+            <p>The header above is the built-in AppShellHeader (no custom <code>header</code> prop).</p>
+            <p>Click the gear icon to open the settings popover.</p>
           </div>
         }
       />

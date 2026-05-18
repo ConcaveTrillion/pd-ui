@@ -10,6 +10,7 @@ function makeConfig(prefs: Partial<UIPrefs> = {}): UIPrefsConfig {
     load: vi.fn(() => Promise.resolve({
       theme: 'dark' as const,
       density: 'normal' as const,
+      fontScale: 1.0,
       ...prefs,
     })),
     persistCommon: vi.fn(() => Promise.resolve()),
