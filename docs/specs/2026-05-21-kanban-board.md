@@ -1,9 +1,8 @@
 # KanbanBoard / KanbanColumn / PageChip — component-API spec
 
 **Date:** 2026-05-21
-**Status:** Spec — not yet implemented
+**Status:** Implemented (issue #10) — `src/primitives/kanban/`
 **Subpath:** `@concavetrillion/pd-ui/primitives`
-**Blocked by:** `@dnd-kit/core` + `@dnd-kit/sortable` added to `package.json`
 **Required by:** `pd-ocr-trainer-spa` DatasetsPage (dual kanban — detection + recognition)
 **Spec source:** `pd-ocr-trainer-spa/specs/03-frontend.md §6.3`
 
@@ -254,9 +253,13 @@ All colors from design-system tokens. No hex literals.
 
 ## 8. Accessibility
 
-- Each column has `role="list"` and an `aria-label` derived from
-  `column.label`.
-- Each chip has `role="listitem"`.
+- Each column's scroll region has `role="listbox"` and an `aria-label`
+  derived from `column.label`; `aria-multiselectable` is set when an
+  `onSelect` handler is wired. (This matches the established
+  `role="listbox"`/`role="option"` convention used by `<WordList>` —
+  `listbox`/`option` support selectable, focusable children, which
+  `list`/`listitem` do not.)
+- Each chip has `role="option"` with `aria-selected`.
 - `KeyboardSensor` activates Space/Enter on a selected chip to start a
   keyboard drag; Arrow keys move to adjacent columns.
 - Drag overlay (dnd-kit `<DragOverlay>`) renders an accessible description

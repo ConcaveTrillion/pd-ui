@@ -27,6 +27,8 @@ export default defineConfig({
       external: [
         'react', 'react-dom', 'react/jsx-runtime',
         /^@radix-ui\//,
+        /^@dnd-kit\//,
+        '@tanstack/react-virtual',
         'konva', 'react-konva', 'zustand',
         'lucide-react', 'react-virtuoso', 'clsx',
       ],

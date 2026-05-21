@@ -64,6 +64,10 @@ const EXPECTED_COMPONENTS = [
   'AccordionItem',
   'AccordionTrigger',
   'AccordionContent',
+  // Kanban
+  'KanbanBoard',
+  'KanbanColumn',
+  'PageChip',
   // Utility
   'cn',
 ];

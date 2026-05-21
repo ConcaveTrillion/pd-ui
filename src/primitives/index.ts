@@ -128,3 +128,17 @@ export type { PageSplitViewProps } from './PageSplitView.js';
 // Composite dialog shells
 export { BaseJobConfigDialog } from './BaseJobConfigDialog.js';
 export type { BaseJobConfigDialogProps, BaseJobConfig } from './BaseJobConfigDialog.js';
+
+// Kanban board family
+export { KanbanBoard, KanbanColumn, PageChip } from './kanban/index.js';
+export type {
+  KanbanBoardProps,
+  KanbanColumnProps,
+  PageChipProps,
+  KanbanColumnDef,
+  KanbanItemDef,
+  KanbanMoveEvent,
+  KanbanSelectEvent,
+  KanbanColumnHeaderProps,
+  KanbanChipRenderProps,
+} from './kanban/index.js';
