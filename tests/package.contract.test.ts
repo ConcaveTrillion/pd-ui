@@ -65,7 +65,7 @@ describe('package.json contract', () => {
     expect(files).toContain('theme')
   })
 
-  it('version is 0.1.0-alpha', () => {
-    expect(pkg['version']).toBe('0.1.0-alpha')
+  it('version is 0.1.0-alpha.1', () => {
+    expect(pkg['version']).toBe('0.1.0-alpha.1')
   })
 })

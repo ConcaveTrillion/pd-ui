@@ -1,6 +1,6 @@
 {
   "name": "@concavetrillion/pd-ui",
-  "version": "0.1.0-alpha",
+  "version": "0.1.0-alpha.1",
   "type": "module",
   "description": "Shared TS/React/Vite frontend library for the pd-* suite",
   "author": "CT <concavetrillion@gmail.com>",
