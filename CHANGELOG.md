@@ -6,6 +6,24 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ---
 
+## [0.1.0-alpha.1] — 2026-05-21
+
+Re-publish of the Phase 1 alpha. No source changes to library components —
+this release exists solely to ship corrected registry metadata.
+
+### Fixed
+
+- Re-published so the `pd-index-npm` packument carries the full
+  `dependencies` block. The earlier `0.1.0-alpha` packument dropped the
+  install-relevant metadata (`scripts/rebuild-packuments.ts` bug, since
+  fixed), so a fresh install of `@concavetrillion/pd-ui` failed to resolve
+  transitive deps (`konva`, `react-konva`, `@radix-ui/*`, `clsx`,
+  `react-virtuoso`, `@dnd-kit/*`, `@tanstack/react-virtual`, `zustand`,
+  `lucide-react`). npm registry versions are immutable, so the fix ships
+  as a new patch-prerelease version rather than overwriting `0.1.0-alpha`.
+
+[0.1.0-alpha.1]: https://github.com/ConcaveTrillion/pd-ui/releases/tag/v0.1.0-alpha.1
+
 ## [0.1.0-alpha] — 2026-05-17
 
 Phase 1 release of the shared pd-* frontend library. Covers all milestones
