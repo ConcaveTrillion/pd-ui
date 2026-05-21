@@ -60,6 +60,10 @@ const WHITELIST: ReadonlySet<string> = new Set([
 
   // FieldRow is a layout helper documented alongside Field
   'primitives/FieldRow.tsx',
+
+  // Kanban internals — covered by KanbanBoard.stories.tsx
+  'primitives/kanban/KanbanColumn.tsx',
+  'primitives/kanban/PageChip.tsx',
 ]);
 
 // ── Helpers ──────────────────────────────────────────────────────────────────
