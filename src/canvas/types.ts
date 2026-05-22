@@ -217,6 +217,29 @@ export type CanvasProps<
    */
   selectionLayerListening?: boolean
 
+  /**
+   * Called when the pointer is pressed on the Konva Stage surface.
+   * Receives the raw Konva event and the current `CoordContext` so consumers
+   * can compute page-space coordinates without needing a separate DOM overlay.
+   *
+   * This is the preferred way to intercept pointer events for custom
+   * interaction modes (rebox, add-word, erase) — it replaces the
+   * `image-event-overlay` div pattern used in pd-ocr-labeler-spa.
+   */
+  onStagePointerDown?: (e: import('konva/lib/types').KonvaEventObject<MouseEvent>, ctx: CoordContext) => void
+
+  /**
+   * Called when the pointer moves over the Konva Stage surface while pressed
+   * or hovering. Receives the raw Konva event and the current `CoordContext`.
+   */
+  onStagePointerMove?: (e: import('konva/lib/types').KonvaEventObject<MouseEvent>, ctx: CoordContext) => void
+
+  /**
+   * Called when the pointer is released on the Konva Stage surface.
+   * Receives the raw Konva event and the current `CoordContext`.
+   */
+  onStagePointerUp?: (e: import('konva/lib/types').KonvaEventObject<MouseEvent>, ctx: CoordContext) => void
+
   children?: {
     /** Rendered below the word overlay, above the image. */
     underlay?: (p: SlotRenderProps) => ReactNode
