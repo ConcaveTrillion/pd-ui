@@ -73,6 +73,9 @@ export function PageImageCanvas<
   fitOnMount = true,
   onImageNodeReady,
   selectionLayerListening = false,
+  onStagePointerDown,
+  onStagePointerMove,
+  onStagePointerUp,
   children,
 }: CanvasProps<TWord, TPage>) {
   const wrapperRef = useRef<HTMLDivElement>(null)
@@ -222,6 +225,7 @@ export function PageImageCanvas<
             scaleY={effectiveScale}
             data-testid="canvas-stage"
             onMouseDown={(e) => {
+              onStagePointerDown?.(e, coords)
               const stage = e.target.getStage()
               const pos = stage?.getPointerPosition()
               if (!pos) return
@@ -230,6 +234,7 @@ export function PageImageCanvas<
               setDragRect(null)
             }}
             onMouseMove={(e) => {
+              onStagePointerMove?.(e, coords)
               if (!dragStartRef.current) return
               const stage = e.target.getStage()
               const pos = stage?.getPointerPosition()
@@ -247,6 +252,7 @@ export function PageImageCanvas<
               })
             }}
             onMouseUp={(e) => {
+              onStagePointerUp?.(e, coords)
               const start = dragStartRef.current
               if (!start) return
               const stage = e.target.getStage()

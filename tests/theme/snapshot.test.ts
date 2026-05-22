@@ -17,6 +17,14 @@ describe('theme/tokens.css', () => {
   it('contains [data-theme="light"] { block', () => {
     expect(tokensCss).toContain('[data-theme="light"] {')
   })
+
+  it('contains --overlay-scrim token in both :root and [data-theme="light"]', () => {
+    // Both theme blocks must define the token
+    const rootBlock = tokensCss.slice(tokensCss.indexOf(':root {'), tokensCss.indexOf('[data-theme="light"]'))
+    const lightBlock = tokensCss.slice(tokensCss.indexOf('[data-theme="light"]'))
+    expect(rootBlock).toContain('--overlay-scrim')
+    expect(lightBlock).toContain('--overlay-scrim')
+  })
 })
 
 describe('theme/primitives.css', () => {

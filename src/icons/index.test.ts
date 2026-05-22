@@ -2,12 +2,35 @@ import { describe, it, expect } from 'vitest';
 import * as iconsBarrel from './index.js';
 
 describe('icons barrel (src/icons/index.ts)', () => {
-  // Lucide re-exports
+  // Lucide re-exports — sorted alphabetically
   const lucideNames = [
-    'Check', 'X', 'ChevronDown', 'ChevronUp', 'ChevronLeft', 'ChevronRight',
-    'Search', 'Settings', 'Menu', 'MoreHorizontal', 'MoreVertical',
-    'Plus', 'Minus', 'Edit', 'Trash2', 'Eye', 'EyeOff', 'Loader2',
-    'AlertCircle', 'Info',
+    'AlertCircle',
+    'Check',
+    'ChevronDown',
+    'ChevronLeft',
+    'ChevronRight',
+    'ChevronUp',
+    'Edit',
+    'Eye',
+    'EyeOff',
+    'FolderOpen',
+    'GitBranch',
+    'Info',
+    'Keyboard',
+    'LayoutList',
+    'List',
+    'Loader2',
+    'Menu',
+    'Minus',
+    'MoreHorizontal',
+    'MoreVertical',
+    'PanelRightClose',
+    'Plus',
+    'Search',
+    'Settings',
+    'Square',
+    'Trash2',
+    'X',
   ];
 
   // Bespoke re-exports

@@ -72,6 +72,8 @@ export {
   Drawer,
   Rail,
   RightPanel,
+  createApiUIPrefsConfig,
+  createApiSuiteSiblingsConfig,
 } from './shell/index.js';
 export type {
   AppShellProps,
@@ -89,6 +91,7 @@ export type {
   RailProps,
   RightPanelProps,
   SuiteSiblingsContextValue,
+  ApiSuiteSiblingsOptions,
 } from './shell/index.js';
 
 // ─── Stores ───────────────────────────────────────────────────────────────────
