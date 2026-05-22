@@ -72,6 +72,7 @@ export {
   Drawer,
   Rail,
   RightPanel,
+  createApiUIPrefsConfig,
 } from './shell/index.js';
 export type {
   AppShellProps,

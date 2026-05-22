@@ -36,6 +36,9 @@ export { SettingsSlot } from './SettingsSlot.js';
 // ─── UIPrefsApplicator ────────────────────────────────────────────────────────
 export { UIPrefsApplicator } from './UIPrefsApplicator.js';
 
+// ─── UIPrefsConfig factory ────────────────────────────────────────────────────
+export { createApiUIPrefsConfig } from './createApiUIPrefsConfig.js';
+
 // ─── SuiteSiblings (M8.4) ─────────────────────────────────────────────────────
 export { SuiteSiblingsContext, useSuiteSiblingsContext } from './SuiteSiblingsContext.js';
 export type { SuiteSiblingsContextValue } from './SuiteSiblingsContext.js';
