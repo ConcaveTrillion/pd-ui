@@ -91,6 +91,7 @@
     "zustand": "^4.0.0"
   },
   "devDependencies": {
+    "@playwright/test": "^1.60.0",
     "@storybook/addon-a11y": "^8.0.0",
     "@storybook/addon-essentials": "^8.0.0",
     "@storybook/addon-interactions": "^8.0.0",
