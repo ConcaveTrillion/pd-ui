@@ -74,3 +74,46 @@ describe('dist/ output completeness', () => {
     expect(existsSync(resolve(THEME, 'primitives.css')), 'theme/primitives.css missing').toBe(true)
   })
 })
+
+// Regression guard for pd-ui#15: export drift breaks pd-ocr-simple-gui
+// These symbols must remain exported after every build or consumers break.
+describe('dist/primitives.d.ts — consumer-critical exports (pd-ui#15)', () => {
+  const dtsPath = resolve(__dirname, '../dist/primitives.d.ts')
+
+  it('dist/primitives.d.ts exists (build must run first)', () => {
+    expect(existsSync(dtsPath), 'dist/primitives.d.ts missing — run pnpm build').toBe(true)
+  })
+
+  const REQUIRED_SYMBOLS = [
+    // pd-ocr-simple-gui imports these directly
+    'JobStatusPip',   // used in RecentProjectsList and ResultsPage
+    'JobState',       // re-exported via JobStatusPip.tsx for backward compat
+    'BaseJobConfigDialog',
+    'BaseJobConfig',  // used as parameter type in JobConfigDialog.tsx
+    'PageSplitView',  // used in PageViewPage.tsx
+    // StatusPip (the generic variant) must also stay
+    'StatusPip',
+  ]
+
+  for (const sym of REQUIRED_SYMBOLS) {
+    it(`exports ${sym}`, () => {
+      if (!existsSync(dtsPath)) return // guarded by prior test
+      const content = readFileSync(dtsPath, 'utf-8')
+      expect(content, `${sym} must be exported from dist/primitives.d.ts`).toContain(sym)
+    })
+  }
+})
+
+describe('dist/types.d.ts — consumer-critical exports (pd-ui#15)', () => {
+  const dtsPath = resolve(__dirname, '../dist/types.d.ts')
+
+  it('dist/types.d.ts exists (build must run first)', () => {
+    expect(existsSync(dtsPath), 'dist/types.d.ts missing — run pnpm build').toBe(true)
+  })
+
+  it('exports JobState', () => {
+    if (!existsSync(dtsPath)) return
+    const content = readFileSync(dtsPath, 'utf-8')
+    expect(content, 'JobState must be exported from dist/types.d.ts').toContain('JobState')
+  })
+})

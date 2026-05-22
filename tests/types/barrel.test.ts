@@ -70,4 +70,18 @@ describe('src/types/index.ts barrel', () => {
     expect(typesExport).toBeDefined()
     expect(typesExport?.import).toContain('dist/types.js')
   })
+
+  // Regression guard for pd-ui#15: JobState must stay exported from /types.
+  // pd-ocr-simple-gui imports `JobState` from "@concavetrillion/pd-ui/types".
+  it('exports JobState from job-state.ts', () => {
+    const content = readFileSync(join(REPO_ROOT, 'src/types/index.ts'), 'utf-8')
+    expect(content, "JobState must be re-exported from src/types/index.ts").toContain('JobState')
+  })
+
+  it('src/types/job-state.ts exists and exports JobState', () => {
+    const content = readFileSync(join(REPO_ROOT, 'src/types/job-state.ts'), 'utf-8')
+    expect(content).toContain('JobState')
+    // Must derive from the ocr-ops generated schema, not a hand-rolled union
+    expect(content).toContain("components['schemas']['JobStatus']['state']")
+  })
 })
