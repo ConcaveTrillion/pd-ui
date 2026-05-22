@@ -106,6 +106,12 @@ export interface AppShellProps {
   /** Content for the right panel zone. */
   rightPanel?: React.ReactNode;
   /**
+   * Content for the footer zone below the main content area.
+   * When provided, a full-width footer row is added to the CSS grid below
+   * the rail/drawer/main/right row. When absent, no footer row is reserved.
+   */
+  footer?: React.ReactNode;
+  /**
    * Where to inject the suite launcher.
    * - `'header'` (default) — launcher tiles appear inside the header zone.
    * - `'rail'`   — launcher tiles are appended at the bottom of the rail.
