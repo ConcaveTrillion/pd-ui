@@ -3,7 +3,7 @@
 #
 # AI=1 captures verbose output to .ci-ai.log; stdout shows pass/fail.
 
-.PHONY: install lint typecheck test build frontend-build codegen codegen-check theme-check storybook storybook-build ci help \
+.PHONY: install lint typecheck test build frontend-build codegen codegen-check theme-check storybook storybook-build ci e2e e2e-ci help \
         mise-download mise-setup mise-doctor
 
 LOG_FILE := .ci-ai.log
@@ -41,6 +41,8 @@ help:
 	@echo "  codegen-check  run codegen and check git diff (placeholder)"
 	@echo "  storybook      start Storybook dev server"
 	@echo "  storybook-build  build Storybook static site"
+	@echo "  e2e            build Storybook static site + run Playwright e2e tests"
+	@echo "  e2e-ci         run Playwright e2e tests (assumes storybook-static exists)"
 	@echo "  ci             install + lint + typecheck + test + build + codegen-check"
 	@echo ""
 	@echo "  mise-download  Download the mise binary"
@@ -78,6 +80,12 @@ storybook:
 
 storybook-build:
 	$(call _pnpm,run build-storybook)
+
+e2e: storybook-build
+	$(call _pnpm,exec playwright test)
+
+e2e-ci:
+	$(call _pnpm,exec playwright test --reporter=html)
 
 ci: install lint typecheck test build codegen-check theme-check
 
