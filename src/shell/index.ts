@@ -39,6 +39,10 @@ export { UIPrefsApplicator } from './UIPrefsApplicator.js';
 // ─── UIPrefsConfig factory ────────────────────────────────────────────────────
 export { createApiUIPrefsConfig } from './createApiUIPrefsConfig.js';
 
+// ─── SuiteSiblings API config factory ─────────────────────────────────────────
+export { createApiSuiteSiblingsConfig } from './createApiSuiteSiblingsConfig.js';
+export type { ApiSuiteSiblingsOptions } from './createApiSuiteSiblingsConfig.js';
+
 // ─── SuiteSiblings (M8.4) ─────────────────────────────────────────────────────
 export { SuiteSiblingsContext, useSuiteSiblingsContext } from './SuiteSiblingsContext.js';
 export type { SuiteSiblingsContextValue } from './SuiteSiblingsContext.js';
