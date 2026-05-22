@@ -31,6 +31,10 @@ export interface ColorFieldProps {
    * label alone is insufficient for screen-reader context.
    */
   inputAriaLabel?: string;
+  /** data-testid applied to the native color input element. */
+  inputTestId?: string;
+  /** data-testid applied to the reset button (when shown). */
+  resetTestId?: string;
 }
 
 /**
@@ -42,7 +46,7 @@ export interface ColorFieldProps {
  */
 export const ColorField = React.forwardRef<HTMLDivElement, ColorFieldProps>(
   function ColorField(
-    { id, label, value, onChange, defaultValue, className, inputAriaLabel },
+    { id, label, value, onChange, defaultValue, className, inputAriaLabel, inputTestId, resetTestId },
     ref,
   ) {
     const isOverridden = defaultValue !== undefined && value !== defaultValue;
@@ -78,6 +82,7 @@ export const ColorField = React.forwardRef<HTMLDivElement, ColorFieldProps>(
             value={value}
             onChange={handleInputChange}
             aria-label={inputAriaLabel}
+            data-testid={inputTestId}
           />
           {isOverridden && (
             <button
@@ -85,6 +90,7 @@ export const ColorField = React.forwardRef<HTMLDivElement, ColorFieldProps>(
               className="color-field-reset"
               onClick={handleReset}
               aria-label={`Reset ${label} to default`}
+              data-testid={resetTestId}
             >
               Reset
             </button>

@@ -19,6 +19,7 @@ export type {
   SuiteApp,
   InstalledApp,
   LaunchResult,
+  SettingsPanelDescriptor,
 } from './types.js';
 
 // ─── AppShell ─────────────────────────────────────────────────────────────────
@@ -30,8 +31,13 @@ export { LauncherSlot } from './LauncherSlot.js';
 export { LauncherTile } from './LauncherTile.js';
 export type { LauncherTileProps } from './LauncherTile.js';
 
-// ─── SettingsSlot ─────────────────────────────────────────────────────────────
+// ─── SettingsSlot + SettingsModal + AppearancePanel ───────────────────────────
 export { SettingsSlot } from './SettingsSlot.js';
+export { SettingsModal } from './SettingsModal.js';
+export type { SettingsModalProps } from './SettingsModal.js';
+export { AppearancePanel } from './AppearancePanel.js';
+export { SettingsModalContext, useSettingsModal } from './SettingsModalContext.js';
+export type { SettingsModalContextValue } from './SettingsModalContext.js';
 
 // ─── UIPrefsApplicator ────────────────────────────────────────────────────────
 export { UIPrefsApplicator } from './UIPrefsApplicator.js';

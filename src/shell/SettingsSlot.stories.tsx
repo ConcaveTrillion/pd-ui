@@ -1,25 +1,22 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import * as React from 'react';
 import { SettingsSlot } from './SettingsSlot.js';
-import { UIPrefsStoreProvider } from '../stores/StoreContexts.js';
-import { createUIPrefsStore } from '../stores/createUIPrefsStore.js';
-import type { UIPrefsConfig } from './types.js';
+import { SettingsModalContext } from './SettingsModalContext.js';
 
-const STUB_PREFS_CONFIG: UIPrefsConfig = {
-  load: () =>
-    Promise.resolve({
-      theme: 'dark',
-      density: 'normal',
-      fontScale: 1.0,
-    }),
-  persistCommon: () => Promise.resolve(),
-  persistApp: () => Promise.resolve(),
-};
+// ─── Stub modal context ───────────────────────────────────────────────────────
 
-function withStore(Story: React.ComponentType) {
-  const store = createUIPrefsStore(STUB_PREFS_CONFIG);
+function WithModalCtx({ children }: { children: React.ReactNode }) {
+  const [open, setOpen] = React.useState(false);
+  const [activePanel, setActivePanel] = React.useState('appearance');
+
   return (
-    <UIPrefsStoreProvider value={store}>
+    <SettingsModalContext.Provider value={{
+      open,
+      activePanel,
+      openModal: () => { setOpen(true); },
+      closeModal: () => { setOpen(false); },
+      openPanel: (id) => { setActivePanel(id); setOpen(true); },
+    }}>
       <div
         style={{
           display: 'flex',
@@ -29,20 +26,29 @@ function withStore(Story: React.ComponentType) {
           background: 'var(--bg-surface)',
         }}
       >
-        <Story />
+        {children}
+        {open && (
+          <span style={{ fontSize: 12, color: 'var(--ink-3)' }}>
+            Modal open (panel: {activePanel})
+          </span>
+        )}
       </div>
-    </UIPrefsStoreProvider>
+    </SettingsModalContext.Provider>
   );
+}
+
+function withModalCtx(Story: React.ComponentType) {
+  return <WithModalCtx><Story /></WithModalCtx>;
 }
 
 const meta: Meta<typeof SettingsSlot> = {
   title: 'Shell/SettingsSlot',
   component: SettingsSlot,
-  decorators: [withStore],
+  decorators: [withModalCtx],
 };
 
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-/** Gear button — click to open the settings popover. */
+/** Gear button — click to open the shared SettingsModal. */
 export const Default: Story = {};

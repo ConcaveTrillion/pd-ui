@@ -1,42 +1,48 @@
 /**
- * SettingsSlot tests — verifies gear button, popover open, density + font-scale
- * wiring.
+ * SettingsSlot tests — verifies gear button calls openModal from context.
+ *
+ * After issue #19: SettingsSlot no longer owns a Popover. It calls
+ * useSettingsModal().openModal() to open the shared SettingsModal.
+ * Tests here verify the button renders and wires to the context.
  */
 import * as React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
 import { describe, it, expect, vi } from 'vitest';
 import { SettingsSlot } from './SettingsSlot.js';
-import { UIPrefsStoreProvider } from '../stores/StoreContexts.js';
-import { createUIPrefsStore } from '../stores/createUIPrefsStore.js';
-import type { UIPrefsConfig, UIPrefs } from './types.js';
+import { SettingsModalContext } from './SettingsModalContext.js';
+import type { SettingsModalContextValue } from './SettingsModalContext.js';
 
 // ─── Helpers ──────────────────────────────────────────────────────────────────
 
-function makeStore(overrides?: Partial<UIPrefsConfig>) {
-  const config: UIPrefsConfig = {
-    load: () => Promise.resolve({ theme: 'dark' as const, density: 'normal' as const, fontScale: 1.0 }),
-    persistCommon: vi.fn<[Pick<UIPrefs, 'theme' | 'density' | 'fontScale'>], Promise<void>>().mockResolvedValue(undefined),
-    persistApp: vi.fn<[Record<string, unknown>], Promise<void>>().mockResolvedValue(undefined),
+function makeCtx(overrides?: Partial<SettingsModalContextValue>): SettingsModalContextValue {
+  return {
+    open: false,
+    activePanel: 'appearance',
+    openModal: vi.fn(),
+    closeModal: vi.fn(),
+    openPanel: vi.fn(),
     ...overrides,
   };
-  return createUIPrefsStore(config);
 }
 
-function Wrapper({ children, store = makeStore() }: {
+function Wrapper({
+  children,
+  ctx = makeCtx(),
+}: {
   children: React.ReactNode;
-  store?: ReturnType<typeof makeStore>;
+  ctx?: SettingsModalContextValue;
 }) {
   return (
-    <UIPrefsStoreProvider value={store}>
+    <SettingsModalContext.Provider value={ctx}>
       {children}
-    </UIPrefsStoreProvider>
+    </SettingsModalContext.Provider>
   );
 }
 
 // ─── Tests ────────────────────────────────────────────────────────────────────
 
 describe('SettingsSlot', () => {
-  it('renders a button with aria-label matching "settings" or "preferences"', () => {
+  it('renders a button with data-testid="settings-slot-trigger"', () => {
     render(
       <Wrapper>
         <SettingsSlot />
@@ -44,76 +50,41 @@ describe('SettingsSlot', () => {
     );
     const trigger = screen.getByTestId('settings-slot-trigger');
     expect(trigger).toBeTruthy();
-    const ariaLabel = trigger.getAttribute('aria-label') ?? '';
-    expect(ariaLabel.toLowerCase()).toMatch(/settings|preferences/);
   });
 
-  it('clicking the gear button opens the popover', () => {
+  it('button has aria-label matching "settings" or "preferences"', () => {
     render(
       <Wrapper>
         <SettingsSlot />
       </Wrapper>,
     );
+    const trigger = screen.getByTestId('settings-slot-trigger');
+    const ariaLabel = trigger.getAttribute('aria-label') ?? '';
+    expect(ariaLabel.toLowerCase()).toMatch(/settings|preferences/);
+  });
 
-    // Popover content should not be in the DOM before click.
+  it('clicking the gear calls openModal()', () => {
+    const openModal = vi.fn();
+    const ctx = makeCtx({ openModal });
+
+    render(
+      <Wrapper ctx={ctx}>
+        <SettingsSlot />
+      </Wrapper>,
+    );
+
+    fireEvent.click(screen.getByTestId('settings-slot-trigger'));
+    expect(openModal).toHaveBeenCalledOnce();
+  });
+
+  it('does NOT render a popover or inline controls', () => {
+    render(
+      <Wrapper>
+        <SettingsSlot />
+      </Wrapper>,
+    );
+    // The old Popover no longer exists
     expect(screen.queryByTestId('settings-slot-popover')).toBeNull();
-
-    fireEvent.click(screen.getByTestId('settings-slot-trigger'));
-
-    expect(screen.getByTestId('settings-slot-popover')).toBeTruthy();
-  });
-
-  it('clicking Dark button calls setTheme("dark")', () => {
-    const persistCommon = vi.fn<[Pick<UIPrefs, 'theme' | 'density' | 'fontScale'>], Promise<void>>().mockResolvedValue(undefined);
-    const store = makeStore({ persistCommon });
-
-    render(
-      <Wrapper store={store}>
-        <SettingsSlot />
-      </Wrapper>,
-    );
-
-    fireEvent.click(screen.getByTestId('settings-slot-trigger'));
-    fireEvent.click(screen.getByTestId('settings-theme-dark'));
-
-    expect(persistCommon).toHaveBeenCalled();
-  });
-
-  it('clicking Compact density button calls setDensity("compact")', () => {
-    const persistCommon = vi.fn<[Pick<UIPrefs, 'theme' | 'density' | 'fontScale'>], Promise<void>>().mockResolvedValue(undefined);
-    const store = makeStore({ persistCommon });
-
-    render(
-      <Wrapper store={store}>
-        <div data-testid="app-shell" />
-        <SettingsSlot />
-      </Wrapper>,
-    );
-
-    fireEvent.click(screen.getByTestId('settings-slot-trigger'));
-    fireEvent.click(screen.getByTestId('settings-density-compact'));
-
-    // persistCommon should have been called with density 'compact'
-    const calls = persistCommon.mock.calls;
-    expect(calls.some((c) => c[0].density === 'compact')).toBe(true);
-  });
-
-  it('moving the font-scale slider calls setFontScale', () => {
-    const persistCommon = vi.fn<[Pick<UIPrefs, 'theme' | 'density' | 'fontScale'>], Promise<void>>().mockResolvedValue(undefined);
-    const store = makeStore({ persistCommon });
-
-    render(
-      <Wrapper store={store}>
-        <SettingsSlot />
-      </Wrapper>,
-    );
-
-    fireEvent.click(screen.getByTestId('settings-slot-trigger'));
-
-    const slider = screen.getByTestId('settings-font-scale-slider');
-    fireEvent.change(slider, { target: { value: '1.2' } });
-
-    const calls = persistCommon.mock.calls;
-    expect(calls.some((c) => c[0].fontScale === 1.2)).toBe(true);
+    expect(screen.queryByTestId('settings-theme-dark')).toBeNull();
   });
 });
