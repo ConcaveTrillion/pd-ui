@@ -33,7 +33,6 @@ vi.mock('react-konva', () => ({
     onMouseDown,
     onMouseMove,
     onMouseUp,
-    onMouseLeave,
   }: {
     children?: React.ReactNode
     width?: number

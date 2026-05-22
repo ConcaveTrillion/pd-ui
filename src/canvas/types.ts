@@ -226,19 +226,19 @@ export type CanvasProps<
    * interaction modes (rebox, add-word, erase) — it replaces the
    * `image-event-overlay` div pattern used in pd-ocr-labeler-spa.
    */
-  onStagePointerDown?: (e: import('konva/lib/types').KonvaEventObject<MouseEvent>, ctx: CoordContext) => void
+  onStagePointerDown?: (e: import('konva/lib/Node').KonvaEventObject<MouseEvent>, ctx: CoordContext) => void
 
   /**
    * Called when the pointer moves over the Konva Stage surface while pressed
    * or hovering. Receives the raw Konva event and the current `CoordContext`.
    */
-  onStagePointerMove?: (e: import('konva/lib/types').KonvaEventObject<MouseEvent>, ctx: CoordContext) => void
+  onStagePointerMove?: (e: import('konva/lib/Node').KonvaEventObject<MouseEvent>, ctx: CoordContext) => void
 
   /**
    * Called when the pointer is released on the Konva Stage surface.
    * Receives the raw Konva event and the current `CoordContext`.
    */
-  onStagePointerUp?: (e: import('konva/lib/types').KonvaEventObject<MouseEvent>, ctx: CoordContext) => void
+  onStagePointerUp?: (e: import('konva/lib/Node').KonvaEventObject<MouseEvent>, ctx: CoordContext) => void
 
   children?: {
     /** Rendered below the word overlay, above the image. */
