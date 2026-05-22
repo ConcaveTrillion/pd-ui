@@ -188,6 +188,35 @@ export type CanvasProps<
   /** Fit the canvas to its container on first mount. Default: true. */
   fitOnMount?: boolean
 
+  /**
+   * Called with the Konva Image node once the background image has loaded and
+   * the node is mounted on the stage, enabling consumers to attach a Konva
+   * Transformer for rotate/scale operations without reaching into the Stage via
+   * `findOne`. Called with `null` when the component unmounts.
+   *
+   * @example
+   * ```tsx
+   * <PageImageCanvas
+   *   onImageNodeReady={(node) => {
+   *     if (node) transformerRef.current?.nodes([node])
+   *   }}
+   * />
+   * ```
+   */
+  onImageNodeReady?: (node: import('konva/lib/shapes/Image').Image | null) => void
+
+  /**
+   * When `true`, the selection layer is rendered with `listening={true}` so
+   * that Konva routes pointer events to shapes placed by the `selection` slot.
+   * Default: `false` (selection layer is non-interactive) to preserve the
+   * prior behaviour and avoid unnecessary hit-test overhead.
+   *
+   * Enable this when the selection slot renders Konva shapes that need to
+   * receive click/hover events (e.g. word-select hit rects) — this removes
+   * the need for a separate DOM hit-test overlay.
+   */
+  selectionLayerListening?: boolean
+
   children?: {
     /** Rendered below the word overlay, above the image. */
     underlay?: (p: SlotRenderProps) => ReactNode
