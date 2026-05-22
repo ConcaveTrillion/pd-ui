@@ -5,7 +5,7 @@
  * the load/persist callbacks from their pd-ocr-ops backend integration.
  *
  * The store calls `config.load()` once on construction to hydrate from the
- * backend; `config.persistCommon` fires on theme/density changes;
+ * backend; `config.persistCommon` fires on any non-app pref change;
  * `config.persistApp` fires on app-specific prefs changes.
  *
  * Hooks:
@@ -37,6 +37,18 @@ const STATUS_TOKEN_DEFAULTS: Record<'exact' | 'fuzzy' | 'mismatch' | 'ocr' | 'gt
   gt:       'var(--gt)',
 };
 
+// ─── Helper: extract the Omit<UIPrefs,'app'> slice for persistCommon ─────────
+
+function commonPrefs(prefs: UIPrefs): Omit<UIPrefs, 'app'> {
+  // Build a new object without the `app` key.
+  const out: Omit<UIPrefs, 'app'> = { theme: prefs.theme, density: prefs.density, fontScale: prefs.fontScale };
+  if (prefs.layerColors !== undefined) out.layerColors = prefs.layerColors;
+  if (prefs.statusColors !== undefined) out.statusColors = prefs.statusColors;
+  if (prefs.accentColor !== undefined) out.accentColor = prefs.accentColor;
+  if (prefs.accentInkColor !== undefined) out.accentInkColor = prefs.accentInkColor;
+  return out;
+}
+
 // ─── Store state ──────────────────────────────────────────────────────────────
 
 export interface UIPrefsStoreState {
@@ -45,14 +57,24 @@ export interface UIPrefsStoreState {
   /** True while the initial load() call is in-flight. */
   loading: boolean;
 
-  /** Update theme and debounce-persist common prefs. */
+  /** Update theme and persist common prefs. */
   setTheme: (theme: UIPrefs['theme']) => void;
-  /** Update density and debounce-persist common prefs. */
+  /** Update density and persist common prefs. */
   setDensity: (density: UIPrefs['density']) => void;
   /** Update font scale (clamped to [0.8, 1.4]) and persist common prefs. */
   setFontScale: (scale: number) => void;
-  /** Update an app-specific pref and debounce-persist. */
+  /** Update an app-specific pref and persist. */
   setAppPref: (key: string, value: unknown) => void;
+
+  // ── Color setters (issue #18) ──────────────────────────────────────────────
+  /** Set a layer color override and persist. Pass undefined to clear. */
+  setLayerColor: (layer: 'block' | 'para' | 'line' | 'word', color: string | undefined) => void;
+  /** Set a status color override and persist. Pass undefined to clear. */
+  setStatusColor: (status: 'exact' | 'fuzzy' | 'mismatch' | 'ocr' | 'gt', color: string | undefined) => void;
+  /** Set the accent color override and persist. */
+  setAccentColor: (color: string | undefined) => void;
+  /** Set the accent ink (foreground on accent) color override and persist. */
+  setAccentInkColor: (color: string | undefined) => void;
 
   // ── Derived helpers (stable references; computed inline for simplicity) ────
   /** Returns the CSS color for the given layer (override or token fallback). */
@@ -80,20 +102,20 @@ export function createUIPrefsStore(config: UIPrefsConfig) {
       setTheme: (theme) => {
         const prefs = { ...get().prefs, theme };
         set({ prefs });
-        void config.persistCommon({ theme, density: prefs.density, fontScale: prefs.fontScale });
+        void config.persistCommon(commonPrefs(prefs));
       },
 
       setDensity: (density) => {
         const prefs = { ...get().prefs, density };
         set({ prefs });
-        void config.persistCommon({ theme: prefs.theme, density, fontScale: prefs.fontScale });
+        void config.persistCommon(commonPrefs(prefs));
       },
 
       setFontScale: (scale) => {
         const fontScale = Math.min(1.4, Math.max(0.8, scale));
         const prefs = { ...get().prefs, fontScale };
         set({ prefs });
-        void config.persistCommon({ theme: prefs.theme, density: prefs.density, fontScale });
+        void config.persistCommon(commonPrefs(prefs));
       },
 
       setAppPref: (key, value) => {
@@ -102,6 +124,54 @@ export function createUIPrefsStore(config: UIPrefsConfig) {
         const prefs = { ...get().prefs, app };
         set({ prefs });
         void config.persistApp(app);
+      },
+
+      setLayerColor: (layer, color) => {
+        const prev = get().prefs.layerColors ?? {};
+        const layerColors: UIPrefs['layerColors'] = { ...prev };
+        if (color !== undefined) {
+          layerColors[layer] = color;
+        } else {
+          delete layerColors[layer];
+        }
+        const prefs = { ...get().prefs, layerColors };
+        set({ prefs });
+        void config.persistCommon(commonPrefs(prefs));
+      },
+
+      setStatusColor: (status, color) => {
+        const prev = get().prefs.statusColors ?? {};
+        const statusColors: UIPrefs['statusColors'] = { ...prev };
+        if (color !== undefined) {
+          statusColors[status] = color;
+        } else {
+          delete statusColors[status];
+        }
+        const prefs = { ...get().prefs, statusColors };
+        set({ prefs });
+        void config.persistCommon(commonPrefs(prefs));
+      },
+
+      setAccentColor: (color) => {
+        const prefs: UIPrefs = { ...get().prefs };
+        if (color !== undefined) {
+          prefs.accentColor = color;
+        } else {
+          delete prefs.accentColor;
+        }
+        set({ prefs });
+        void config.persistCommon(commonPrefs(prefs));
+      },
+
+      setAccentInkColor: (color) => {
+        const prefs: UIPrefs = { ...get().prefs };
+        if (color !== undefined) {
+          prefs.accentInkColor = color;
+        } else {
+          delete prefs.accentInkColor;
+        }
+        set({ prefs });
+        void config.persistCommon(commonPrefs(prefs));
       },
 
       getLayerColor: (layer) => {

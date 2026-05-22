@@ -118,6 +118,9 @@ export type { FieldProps } from './Field.js';
 export { FieldRow } from './FieldRow.js';
 export type { FieldRowProps } from './FieldRow.js';
 
+export { ColorField } from './ColorField.js';
+export type { ColorFieldProps } from './ColorField.js';
+
 // cn utility
 export { cn } from './cn.js';
 

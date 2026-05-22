@@ -58,7 +58,7 @@ export function createApiUIPrefsConfig(url = '/api/ui-prefs'): UIPrefsConfig {
       }
     },
 
-    async persistCommon(prefs: Pick<UIPrefs, 'theme' | 'density' | 'fontScale'>): Promise<void> {
+    async persistCommon(prefs: Omit<UIPrefs, 'app'>): Promise<void> {
       try {
         await fetch(url, {
           method: 'PATCH',

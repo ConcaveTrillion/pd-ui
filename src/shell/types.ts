@@ -48,8 +48,14 @@ export interface UIPrefs {
 export interface UIPrefsConfig {
   /** Async loader; called once on first subscribe. */
   load: () => Promise<UIPrefs>;
-  /** Called when common prefs (theme, density, fontScale) change. */
-  persistCommon: (prefs: Pick<UIPrefs, 'theme' | 'density' | 'fontScale'>) => Promise<void>;
+  /**
+   * Called when any non-app pref changes (theme, density, fontScale,
+   * layerColors, statusColors, accentColor, accentInkColor).
+   *
+   * Widened from `Pick<UIPrefs, 'theme' | 'density' | 'fontScale'>` to
+   * `Omit<UIPrefs, 'app'>` in issue #18 so color overrides persist.
+   */
+  persistCommon: (prefs: Omit<UIPrefs, 'app'>) => Promise<void>;
   /** Called when app-specific prefs change. */
   persistApp: (appPrefs: Record<string, unknown>) => Promise<void>;
 }
