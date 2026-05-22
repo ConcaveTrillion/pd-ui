@@ -44,6 +44,9 @@
 
   /* Elevation — floating chrome only */
   --shadow-floating: 0 3px 10px rgba(0,0,0,0.35);
+
+  /* Overlay scrim — modal/dialog backdrop */
+  --overlay-scrim: rgba(0, 0, 0, 0.55);
 }
 
 [data-theme="light"] {
@@ -76,4 +79,7 @@
   --word:       #3d6bb8;
 
   --shadow-floating: 0 3px 10px rgba(60,40,20,0.1);
+
+  /* Overlay scrim — modal/dialog backdrop */
+  --overlay-scrim: rgba(0, 0, 0, 0.40);
 }
