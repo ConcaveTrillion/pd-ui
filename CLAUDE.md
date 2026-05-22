@@ -3,8 +3,8 @@
 TypeScript / React / Vite shared component library for the pd-* suite. Publishes
 `@concavetrillion/pd-ui` to the self-hosted `pd-index-npm` registry.
 
-Spec: [`docs/superpowers/specs/2026-05-16-cross-cut-design.md`](../docs/superpowers/specs/2026-05-16-cross-cut-design.md)
-Plan: [`docs/superpowers/plans/2026-05-16-pd-ui-new-repo.md`](../docs/superpowers/plans/2026-05-16-pd-ui-new-repo.md)
+Spec: [`../docs/specs/2026-05-16-cross-cut-design.md`](../docs/specs/2026-05-16-cross-cut-design.md)
+Plan: [`../docs/plans/2026-05-16-pd-ui-new-repo.md`](../docs/plans/2026-05-16-pd-ui-new-repo.md)
 
 ## Commands
 
