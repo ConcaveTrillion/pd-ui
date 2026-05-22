@@ -58,6 +58,11 @@ const WHITELIST: ReadonlySet<string> = new Set([
   // UIPrefsApplicator is a zero-render side-effect component exercised by AppShell
   'shell/UIPrefsApplicator.tsx',
 
+  // AppearancePanel + SettingsModal are internal to AppShell settings surface
+  // They are exercised by AppShell.stories.tsx and SettingsSlot.stories.tsx
+  'shell/AppearancePanel.tsx',
+  'shell/SettingsModal.tsx',
+
   // FieldRow is a layout helper documented alongside Field
   'primitives/FieldRow.tsx',
 

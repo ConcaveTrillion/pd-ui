@@ -1,1 +1,42 @@
-export {}
+/**
+ * Testid constants catalog.
+ *
+ * These are the stable identifiers Playwright drivers depend on.
+ * Renaming any id here is a breaking change to every consumer driver.
+ */
+
+// ─── AppShell ─────────────────────────────────────────────────────────────────
+
+export const APP_SHELL = 'app-shell' as const;
+export const APP_SHELL_HEADER = 'app-shell-header' as const;
+export const APP_SHELL_RAIL = 'app-shell-rail' as const;
+export const APP_SHELL_DRAWER = 'app-shell-drawer' as const;
+export const APP_SHELL_MAIN = 'app-shell-main' as const;
+export const APP_SHELL_RIGHT = 'app-shell-right' as const;
+export const APP_SHELL_FOOTER = 'app-shell-footer' as const;
+
+// ─── SettingsSlot / SettingsModal ─────────────────────────────────────────────
+
+export const SETTINGS_SLOT_TRIGGER = 'settings-slot-trigger' as const;
+
+export const SETTINGS_MODAL = 'settings-modal' as const;
+export const SETTINGS_MODAL_CLOSE = 'settings-modal-close' as const;
+
+/** Tab for a specific panel id: `settings-modal-tab-${id}` */
+export const settingsModalTab = (id: string) => `settings-modal-tab-${id}` as const;
+/** Panel content wrapper for a specific panel id: `settings-modal-panel-${id}` */
+export const settingsModalPanel = (id: string) => `settings-modal-panel-${id}` as const;
+
+// ─── AppearancePanel ──────────────────────────────────────────────────────────
+
+export const SETTINGS_APPEARANCE_THEME_DARK = 'settings-appearance-theme-dark' as const;
+export const SETTINGS_APPEARANCE_THEME_LIGHT = 'settings-appearance-theme-light' as const;
+export const SETTINGS_APPEARANCE_DENSITY_COMPACT = 'settings-appearance-density-compact' as const;
+export const SETTINGS_APPEARANCE_DENSITY_NORMAL = 'settings-appearance-density-normal' as const;
+export const SETTINGS_APPEARANCE_DENSITY_COMFORTABLE = 'settings-appearance-density-comfortable' as const;
+export const SETTINGS_APPEARANCE_FONT_SCALE_SLIDER = 'settings-appearance-font-scale-slider' as const;
+
+/** Color input for a given key: `settings-appearance-color-${key}` */
+export const settingsAppearanceColor = (key: string) => `settings-appearance-color-${key}` as const;
+/** Reset button for a given color key: `settings-appearance-color-${key}-reset` */
+export const settingsAppearanceColorReset = (key: string) => `settings-appearance-color-${key}-reset` as const;

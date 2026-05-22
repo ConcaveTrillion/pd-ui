@@ -82,6 +82,23 @@ export type LaunchResult =
   | { kind: 'opened'; url: string }
   | { kind: 'requires-host-config'; siblingId: string };
 
+// ─── SettingsPanelDescriptor ──────────────────────────────────────────────────
+
+/**
+ * Describes an app-specific panel injected into the shared `SettingsModal`.
+ * The panel is appended after the built-in Appearance panel.
+ */
+export interface SettingsPanelDescriptor {
+  /** Stable id — used for tab testids and programmatic `openPanel(id)`. */
+  id: string;
+  /** Tab label. */
+  label: string;
+  /** Optional tab icon node. */
+  icon?: React.ReactNode;
+  /** Panel body. The app owns its own state; pd-ui renders this node as-is. */
+  content: React.ReactNode;
+}
+
 // ─── AppShell props ───────────────────────────────────────────────────────────
 
 /**
@@ -103,6 +120,11 @@ export interface AppShellProps {
   appIconUrl: string;
   /** Content for the top header zone. */
   header?: React.ReactNode;
+  /**
+   * App-specific controls rendered in the header top-right, before the
+   * launcher and settings gear.
+   */
+  headerActions?: React.ReactNode;
   /** Content for the 64px wide left rail zone. */
   rail?: React.ReactNode;
   /** Content for the collapsible drawer zone. */
@@ -132,6 +154,11 @@ export interface AppShellProps {
    * pd-ui itself never branches on this for real logic — adapters live in pd-ocr-ops.
    */
   deployMode?: 'local' | 'hosted';
+  /**
+   * App-specific settings panels injected into the shared SettingsModal,
+   * appended after the built-in Appearance panel.
+   */
+  settingsPanels?: SettingsPanelDescriptor[];
 }
 
 // ─── AppShell context value ────────────────────────────────────────────────────

@@ -1,101 +1,77 @@
 /**
- * Tests for issue #1: SettingsSlot font-scale slider jumps and dismisses popover during drag.
+ * Tests for issue #1 (historical): SettingsSlot font-scale slider jumping.
  *
- * Verifies that the Popover.Content has onInteractOutside configured to prevent
- * dismissal when reflow events fire (e.g. during a slider drag that changes label text).
+ * Issue #1 was about the Radix Popover dismissing during slider drag reflow.
+ * After issue #19, the Popover is replaced by a Dialog-based SettingsModal.
+ * The font-scale slider now lives in AppearancePanel inside the Dialog.
  *
- * The fix adds `onInteractOutside={(e) => e.preventDefault()}` to Popover.Content
- * so pointer-interaction-during-drag does not close the popover.
- *
- * Test approach: simulate a change on the font-scale slider and verify the popover
- * remains open (i.e. settings-slot-popover is still in the DOM after the change event).
+ * These tests verify that the gear trigger works correctly and that there
+ * is no popover (the old fix is now superseded by the Dialog approach).
  */
 import * as React from 'react'
 import { render, screen, fireEvent } from '@testing-library/react'
 import { describe, it, expect, vi } from 'vitest'
 import { SettingsSlot } from './SettingsSlot.js'
-import { UIPrefsStoreProvider } from '../stores/StoreContexts.js'
-import { createUIPrefsStore } from '../stores/createUIPrefsStore.js'
-import type { UIPrefsConfig, UIPrefs } from './types.js'
+import { SettingsModalContext } from './SettingsModalContext.js'
+import type { SettingsModalContextValue } from './SettingsModalContext.js'
 
-function makeStore(overrides?: Partial<UIPrefsConfig>) {
-  const config: UIPrefsConfig = {
-    load: () => Promise.resolve({ theme: 'dark' as const, density: 'normal' as const, fontScale: 1.0 }),
-    persistCommon: vi.fn<[Pick<UIPrefs, 'theme' | 'density' | 'fontScale'>], Promise<void>>().mockResolvedValue(undefined),
-    persistApp: vi.fn<[Record<string, unknown>], Promise<void>>().mockResolvedValue(undefined),
+function makeCtx(overrides?: Partial<SettingsModalContextValue>): SettingsModalContextValue {
+  return {
+    open: false,
+    activePanel: 'appearance',
+    openModal: vi.fn(),
+    closeModal: vi.fn(),
+    openPanel: vi.fn(),
     ...overrides,
-  }
-  return createUIPrefsStore(config)
+  };
 }
 
-function Wrapper({ children, store = makeStore() }: {
+function Wrapper({ children, ctx = makeCtx() }: {
   children: React.ReactNode
-  store?: ReturnType<typeof makeStore>
+  ctx?: SettingsModalContextValue
 }) {
   return (
-    <UIPrefsStoreProvider value={store}>
+    <SettingsModalContext.Provider value={ctx}>
       {children}
-    </UIPrefsStoreProvider>
+    </SettingsModalContext.Provider>
   )
 }
 
-describe('SettingsSlot — popover stays open during slider drag (#1)', () => {
-  it('popover remains open after slider value changes (no dismiss on reflow)', () => {
+describe('SettingsSlot — popover superseded by SettingsModal (#1 → #19)', () => {
+  it('gear trigger calls openModal() — font-scale is now in the Dialog, not a Popover', () => {
+    const openModal = vi.fn();
     render(
-      <Wrapper>
+      <Wrapper ctx={makeCtx({ openModal })}>
         <SettingsSlot />
       </Wrapper>,
     )
 
-    // Open popover
     fireEvent.click(screen.getByTestId('settings-slot-trigger'))
-    expect(screen.getByTestId('settings-slot-popover')).toBeTruthy()
-
-    // Simulate slider change (which triggers label text reflow: "Font: 100%" → "Font: 110%")
-    const slider = screen.getByTestId('settings-font-scale-slider')
-    fireEvent.change(slider, { target: { value: '1.1' } })
-
-    // Popover must still be open — it must NOT dismiss on the slider change event
-    expect(screen.getByTestId('settings-slot-popover')).toBeTruthy()
+    expect(openModal).toHaveBeenCalledOnce()
   })
 
-  it('popover stays open after multiple consecutive slider changes', () => {
+  it('no popover element rendered by SettingsSlot (moved to SettingsModal)', () => {
     render(
       <Wrapper>
         <SettingsSlot />
       </Wrapper>,
     )
 
-    fireEvent.click(screen.getByTestId('settings-slot-trigger'))
-
-    const slider = screen.getByTestId('settings-font-scale-slider')
-    fireEvent.change(slider, { target: { value: '0.9' } })
-    fireEvent.change(slider, { target: { value: '1.0' } })
-    fireEvent.change(slider, { target: { value: '1.1' } })
-    fireEvent.change(slider, { target: { value: '1.2' } })
-
-    expect(screen.getByTestId('settings-slot-popover')).toBeTruthy()
+    expect(screen.queryByTestId('settings-slot-popover')).toBeNull()
   })
 
-  it('popover Content has onInteractOutside that prevents default', () => {
-    // This test verifies via behavior: we fire a pointerdown outside the popover
-    // (which is what Radix DismissableLayer uses to detect outside interactions)
-    // and the popover should NOT close.
+  it('gear trigger still opens modal after multiple interactions', () => {
+    const openModal = vi.fn();
     render(
-      <Wrapper>
-        <div data-testid="outside">outside</div>
+      <Wrapper ctx={makeCtx({ openModal })}>
         <SettingsSlot />
       </Wrapper>,
     )
 
     fireEvent.click(screen.getByTestId('settings-slot-trigger'))
-    expect(screen.getByTestId('settings-slot-popover')).toBeTruthy()
+    fireEvent.click(screen.getByTestId('settings-slot-trigger'))
+    fireEvent.click(screen.getByTestId('settings-slot-trigger'))
 
-    // Fire a slider change to verify reflow does not dismiss
-    const slider = screen.getByTestId('settings-font-scale-slider')
-    fireEvent.change(slider, { target: { value: '1.3' } })
-
-    // Popover must still be present
-    expect(screen.getByTestId('settings-slot-popover')).toBeTruthy()
+    expect(openModal).toHaveBeenCalledTimes(3)
   })
 })
