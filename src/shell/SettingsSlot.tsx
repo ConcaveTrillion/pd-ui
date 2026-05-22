@@ -131,6 +131,16 @@ export function SettingsSlot() {
           align="end"
           sideOffset={6}
           data-testid="settings-slot-popover"
+          onInteractOutside={(e) => {
+            // Prevent Radix DismissableLayer from closing the popover when a
+            // pointer interaction fires due to reflow during a live control
+            // drag (e.g. the font-scale slider updating the "Font: N%" label,
+            // which causes Floating UI to reposition and emit an outside-interact
+            // event). We intentionally always prevent default here so that sliders
+            // and toggles inside the popover work correctly. Users can still close
+            // the popover by pressing Escape or clicking the gear trigger again.
+            e.preventDefault()
+          }}
           style={{
             minWidth: '240px',
             background: 'var(--bg-surface)',

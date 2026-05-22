@@ -78,6 +78,7 @@ export function AppShell({
   drawer,
   main,
   rightPanel,
+  footer,
   launcherSlot = 'header',
   uiPrefsConfig,
   deployMode = 'local',
@@ -107,10 +108,14 @@ export function AppShell({
           data-testid="app-shell"
           style={{
             display: 'grid',
-            gridTemplateAreas: '"header header header header" "rail drawer main right"',
+            gridTemplateAreas: footer
+              ? '"header header header header" "rail drawer main right" "footer footer footer footer"'
+              : '"header header header header" "rail drawer main right"',
             gridTemplateColumns:
               'var(--shell-rail-w, 0px) var(--shell-drawer-w, 0px) 1fr var(--shell-right-w, 0px)',
-            gridTemplateRows: 'var(--shell-header-h, 56px) 1fr',
+            gridTemplateRows: footer
+              ? 'var(--shell-header-h, 56px) 1fr var(--shell-footer-h, auto)'
+              : 'var(--shell-header-h, 56px) 1fr',
             height: '100%',
             width: '100%',
             overflow: 'hidden',
@@ -160,6 +165,17 @@ export function AppShell({
           >
             {rightPanel}
           </div>
+
+          {/* Footer zone (issue #14) — only rendered when footer prop is provided */}
+          {footer !== undefined && (
+            <div
+              data-testid="app-shell-footer"
+              style={{ gridArea: 'footer' }}
+              className="min-w-0 overflow-hidden"
+            >
+              {footer}
+            </div>
+          )}
         </div>
 
         {/* children slot — for context consumers rendered outside the grid zones */}

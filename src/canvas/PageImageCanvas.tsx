@@ -15,7 +15,8 @@
  */
 
 import { useEffect, useRef, useState, useMemo, useCallback } from 'react'
-import { Layer, Rect, Stage } from 'react-konva'
+import { Image as KonvaImage, Layer, Rect, Stage } from 'react-konva'
+import type Konva from 'konva'
 import { CanvasInternalContext } from './context'
 import type { CanvasProps, CanvasWord, CoordContext, SelectionState, ViewportState } from './types'
 
@@ -70,6 +71,8 @@ export function PageImageCanvas<
   getWordId = defaultGetWordId,
   initialZoom = 0,
   fitOnMount = true,
+  onImageNodeReady,
+  selectionLayerListening = false,
   children,
 }: CanvasProps<TWord, TPage>) {
   const wrapperRef = useRef<HTMLDivElement>(null)
@@ -167,6 +170,18 @@ export function PageImageCanvas<
     img.onload = () => { setImageEl(img) }
     return () => { img.onload = null }
   }, [src])
+
+  // ── Image node ref (issue #12) ─────────────────────────────────────────────
+  // Exposes the Konva Image node via callback so consumers can attach a
+  // Konva Transformer without reaching into the Stage via findOne.
+  const imageNodeRef = useRef<Konva.Image | null>(null)
+  const handleImageRef = useCallback(
+    (node: Konva.Image | null) => {
+      imageNodeRef.current = node
+      onImageNodeReady?.(node)
+    },
+    [onImageNodeReady],
+  )
 
   // ── Focus on mount (keyboard hotkeys) ─────────────────────────────────────
   useEffect(() => {
@@ -287,14 +302,13 @@ export function PageImageCanvas<
             {/* Layer 1: image */}
             <Layer name="image" listening={false}>
               {imageEl && (
-                <Rect
+                <KonvaImage
+                  ref={handleImageRef}
+                  image={imageEl}
                   x={0}
                   y={0}
                   width={page.width}
                   height={page.height}
-                  fillPatternImage={imageEl}
-                  fillPatternScaleX={1}
-                  fillPatternScaleY={1}
                   listening={false}
                   perfectDrawEnabled={false}
                 />
@@ -319,8 +333,8 @@ export function PageImageCanvas<
               })}
             </Layer>
 
-            {/* Layer 4: selection slot */}
-            <Layer name="selection" listening={false}>
+            {/* Layer 4: selection slot (issue #13: opt-in listening) */}
+            <Layer name="selection" listening={selectionLayerListening}>
               {children?.selection?.(slotProps)}
             </Layer>
 
