@@ -18,6 +18,11 @@ const EXPECTED_COMPONENTS = [
   'Badge',
   'Chip',
   'StatusPip',
+  // Job-state components — must stay exported (see pd-ui#15; these gate pd-ocr-simple-gui)
+  'JobStatusPip',
+  // Layout & dialog shells
+  'PageSplitView',
+  'BaseJobConfigDialog',
   'KeyCap',
   'Card',
   'Separator',
