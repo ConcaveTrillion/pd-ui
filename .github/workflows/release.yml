@@ -78,13 +78,14 @@ jobs:
       - name: Notify pd-index-npm of new release
         env:
           GH_TOKEN: ${{ secrets.PD_NPM_DISPATCH_TOKEN }}
+          TAG: ${{ github.ref_name }}
         run: |
           if [ -z "$GH_TOKEN" ]; then
             echo "::warning::PD_NPM_DISPATCH_TOKEN not set; pd-index-npm will need a manual dispatch"
             exit 0
           fi
           TARBALL_NAME=$(ls dist/*.tgz | xargs basename)
-          TARBALL_URL="https://github.com/ConcaveTrillion/pd-ui/releases/download/${{ github.ref_name }}/${TARBALL_NAME}"
+          TARBALL_URL="https://github.com/ConcaveTrillion/pd-ui/releases/download/${TAG}/${TARBALL_NAME}"
           gh api -X POST /repos/ConcaveTrillion/pd-index-npm/dispatches \
             -f event_type=pd-npm-publish \
             -f "client_payload[tarball_url]=${TARBALL_URL}" || \
