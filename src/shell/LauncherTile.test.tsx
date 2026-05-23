@@ -62,7 +62,7 @@ describe('LauncherTile (#159)', () => {
       fireEvent.click(screen.getByRole('button'));
       return Promise.resolve();
     });
-    expect(openSpy).toHaveBeenCalledWith('http://localhost:3001', '_blank');
+    expect(openSpy).toHaveBeenCalledWith('http://localhost:3001', '_blank', 'noopener,noreferrer');
     openSpy.mockRestore();
   });
 

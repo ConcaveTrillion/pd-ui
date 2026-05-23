@@ -21,7 +21,7 @@ export function LauncherTile({ sibling }: LauncherTileProps) {
     if (!ctx) return;
     const result = await ctx.launch(sibling.id);
     if (result.kind === 'opened') {
-      window.open(result.url, '_blank');
+      window.open(result.url, '_blank', 'noopener,noreferrer');
     } else {
       setRequiresConfig(true);
     }
