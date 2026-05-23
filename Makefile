@@ -4,13 +4,14 @@
 # AI=1 captures verbose output to .ci-ai.log; stdout shows pass/fail.
 
 .PHONY: install lint typecheck test build frontend-build codegen codegen-check theme-check storybook storybook-build ci e2e e2e-ci help \
-        mise-download mise-setup mise-doctor
+        mise-download mise-trust-worktrees mise-setup mise-doctor
 
 LOG_FILE := .ci-ai.log
 
 # Prefer mise exec so tool versions match mise.toml.
 # Falls back to plain pnpm on PATH for contributors who manage Node themselves.
 MISE := $(shell command -v mise 2>/dev/null || echo $$HOME/.local/bin/mise)
+WORKSPACE_ROOT := $(abspath $(CURDIR)/..)
 define _pnpm
 	@if [ -x "$(MISE)" ] && "$(MISE)" current node >/dev/null 2>&1; then \
 		"$(MISE)" exec -- pnpm $(1); \
@@ -46,6 +47,7 @@ help:
 	@echo "  ci             install + lint + typecheck + test + build + codegen-check"
 	@echo ""
 	@echo "  mise-download  Download the mise binary"
+	@echo "  mise-trust-worktrees  Trust generated worktree roots for mise"
 	@echo "  mise-setup     Install pinned tools from mise.toml"
 	@echo "  mise-doctor    Show resolved tool versions"
 
@@ -98,7 +100,19 @@ mise-download:
 		echo "mise downloaded. Run 'make mise-setup' next to install pinned tools."; \
 	fi
 
-mise-setup: mise-download
+mise-trust-worktrees: mise-download
+	@echo "Trusting mise config roots for this repo and generated worktrees..."
+	@mkdir -p "$$HOME/.config/mise/conf.d"
+	@printf '%s\n' \
+		'[settings]' \
+		'trusted_config_paths = [' \
+		'    "$(WORKSPACE_ROOT)",' \
+		'    "/srv/bot-workspaces",' \
+		']' \
+		> "$$HOME/.config/mise/conf.d/ocr-container-worktrees.toml"
+	@echo "mise trust roots configured."
+
+mise-setup: mise-download mise-trust-worktrees
 	@echo "Installing tools from mise.toml..."
 	@"$(MISE)" install
 	@echo "mise tools installed."
