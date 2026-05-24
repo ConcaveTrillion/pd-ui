@@ -1,0 +1,19 @@
+{
+  "$schema": "https://unpkg.com/knip@6/schema.json",
+  "entry": [
+    "src/index.ts",
+    "src/canvas/index.ts",
+    "src/worklist/index.ts",
+    "src/shell/index.ts",
+    "src/primitives/index.ts",
+    "src/icons/index.ts",
+    "src/types/index.ts",
+    "src/stores/index.ts",
+    "src/testids/index.ts"
+  ],
+  "project": ["src/**/*.{ts,tsx}"],
+  "ignoreDependencies": [
+    "openapi-typescript"
+  ],
+  "ignoreExportsUsedInFile": true
+}

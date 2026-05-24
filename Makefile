@@ -3,7 +3,12 @@
 #
 # AI=1 captures verbose output to .ci-ai.log; stdout shows pass/fail.
 
-.PHONY: install lint typecheck test build frontend-build codegen codegen-check theme-check storybook storybook-build ci e2e e2e-ci help \
+.PHONY: install lint typecheck test build codegen codegen-check theme-check storybook storybook-build ci e2e e2e-ci help \
+        format format-check pre-commit-check \
+        upgrade-deps \
+        release-patch release-minor release-major _do-release \
+        frontend-install frontend-build frontend-dev frontend-test frontend-lint \
+        frontend-format frontend-format-check frontend-knip \
         mise-download mise-trust-worktrees mise-setup mise-doctor
 
 LOG_FILE := .ci-ai.log
@@ -32,24 +37,40 @@ endif
 
 help:
 	@echo "Targets:"
-	@echo "  install        pnpm install --frozen-lockfile"
-	@echo "  lint           ESLint flat config"
-	@echo "  typecheck      tsc --noEmit"
-	@echo "  test           vitest run"
-	@echo "  build          vite library build"
-	@echo "  frontend-build alias for build"
-	@echo "  codegen        fetch wheels + emit JSON + generate TS (placeholder)"
-	@echo "  codegen-check  run codegen and check git diff (placeholder)"
-	@echo "  storybook      start Storybook dev server"
-	@echo "  storybook-build  build Storybook static site"
-	@echo "  e2e            build Storybook static site + run Playwright e2e tests"
-	@echo "  e2e-ci         run Playwright e2e tests (assumes storybook-static exists)"
-	@echo "  ci             install + lint + typecheck + test + build + codegen-check"
+	@echo "  install              pnpm install --frozen-lockfile"
+	@echo "  lint                 ESLint flat config"
+	@echo "  typecheck            tsc --noEmit"
+	@echo "  test                 vitest run"
+	@echo "  build                vite library build"
+	@echo "  format               apply Prettier to src/ and tests/"
+	@echo "  format-check         check Prettier formatting without writing"
+	@echo "  pre-commit-check     lint + typecheck + format-check (no pre-commit config)"
+	@echo "  upgrade-deps         pnpm update --latest"
+	@echo "  codegen              fetch wheels + emit JSON + generate TS"
+	@echo "  codegen-check        run codegen and check git diff"
+	@echo "  storybook            start Storybook dev server"
+	@echo "  storybook-build      build Storybook static site"
+	@echo "  e2e                  build Storybook static site + run Playwright e2e tests"
+	@echo "  e2e-ci               run Playwright e2e tests (assumes storybook-static exists)"
+	@echo "  ci                   install + lint + typecheck + test + build + codegen-check"
 	@echo ""
-	@echo "  mise-download  Download the mise binary"
-	@echo "  mise-trust-worktrees  Trust generated worktree roots for mise"
-	@echo "  mise-setup     Install pinned tools from mise.toml"
-	@echo "  mise-doctor    Show resolved tool versions"
+	@echo "  release-patch        bump patch, ci, commit, tag, push"
+	@echo "  release-minor        bump minor, ci, commit, tag, push"
+	@echo "  release-major        bump major, ci, commit, tag, push"
+	@echo ""
+	@echo "  frontend-install     alias for install"
+	@echo "  frontend-build       alias for build"
+	@echo "  frontend-dev         run Vite dev server"
+	@echo "  frontend-test        alias for test"
+	@echo "  frontend-lint        alias for lint"
+	@echo "  frontend-format      alias for format"
+	@echo "  frontend-format-check  alias for format-check"
+	@echo "  frontend-knip        run knip dead-export scan"
+	@echo ""
+	@echo "  mise-download        Download the mise binary"
+	@echo "  mise-trust-worktrees Trust generated worktree roots for mise"
+	@echo "  mise-setup           Install pinned tools from mise.toml"
+	@echo "  mise-doctor          Show resolved tool versions"
 
 install:
 	$(call _pnpm,install --frozen-lockfile)
@@ -65,8 +86,6 @@ test:
 
 build:
 	$(call _pnpm,run build)
-
-frontend-build: build
 
 codegen:
 	$(call _pnpm,run codegen)
@@ -88,6 +107,61 @@ e2e: storybook-build
 
 e2e-ci:
 	$(call _pnpm,exec playwright test --reporter=html)
+
+format:
+	$(call _pnpm,run format)
+
+format-check:
+	$(call _pnpm,run format:check)
+
+# No .pre-commit-config.yaml in this repo — alias for lint + typecheck + format-check.
+pre-commit-check: lint typecheck format-check
+
+upgrade-deps:
+	$(call _pnpm,update --latest)
+
+# ---------------------------------------------------------------------------
+# Releases
+# ---------------------------------------------------------------------------
+
+release-patch:
+	@$(MAKE) --no-print-directory _do-release BUMP=patch
+
+release-minor:
+	@$(MAKE) --no-print-directory _do-release BUMP=minor
+
+release-major:
+	@$(MAKE) --no-print-directory _do-release BUMP=major
+
+# scripts/do-release.sh handles repo-state guards, runs the ci pre-flight,
+# bumps package.json via `pnpm version --no-git-tag-version`, creates an
+# annotated tag, and pushes main + tag to origin.
+# Pass FORCE=1 to skip repo-state guards (pre-flight still runs).
+# Pass SKIP_PUSH=1 to create the tag locally without pushing (dry-run).
+_do-release:
+	@BUMP=$(or $(BUMP),minor) ./scripts/do-release.sh
+
+# ---------------------------------------------------------------------------
+# Frontend-* aliases (pd-ui IS a frontend repo — bare targets are canonical)
+# ---------------------------------------------------------------------------
+
+frontend-install: install
+
+frontend-build: build
+
+frontend-dev:
+	$(call _pnpm,exec vite dev)
+
+frontend-test: test
+
+frontend-lint: lint
+
+frontend-format: format
+
+frontend-format-check: format-check
+
+frontend-knip:
+	$(call _pnpm,run knip)
 
 ci: install lint typecheck test build codegen-check theme-check
 
