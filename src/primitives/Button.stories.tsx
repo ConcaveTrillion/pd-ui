@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
+import { Plus, Search, ChevronRight, Trash2 } from '../icons/lucide.js';
 import { Button } from './Button.js';
 
 const meta: Meta<typeof Button> = {
@@ -15,6 +16,7 @@ const meta: Meta<typeof Button> = {
       options: ['sm', 'md', 'lg'],
     },
     disabled: { control: 'boolean' },
+    full: { control: 'boolean' },
   },
 };
 
@@ -45,6 +47,62 @@ export const Disabled: Story = {
   args: { variant: 'primary', disabled: true, children: 'Disabled' },
 };
 
+export const WithIconLeft: Story = {
+  args: {
+    variant: 'primary',
+    icon: <Plus size={14} />,
+    children: 'New Project',
+  },
+};
+
+export const WithIconRight: Story = {
+  args: {
+    variant: 'ghost',
+    iconRight: <ChevronRight size={14} />,
+    children: 'Next',
+  },
+};
+
+export const WithBothIcons: Story = {
+  args: {
+    variant: 'primary',
+    icon: <Search size={14} />,
+    iconRight: <ChevronRight size={14} />,
+    children: 'Search',
+  },
+};
+
+export const FullWidth: Story = {
+  args: {
+    variant: 'primary',
+    full: true,
+    children: 'Full Width Button',
+  },
+  decorators: [
+    (Story) => (
+      <div style={{ width: 300 }}>
+        <Story />
+      </div>
+    ),
+  ],
+};
+
+export const FullWidthWithIcon: Story = {
+  args: {
+    variant: 'danger',
+    full: true,
+    icon: <Trash2 size={14} />,
+    children: 'Delete Everything',
+  },
+  decorators: [
+    (Story) => (
+      <div style={{ width: 300 }}>
+        <Story />
+      </div>
+    ),
+  ],
+};
+
 export const AllVariants: Story = {
   render: () => (
     <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
@@ -58,6 +116,19 @@ export const AllVariants: Story = {
       <Button variant="danger">Danger MD</Button>
       <Button variant="danger" size="lg">Danger LG</Button>
       <Button variant="primary" disabled>Disabled</Button>
+    </div>
+  ),
+};
+
+export const WithIcons: Story = {
+  render: () => (
+    <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
+      <Button variant="primary" icon={<Plus size={14} />}>Add Item</Button>
+      <Button variant="ghost" iconRight={<ChevronRight size={14} />}>Continue</Button>
+      <Button variant="primary" icon={<Search size={14} />} iconRight={<ChevronRight size={14} />}>
+        Search
+      </Button>
+      <Button variant="danger" icon={<Trash2 size={14} />} size="sm">Delete</Button>
     </div>
   ),
 };
