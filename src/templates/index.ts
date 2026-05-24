@@ -45,3 +45,7 @@ export type {
   ProjectSettingsTemplateProps,
   ProjectSettingsGroup,
 } from './ProjectSettingsTemplate.js';
+
+// ─── SettingsNav (#357, OQ-10) ────────────────────────────────────────────────
+export { SettingsNav, PROJECT_SETTINGS_GROUPS } from './SettingsNav.js';
+export type { SettingsNavGroup, SettingsNavProps } from './SettingsNav.js';
