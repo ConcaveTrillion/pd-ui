@@ -567,6 +567,22 @@ Unblocks: M2 cross-cutting `StageControlsPanel` (`BackendChip`), M4
 Grayscale `StageControlsLeft` (`BackendChip`), M7 Scannos
 `ToggleBadge`, M9 Validation `CheckRow`/`CheckIcon`/`PageChip`.
 
+### M2 cross-cutting — first 4 (2026-05-24)
+
+PageWorkbench composition components, exported from
+`@concavetrillion/pd-ui/stages/PageWorkbench`:
+
+| Export | Commit | Description |
+|---|---|---|
+| `EditModeSelector` | `7f9b774` | Segmented control over `EditMode` (`view`/`split`/`illust`/`rotate`). Composes the existing `Segmented` primitive. |
+| `PageAttributesBar` | `21cbe44` | Collapsible attribute pill strip + inline `AttrEditorPopover` (internal). Supports text/number/select editor modes. |
+| `StageControlsPanel` | `649eacb` | Slot-based left-drawer chrome (inheritance banner + CPU-fallback warning + `controlsSlot` + sticky Revert/Save footer). Per-stage controls plug in via `controlsSlot`. |
+| `TextReviewPane` | `fad741f` | Collapsible bottom pane (CSS-only 280px/44px via `data-open`). Accepts string or ReactNode. |
+
+Remaining M2 cross-cutting (6 components): `PWHeader`, `HierarchyTreePanel`,
+`BlockTypePickerPanel`, `PageAttributesPanel`, `OcrTextPanel`,
+`LabelerCanvas`.
+
 ---
 
 ## 12. Conscious omissions
