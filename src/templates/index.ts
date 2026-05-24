@@ -49,3 +49,12 @@ export type {
 // ─── SettingsNav (#357, OQ-10) ────────────────────────────────────────────────
 export { SettingsNav, PROJECT_SETTINGS_GROUPS } from './SettingsNav.js';
 export type { SettingsNavGroup, SettingsNavProps } from './SettingsNav.js';
+
+// ─── ProjectsLandingTemplate (#346, OQ-11) ────────────────────────────────────
+export { ProjectsLandingTemplate } from './ProjectsLandingTemplate.js';
+export type {
+  ProjectsLandingTemplateProps,
+  ProjectsLandingTemplatePopulatedProps,
+  ProjectsLandingTemplateEmptyProps,
+  ProjectsDetailTab,
+} from './ProjectsLandingTemplate.js';
