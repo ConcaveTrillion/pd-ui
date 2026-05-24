@@ -1,12 +1,14 @@
 ---
+status: active
+synced: ~
+milestone: ~
 repo: ConcaveTrillion/ocr-container-meta
 spec: docs/specs/2026-05-24-pd-ui-design-handoff-design.md
-milestone: "spec: pd-ui-design-handoff (#N)"
 ---
 
 # pd-ui design-handoff port — Implementation Plan
 
-> **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
+> **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task.
 
 **Goal:** Port the design-handoff bundle's atoms, cross-stage molecules, and layout templates into pd-ui as typed, slot-based, shared exports — gated by a Phase 1 audit document.
 
@@ -20,497 +22,401 @@ milestone: "spec: pd-ui-design-handoff (#N)"
 
 ---
 
-## How this plan is structured
+## Plan structure note
 
-The spec gates Phases 2 and 3 on CT review of Phase 1's port-plan, because the audit determines:
+Phase 1 (Task 1) is the gating audit. Its output reshapes Phases 2 and 3.
 
-- Which atoms genuinely have gaps (vs. already in pd-ui).
-- Which design identifiers are cross-stage molecules (port now) vs. stage-specific (defer to follow-on spec).
-- The lucide-vs-bespoke mapping for every design icon.
-- Whether `PageHeader`, `AppFrame`, `ServerFooter`, `ProjectListBackdrop` port at all.
-
-Writing detailed TDD tasks for Phases 2 and 3 today would produce speculative steps that the port-plan would invalidate. Instead:
-
-- **Phase 1** is fully task-decomposed below.
-- **Phase 2 and Phase 3** are described as scoped issues with file paths and acceptance criteria. Detailed step-by-step tasks for each get appended to *this plan file* after CT approves the port-plan and `/decompose-spec --sync` creates the milestone issues.
-
-This matches the spec's "issue list is provisional; Phase 1 finalizes it" gate.
+Phase 2 (Tasks 2–6) and Phase 3 (Tasks 7–15) are filed as
+*anticipated* issues right now so the milestone is fully visible, but
+their `Acceptance` checklists and exact file lists may be amended after
+CT approves the port-plan. The first acceptance item of every Phase 2
+and Phase 3 task is therefore **"port-plan row reviewed and confirmed
+for this identifier."**
 
 ---
 
-## Phase 1 · Write the port-plan audit (gating issue)
-
-**Issue title:** `Phase 1: write design-handoff port-plan.md`
-
-**Outcome:** A markdown research doc at
-`docs/research/2026-05-24-design-handoff-port-plan.md` containing the five
-verdict tables defined in spec §4.1. CT review of this doc unblocks every
-Phase 2 and Phase 3 issue.
-
-### Task 1: Bootstrap the port-plan doc
-
-**Files:**
-- Create: `docs/research/2026-05-24-design-handoff-port-plan.md`
-
-- [ ] **Step 1: Create the skeleton document**
-
-Write the following exact content:
-
-````markdown
-# Design-handoff port-plan
-
-**Status:** draft (Phase 1 deliverable, gates spec
-[`2026-05-24-pd-ui-design-handoff-design.md`](../specs/2026-05-24-pd-ui-design-handoff-design.md)
-Phases 2–3)
-**Date:** 2026-05-24
-**Source bundle:** `docs/templates/design_handoff_pd_ui/`
-**Reviewer:** CT (must sign off before any Phase 2/3 issue is started)
-
-## How to read this document
-
-Five verdict tables. Each row classifies one design-bundle identifier
-against pd-ui's current state and assigns a target outcome. CT review
-may move rows between classifications.
-
-## Table 1 · Atom verdict
-
-For every identifier in
-`docs/templates/design_handoff_pd_ui/design-system/ui-base.jsx`.
-
-| identifier | usage count | already in pd-ui (path) | verdict | target path | notes |
-|---|---|---|---|---|---|
-
-## Table 2 · Token diff
-
-For every `--*` custom property in
-`docs/templates/design_handoff_pd_ui/design-system/tokens.css` vs
-`src/theme/tokens.css`.
-
-| token name | design value | pd-ui value | verdict |
-|---|---|---|---|
-
-## Table 3 · Icon mapping
-
-Every name in the design's `Icon` switch-statement.
-
-| design name | lucide name (if any) | verdict | bespoke component name (if bespoke) | notes |
-|---|---|---|---|---|
-
-## Table 4 · Cross-stage molecule inventory
-
-Every identifier appearing in 3+ files of the design bundle.
-
-| identifier | file count | files | classification | target path | depends on |
-|---|---|---|---|---|---|
-
-## Table 5 · Template inventory
-
-For each layout template in `final/`.
-
-| template | source file | slots (props) | depends on molecules | notes |
-|---|---|---|---|---|
-
-## Verdict glossary
-
-- **`already-in-pd-ui`** — pd-ui already exports an equivalent at the
-  listed path; no port needed. Note any API divergence in `notes`.
-- **`port`** — port into pd-ui at the listed target path. Becomes a
-  Phase 2 or Phase 3 issue.
-- **`rename`** — port but rename to match pd-ui naming.
-- **`co-locate`** — page-scoped helper; do not port; lives next to
-  its consumer in the eventual consuming app.
-- **`skip`** — prototype scaffolding (`DesignCanvas`, `DCSection`,
-  `DCArtboard`, theme toggle, app-level `App()`); do not port.
-- **`cross-stage molecule`** (Table 4) — appears in 3+ files; port
-  into pd-ui under this spec's Phase 3.
-- **`stage-specific`** (Table 4) — used only inside one stage's
-  body; deferred to the follow-on `pd-ui-design-handoff-stages`
-  spec.
-
-## Open questions for CT
-
-(append below as the audit progresses)
-
-EOF
-````
-
-- [ ] **Step 2: Commit the skeleton**
-
-```bash
-git add docs/research/2026-05-24-design-handoff-port-plan.md
-git commit -m "docs(research): bootstrap design-handoff port-plan skeleton"
-```
-
-### Task 2: Fill Table 1 (atom verdict)
-
-**Files:**
-- Modify: `docs/research/2026-05-24-design-handoff-port-plan.md`
-
-**Reference inputs:**
-- `docs/templates/design_handoff_pd_ui/design-system/ui-base.jsx` — design atom exports.
-- `docs/templates/design_handoff_pd_ui/COMPONENT_INDEX.md` — usage counts.
-- `src/primitives/` — pd-ui's existing primitives.
-
-- [ ] **Step 1: Enumerate every design atom**
-
-Open `design-system/ui-base.jsx`. List every top-level `const X = …` and
-every `Object.assign(window, { … })` entry. Expected list (from recon,
-verify by reading the file): `Icon`, `Button`, `Badge`, `KeyCap`,
-`Divider`, `Input`, `PageHeader`, `AppFrame`, `TopNav`, `ServerFooter`,
-`StepDots`, `ProjectListBackdrop`. If you find more, add them.
-
-- [ ] **Step 2: For each atom, locate the pd-ui equivalent (or note absence)**
-
-Use Grep on `src/primitives/`, `src/shell/`, `src/icons/`. For each
-design atom, find the existing pd-ui export with the same role and
-record its full path (e.g. `src/primitives/Button.tsx`). Record `—` if
-absent.
-
-- [ ] **Step 3: Assign verdict per atom**
-
-Apply this decision tree:
-
-1. pd-ui has an equivalent + API matches → `already-in-pd-ui`.
-2. pd-ui has an equivalent + API diverges → `already-in-pd-ui` and
-   note the divergence in `notes` (do not propose API changes here —
-   CT decides during review).
-3. No equivalent + atom is generic UI → `port` with target path
-   `src/primitives/<Name>.tsx`.
-4. No equivalent + atom is suite-wide chrome (`AppFrame`,
-   `ServerFooter`) → `port` with target path `src/shell/<Name>.tsx`
-   *or* `skip` if `src/shell/AppShell.tsx` already covers it.
-5. Atom is decorative-only (`ProjectListBackdrop`) → `skip` unless CT
-   review overrides.
-
-- [ ] **Step 4: Fill Table 1**
-
-Edit the doc. Each atom is one row. Example:
-
-```
-| Button | 10 | src/primitives/Button.tsx | already-in-pd-ui | — | variants align: outline/primary/brand/ghost/danger — confirm tone names match |
-| Segmented | (count) | — | port | src/primitives/Segmented.tsx | inset single-select; distinct from existing ToggleGroup |
-```
-
-- [ ] **Step 5: Commit**
-
-```bash
-git add docs/research/2026-05-24-design-handoff-port-plan.md
-git commit -m "docs(research): port-plan Table 1 — atom verdict"
-```
-
-### Task 3: Fill Table 2 (token diff)
-
-**Files:**
-- Modify: `docs/research/2026-05-24-design-handoff-port-plan.md`
-
-**Reference inputs:**
-- `docs/templates/design_handoff_pd_ui/design-system/tokens.css`
-- `src/theme/tokens.css`
-
-- [ ] **Step 1: List every `--*` in design's tokens.css with its value**
-
-Read `design-system/tokens.css`. Extract every `--name: value;`
-declaration under the design's scope selector (`.pgd { ... }` and any
-`[data-theme="light"]` overrides). One row per token.
-
-- [ ] **Step 2: Look up each in pd-ui's tokens.css**
-
-For each design token, find its declaration in `src/theme/tokens.css`
-under `:root` and `[data-theme="light"]`. Record the pd-ui value, or
-`—` if absent.
-
-- [ ] **Step 3: Assign verdict per token**
-
-- Same name, same value → `identical`.
-- Same name, different value → `value-mismatch` (flag for CT — do not
-  change values without approval).
-- Design name only → `missing` (target: add to `src/theme/tokens.css`
-  in Phase 2e).
-
-- [ ] **Step 4: Fill Table 2 and commit**
-
-```bash
-git add docs/research/2026-05-24-design-handoff-port-plan.md
-git commit -m "docs(research): port-plan Table 2 — token diff"
-```
-
-### Task 4: Fill Table 3 (icon mapping)
-
-**Files:**
-- Modify: `docs/research/2026-05-24-design-handoff-port-plan.md`
-
-**Reference inputs:**
-- `docs/templates/design_handoff_pd_ui/design-system/ui-base.jsx` —
-  the `Icon` component's name → SVG-path switch.
-- `src/icons/lucide.ts` — currently re-exported lucide icons.
-- The lucide-react docs index for name lookup.
-
-- [ ] **Step 1: Extract every design icon name**
-
-Open `ui-base.jsx`. Find the `Icon` component. Enumerate every `case
-"name":` branch in the switch. Expected ~50.
-
-- [ ] **Step 2: Map each to lucide-react where possible**
-
-For each design name, find the closest lucide-react component name.
-Use the lucide docs (https://lucide.dev/icons/) for lookup. Examples:
-
-- `arrow-left` → `ArrowLeft` (lucide)
-- `chevron-down` → `ChevronDown` (lucide)
-- `crop` → `Crop` (lucide)
-- `merge` → `Merge` (lucide)
-- `hyphen-join` → no lucide equivalent → `bespoke`
-- `scanno-flag` → no lucide equivalent → `bespoke`
-
-- [ ] **Step 3: Assign verdict per icon**
-
-- Lucide equivalent exists → `lucide` with the lucide component name.
-- No lucide equivalent (domain-specific glyph) → `bespoke` with a
-  PascalCase component name for `src/icons/bespoke.tsx`.
-- Visual is purely decorative and unused outside prototype canvas →
-  `skip` (rare).
-
-- [ ] **Step 4: Fill Table 3 and commit**
-
-```bash
-git add docs/research/2026-05-24-design-handoff-port-plan.md
-git commit -m "docs(research): port-plan Table 3 — icon mapping"
-```
-
-### Task 5: Fill Table 4 (cross-stage molecule inventory)
-
-**Files:**
-- Modify: `docs/research/2026-05-24-design-handoff-port-plan.md`
-
-**Reference inputs:**
-- `docs/templates/design_handoff_pd_ui/COMPONENT_INDEX.md` — usage
-  counts and file lists per identifier.
-- The `final/` and wireframe JSX files for context on each
-  identifier's role.
-
-- [ ] **Step 1: Enumerate every identifier with usage count ≥3**
-
-Read `COMPONENT_INDEX.md`. Extract every identifier whose frequency
-table count is ≥3. From recon, expected candidates include:
-`StageContextStrip` (8), `ViewToggle` (5), `RunAllDirtyPanel` (5),
-`BuildPackagePanel` (5), `DiskCostBanner` (5), plus the design
-atoms (already covered in Table 1). Drop atoms — they're in Table 1.
-
-- [ ] **Step 2: For each, classify cross-stage vs stage-specific**
-
-Apply this decision tree per identifier:
-
-1. Used in 2+ `final/<stage>/` folders OR in `final/<stage>/` and a
-   wireframe folder → `cross-stage molecule`.
-2. Used only in one `final/<stage>/` folder, regardless of usage
-   count → `stage-specific`.
-3. Used only in wireframes (no `final/` appearance) → `stage-specific`
-   AND note the wireframe origin (so the wireframes follow-on spec
-   picks it up).
-
-- [ ] **Step 3: For `cross-stage molecule` rows, assign target path**
-
-- Generic, reusable across non-pipeline contexts (e.g. `BulkBar`,
-  `ViewToggle`) → `src/primitives/<Name>.tsx`.
-- Pipeline-page-coupled (e.g. `StageContextStrip` only makes sense
-  inside `PipelineTemplate`) → `src/templates/<Name>.tsx`.
-
-- [ ] **Step 4: Fill Table 4 and commit**
-
-```bash
-git add docs/research/2026-05-24-design-handoff-port-plan.md
-git commit -m "docs(research): port-plan Table 4 — cross-stage molecules"
-```
-
-### Task 6: Fill Table 5 (template inventory)
-
-**Files:**
-- Modify: `docs/research/2026-05-24-design-handoff-port-plan.md`
-
-**Reference inputs:**
-- `docs/templates/design_handoff_pd_ui/final/pipeline/pipeline-template.jsx`
-- `docs/templates/design_handoff_pd_ui/final/template/` (AppTemplate)
-- `docs/templates/design_handoff_pd_ui/final/projects/projects.jsx`
-- `docs/templates/design_handoff_pd_ui/final/pipeline/project-settings.jsx`
-
-- [ ] **Step 1: For each of `PipelineTemplate`, `AppTemplate`, `ProjectsLandingTemplate`, `ProjectSettingsTemplate`, identify the slots the design carves out**
-
-For each, open the JSX and identify the regions a consuming app would
-fill: `header`, `stageStrip`, `tabs`, `body`, `bulkBar`,
-`attributesPanel`, `coverGrid`, `pipelineMini`, `panels`, etc. Record
-the exact slot list from the source.
-
-- [ ] **Step 2: List molecule dependencies per template**
-
-For each template, list which Table 4 cross-stage molecules it
-composes (e.g. `PipelineTemplate` depends on `StageStrip` and
-`TabsBand`).
-
-- [ ] **Step 3: Fill Table 5 and commit**
-
-```bash
-git add docs/research/2026-05-24-design-handoff-port-plan.md
-git commit -m "docs(research): port-plan Table 5 — template inventory"
-```
-
-### Task 7: Mark port-plan ready for CT review
-
-**Files:**
-- Modify: `docs/research/2026-05-24-design-handoff-port-plan.md`
-
-- [ ] **Step 1: Promote status to ready-for-review**
-
-Change the front-of-doc status line from `draft` to `ready for CT review`.
-
-- [ ] **Step 2: Surface open questions**
-
-Append every ambiguity surfaced during Tasks 2–6 to the "Open questions
-for CT" section. Examples to look out for: API divergence between a
-design atom and pd-ui's existing equivalent; identifiers whose
-classification was a judgment call; tokens with value mismatches.
-
-- [ ] **Step 3: Commit, close issue, hand off**
-
-```bash
-git add docs/research/2026-05-24-design-handoff-port-plan.md
-git commit -m "docs(research): port-plan ready for CT review"
-gh issue close <Phase-1-issue-N> --repo ConcaveTrillion/ocr-container-meta \
-  --comment "Port-plan ready for review: docs/research/2026-05-24-design-handoff-port-plan.md"
-```
-
-**Then halt and surface the port-plan to CT.** Do not start any Phase
-2 or Phase 3 issue until CT signs off and this plan file is amended
-(see "Phase 2 & 3 — Plan amendments after Phase 1" below).
+## Task 1 — Write design-handoff port-plan audit  {#port-plan-audit}
+model: sonnet  effort: M  area: pd-ui-docs
+
+Context: This is the Phase 1 deliverable. Produces a research document
+that classifies every identifier in `design_handoff_pd_ui/` against
+pd-ui's current state. CT review of this document gates every Phase 2
+and Phase 3 task in this plan.
+
+Approach: Create `docs/research/2026-05-24-design-handoff-port-plan.md`
+with five verdict tables defined in spec §4.1: (1) Atom verdict for
+every identifier in `design-system/ui-base.jsx`; (2) Token diff between
+design `tokens.css` and pd-ui `src/theme/tokens.css`; (3) Icon mapping
+for every name in the design's `Icon` switch (~50 rows); (4)
+Cross-stage molecule inventory for every identifier with usage count ≥3
+in `COMPONENT_INDEX.md`, classified cross-stage vs stage-specific; (5)
+Template inventory listing slots and molecule dependencies for
+`PipelineTemplate`, `ProjectsLandingTemplate`, `ProjectSettingsTemplate`.
+
+Verification: `git ls-files docs/research/2026-05-24-design-handoff-port-plan.md`
+
+Acceptance:
+- [ ] Skeleton document exists with header, status line, glossary, and five empty tables.
+- [ ] Table 1 (atom verdict) populated for every export in `design-system/ui-base.jsx`.
+- [ ] Table 2 (token diff) populated for every `--*` in design's `tokens.css`.
+- [ ] Table 3 (icon mapping) populated for every name in the design's `Icon` switch.
+- [ ] Table 4 (cross-stage molecule inventory) populated for every identifier with usage count ≥3.
+- [ ] Table 5 (template inventory) populated for the three layout templates.
+- [ ] Open-questions section surfaces every ambiguity for CT review.
+- [ ] Status promoted from `draft` to `ready for CT review`.
 
 ---
 
-## Phase 2 · Atom-layer gaps (provisional, gated by Phase 1)
+## Task 2 — Port Icon: lucide additions + bespoke gaps  {#port-icon}
+model: sonnet  effort: M  area: pd-ui-frontend
 
-Issues for Phase 2 are anticipated below; final list comes from the
-Phase 1 port-plan. **Do not start any Phase 2 issue until this plan
-file is amended with concrete TDD tasks after CT approves Phase 1.**
+Context: pd-ui hard constraint is lucide-react only via `src/icons/`.
+The design bundle's `Icon` component is a switch over ~50 inline SVGs.
+Lucide-first strategy: re-export lucide equivalents where available,
+implement domain glyphs as bespoke components.
 
-### Anticipated Phase 2 issues
+Approach: For each row in port-plan Table 3 with verdict `lucide`, add
+the lucide-react re-export to `src/icons/lucide.ts`. For each row with
+verdict `bespoke`, implement the component in `src/icons/bespoke.tsx`
+following the existing bespoke convention. Update `Icons.stories.tsx`
+to gallery every new icon. No `<Icon name="…">` switch component —
+apps continue to import named icon components.
 
-| # | Title | Outcome | Files |
-|---|---|---|---|
-| 2a | Port Icon: lucide additions + bespoke gaps | Every lucide-mapped design icon re-exported from `src/icons/lucide.ts`; every bespoke entry implemented in `src/icons/bespoke.tsx` with `.test.tsx` + Storybook entry in `Icons.stories.tsx` | `src/icons/lucide.ts`, `src/icons/bespoke.tsx`, `src/icons/Icons.stories.tsx`, `src/icons/bespoke.test.tsx` |
-| 2b | Port Segmented atom | Typed `Segmented` primitive with single-select inset variant; `.tsx` + `.stories.tsx` + `.test.tsx` | `src/primitives/Segmented.tsx` (+ stories + test) |
-| 2c | Port StepDots atom | Typed `StepDots` primitive | `src/primitives/StepDots.tsx` (+ stories + test) |
-| 2d | Port PageHeader atom (if confirmed) | Typed `PageHeader` composite (title + breadcrumb) | `src/primitives/PageHeader.tsx` (+ stories + test) |
-| 2e | Reconcile token-diff gaps | Any `missing` token from Table 2 added to `src/theme/tokens.css`; sync via `scripts/sync-design-system.mjs` | `src/theme/tokens.css`, `docs/design-system/tokens.css` |
+Blocked-by: #port-plan-audit
 
-### TDD pattern applied to each Phase 2 issue
+Verification: `make ci AI=1`
 
-When this plan is amended with concrete tasks per issue, each issue
-will follow this pattern:
-
-1. **Write the failing test.** Vitest + jsdom; covers prop variants
-   and a11y for interactive atoms. Run, confirm failure.
-2. **Write the typed `Props` interface and minimal implementation.**
-   No `any`, no `Record<string, unknown>`. String-literal unions for
-   variant props. Direct CSS class modifiers — no CVA.
-3. **Run tests, confirm pass.**
-4. **Write the `.stories.tsx`.** One story per `DCArtboard` in the
-   source design file.
-5. **Run `make ci AI=1`.** Confirm green.
-6. **Commit.** One commit per atom.
-
-### Phase 2 acceptance gate
-
-- Every Phase 1 `port`-verdict atom has a typed export with
-  collocated `.stories.tsx` + `.test.tsx`.
-- `make ci AI=1` green on the worktree.
-- No `lucide-react` imports outside `src/icons/`.
-- No CVA imports. No hex literals in component styles. No
-  `!important`.
+Acceptance:
+- [ ] Port-plan Table 3 rows reviewed and confirmed for this task's scope.
+- [ ] Every `lucide`-verdict design name has a corresponding re-export in `src/icons/lucide.ts`.
+- [ ] Every `bespoke`-verdict design name has a typed component in `src/icons/bespoke.tsx`.
+- [ ] `Icons.stories.tsx` galleries the new icons.
+- [ ] `src/icons/bespoke.test.tsx` covers the new bespoke components' rendering.
+- [ ] `make ci AI=1` green.
 
 ---
 
-## Phase 3 · Templates + cross-stage molecules (provisional, gated by Phase 1)
+## Task 3 — Port Segmented atom  {#port-segmented}
+model: sonnet  effort: S  area: pd-ui-frontend
 
-Issues for Phase 3 are anticipated below; final list comes from the
-Phase 1 port-plan, especially Table 4. **Do not start any Phase 3
-issue until this plan file is amended after CT approves Phase 1.**
+Context: Inset single-select segmented control used across every wired
+stage in the design bundle. Distinct from pd-ui's existing
+`ToggleGroup` (a flat multi-select group).
 
-### Anticipated Phase 3 issues
+Approach: Implement `src/primitives/Segmented.tsx` as a typed
+single-select primitive with string-literal `value` prop, `onChange`
+callback, and an `options` array of typed entries. CSS class modifiers
+for the inset visual; no CVA, no hex literals. Collocate
+`Segmented.stories.tsx` (one story per `DCArtboard` in the source) and
+`Segmented.test.tsx` (variants + a11y).
 
-| # | Title | Outcome | Files |
-|---|---|---|---|
-| 3a | Port StageStrip molecule | Typed `StageStrip` with stage list + current marker | `src/templates/StageStrip.tsx` (+ stories + test) |
-| 3b | Port TabsBand molecule | Typed `TabsBand` sticky tab band | `src/templates/TabsBand.tsx` (+ stories + test) |
-| 3c | Port BulkBar molecule | Typed `BulkBar` sticky bottom action bar | `src/primitives/BulkBar.tsx` (+ stories + test) |
-| 3d | Port AttributesPanel molecule | Typed `AttributesPanel` | `src/primitives/AttributesPanel.tsx` (+ stories + test) |
-| 3e | Port additional cross-stage molecules from port-plan | One sub-issue per molecule Table 4 classifies as cross-stage | (per port-plan) |
-| 3f | Port PipelineTemplate | Slot-based `PipelineTemplate` composing `StageStrip` + `TabsBand` | `src/templates/PipelineTemplate.tsx` (+ stories + test) |
-| 3g | Port ProjectsLandingTemplate | Slot-based `ProjectsLandingTemplate` | `src/templates/ProjectsLandingTemplate.tsx` (+ stories + test) |
-| 3h | Port ProjectSettingsTemplate | Slot-based `ProjectSettingsTemplate` | `src/templates/ProjectSettingsTemplate.tsx` (+ stories + test) |
-| 3i | Write `MIGRATION_NOTES.md` | Root-level doc listing every new export, design source, tokens added, omissions, open questions | `MIGRATION_NOTES.md` |
+Blocked-by: #port-plan-audit
 
-### TDD pattern applied to each Phase 3 issue
+Verification: `make ci AI=1`
 
-1. **Write the failing test.** For molecules: prop-driven rendering +
-   interaction. For templates: assert each slot renders its content
-   and slots compose in the correct visual region (use
-   `data-testid` from `src/testids/` to assert structure).
-2. **Define the typed `Props` interface.** Templates expose slot
-   props (`header?: ReactNode`, `body: ReactNode`, …). Molecules
-   expose typed data props.
-3. **Implement.** Slot-based composition; no leaking pipeline-specific
-   state types into pd-ui.
-4. **`.stories.tsx`** — one story per `DCArtboard`.
-5. **`make ci AI=1`** green.
-6. **Commit.** One commit per molecule/template.
-
-### Phase 3.i — MIGRATION_NOTES content
-
-`pd-ui/MIGRATION_NOTES.md` must contain:
-
-- **New exports table:** column 1 = pd-ui export path, column 2 =
-  design source file.
-- **Tokens added or aliased:** if any.
-- **Icon mapping reference:** link to the port-plan's Table 3.
-- **Conscious omissions:** every `co-locate` or `skip` verdict from
-  the port-plan, with one-line reason.
-- **Open questions for CT.**
-
-### Phase 3 acceptance gate
-
-- Every Phase 1 `port`-verdict molecule and every template in the
-  spec has a typed export with collocated `.stories.tsx` +
-  `.test.tsx`.
-- `pnpm exec tsc --noEmit` clean under strict settings.
-- `make ci AI=1` green.
-- `MIGRATION_NOTES.md` exists at pd-ui root and is honest about gaps.
-- Demonstration that `final/source/source.jsx` could be implemented
-  using pd-ui imports + stage-specific glue is documented in
-  `MIGRATION_NOTES.md` (the glue itself is *not* part of this spec —
-  stage-specific components are deferred to the follow-on
-  `pd-ui-design-handoff-stages` spec).
+Acceptance:
+- [ ] Port-plan Table 1 row for `Segmented` reviewed.
+- [ ] `src/primitives/Segmented.tsx` exports a typed `Segmented` with `Props` interface.
+- [ ] `Segmented.stories.tsx` covers every `DCArtboard` variant from the design source.
+- [ ] `Segmented.test.tsx` covers click, keyboard navigation, a11y role.
+- [ ] No CVA import, no hex literals, no `!important`.
+- [ ] `make ci AI=1` green.
 
 ---
 
-## Phase 2 & 3 — Plan amendments after Phase 1
+## Task 4 — Port StepDots atom  {#port-stepdots}
+model: sonnet  effort: S  area: pd-ui-frontend
 
-After CT approves the port-plan and `/decompose-spec --sync` creates
-the milestone issues:
+Context: Numbered-circle progress indicator used in pipeline
+progression states across the design bundle.
 
-- [ ] **Update this plan file** with concrete TDD tasks for each Phase
-  2 and Phase 3 issue. Replace the "anticipated" tables above with
-  per-issue Task N sections following the same step-by-step format as
-  Phase 1 Tasks 1–7.
-- [ ] **Commit the amendment** with message
-  `docs(plans): pd-ui-design-handoff Phase 2+3 tasks (post Phase 1)`.
+Approach: Implement `src/primitives/StepDots.tsx` as a typed primitive
+with `steps` (number or array), `current` (index), and optional
+`onStepClick`. Collocated stories + tests.
+
+Blocked-by: #port-plan-audit
+
+Verification: `make ci AI=1`
+
+Acceptance:
+- [ ] Port-plan Table 1 row for `StepDots` reviewed.
+- [ ] `src/primitives/StepDots.tsx` exports a typed `StepDots`.
+- [ ] `StepDots.stories.tsx` covers every `DCArtboard` variant.
+- [ ] `StepDots.test.tsx` covers rendering and click behavior.
+- [ ] `make ci AI=1` green.
+
+---
+
+## Task 5 — Port PageHeader atom (if confirmed by audit)  {#port-pageheader}
+model: sonnet  effort: S  area: pd-ui-frontend
+
+Context: Title + breadcrumb composite. pd-ui has `Breadcrumb` and
+`TopNav` separately but no `PageHeader` molecule. Audit may downgrade
+this to "skip" if the existing primitives compose cleanly enough.
+
+Approach: If port-plan Table 1 verdict is `port`, implement
+`src/primitives/PageHeader.tsx` composing existing `Breadcrumb` with a
+typed title prop. Collocated stories + tests. If verdict is
+`already-in-pd-ui` or `skip`, close this task with a no-op comment
+referencing the verdict row.
+
+Blocked-by: #port-plan-audit
+
+Verification: `make ci AI=1`
+
+Acceptance:
+- [ ] Port-plan Table 1 row for `PageHeader` reviewed.
+- [ ] Either: `src/primitives/PageHeader.tsx` exists with typed Props, stories, tests, and CI green; OR: task closed as no-op with verdict reference in the closing comment.
+
+---
+
+## Task 6 — Reconcile token-diff gaps  {#reconcile-tokens}
+model: sonnet  effort: S  area: pd-ui-frontend
+
+Context: Recon suggests every design token already exists in pd-ui's
+`tokens.css`. Audit confirms or surfaces gaps. Anticipated no-op.
+
+Approach: For each port-plan Table 2 row with verdict `missing`, add
+the token to `src/theme/tokens.css` under the existing naming
+convention. For each `value-mismatch` row, surface to CT for decision
+(do not change values unilaterally). Sync to `docs/design-system/` via
+`scripts/sync-design-system.mjs`. If Table 2 has zero `missing` rows
+and zero `value-mismatch` rows, close as no-op.
+
+Blocked-by: #port-plan-audit
+
+Verification: `make ci AI=1 && node scripts/sync-design-system.mjs --check`
+
+Acceptance:
+- [ ] Port-plan Table 2 reviewed.
+- [ ] Either: every `missing` token added to `src/theme/tokens.css` and synced, CI green; OR: task closed as no-op with reference to Table 2.
+
+---
+
+## Task 7 — Port StageStrip molecule  {#port-stagestrip}
+model: sonnet  effort: M  area: pd-ui-frontend
+
+Context: Stage progress + nav strip. 8+ usages in design bundle. Used
+inside `PipelineTemplate` and standalone in some stages.
+
+Approach: Implement `src/templates/StageStrip.tsx` as a typed molecule
+with `stages` (typed array of stage descriptors), `current` (stage id),
+and `onStageClick`. Slot prop `actions` for per-stage action buttons.
+String-literal union for stage status (`'todo' | 'in-progress' |
+'done' | 'blocked'`). Collocated stories + tests.
+
+Blocked-by: #port-plan-audit
+
+Verification: `make ci AI=1`
+
+Acceptance:
+- [ ] Port-plan Table 4 row for `StageStrip` reviewed and confirmed cross-stage.
+- [ ] `src/templates/StageStrip.tsx` exports a typed `StageStrip`.
+- [ ] `StageStrip.stories.tsx` covers every `DCArtboard` variant.
+- [ ] `StageStrip.test.tsx` covers prop variants, status rendering, click handling.
+- [ ] `make ci AI=1` green.
+
+---
+
+## Task 8 — Port TabsBand molecule  {#port-tabsband}
+model: sonnet  effort: M  area: pd-ui-frontend
+
+Context: Sticky tab band at the top of every stage body in the design.
+
+Approach: Implement `src/templates/TabsBand.tsx` as a typed molecule
+wrapping the existing `Tabs` primitive with sticky positioning, an
+optional `rightSlot` for stage-level controls, and typed `items`.
+Collocated stories + tests.
+
+Blocked-by: #port-plan-audit
+
+Verification: `make ci AI=1`
+
+Acceptance:
+- [ ] Port-plan Table 4 row for `TabsBand` reviewed.
+- [ ] `src/templates/TabsBand.tsx` exports a typed `TabsBand`.
+- [ ] `TabsBand.stories.tsx` covers every `DCArtboard` variant.
+- [ ] `TabsBand.test.tsx` covers tab switching, sticky behavior asserted via class, rightSlot rendering.
+- [ ] `make ci AI=1` green.
+
+---
+
+## Task 9 — Port BulkBar molecule  {#port-bulkbar}
+model: sonnet  effort: M  area: pd-ui-frontend
+
+Context: Sticky bottom bulk-action bar that appears across the Source
+and other stages when a selection is active.
+
+Approach: Implement `src/primitives/BulkBar.tsx` as a typed molecule
+with `selectedCount`, `onClearSelection`, and an `actions` render-prop
+slot for app-supplied action buttons. Collocated stories + tests.
+
+Blocked-by: #port-plan-audit
+
+Verification: `make ci AI=1`
+
+Acceptance:
+- [ ] Port-plan Table 4 row for `BulkBar` reviewed.
+- [ ] `src/primitives/BulkBar.tsx` exports a typed `BulkBar`.
+- [ ] `BulkBar.stories.tsx` covers every `DCArtboard` variant.
+- [ ] `BulkBar.test.tsx` covers rendering, action slot composition, clear-selection callback.
+- [ ] `make ci AI=1` green.
+
+---
+
+## Task 10 — Port AttributesPanel molecule  {#port-attributespanel}
+model: sonnet  effort: M  area: pd-ui-frontend
+
+Context: Right-side attributes panel used across multiple stages for
+displaying selected entity properties.
+
+Approach: Implement `src/primitives/AttributesPanel.tsx` as a typed
+molecule with `title`, `entries` (typed key-value array), and an
+optional `actions` slot. Collocated stories + tests.
+
+Blocked-by: #port-plan-audit
+
+Verification: `make ci AI=1`
+
+Acceptance:
+- [ ] Port-plan Table 4 row for `AttributesPanel` reviewed.
+- [ ] `src/primitives/AttributesPanel.tsx` exports a typed `AttributesPanel`.
+- [ ] `AttributesPanel.stories.tsx` covers every `DCArtboard` variant.
+- [ ] `AttributesPanel.test.tsx` covers entry rendering and actions slot.
+- [ ] `make ci AI=1` green.
+
+---
+
+## Task 11 — Port additional cross-stage molecules from port-plan  {#port-additional-molecules}
+model: sonnet  effort: L  area: pd-ui-frontend
+
+Context: Port-plan Table 4 may identify additional cross-stage
+molecules beyond StageStrip/TabsBand/BulkBar/AttributesPanel.
+Anticipated candidates from recon: `ViewToggle`, `FileToolbar`,
+`ThumbCard`, `RunAllDirtyPanel`, `BuildPackagePanel`, `DiskCostBanner`.
+Final list comes from the audit.
+
+Approach: For each Table 4 row with verdict `cross-stage molecule` not
+covered by Tasks 7–10, port to its target path (port-plan column 5)
+following the same typed-Props + stories + tests pattern. One commit
+per molecule. If audit confirms no additional cross-stage molecules,
+close as no-op.
+
+Blocked-by: #port-plan-audit
+
+Verification: `make ci AI=1`
+
+Acceptance:
+- [ ] Port-plan Table 4 reviewed; additional cross-stage molecules enumerated.
+- [ ] For each enumerated molecule: typed export, collocated stories, collocated tests.
+- [ ] `make ci AI=1` green after each port.
+
+---
+
+## Task 12 — Port PipelineTemplate  {#port-pipelinetemplate}
+model: sonnet  effort: M  area: pd-ui-frontend
+
+Context: Page chrome shared by all wired pipeline stages (Source,
+Grayscale, Crop, Hyphen-join). Slot-based.
+
+Approach: Implement `src/templates/PipelineTemplate.tsx` exposing slot
+props `header`, `stageStrip`, `tabs`, `body`, `bulkBar`. Composes
+`StageStrip` and `TabsBand` from Tasks 7–8. No leaked
+pipeline-specific state types — every slot is a `ReactNode`. Collocated
+stories (one per `DCArtboard` from `final/pipeline/pipeline-template.jsx`)
++ tests asserting each slot renders into the correct testid region.
+
+Blocked-by: #port-plan-audit, #port-stagestrip, #port-tabsband
+
+Verification: `make ci AI=1`
+
+Acceptance:
+- [ ] `src/templates/PipelineTemplate.tsx` exports a typed `PipelineTemplate` with slot props.
+- [ ] `PipelineTemplate.stories.tsx` covers every `DCArtboard` variant from the source.
+- [ ] `PipelineTemplate.test.tsx` asserts each slot renders into its testid region.
+- [ ] `make ci AI=1` green.
+
+---
+
+## Task 13 — Port ProjectsLandingTemplate  {#port-projectslandingtemplate}
+model: sonnet  effort: M  area: pd-ui-frontend
+
+Context: Projects landing chrome from `final/projects/projects.jsx`.
+Slot-based.
+
+Approach: Implement
+`src/templates/ProjectsLandingTemplate.tsx` exposing slot props
+`attributesPanel`, `coverGrid`, `pipelineMini`. Collocated stories +
+tests.
+
+Blocked-by: #port-plan-audit
+
+Verification: `make ci AI=1`
+
+Acceptance:
+- [ ] `src/templates/ProjectsLandingTemplate.tsx` exports a typed template with slot props.
+- [ ] Stories cover every `DCArtboard` variant from the source.
+- [ ] Tests assert each slot renders into its testid region.
+- [ ] `make ci AI=1` green.
+
+---
+
+## Task 14 — Port ProjectSettingsTemplate  {#port-projectsettingstemplate}
+model: sonnet  effort: M  area: pd-ui-frontend
+
+Context: Settings layout from `final/pipeline/project-settings.jsx`.
+Slot-based.
+
+Approach: Implement
+`src/templates/ProjectSettingsTemplate.tsx` exposing slot props
+`panels` (left) and `body` (right). Collocated stories + tests.
+
+Blocked-by: #port-plan-audit
+
+Verification: `make ci AI=1`
+
+Acceptance:
+- [ ] `src/templates/ProjectSettingsTemplate.tsx` exports a typed template with slot props.
+- [ ] Stories cover every `DCArtboard` variant from the source.
+- [ ] Tests assert each slot renders into its testid region.
+- [ ] `make ci AI=1` green.
+
+---
+
+## Task 15 — Write MIGRATION_NOTES.md  {#migration-notes}
+model: haiku  effort: S  area: pd-ui-docs
+
+Context: Final deliverable summarizing what landed where, what was
+deliberately not ported, and what's still ambiguous. PROMPT.md §6
+requirement.
+
+Approach: Write `MIGRATION_NOTES.md` at pd-ui repo root with five
+sections: new exports table (column 1 = pd-ui export path, column 2 =
+design source file); tokens added or aliased; icon mapping reference
+(link to port-plan Table 3); conscious omissions (every `co-locate` or
+`skip` verdict with one-line reason); open questions for CT.
+Demonstration of `final/source/source.jsx` → pd-ui imports is
+documented (the glue itself is part of the follow-on stages spec).
+
+Blocked-by: #port-icon, #port-segmented, #port-stepdots, #port-pageheader, #reconcile-tokens, #port-stagestrip, #port-tabsband, #port-bulkbar, #port-attributespanel, #port-additional-molecules, #port-pipelinetemplate, #port-projectslandingtemplate, #port-projectsettingstemplate
+
+Verification: `git ls-files MIGRATION_NOTES.md && make ci AI=1`
+
+Acceptance:
+- [ ] `MIGRATION_NOTES.md` exists at pd-ui root.
+- [ ] New exports table lists every new pd-ui export with its design source.
+- [ ] Tokens added or aliased section reflects port-plan Table 2 outcomes.
+- [ ] Icon mapping references port-plan Table 3.
+- [ ] Conscious omissions list every `co-locate` / `skip` verdict.
+- [ ] Open questions for CT documented.
+- [ ] `final/source/source.jsx` → pd-ui imports demonstration documented.
 
 ---
 
 ## Done when
 
-- `docs/research/2026-05-24-design-handoff-port-plan.md` exists,
-  CT-approved, and committed.
-- Every Phase 2 and Phase 3 issue under milestone
-  `spec: pd-ui-design-handoff (#N)` is closed.
+- Every task above is closed under milestone `spec: pd-ui-design-handoff (#N)`.
+- `pnpm exec tsc --noEmit` clean under strict settings.
+- `make ci AI=1` green on merge into `main`.
 - `MIGRATION_NOTES.md` exists at pd-ui root.
-- `make ci AI=1` green on the merge commit into `main`.
-- Workspace convention: branches stay local; no PR opened (CT pushes
-  when ready).
+- Workspace convention: branches stay local; no PR opened (CT pushes when ready).
