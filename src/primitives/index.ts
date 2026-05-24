@@ -29,6 +29,9 @@ export type { CardProps } from './Card.js';
 export { Separator } from './Separator.js';
 export type { SeparatorProps, SeparatorOrientation } from './Separator.js';
 
+export { Segmented } from './Segmented.js';
+export type { SegmentedProps, SegmentedOption, SegmentedSize } from './Segmented.js';
+
 export { Progress } from './Progress.js';
 export type { ProgressProps, ProgressStatus } from './Progress.js';
 
