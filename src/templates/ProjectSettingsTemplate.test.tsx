@@ -18,9 +18,6 @@ import {
   PROJECT_SETTINGS_NAV,
   PROJECT_SETTINGS_CONTENT,
   projectSettingsNavItem,
-  PROJECT_INFO_BAND,
-  PROJECT_INFO_BAND_TITLE,
-  PROJECT_INFO_BAND_META,
 } from '../testids/index.js';
 
 // ---------------------------------------------------------------------------
@@ -96,23 +93,16 @@ describe('ProjectSettingsTemplate', () => {
     expect(pane).toContainElement(screen.getByTestId('custom-content'));
   });
 
-  it('renders the project info band', () => {
+  it('renders the project info band (composed from PipelineTemplate)', () => {
     renderTemplate();
-    expect(screen.getByTestId(PROJECT_INFO_BAND)).toBeInTheDocument();
+    expect(screen.getByTestId('pipeline-project-info')).toBeInTheDocument();
   });
 
-  it('renders the project title in the info band', () => {
+  it('renders the project title and author from the info band', () => {
     renderTemplate();
-    expect(screen.getByTestId(PROJECT_INFO_BAND_TITLE)).toHaveTextContent(
-      'Belloc — Survivals & New Arrivals',
-    );
-  });
-
-  it('renders project meta in the info band', () => {
-    renderTemplate();
-    const meta = screen.getByTestId(PROJECT_INFO_BAND_META);
-    expect(meta).toHaveTextContent('Hilaire Belloc');
-    expect(meta).toHaveTextContent('232');
+    const band = screen.getByTestId('pipeline-project-info');
+    expect(band).toHaveTextContent('Belloc — Survivals & New Arrivals');
+    expect(band).toHaveTextContent('Hilaire Belloc');
   });
 
   it('all 8 currentGroup variants render without error', () => {
