@@ -1,0 +1,5 @@
+/* Project tokens — defers to the shared design system.
+   Dark-default warm-charcoal palette; light flips on data-theme="light".
+   Components reference these vars only, never literals. */
+
+@import url("../design-system/tokens.css");
