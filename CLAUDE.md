@@ -32,6 +32,7 @@ Plan: [`../docs/plans/2026-05-16-pd-ui-new-repo.md`](../docs/plans/2026-05-16-pd
 | `make release-major` | bump major version, ci, commit, tag, push |
 | `make codegen` | fetch pinned wheels → emit JSON Schema → generate TS types |
 | `make codegen-check` | runs codegen and fails if output differs |
+| `make update-pd-deps` | bump `codegen.versions.json` to registry latest + re-run codegen; leaves diff for review |
 | `make ci AI=1` | install + lint + typecheck + test + build |
 
 `AI=1` captures verbose output to `.ci-ai.log`; stdout shows pass/fail summary.
