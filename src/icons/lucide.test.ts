@@ -4,31 +4,59 @@ import * as lucideExports from './lucide.js';
 describe('lucide re-exports', () => {
   const expectedIcons = [
     'AlertCircle',
+    'AlertTriangle',   // design "alert"  (OQ-7)
+    'Archive',         // design "archive"
+    'ArrowDown',       // design "arrowDown"
+    'ArrowLeftRight',  // design "swap"  (OQ-8)
+    'ArrowRight',      // design "arrowR"
+    'ArrowUp',         // design "arrowUp"
+    'ArrowUpDown',     // design "arrowUpDown"
+    'Bell',            // design "bell"
     'Check',
+    'CheckCircle',     // design "checkCircle"
     'ChevronDown',
     'ChevronLeft',
     'ChevronRight',
     'ChevronUp',
+    'Copy',            // design "copy"
+    'Download',        // design "download"
     'Edit',
     'Eye',
     'EyeOff',
+    'File',            // design "file"
+    'FileText',        // design "fileText"
+    'Folder',          // design "folder"
     'FolderOpen',
     'GitBranch',
+    'GripVertical',    // design "grip"
+    'HardDrive',       // design "hardDrive"
+    'Image',           // design "image"
     'Info',
     'Keyboard',
     'LayoutList',
+    'Link',            // design "link"
     'List',
     'Loader2',
     'Menu',
     'Minus',
+    'Moon',            // design "moon"
     'MoreHorizontal',
     'MoreVertical',
+    'Package',         // design "package"
     'PanelRightClose',
+    'Pause',           // design "pause"
+    'Play',            // design "play"
     'Plus',
+    'RefreshCw',       // design "refresh"
+    'Scissors',        // design "scissors"
     'Search',
     'Settings',
+    'Sparkles',        // design "sparkles"
     'Square',
+    'Sun',             // design "sun"
     'Trash2',
+    'Upload',          // design "upload"
+    'Wrench',          // design "wrench"
     'X',
   ];
 
