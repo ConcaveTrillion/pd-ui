@@ -149,6 +149,36 @@ a { color: inherit; text-decoration: none; }
 }
 .input.lg { height: 32px; font-size: 13px; }
 .input::placeholder { color: var(--ink-3); }
+/* Stateful focus-ring applied programmatically (autoFocusRing prop) */
+.input.input-focus-ring,
+.input-wrapper.input-focus-ring {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 2px color-mix(in srgb, var(--accent) 22%, transparent);
+}
+
+/* ─── input composite wrapper (suffix slot) ───────────────────── */
+/* Renders when <Input suffix="…"> is used. The wrapper carries the
+   border/background so the row looks like one unified input field. */
+.input-wrapper {
+  display: flex; align-items: center; gap: 8px;
+  height: 28px; padding: 0 10px;
+  background: var(--bg-sunk); border: 1px solid var(--border-2); border-radius: 5px;
+}
+.input-wrapper:focus-within {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 2px color-mix(in srgb, var(--accent) 22%, transparent);
+}
+/* Inner <input> inside composite wrapper — strips its own border/bg */
+.input.input-inner {
+  height: auto; padding: 0; flex: 1;
+  background: transparent; border: none; border-radius: 0;
+  box-shadow: none;
+}
+.input.input-inner:focus { border-color: initial; box-shadow: none; }
+.input-suffix {
+  font-size: 11px; color: var(--ink-3); font-family: var(--mono-font);
+  white-space: nowrap; user-select: none;
+}
 
 /* ─── textarea ────────────────────────────────────────────────── */
 .textarea {

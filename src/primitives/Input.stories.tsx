@@ -36,3 +36,42 @@ export const AllStates: Story = {
     </div>
   ),
 };
+
+/* ─── suffix slot ───────────────────────────────────────────────────────── */
+
+export const WithSuffix: Story = {
+  args: { placeholder: '0', suffix: 'px' },
+};
+
+export const WithSuffixAndValue: Story = {
+  args: { defaultValue: '250', suffix: 'ms' },
+};
+
+export const WithSuffixDisabled: Story = {
+  args: { placeholder: '0', suffix: '%', disabled: true },
+};
+
+/* ─── autoFocusRing ─────────────────────────────────────────────────────── */
+
+export const AutoFocusRing: Story = {
+  args: { placeholder: 'Always-focused appearance', autoFocusRing: true },
+};
+
+export const AutoFocusRingWithSuffix: Story = {
+  args: { defaultValue: '100', suffix: 'px', autoFocusRing: true },
+};
+
+/* ─── composite gallery ─────────────────────────────────────────────────── */
+
+export const SuffixGallery: Story = {
+  render: () => (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', maxWidth: '320px' }}>
+      <Input placeholder="Width" suffix="px" />
+      <Input placeholder="Opacity" suffix="%" defaultValue="100" />
+      <Input placeholder="Duration" suffix="ms" />
+      <Input placeholder="Scale" suffix="×" defaultValue="1.5" />
+      <Input placeholder="Focus-ring always on" suffix="px" autoFocusRing />
+      <Input placeholder="Bare — no suffix (back-compat)" />
+    </div>
+  ),
+};
