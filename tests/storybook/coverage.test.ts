@@ -70,6 +70,9 @@ const WHITELIST: ReadonlySet<string> = new Set([
   // Kanban internals — covered by KanbanBoard.stories.tsx
   'primitives/kanban/KanbanColumn.tsx',
   'primitives/kanban/PageChip.tsx',
+
+  // Template sub-components — covered by the template's own stories
+  'templates/ProjectInfoBand.tsx',
 ]);
 
 // ── Helpers ──────────────────────────────────────────────────────────────────

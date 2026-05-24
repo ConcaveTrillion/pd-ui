@@ -168,7 +168,7 @@ export type { StageStripProps, StageDef } from './templates/index.js';
 // ─── Icons ────────────────────────────────────────────────────────────────────
 export * from './icons/index.js';
 
-// ─── Templates ───────────────────────────────────────────────────────────────
+// ─── Templates ────────────────────────────────────────────────────────────────
 export { TabsBand } from './templates/index.js';
 export type { TabsBandItem, TabsBandProps } from './templates/index.js';
 
@@ -185,6 +185,12 @@ export type {
   TrailItem,
   ProjectInfoBandProps,
   CoverPlaceholderProps,
+} from './templates/index.js';
+
+export { ProjectSettingsTemplate } from './templates/index.js';
+export type {
+  ProjectSettingsTemplateProps,
+  ProjectSettingsGroup,
 } from './templates/index.js';
 
 // ─── Types ────────────────────────────────────────────────────────────────────
