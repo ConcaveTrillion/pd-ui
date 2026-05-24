@@ -126,3 +126,7 @@ export const BACKEND_CHIP = 'backend-chip' as const;
 
 /** Outer span wrapper for CheckIcon. */
 export const CHECK_ICON = 'check-icon' as const;
+// ─── PageChip (Phase 2 M2 atom promotion) ────────────────────────────────────
+
+/** Mono-font page-prefix navigation chip. */
+export const PAGE_CHIP = 'page-chip' as const;

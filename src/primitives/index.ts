@@ -155,7 +155,9 @@ export { BaseJobConfigDialog } from './BaseJobConfigDialog.js';
 export type { BaseJobConfigDialogProps, BaseJobConfig } from './BaseJobConfigDialog.js';
 
 // Kanban board family
-export { KanbanBoard, KanbanColumn, PageChip } from './kanban/index.js';
+// Note: the kanban-internal drag chip is re-exported as KanbanPageChip to avoid
+// collision with the generic PageChip navigation primitive below.
+export { KanbanBoard, KanbanColumn, PageChip as KanbanPageChip } from './kanban/index.js';
 
 // Cross-stage molecules (phase 2, #344 batch 1)
 export { StatTile } from './StatTile.js';
@@ -220,7 +222,7 @@ export type { ThumbGridProps } from './ThumbGrid.js';
 export type {
   KanbanBoardProps,
   KanbanColumnProps,
-  PageChipProps,
+  PageChipProps as KanbanPageChipProps,
   KanbanColumnDef,
   KanbanItemDef,
   KanbanMoveEvent,
@@ -232,3 +234,6 @@ export type {
 // Phase 2 M2 atom promotions
 export { BackendChip } from './BackendChip.js';
 export type { BackendChipProps, BackendValue } from './BackendChip.js';
+// Standalone navigation chip (Phase 2 M2 atom promotion)
+export { PageChip } from './PageChip.js';
+export type { PageChipProps } from './PageChip.js';

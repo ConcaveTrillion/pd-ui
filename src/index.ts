@@ -279,6 +279,9 @@ export type {
 // ─── Phase 2 M2 atom promotions ───────────────────────────────────────────────
 export { BackendChip } from './primitives/index.js';
 export type { BackendChipProps, BackendValue } from './primitives/index.js';
+// ─── PageChip (Phase 2 M2 atom promotion) ────────────────────────────────────
+export { PageChip } from './primitives/index.js';
+export type { PageChipProps } from './primitives/index.js';
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 export * from './types/index.js';
