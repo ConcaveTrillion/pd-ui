@@ -72,6 +72,10 @@ export type { RailProps } from './Rail.js';
 export { RightPanel } from './RightPanel.js';
 export type { RightPanelProps } from './RightPanel.js';
 
-// ─── JobsPill ─────────────────────────────────────────────────────────────────
+// ─── JobsPill (OQ-5 shell molecule) ───────────────────────────────────────────
 export { JobsPill } from './JobsPill.js';
 export type { JobsPillProps, ActiveJob } from './JobsPill.js';
+
+// ─── JobRow (OQ-5 shell molecule) ─────────────────────────────────────────────
+export { JobRow } from './JobRow.js';
+export type { JobRowProps, Job, JobStatus } from './JobRow.js';
