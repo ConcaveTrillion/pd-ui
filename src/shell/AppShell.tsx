@@ -15,6 +15,10 @@
  * Optional zone slots (rail, drawer, rightPanel) render their wrapper divs only
  * when content is provided — absent zones collapse via CSS variable defaults.
  *
+ * NOTE: The `drawer` and `rightPanel` props are @deprecated (OQ-12). AppShell is
+ * converging to a 3-zone shell (header + rail + main). See `AppShellProps` in
+ * `types.ts` for full migration guidance. Both props remain functional for back-compat.
+ *
  * Provides AppShellContext so nested components can call useAppShell().
  * Provides SettingsModalContext so nested components can call useSettingsModal().
  * UIPrefsApplicator applies UIPrefs changes to the DOM (data-density, zoom, data-theme).

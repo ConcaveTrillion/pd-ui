@@ -127,11 +127,29 @@ export interface AppShellProps {
   headerActions?: React.ReactNode;
   /** Content for the 64px wide left rail zone. */
   rail?: React.ReactNode;
-  /** Content for the collapsible drawer zone. */
+  /**
+   * Content for the collapsible drawer zone.
+   *
+   * @deprecated OQ-12: AppShell is converging to a 3-zone shell (header + rail + main).
+   * Templates own their own interior layouts; the preferred pattern is to embed a
+   * `<ProjectsDrawer>` molecule (or equivalent) directly inside `main` rather than
+   * wiring it through AppShell's layout grid. The `drawer` prop is retained for
+   * back-compat with `pd-ocr-labeler-spa` and `pd-prep-for-pgdp` until those apps
+   * migrate. Breaking removal is deferred to a future spec after migration is complete.
+   */
   drawer?: React.ReactNode;
   /** Content for the main content area (required). */
   main: React.ReactNode;
-  /** Content for the right panel zone. */
+  /**
+   * Content for the right panel zone.
+   *
+   * @deprecated OQ-12: AppShell is converging to a 3-zone shell (header + rail + main).
+   * Templates own their own interior layouts; the preferred pattern is to embed a
+   * right-panel molecule directly inside `main` rather than wiring it through
+   * AppShell's layout grid. The `rightPanel` prop is retained for back-compat with
+   * `pd-ocr-labeler-spa` and `pd-prep-for-pgdp` until those apps migrate. Breaking
+   * removal is deferred to a future spec after migration is complete.
+   */
   rightPanel?: React.ReactNode;
   /**
    * Content for the footer zone below the main content area.
