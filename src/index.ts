@@ -273,5 +273,9 @@ export type {
   RotateHandleProps,
 } from './stages/PageWorkbench/index.js';
 
+// ─── Phase 2 M2 atom promotions ───────────────────────────────────────────────
+export { BackendChip } from './primitives/index.js';
+export type { BackendChipProps, BackendValue } from './primitives/index.js';
+
 // ─── Types ────────────────────────────────────────────────────────────────────
 export * from './types/index.js';

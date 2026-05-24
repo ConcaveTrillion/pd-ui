@@ -116,3 +116,8 @@ export const ARTIFACT_PLATE = 'artifact-plate' as const;
 
 /** Inner paper render surface (PaperRender). */
 export const PAPER_RENDER = 'paper-render' as const;
+
+// ─── BackendChip (Phase 2 M2 atom) ───────────────────────────────────────────
+
+/** GPU / CPU / auto status chip. */
+export const BACKEND_CHIP = 'backend-chip' as const;

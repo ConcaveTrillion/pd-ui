@@ -225,3 +225,7 @@ export type {
   KanbanColumnHeaderProps,
   KanbanChipRenderProps,
 } from './kanban/index.js';
+
+// Phase 2 M2 atom promotions
+export { BackendChip } from './BackendChip.js';
+export type { BackendChipProps, BackendValue } from './BackendChip.js';
