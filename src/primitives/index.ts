@@ -2,6 +2,13 @@
 export { BulkActionBar } from './BulkActionBar.js';
 export type { BulkActionBarProps, BulkActionBarVariant } from './BulkActionBar.js';
 
+export { AttributesPanel } from './AttributesPanel.js';
+export type {
+  AttributesPanelProps,
+  AttributesPanelProject,
+  AttributesPanelSectionKey,
+} from './AttributesPanel.js';
+
 export { Button } from './Button.js';
 export type { ButtonProps, ButtonVariant, ButtonSize } from './Button.js';
 
