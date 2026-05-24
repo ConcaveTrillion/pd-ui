@@ -172,6 +172,9 @@ export type { RowFlagBadgeProps } from './RowFlagBadge.js';
 export { Toggle } from './Toggle.js';
 export type { ToggleProps } from './Toggle.js';
 
+export { ToggleBadge } from './ToggleBadge.js';
+export type { ToggleBadgeProps } from './ToggleBadge.js';
+
 export { DiskCostBanner } from './DiskCostBanner.js';
 export type { DiskCostBannerProps } from './DiskCostBanner.js';
 

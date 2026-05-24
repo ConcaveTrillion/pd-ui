@@ -130,3 +130,6 @@ export const CHECK_ICON = 'check-icon' as const;
 
 /** Mono-font page-prefix navigation chip. */
 export const PAGE_CHIP = 'page-chip' as const;
+// ─── ToggleBadge (Phase 2 M2 atom) ───────────────────────────────────────────
+
+export const TOGGLE_BADGE = 'toggle-badge' as const;
