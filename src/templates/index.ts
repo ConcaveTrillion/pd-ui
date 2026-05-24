@@ -23,3 +23,19 @@ export type {
   ProjectsDrawerTab,
   ProjectStatus,
 } from './ProjectsDrawer.js';
+
+// ─── PipelineTemplate (#345) ──────────────────────────────────────────────────
+export {
+  PipelineTemplate,
+  PipelineEmptySlot,
+  ProjectInfoBand,
+  CoverPlaceholder,
+  getTabsForStage,
+} from './PipelineTemplate.js';
+export type {
+  PipelineTemplateProps,
+  PipelineProject,
+  TrailItem,
+  ProjectInfoBandProps,
+  CoverPlaceholderProps,
+} from './PipelineTemplate.js';

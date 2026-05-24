@@ -172,5 +172,20 @@ export * from './icons/index.js';
 export { TabsBand } from './templates/index.js';
 export type { TabsBandItem, TabsBandProps } from './templates/index.js';
 
+export {
+  PipelineTemplate,
+  PipelineEmptySlot,
+  ProjectInfoBand,
+  CoverPlaceholder,
+  getTabsForStage,
+} from './templates/index.js';
+export type {
+  PipelineTemplateProps,
+  PipelineProject,
+  TrailItem,
+  ProjectInfoBandProps,
+  CoverPlaceholderProps,
+} from './templates/index.js';
+
 // ─── Types ────────────────────────────────────────────────────────────────────
 export * from './types/index.js';

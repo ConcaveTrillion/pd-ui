@@ -45,3 +45,15 @@ export const settingsAppearanceColorReset = (key: string) => `settings-appearanc
 
 export const JOB_ROW = 'job-row' as const;
 export const JOB_ROW_STATUS_FAILED = 'job-row-status-failed' as const;
+
+// ─── PipelineTemplate (#345) ──────────────────────────────────────────────────
+
+export const PIPELINE_TEMPLATE = 'pipeline-template' as const;
+export const PIPELINE_BREADCRUMB = 'pipeline-breadcrumb' as const;
+export const PIPELINE_CONTROLS = 'pipeline-controls' as const;
+export const PIPELINE_PROJECT_INFO = 'pipeline-project-info' as const;
+export const PIPELINE_STAGE_STRIP = 'pipeline-stage-strip' as const;
+export const PIPELINE_TABS = 'pipeline-tabs' as const;
+export const PIPELINE_BODY = 'pipeline-body' as const;
+export const PIPELINE_EMPTY_SLOT = 'pipeline-empty-slot' as const;
+export const COVER_PLACEHOLDER = 'cover-placeholder' as const;
