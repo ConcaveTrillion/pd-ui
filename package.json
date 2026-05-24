@@ -66,8 +66,14 @@
     "./theme/primitives.css": "./theme/primitives.css"
   },
   "peerDependencies": {
-    "react": "^18.0.0",
-    "react-dom": "^18.0.0"
+    "react": "^18.0.0 || ^19.0.0",
+    "react-dom": "^18.0.0 || ^19.0.0",
+    "react-konva": "^19.0.0"
+  },
+  "peerDependenciesMeta": {
+    "react-konva": {
+      "optional": false
+    }
   },
   "dependencies": {
     "@dnd-kit/core": "^6.0.0",
@@ -86,12 +92,12 @@
     "clsx": "^2.0.0",
     "konva": "^9.0.0",
     "lucide-react": "^0.400.0",
-    "react-konva": "^18.0.0",
     "react-virtuoso": "^4.0.0",
     "zustand": "^4.0.0"
   },
   "devDependencies": {
     "@playwright/test": "^1.60.0",
+    "react-konva": "^19.0.0",
     "@storybook/addon-a11y": "^8.0.0",
     "@storybook/addon-essentials": "^8.0.0",
     "@storybook/addon-interactions": "^8.0.0",
