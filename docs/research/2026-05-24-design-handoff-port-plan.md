@@ -291,3 +291,46 @@ The left rail inside `ProjectSettingsTemplate` is an inline 8-item list (general
 
 **OQ-12 · `AppTemplate` → `AppShell` mapping.**
 `AppTemplate` (header + breadcrumb + content slot) is the design's full shell. pd-ui's `AppShell` is a 5-zone CSS grid (header, rail, drawer, main, right). The design's two-zone layout (header band + content) is a subset of pd-ui's model. When porting `PipelineTemplate` and `ProjectSettingsTemplate`, CT should confirm: do these templates wrap `AppShell` directly, or do they compose a new `AppShellPage` layout wrapper that provides header + breadcrumb + content as a simpler interface on top of `AppShell`?
+
+---
+
+## CT review decisions (2026-05-24)
+
+All 12 open questions resolved. Decisions below are authoritative for Phase 2/3 implementation; plan amendments follow in a separate commit.
+
+| OQ | Decision | Rationale / scope |
+|---|---|---|
+| **OQ-1** Icon dispatcher | **Extend pd-ui** — add `<Icon name>` dispatcher shim in `src/icons/` that maps to named lucide/bespoke exports | Lets ported stage code use the design's API verbatim; named-export style still available |
+| **OQ-2** Button icon/iconRight/full | **Extend pd-ui Button** with `icon`, `iconRight`, `full` optional props | Non-breaking; pd-ui callers can ignore the new props |
+| **OQ-3** Input composite wrapper + suffix | **Extend pd-ui Input** (or add `InputField` composite) with wrapper + `suffix` slot + `autoFocus` ring | Same rationale; non-breaking additions |
+| **OQ-4** Badge tone system | **Extend pd-ui Badge** with `tone` prop carrying 13 semantic values (exact / fuzzy / mismatch / ocr / gt / review / running / clean / dirty / etc. — full list per design) | Status-tone is domain vocabulary used across every stage; structural variants (default/primary/danger) stay |
+| **OQ-5** AppHeader + JobsPill / JobsDrawer / JobRow | **Port all four** into `src/shell/` | Every pd-* SPA needs a jobs indicator + user avatar; centralizing avoids per-SPA re-implementation |
+| **OQ-6** `--font-sans` / `--font-mono` aliases | **Do NOT add** | Consumers use canonical `--ui-font` / `--mono-font`; port-time rewrites at consumer side |
+| **OQ-7** `alert` icon → lucide name | **`AlertTriangle`** (lucide-react ^0.400.0 confirmed in package.json) | Mechanical |
+| **OQ-8** `swap` icon | **`ArrowLeftRight`** | Straight bidirectional matches design SVG |
+| **OQ-9** Toggle primitive | **Radix `Switch` in `src/primitives/Toggle.tsx`** | Matches existing pattern (Radix for behavior-heavy primitives) |
+| **OQ-10** SettingsNav extraction | **Extract as `src/templates/SettingsNav.tsx`** | Pattern recurs across pd-* SPAs with settings; cheap now, free reuse later |
+| **OQ-11** ProjectsPage emptyState | **Merge into single `ProjectsLandingTemplate`** with `state: 'populated' \| 'empty'` discriminated union | Same conceptual page; shared chrome |
+| **OQ-12** AppTemplate → AppShell | **Revised AppShell to 3 zones (header + rail + main)**; deprecate `drawer` / `rightPanel` props in JSDoc (kept for back-compat with `pd-ocr-labeler-spa` + `pd-prep-for-pgdp`); templates own internal sub-layouts. Add **`ProjectsDrawer`** as a suite-wide molecule (embed in templates, not a shell zone). | Cleaner separation: shell = consistent suite chrome; templates = pluggable interior layouts. Breaking removal of `drawer` / `rightPanel` from AppShell deferred to a future spec after labeler-spa + prep-for-pgdp migrate. |
+
+### Plan-amendment implications
+
+The OQ decisions add new tasks and amend existing ones. Plan file `docs/plans/2026-05-24-pd-ui-design-handoff.md` is updated separately and re-synced; new GH issues file under milestone #16.
+
+**New tasks introduced:**
+- Extend pd-ui Button (OQ-2)
+- Extend pd-ui Input (OQ-3)
+- Extend pd-ui Badge with `tone` (OQ-4)
+- Port AppHeader (OQ-5)
+- Port JobsPill (OQ-5)
+- Port JobsDrawer (OQ-5)
+- Port JobRow (OQ-5)
+- Port ProjectsDrawer molecule (OQ-12)
+- Port SettingsNav template (OQ-10)
+- Deprecate AppShell `drawer` / `rightPanel` props (JSDoc + tests) (OQ-12)
+
+**Existing tasks amended:**
+- **Task 2 (#335) Port Icon** — also adds `<Icon name>` dispatcher shim (OQ-1)
+- **Task 5 (#338) Port PageHeader** — verdict confirmed: port
+- **Task 6 (#339) Reconcile token diff** — close as no-op (OQ-6 directs no aliases)
+- **Task 13 (#346) ProjectsLandingTemplate** — handle merged empty state via `state` discriminated union (OQ-11)
