@@ -588,7 +588,14 @@ PageWorkbench composition components, exported from
 | `BlockTypePickerPanel` | `63ba716` | Right-drawer type chooser (3-col grid with arrow-key nav). Internal `TypeGrid`. |
 | `PageAttributesPanel` | `6b77cde` | Right-drawer vertical form sibling of `PageAttributesBar` (shares `PageAttribute` type). |
 
-Remaining M2 cross-cutting (2 of 10): `OcrTextPanel`, `LabelerCanvas`.
+### M2 cross-cutting — batch 3 (M2 complete, 2026-05-24)
+
+| Export | Commit | Description |
+|---|---|---|
+| `OcrTextPanel` | `b2b9f88` | Right-drawer OCR review (cards/rows view modes). 5 internals: LineBlockCard, LineBlockRow, WordCard, WordRow, ConfPip. ConfPip confidence thresholds: ≥0.9 exact, ≥0.7 fuzzy, <0.7 mismatch. |
+| `LabelerCanvas` | `9fb1e71` | PageImageCanvas-composing annotation surface. Renders block bboxes in `underlay`, 8-handle selection visual in `tool`. Drag-to-create + handle-drag explicitly OUT OF SCOPE for M2 (follow-on). |
+
+**M2 complete: 14 exports** (4 atom promotions + 10 PageWorkbench components + their types).
 
 ---
 
