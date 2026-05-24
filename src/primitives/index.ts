@@ -1,4 +1,7 @@
 // Non-Radix primitives
+export { BulkActionBar } from './BulkActionBar.js';
+export type { BulkActionBarProps, BulkActionBarVariant } from './BulkActionBar.js';
+
 export { Button } from './Button.js';
 export type { ButtonProps, ButtonVariant, ButtonSize } from './Button.js';
 

@@ -1087,3 +1087,84 @@ a { color: inherit; text-decoration: none; }
 .tabs-band__tab--active .tabs-band__count {
   background: color-mix(in srgb, var(--accent) 18%, transparent);
   color: var(--accent);
+
+/* ── BulkActionBar ─────────────────────────────────────────────────── */
+/*
+ * Cross-stage molecule: appears when one or more items are selected.
+ * Two layout variants:
+ *   dock  — bottom bar docked inside a panel, border-top (wf03 / wf11 / wf-pw)
+ *   float — absolutely-positioned floating card above scroll content (wf10)
+ *
+ * When no variant class is present, the bar lays out as a flex row but
+ * applies no positional CSS — the consumer controls placement.
+ */
+.bulk-action-bar {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  padding: 10px 14px;
+  background: var(--bg-surface);
+}
+
+/* Dock variant: full-width bottom strip inside a panel */
+.bulk-action-bar--dock {
+  height: 56px;
+  padding: 0 32px;
+  flex-wrap: nowrap;
+  border-top: 1px solid var(--border-1);
+  box-shadow: 0 -8px 24px -8px rgba(15, 23, 42, 0.10);
+}
+
+/* Float variant: floating card above scroll content */
+.bulk-action-bar--float {
+  position: absolute;
+  left: 24px;
+  right: 24px;
+  bottom: 16px;
+  border: 1px solid var(--border-2);
+  border-radius: 8px;
+  box-shadow: var(--shadow-floating);
+  z-index: 20;
+}
+
+.bulk-action-bar__info {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+}
+
+.bulk-action-bar__count {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--ink-1);
+}
+
+.bulk-action-bar__flag-summary {
+  font-size: 11.5px;
+  color: var(--ink-3);
+}
+
+.bulk-action-bar__actions {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.bulk-action-bar__end {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-left: auto;
+  flex-shrink: 0;
+}
+
+.bulk-action-bar__hint {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 11px;
+  color: var(--ink-4);
+}
