@@ -37,4 +37,63 @@ describe('Badge', () => {
     expect(screen.getByTestId('b').classList.contains('badge')).toBe(true);
     expect(screen.getByTestId('b').classList.contains('extra')).toBe(true);
   });
+
+  // ── tone prop ─────────────────────────────────────────────────────────
+  const tones = [
+    'neutral', 'brand', 'clean', 'exact', 'dirty', 'fuzzy',
+    'review', 'running', 'ocr', 'failed', 'mismatch', 'error', 'gt',
+  ] as const;
+
+  for (const tone of tones) {
+    it(`adds tone class badge--tone-${tone} for tone="${tone}"`, () => {
+      render(<Badge tone={tone} data-testid="b">x</Badge>);
+      expect(screen.getByTestId('b').classList.contains(`badge--tone-${tone}`)).toBe(true);
+    });
+  }
+
+  it('does not add any tone class when tone is omitted', () => {
+    render(<Badge data-testid="b">x</Badge>);
+    const el = screen.getByTestId('b');
+    expect([...el.classList].some((c) => c.startsWith('badge--tone-'))).toBe(false);
+  });
+
+  it('dot prop adds badge--dot class', () => {
+    render(<Badge dot data-testid="b">x</Badge>);
+    expect(screen.getByTestId('b').classList.contains('badge--dot')).toBe(true);
+  });
+
+  it('dot prop absent means no badge--dot class', () => {
+    render(<Badge data-testid="b">x</Badge>);
+    expect(screen.getByTestId('b').classList.contains('badge--dot')).toBe(false);
+  });
+
+  it('mono prop adds badge--mono class', () => {
+    render(<Badge mono data-testid="b">x</Badge>);
+    expect(screen.getByTestId('b').classList.contains('badge--mono')).toBe(true);
+  });
+
+  it('mono prop absent means no badge--mono class', () => {
+    render(<Badge data-testid="b">x</Badge>);
+    expect(screen.getByTestId('b').classList.contains('badge--mono')).toBe(false);
+  });
+
+  it('tone and variant can coexist', () => {
+    render(<Badge variant="primary" tone="exact" data-testid="b">x</Badge>);
+    const el = screen.getByTestId('b');
+    expect(el.classList.contains('primary')).toBe(true);
+    expect(el.classList.contains('badge--tone-exact')).toBe(true);
+  });
+
+  it('dot prop renders a dot span inside when tone is set', () => {
+    render(<Badge tone="exact" dot data-testid="b">label</Badge>);
+    const badge = screen.getByTestId('b');
+    const dot = badge.querySelector('.badge__dot');
+    expect(dot).not.toBeNull();
+  });
+
+  it('dot prop does NOT render a dot span when tone is neutral', () => {
+    render(<Badge tone="neutral" dot data-testid="b">label</Badge>);
+    const badge = screen.getByTestId('b');
+    expect(badge.querySelector('.badge__dot')).toBeNull();
+  });
 });
