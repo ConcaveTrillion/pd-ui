@@ -13,6 +13,7 @@
  *   ./types       — generated TS types + *Like reductions
  *   ./stores      — Zustand store factories + context-bound hooks
  *   ./testids     — data-testid constants catalog
+ *   ./templates   — composed molecules and page-level template components
  *   ./theme/tokens.css      — dark/light CSS custom properties
  *   ./theme/primitives.css  — component-level CSS classes
  */
@@ -166,6 +167,10 @@ export type { StageStripProps, StageDef } from './templates/index.js';
 
 // ─── Icons ────────────────────────────────────────────────────────────────────
 export * from './icons/index.js';
+
+// ─── Templates ───────────────────────────────────────────────────────────────
+export { TabsBand } from './templates/index.js';
+export type { TabsBandItem, TabsBandProps } from './templates/index.js';
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 export * from './types/index.js';

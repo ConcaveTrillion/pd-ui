@@ -11,6 +11,10 @@
 export { StageStrip, PIPELINE_STAGES } from './StageStrip.js';
 export type { StageStripProps, StageDef } from './StageStrip.js';
 
+// ─── TabsBand (#341) ──────────────────────────────────────────────────────────
+export { TabsBand } from './TabsBand.js';
+export type { TabsBandItem, TabsBandProps } from './TabsBand.js';
+
 // ─── ProjectsDrawer (#356, OQ-12) ─────────────────────────────────────────────
 export { ProjectsDrawer } from './ProjectsDrawer.js';
 export type {
