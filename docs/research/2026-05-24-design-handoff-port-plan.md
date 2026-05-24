@@ -41,10 +41,10 @@ The design exports 11 atoms + 1 full app-frame via `Object.assign(window, …)`.
 Every `--*` custom property from `docs/templates/design_handoff_pd_ui/design-system/tokens.css`
 compared against `theme/tokens.css`.
 
-**Scope difference:** design `tokens.css` is scoped to `:root` / `[data-theme="light"]`.
-pd-ui `theme/tokens.css` also uses `:root` / `[data-theme="light"]`.
-The design bundle's _stage-file_ tokens are scoped under `.pgd { … }` — those are
-the same CSS custom properties, just applied inside a class boundary rather than globally.
+**Scope difference:** design `tokens.css` is scoped to `.pgd {}` / `.pgd[data-theme="light"]`.
+pd-ui `theme/tokens.css` uses `:root` / `[data-theme="light"]` (global scope).
+The design bundle applies tokens inside a `.pgd` class boundary rather than globally —
+the same custom property names, but scoped to the `.pgd` root element.
 
 ### Dark theme (`:root`)
 
@@ -164,7 +164,7 @@ Every `name` key in the design's `Icon` component switch-statement
 | `swap` | `ArrowLeftRight` or `Repeat2` | `port to lucide` | — | Design SVG has two-sided arrows in a loop shape. Closest lucide is `Repeat2`. See **OQ-8**. |
 | `copy` | `Copy` | `port to lucide` | — | Not yet exported; add |
 
-**Icon summary:** 10 already exported; 30 not yet in `lucide.ts` and need to be added.
+**Icon summary:** 12 already exported; 28 not yet in `lucide.ts` and need to be added.
 No design icon requires a bespoke component — all have lucide equivalents.
 Note: `folder` should be audited against the already-exported `FolderOpen` to decide
 if a plain `Folder` is also needed.
@@ -189,7 +189,7 @@ Identifiers with count ≥ 3 from the frequency table (excluding `App` which is 
 | `Tab` | 5 | wf02/pipeline-shell, wf05/pipeline-shell, wf05b/pipeline-shell, wf09/pipeline-shell, wf10/pipeline-shell | `stage-specific` | — | Thin local tab-item helper inside each pipeline-shell file. Differs from pd-ui `Tabs` primitive. Co-locates with consumer. |
 | `ProjectConfigureFrame` | 5 | wf02/pipeline-shell, wf05/pipeline-shell, wf05b/pipeline-shell, wf09/pipeline-shell, wf10/pipeline-shell | `cross-stage molecule` | `src/templates/ProjectConfigureFrame.tsx` | `BuildPackagePanel`; `RunAllDirtyPanel`; `DiskCostBanner`; layout grid |
 | `FlagChip` | 4 | wf03/wf03-variations, wf10/crops-grid, wf11/wf03-variations, wf-pw/wf03-variations | `cross-stage molecule` | `src/primitives/FlagChip.tsx` | `Badge` tone system; flag metadata |
-| `Toggle` | 4 | wf03/wf03-variations, wf11/wf03-variations, wf-pw/wf03-variations, final/pipeline/project-settings | `already-in-pd-ui` (close) | — | pd-ui has `ToggleGroup` (Radix) but no standalone Toggle switch. Design's `Toggle` is an inline boolean switch (30×18px pill). Not covered by `ToggleGroup`. See **OQ-9**. |
+| `Toggle` | 4 | wf03/wf03-variations, wf11/wf03-variations, wf-pw/wf03-variations, final/pipeline/project-settings | `cross-stage molecule` | `src/primitives/Toggle.tsx` | pd-ui has `ToggleGroup` (Radix) but no standalone Toggle switch. Design's `Toggle` is an inline boolean switch (30×18px pill). Not covered by `ToggleGroup`. See **OQ-9**. |
 | `CheckRow` | 4 | wf02/validation-panel, wf05/library-variations, wf11/wf-pw-variations, wf-pw/wf-pw-variations | `stage-specific` | — | Context varies significantly across files. Not a shared molecule. |
 | `PageThumb` | 4 | wf03/wf03-variations, wf09/pages-tab, wf11/wf03-variations, wf-pw/wf03-variations | `stage-specific` | — | Page image thumbnail; closely coupled to page/image data model. Defer to stage-specific SPA. |
 | `BulkActionBar` | 4 | wf03/wf03-variations, wf10/crops-grid, wf11/wf03-variations, wf-pw/wf03-variations | `cross-stage molecule` | `src/primitives/BulkActionBar.tsx` | `Button`; selection count; action callbacks |
@@ -222,7 +222,7 @@ Identifiers with count ≥ 3 from the frequency table (excluding `App` which is 
 | `VariationB` | 3 | wf03/wf03-variations, wf11/wf03-variations, wf-pw/wf03-variations | `skip` | — | Same — demo frame. |
 | `ThemedFrame` | 3 | wf03/wf03-variations, wf11/wf03-variations, wf-pw/wf03-variations | `skip` | — | Design-canvas theme wrapper. Equivalent of `AppFrame` in wireframe artboards. Not portworthy. |
 
-**Table 4 summary:** 19 cross-stage molecules identified for porting (14 in `src/primitives/`, 3 in `src/templates/`); 1 close-enough existing primitive with API gap (`Toggle`); 15 data constants or demo scaffolding (`skip`/`stage-specific`).
+**Table 4 summary:** 23 cross-stage molecules identified for porting (21 in `src/primitives/`, 2 in `src/templates/`); 15 data constants or demo scaffolding (`skip`/`stage-specific`).
 
 ---
 
