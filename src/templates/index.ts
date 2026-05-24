@@ -39,3 +39,9 @@ export type {
   ProjectInfoBandProps,
   CoverPlaceholderProps,
 } from './PipelineTemplate.js';
+// ─── ProjectSettingsTemplate (#347) ──────────────────────────────────────────
+export { ProjectSettingsTemplate } from './ProjectSettingsTemplate.js';
+export type {
+  ProjectSettingsTemplateProps,
+  ProjectSettingsGroup,
+} from './ProjectSettingsTemplate.js';

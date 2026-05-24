@@ -57,3 +57,18 @@ export const PIPELINE_TABS = 'pipeline-tabs' as const;
 export const PIPELINE_BODY = 'pipeline-body' as const;
 export const PIPELINE_EMPTY_SLOT = 'pipeline-empty-slot' as const;
 export const COVER_PLACEHOLDER = 'cover-placeholder' as const;
+
+// ─── ProjectInfoBand ──────────────────────────────────────────────────────────
+
+export const PROJECT_INFO_BAND = 'project-info-band' as const;
+export const PROJECT_INFO_BAND_TITLE = 'project-info-band-title' as const;
+export const PROJECT_INFO_BAND_META = 'project-info-band-meta' as const;
+export const PROJECT_INFO_BAND_SETTINGS_BTN = 'project-info-band-settings-btn' as const;
+
+// ─── ProjectSettingsTemplate ──────────────────────────────────────────────────
+
+export const PROJECT_SETTINGS_TEMPLATE = 'project-settings-template' as const;
+export const PROJECT_SETTINGS_NAV = 'project-settings-nav' as const;
+export const PROJECT_SETTINGS_CONTENT = 'project-settings-content' as const;
+/** Nav item for a given group id: `project-settings-nav-item-${id}` */
+export const projectSettingsNavItem = (id: string) => `project-settings-nav-item-${id}` as const;
