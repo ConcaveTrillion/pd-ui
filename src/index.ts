@@ -279,6 +279,8 @@ export type {
 } from './stages/PageWorkbench/index.js';
 export { EditModeSelector } from './stages/PageWorkbench/index.js';
 export type { EditModeSelectorProps, EditMode } from './stages/PageWorkbench/index.js';
+export { StageControlsPanel } from './stages/PageWorkbench/index.js';
+export type { StageControlsPanelProps, Inheritance } from './stages/PageWorkbench/index.js';
 
 // ─── Phase 2 M2 atom promotions ───────────────────────────────────────────────
 export { BackendChip } from './primitives/index.js';

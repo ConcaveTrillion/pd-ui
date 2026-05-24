@@ -35,3 +35,5 @@ export type { RotateHandleProps } from './RotateHandle.js'
 
 export { EditModeSelector } from './EditModeSelector.js'
 export type { EditModeSelectorProps, EditMode } from './EditModeSelector.js'
+export { StageControlsPanel } from './StageControlsPanel.js'
+export type { StageControlsPanelProps, Inheritance } from './StageControlsPanel.js'

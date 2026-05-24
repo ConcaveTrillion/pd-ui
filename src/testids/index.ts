@@ -138,3 +138,13 @@ export const TOGGLE_BADGE = 'toggle-badge' as const;
 
 /** PageWorkbench segmented mode picker (View / Split / Illustration / Rotate). */
 export const EDIT_MODE_SELECTOR = 'edit-mode-selector' as const;
+// ─── StageControlsPanel (Phase 2 M2) ─────────────────────────────────────────
+
+/** Outer aside wrapper for StageControlsPanel. */
+export const STAGE_CONTROLS_PANEL = 'stage-controls-panel' as const;
+
+/** Revert button in StageControlsPanel footer. */
+export const STAGE_CONTROLS_PANEL_REVERT = 'stage-controls-panel-revert' as const;
+
+/** Save-as-default button in StageControlsPanel footer. */
+export const STAGE_CONTROLS_PANEL_SAVE = 'stage-controls-panel-save' as const;
