@@ -56,3 +56,6 @@ export type {
 export { BlockTypePickerPanel } from './BlockTypePickerPanel.js'
 export type { BlockTypePickerPanelProps, BlockTypeOption } from './BlockTypePickerPanel.js'
 // TypeGrid is intentionally NOT exported — internal sub-component.
+
+export { PageAttributesPanel } from './PageAttributesPanel.js'
+export type { PageAttributesPanelProps } from './PageAttributesPanel.js'

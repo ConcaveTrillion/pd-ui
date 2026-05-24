@@ -297,6 +297,9 @@ export type { HierarchyTreePanelProps, TreeNode, TreeNodeType } from './stages/P
 // BlockTypePickerPanel (Phase 2 M2)
 export { BlockTypePickerPanel } from './stages/PageWorkbench/index.js';
 export type { BlockTypePickerPanelProps, BlockTypeOption } from './stages/PageWorkbench/index.js';
+// PageAttributesPanel (Phase 2 M2)
+export { PageAttributesPanel } from './stages/PageWorkbench/index.js';
+export type { PageAttributesPanelProps } from './stages/PageWorkbench/index.js';
 
 // ─── Phase 2 M2 atom promotions ───────────────────────────────────────────────
 export { BackendChip } from './primitives/index.js';

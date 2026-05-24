@@ -203,3 +203,14 @@ export const BLOCK_TYPE_PICKER_PANEL = 'block-type-picker-panel' as const;
  * Playwright drivers use these to click individual type options.
  */
 export const blockTypePickerOptionTestId = (value: string) => `block-type-${value}` as const;
+
+// ─── PageAttributesPanel (Phase 2 M2) ────────────────────────────────────────
+
+/** Outer aside wrapper for the page attributes panel (right-drawer). */
+export const PAGE_ATTRIBUTES_PANEL = 'page-attributes-panel' as const;
+
+/**
+ * Build a testid for a specific attribute row: `page-attr-panel-row-{id}`.
+ * Playwright drivers use these to target individual attribute rows.
+ */
+export const pageAttrPanelRowTestId = (id: string) => `page-attr-panel-row-${id}` as const;
