@@ -131,6 +131,9 @@ export type { ColorFieldProps } from './ColorField.js';
 export { cn } from './cn.js';
 
 // Layout components
+export { PageHeader } from './PageHeader.js';
+export type { PageHeaderProps } from './PageHeader.js';
+
 export { PageSplitView } from './PageSplitView.js';
 export type { PageSplitViewProps } from './PageSplitView.js';
 
