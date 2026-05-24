@@ -44,7 +44,7 @@ help:
 	@echo "  storybook-build  build Storybook static site"
 	@echo "  e2e            build Storybook static site + run Playwright e2e tests"
 	@echo "  e2e-ci         run Playwright e2e tests (assumes storybook-static exists)"
-	@echo "  ci             install + lint + typecheck + test + build + codegen-check"
+	@echo "  ci             install + lint + typecheck + build + test + codegen-check (theme-check omitted: requires workspace-level ../docs)"
 	@echo ""
 	@echo "  mise-download  Download the mise binary"
 	@echo "  mise-trust-worktrees  Trust generated worktree roots for mise"
@@ -89,7 +89,7 @@ e2e: storybook-build
 e2e-ci:
 	$(call _pnpm,exec playwright test --reporter=html)
 
-ci: install lint typecheck test build codegen-check theme-check
+ci: install lint typecheck build test codegen-check
 
 mise-download:
 	@if [ -x "$(MISE)" ]; then \
