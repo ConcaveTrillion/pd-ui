@@ -15,7 +15,21 @@ Plan: [`../docs/plans/2026-05-16-pd-ui-new-repo.md`](../docs/plans/2026-05-16-pd
 | `make typecheck` | `tsc --noEmit` |
 | `make test` | Vitest (jsdom) |
 | `make build` | Vite library build → `dist/` |
+| `make format` | apply Prettier to `src/` + `tests/` |
+| `make format-check` | check Prettier formatting without writing |
+| `make pre-commit-check` | lint + typecheck + format-check (no pre-commit config) |
+| `make upgrade-deps` | `pnpm update --latest` |
 | `make frontend-build` | alias for `build` |
+| `make frontend-install` | alias for `install` |
+| `make frontend-dev` | Vite dev server |
+| `make frontend-test` | alias for `test` |
+| `make frontend-lint` | alias for `lint` |
+| `make frontend-format` | alias for `format` |
+| `make frontend-format-check` | alias for `format-check` |
+| `make frontend-knip` | knip dead-export scan |
+| `make release-patch` | bump patch version, ci, commit, tag, push |
+| `make release-minor` | bump minor version, ci, commit, tag, push |
+| `make release-major` | bump major version, ci, commit, tag, push |
 | `make codegen` | fetch pinned wheels → emit JSON Schema → generate TS types |
 | `make codegen-check` | runs codegen and fails if output differs |
 | `make ci AI=1` | install + lint + typecheck + test + build |
