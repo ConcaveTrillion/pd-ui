@@ -81,6 +81,8 @@ const WHITELIST: ReadonlySet<string> = new Set([
   'stages/PageWorkbench/AttrEditorPopover.tsx',
   // TreeRow is an internal sub-component of HierarchyTreePanel — covered by HierarchyTreePanel.stories.tsx
   'stages/PageWorkbench/TreeRow.tsx',
+  // TypeGrid is an internal sub-component of BlockTypePickerPanel — covered by BlockTypePickerPanel.stories.tsx
+  'stages/PageWorkbench/TypeGrid.tsx',
 ]);
 
 // ── Helpers ──────────────────────────────────────────────────────────────────

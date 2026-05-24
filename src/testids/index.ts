@@ -192,3 +192,14 @@ export const HIERARCHY_TREE_PANEL = 'hierarchy-tree-panel' as const;
  * Playwright drivers use these to interact with individual nodes.
  */
 export const treeRowTestId = (id: string) => `tree-row-${id}` as const;
+
+// ─── BlockTypePickerPanel (Phase 2 M2) ───────────────────────────────────────
+
+/** Outer aside wrapper for BlockTypePickerPanel. */
+export const BLOCK_TYPE_PICKER_PANEL = 'block-type-picker-panel' as const;
+
+/**
+ * Build a testid for a specific block-type option button: `block-type-{value}`.
+ * Playwright drivers use these to click individual type options.
+ */
+export const blockTypePickerOptionTestId = (value: string) => `block-type-${value}` as const;

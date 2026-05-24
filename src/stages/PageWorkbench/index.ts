@@ -52,3 +52,7 @@ export type {
   TreeNodeType,
 } from './HierarchyTreePanel.js'
 // TreeRow is intentionally NOT exported — internal sub-component of HierarchyTreePanel.
+
+export { BlockTypePickerPanel } from './BlockTypePickerPanel.js'
+export type { BlockTypePickerPanelProps, BlockTypeOption } from './BlockTypePickerPanel.js'
+// TypeGrid is intentionally NOT exported — internal sub-component.
