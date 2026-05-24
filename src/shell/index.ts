@@ -71,3 +71,7 @@ export type { RailProps } from './Rail.js';
 
 export { RightPanel } from './RightPanel.js';
 export type { RightPanelProps } from './RightPanel.js';
+
+// ─── JobsPill ─────────────────────────────────────────────────────────────────
+export { JobsPill } from './JobsPill.js';
+export type { JobsPillProps, ActiveJob } from './JobsPill.js';
