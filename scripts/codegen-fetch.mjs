@@ -93,7 +93,7 @@ async function main() {
   // Install packages
   const installArgs = opts.local
     ? ['pip', 'install', '--python', venvDir, ...packages]
-    : ['pip', 'install', '--python', venvDir, '--index-url', PD_INDEX_PIP_URL, ...packages]
+    : ['pip', 'install', '--python', venvDir, '--extra-index-url', PD_INDEX_PIP_URL, ...packages]
 
   run('uv', installArgs, { dryRun: opts.dryRun })
 

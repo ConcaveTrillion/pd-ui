@@ -119,6 +119,11 @@ export type components = {
              * @default 12
              */
             font_size_base: number;
+            /**
+             * Font Scale
+             * @default 1
+             */
+            font_scale: number;
             /** @default null */
             layer_colors: components["schemas"]["LayerColors"];
         };
