@@ -288,6 +288,10 @@ export type { TextReviewPaneProps } from './stages/PageWorkbench/index.js';
 export { PageAttributesBar } from './stages/PageWorkbench/index.js';
 export type { PageAttributesBarProps, PageAttribute } from './stages/PageWorkbench/index.js';
 
+// PWHeader (Phase 2 M2)
+export { PWHeader } from './stages/PageWorkbench/index.js';
+export type { PWHeaderProps } from './stages/PageWorkbench/index.js';
+
 // ─── Phase 2 M2 atom promotions ───────────────────────────────────────────────
 export { BackendChip } from './primitives/index.js';
 export type { BackendChipProps, BackendValue } from './primitives/index.js';

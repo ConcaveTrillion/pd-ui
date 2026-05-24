@@ -42,3 +42,5 @@ export type { TextReviewPaneProps } from './TextReviewPane.js'
 export { PageAttributesBar } from './PageAttributesBar.js'
 export type { PageAttributesBarProps, PageAttribute } from './PageAttributesBar.js'
 // AttrEditorPopover is intentionally NOT exported — internal sub-component.
+export { PWHeader } from './PWHeader.js'
+export type { PWHeaderProps } from './PWHeader.js'

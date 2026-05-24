@@ -168,3 +168,16 @@ export const PAGE_ATTRIBUTES_BAR_TOGGLE = 'page-attributes-bar-toggle' as const;
  * Playwright drivers use these to click individual chips.
  */
 export const pageAttrChipTestId = (id: string) => `page-attr-chip-${id}` as const;
+// ─── PWHeader (Phase 2 M2) ────────────────────────────────────────────────────
+
+/** Outer <header> element of PWHeader. */
+export const PW_HEADER = 'pw-header' as const;
+
+/** Prev page button inside PWHeader. */
+export const PW_HEADER_PREV = 'pw-header-prev' as const;
+
+/** Next page button inside PWHeader. */
+export const PW_HEADER_NEXT = 'pw-header-next' as const;
+
+/** Page counter span inside PWHeader (e.g. "p 5 of 24"). */
+export const PW_HEADER_COUNTER = 'pw-header-counter' as const;
