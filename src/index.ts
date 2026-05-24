@@ -277,6 +277,8 @@ export type {
   WordBboxOverlayProps,
   RotateHandleProps,
 } from './stages/PageWorkbench/index.js';
+export { EditModeSelector } from './stages/PageWorkbench/index.js';
+export type { EditModeSelectorProps, EditMode } from './stages/PageWorkbench/index.js';
 
 // ─── Phase 2 M2 atom promotions ───────────────────────────────────────────────
 export { BackendChip } from './primitives/index.js';

@@ -32,3 +32,6 @@ export type { WordBboxOverlayProps } from './WordBboxOverlay.js'
 
 export { RotateHandle } from './RotateHandle.js'
 export type { RotateHandleProps } from './RotateHandle.js'
+
+export { EditModeSelector } from './EditModeSelector.js'
+export type { EditModeSelectorProps, EditMode } from './EditModeSelector.js'

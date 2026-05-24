@@ -133,3 +133,8 @@ export const PAGE_CHIP = 'page-chip' as const;
 // ─── ToggleBadge (Phase 2 M2 atom) ───────────────────────────────────────────
 
 export const TOGGLE_BADGE = 'toggle-badge' as const;
+
+// ─── EditModeSelector (Phase 2 M2) ───────────────────────────────────────────
+
+/** PageWorkbench segmented mode picker (View / Split / Illustration / Rotate). */
+export const EDIT_MODE_SELECTOR = 'edit-mode-selector' as const;
