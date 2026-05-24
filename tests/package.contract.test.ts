@@ -41,11 +41,24 @@ describe('package.json contract', () => {
     expect(Object.keys(deps)).not.toContain('tailwindcss')
   })
 
-  it('peerDependencies requires React 18', () => {
+  it('peerDependencies supports React 18 and 19', () => {
     const peers = (pkg['peerDependencies'] as Record<string, unknown>) ?? {}
     expect(peers).toHaveProperty('react')
+    expect(peers).toHaveProperty('react-dom')
+    expect(peers).toHaveProperty('react-konva')
     const reactVersion = peers['react'] as string
+    const reactDomVersion = peers['react-dom'] as string
+    const reactKonvaVersion = peers['react-konva'] as string
     expect(reactVersion).toMatch(/\^18/)
+    expect(reactVersion).toMatch(/\^19/)
+    expect(reactDomVersion).toMatch(/\^18/)
+    expect(reactDomVersion).toMatch(/\^19/)
+    expect(reactKonvaVersion).toMatch(/\^19/)
+  })
+
+  it('react-konva is not in dependencies (must be a peer)', () => {
+    const deps = (pkg['dependencies'] as Record<string, unknown>) ?? {}
+    expect(Object.keys(deps)).not.toContain('react-konva')
   })
 
   it('exports has ./theme/tokens.css subpath', () => {
