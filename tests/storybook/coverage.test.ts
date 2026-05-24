@@ -34,8 +34,9 @@ const WHITELIST: ReadonlySet<string> = new Set([
   'canvas/layers/MarqueeSelectLayer.tsx',
   'canvas/layers/WordHitLayer.tsx',
 
-  // Icons bespoke file — covered by Icons.stories.tsx
+  // Icons files — covered by Icons.stories.tsx (catalogue + dispatcher gallery)
   'icons/bespoke.tsx',
+  'icons/Icon.tsx',
 
   // Shell sub-fragments — covered by AppShell.stories.tsx
   'shell/Breadcrumb.tsx',
