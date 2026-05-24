@@ -76,8 +76,8 @@ the same CSS custom properties, just applied inside a class boundary rather than
 | `--mono-font` | `'JetBrains Mono', ui-monospace, monospace` | `'JetBrains Mono', ui-monospace, monospace` | `identical` |
 | `--shadow-floating` | `0 3px 10px rgba(0,0,0,0.35)` | `0 3px 10px rgba(0,0,0,0.35)` | `identical` |
 | `--overlay-scrim` | not present in design tokens.css | `rgba(0, 0, 0, 0.55)` | `missing` — token is only in pd-ui; design bundle uses the value inline. No action needed (pd-ui addition is correct). |
-| `--font-sans` | not present in design tokens.css | present as back-compat alias in stage-file tokens | `missing` — back-compat alias exists in the `.pgd`-scoped stage tokens but not in `:root`-scoped design tokens.css. pd-ui should decide whether to keep it. See **OQ-6**. |
-| `--font-mono` | not present in design tokens.css | present as back-compat alias in stage-file tokens | Same note as `--font-sans`. |
+| `--font-sans` | `var(--ui-font)` (back-compat alias, lines 48–49 of design tokens.css) | not declared | `missing` — present in the design's tokens.css as a `:root`-level back-compat alias; pd-ui's `theme/tokens.css` does not declare it. See **OQ-6**. |
+| `--font-mono` | `var(--mono-font)` (back-compat alias, lines 48–49 of design tokens.css) | not declared | `missing` — same as `--font-sans`. See **OQ-6**. |
 
 ### Light theme (`[data-theme="light"]`)
 
@@ -108,10 +108,11 @@ the same CSS custom properties, just applied inside a class boundary rather than
 | `--shadow-floating` | `0 3px 10px rgba(60,40,20,0.10)` | `0 3px 10px rgba(60,40,20,0.1)` | `identical` (trailing zero difference is insignificant) |
 | `--overlay-scrim` | not present in design tokens.css | `rgba(0, 0, 0, 0.40)` | `missing` — same note as dark theme |
 
-**Token summary:** All 25 named tokens in the design bundle are identical between
-design and pd-ui. Two extra tokens (`--overlay-scrim`) exist only in pd-ui (additions,
-not regressions). Two back-compat aliases (`--font-sans`, `--font-mono`) exist in the
-stage-file `.pgd` scope but not in the canonical `:root` design tokens — see **OQ-6**.
+**Token summary:** The design's tokens.css declares 27 named tokens. Of these, 25 are
+`identical` between design and pd-ui, 0 are `value-mismatch`, and 2 are `missing` from
+pd-ui (`--font-sans`, `--font-mono` — back-compat aliases declared in the design bundle
+but absent from `theme/tokens.css`). One additional token (`--overlay-scrim`) exists only
+in pd-ui (an addition, not a regression) — see **OQ-6**.
 
 ---
 
@@ -271,7 +272,7 @@ Design `Badge` uses a rich semantic `tone` prop (13 values) driven by status tok
 Design `TopNav` (from `ui-base.jsx`) is an opinionated, hard-coded chrome bar. `AppHeader` in `template.jsx` is the final, slotted replacement that supersedes it — with `activeJobs`, `jobsOpen`, `username`, `initials`, `unread`, and a search box. pd-ui `TopNav` is a thin layout shell. The question is: should pd-ui expose an opinionated `AppHeader` molecule (app icon + search + jobs pill + bell + user avatar) as a new `src/shell/AppHeader.tsx`, or should the consuming app compose these pieces from primitives? CT to decide the portability target for `AppHeader`, `JobsPill`, `JobsDrawer`, and `JobRow`.
 
 **OQ-6 · `--font-sans` / `--font-mono` back-compat aliases.**
-The design bundle's stage-file tokens (scoped under `.pgd`) include `--font-sans: var(--ui-font)` and `--font-mono: var(--mono-font)` as back-compat aliases. The canonical design `tokens.css` (`:root` scope) does NOT include them. pd-ui's `theme/tokens.css` does not include them either (consistent with canonical). CT to confirm: should pd-ui also add these aliases for consumer back-compat, or should any old `.pgd`-scoped CSS be updated to use the canonical names?
+The design bundle's `tokens.css` declares `--font-sans: var(--ui-font)` and `--font-mono: var(--mono-font)` as back-compat aliases (lines 48–49, inside the root token block). pd-ui's `theme/tokens.css` does NOT declare these aliases — only the canonical `--ui-font` and `--mono-font` are present. CT to confirm: should pd-ui add `--font-sans` / `--font-mono` as `:root`-level aliases for consumer back-compat, or should consumers be expected to use the canonical names (`--ui-font`, `--mono-font`) directly?
 
 **OQ-7 · `alert` icon → lucide version.**
 The `alert` icon (triangle with exclamation) is `AlertTriangle` in lucide-react v0.x but was renamed to `TriangleAlert` in v1.x. pd-ui uses lucide-react; the installed version determines which name to use. CT to confirm lucide-react version in `package.json` before adding the export. If the installed version is v1+, use `TriangleAlert`.
