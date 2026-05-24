@@ -72,3 +72,15 @@ export const PROJECT_SETTINGS_NAV = 'project-settings-nav' as const;
 export const PROJECT_SETTINGS_CONTENT = 'project-settings-content' as const;
 /** Nav item for a given group id: `project-settings-nav-item-${id}` */
 export const projectSettingsNavItem = (id: string) => `project-settings-nav-item-${id}` as const;
+
+// ─── ProjectsLandingTemplate (#346) ──────────────────────────────────────────
+
+export const PROJECTS_LANDING = 'projects-landing' as const;
+export const PROJECTS_DETAIL = 'projects-detail' as const;
+export const PROJECTS_OPEN_BTN = 'projects-open-btn' as const;
+export const PROJECTS_STATS_GRID = 'projects-stats-grid' as const;
+export const PROJECTS_PIPELINE = 'projects-pipeline' as const;
+export const PROJECTS_TAB_STRIP = 'projects-tab-strip' as const;
+export const PROJECTS_TAB_BODY = 'projects-tab-body' as const;
+export const PROJECTS_EMPTY_HERO = 'projects-empty-hero' as const;
+export const PROJECTS_CONTROLS = 'projects-controls' as const;
