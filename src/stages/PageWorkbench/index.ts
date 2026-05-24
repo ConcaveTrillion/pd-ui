@@ -68,3 +68,10 @@ export type {
   OcrViewMode,
 } from './OcrTextPanel.js'
 // LineBlockCard, LineBlockRow, WordCard, WordRow, ConfPip are intentionally NOT exported — internal sub-components.
+export { LabelerCanvas } from './LabelerCanvas.js'
+export type {
+  LabelerCanvasProps,
+  LabelerBlock,
+  LayerVisibility,
+} from './LabelerCanvas.js'
+// LayerToggle is intentionally NOT exported — internal sub-component of LabelerCanvas.

@@ -228,3 +228,26 @@ export const OCR_TEXT_PANEL_VIEW_TOGGLE = 'ocr-text-panel-view-toggle' as const;
  * Playwright drivers use these to interact with individual words.
  */
 export const ocrWordTestId = (id: string) => `ocr-word-${id}` as const;
+// ─── LabelerCanvas (Phase 2 M2) ───────────────────────────────────────────────
+
+/** Outer wrapper of the LabelerCanvas annotation component. */
+export const LABELER_CANVAS = 'labeler-canvas' as const;
+
+/**
+ * Prefix for per-layer toggle testids: `labeler-layer-toggle-{key}`.
+ * Key is one of 'blocks', 'words', 'detections'.
+ */
+export const LABELER_LAYER_TOGGLE_PREFIX = 'labeler-layer-toggle-' as const;
+
+/**
+ * Build a testid for a specific layer toggle: `labeler-layer-toggle-{key}`.
+ * Key is one of 'blocks', 'words', 'detections'.
+ */
+export const labelerLayerToggleTestId = (key: string) =>
+  `${LABELER_LAYER_TOGGLE_PREFIX}${key}` as const;
+
+/**
+ * Build a testid for a specific block bbox rect: `labeler-block-{id}`.
+ * Playwright drivers use this to click individual block rects.
+ */
+export const labelerBlockTestId = (id: string) => `labeler-block-${id}` as const;

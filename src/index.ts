@@ -309,6 +309,14 @@ export type {
   OcrViewMode,
 } from './stages/PageWorkbench/index.js';
 
+// LabelerCanvas (Phase 2 M2 — annotation-mode canvas)
+export { LabelerCanvas } from './stages/PageWorkbench/index.js';
+export type {
+  LabelerCanvasProps,
+  LabelerBlock,
+  LayerVisibility,
+} from './stages/PageWorkbench/index.js';
+
 // ─── Phase 2 M2 atom promotions ───────────────────────────────────────────────
 export { BackendChip } from './primitives/index.js';
 export type { BackendChipProps, BackendValue } from './primitives/index.js';
