@@ -1,0 +1,144 @@
+name: ci
+
+# Runs on every push to main and on every pull request targeting main.
+# This is the primary quality gate for @concavetrillion/pd-ui.
+#
+# Jobs:
+#   1. lint      — ESLint flat config (src/ + tests/)
+#   2. typecheck — tsc --noEmit (strict, exactOptionalPropertyTypes)
+#   3. test      — Vitest (jsdom) unit + component tests (build runs first;
+#                  pack.contract.test.ts inspects dist/)
+#   4. build     — Vite library build → dist/ (verifies all entry points compile)
+#
+# Intentionally excluded:
+#   - codegen-check: fetches Python wheels from the self-hosted pd-index-pip
+#     registry (unavailable in GitHub-hosted runners). Run `make codegen-check`
+#     locally. The committed src/types/generated/ snapshot is what CI typechecks.
+#   - theme-check: sync-design-system.mjs requires the workspace-level
+#     ../docs/design-system/ directory, which is outside the pd-ui checkout.
+#     Run `make theme-check` from the ocr-container workspace locally.
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: "true"
+
+# ---------------------------------------------------------------------------
+# 1. lint — ESLint flat config
+# ---------------------------------------------------------------------------
+jobs:
+  lint:
+    name: lint
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 9
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "24"
+          cache: "pnpm"
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Run ESLint
+        run: pnpm run lint
+
+# ---------------------------------------------------------------------------
+# 2. typecheck — tsc --noEmit
+# ---------------------------------------------------------------------------
+  typecheck:
+    name: typecheck
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 9
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "24"
+          cache: "pnpm"
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Run tsc --noEmit
+        run: pnpm run typecheck
+
+# ---------------------------------------------------------------------------
+# 3. test — Vitest (jsdom)
+#    Build must run first because pack.contract.test.ts inspects dist/.
+# ---------------------------------------------------------------------------
+  test:
+    name: test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 9
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "24"
+          cache: "pnpm"
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Build library (required by pack.contract.test.ts)
+        run: pnpm run build
+
+      - name: Run Vitest
+        run: pnpm run test
+
+# ---------------------------------------------------------------------------
+# 4. build — Vite library build → dist/
+# ---------------------------------------------------------------------------
+  build:
+    name: build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 9
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "24"
+          cache: "pnpm"
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Build library
+        run: pnpm run build
+
+      - name: Upload dist artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: dist-${{ github.run_id }}
+          path: dist/
+          retention-days: 1
+
