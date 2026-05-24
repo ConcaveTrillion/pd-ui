@@ -40,3 +40,8 @@ export const SETTINGS_APPEARANCE_FONT_SCALE_SLIDER = 'settings-appearance-font-s
 export const settingsAppearanceColor = (key: string) => `settings-appearance-color-${key}` as const;
 /** Reset button for a given color key: `settings-appearance-color-${key}-reset` */
 export const settingsAppearanceColorReset = (key: string) => `settings-appearance-color-${key}-reset` as const;
+
+// ─── JobRow ───────────────────────────────────────────────────────────────────
+
+export const JOB_ROW = 'job-row' as const;
+export const JOB_ROW_STATUS_FAILED = 'job-row-status-failed' as const;
