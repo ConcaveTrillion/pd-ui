@@ -1,7 +1,7 @@
 ---
 status: active
-synced: ~
-milestone: ~
+synced: 2026-05-24
+milestone: 16
 repo: ConcaveTrillion/ocr-container-meta
 spec: docs/specs/2026-05-24-pd-ui-design-handoff-design.md
 ---
