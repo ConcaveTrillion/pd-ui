@@ -161,6 +161,50 @@ export {
   ToggleGroup,
 } from './primitives/index.js';
 
+// Cross-stage molecules re-exports (batch 1 + batch 2, #344)
+export {
+  StatTile,
+  FlagChip,
+  RowFlagBadge,
+  Toggle,
+  DiskCostBanner,
+  ViewToggle,
+  QualityBanner,
+  SummaryCell,
+  SummaryStrip,
+  ThumbFlagBadge,
+  ThumbSizeToggle,
+  THUMB_SIZES,
+  FilterToolbar,
+  TableHeader,
+  TableFooter,
+} from './primitives/index.js';
+export type {
+  StatTileProps,
+  StatTileTone,
+  FlagChipProps,
+  FlagKind,
+  RowFlagBadgeProps,
+  ToggleProps,
+  DiskCostBannerProps,
+  ViewToggleProps,
+  ViewMode,
+  QualityBannerProps,
+  QualityBannerFlag,
+  SummaryCellProps,
+  SummaryCellTone,
+  SummaryStripProps,
+  SummaryStripCell,
+  ThumbFlagBadgeProps,
+  ThumbSizeToggleProps,
+  ThumbSizeOption,
+  FilterToolbarProps,
+  TableHeaderProps,
+  TableColumnDef,
+  SortDir,
+  TableFooterProps,
+} from './primitives/index.js';
+
 // ─── Templates ───────────────────────────────────────────────────────────────
 export { StageStrip, PIPELINE_STAGES } from './templates/index.js';
 export type { StageStripProps, StageDef } from './templates/index.js';

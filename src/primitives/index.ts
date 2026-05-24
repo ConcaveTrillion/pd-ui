@@ -175,6 +175,28 @@ export type { ViewToggleProps, ViewMode } from './ViewToggle.js';
 
 export { QualityBanner } from './QualityBanner.js';
 export type { QualityBannerProps, QualityBannerFlag } from './QualityBanner.js';
+
+// Cross-stage molecules (phase 2, #344 batch 2)
+export { SummaryCell } from './SummaryCell.js';
+export type { SummaryCellProps, SummaryCellTone } from './SummaryCell.js';
+
+export { SummaryStrip } from './SummaryStrip.js';
+export type { SummaryStripProps, SummaryStripCell } from './SummaryStrip.js';
+
+export { ThumbFlagBadge } from './ThumbFlagBadge.js';
+export type { ThumbFlagBadgeProps } from './ThumbFlagBadge.js';
+
+export { ThumbSizeToggle, THUMB_SIZES } from './ThumbSizeToggle.js';
+export type { ThumbSizeToggleProps, ThumbSizeOption } from './ThumbSizeToggle.js';
+
+export { FilterToolbar } from './FilterToolbar.js';
+export type { FilterToolbarProps } from './FilterToolbar.js';
+
+export { TableHeader } from './TableHeader.js';
+export type { TableHeaderProps, TableColumnDef, SortDir } from './TableHeader.js';
+
+export { TableFooter } from './TableFooter.js';
+export type { TableFooterProps } from './TableFooter.js';
 export type {
   KanbanBoardProps,
   KanbanColumnProps,
