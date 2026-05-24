@@ -774,6 +774,17 @@ a { color: inherit; text-decoration: none; }
 }
 
 .stage-strip__label-text {
+
+/* ─── StatTile ─────────────────────────────────────────── */
+
+.stat-tile {
+  border-radius: 10px;
+  border: 1px solid var(--border-1);
+  padding: 12px 14px;
+  background: var(--bg-surface);
+}
+
+.stat-tile__label {
   font-size: 10.5px;
   font-weight: 600;
   letter-spacing: 0.06em;
@@ -1137,6 +1148,286 @@ a { color: inherit; text-decoration: none; }
 
 .bulk-action-bar__count {
   font-size: 13px;
+
+.stat-tile__value {
+  margin-top: 6px;
+  font-size: 22px;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  font-family: var(--mono-font);
+  color: var(--ink-1);
+}
+
+.stat-tile--dirty .stat-tile__value {
+  color: var(--fuzzy);
+}
+
+.stat-tile__sub {
+  margin-top: 2px;
+  font-size: 11px;
+  color: var(--ink-3);
+}
+
+/* ─── FlagChip ──────────────────────────────────────────── */
+
+/*
+ * Tone is driven by `data-kind` attribute so no hex literals are needed
+ * inside component code. The `--flag-tone` custom property can be overridden
+ * via the `tone` prop for non-standard kinds.
+ */
+
+.flag-chip {
+  --flag-tone: var(--ink-3);
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  height: 22px;
+  padding: 0 9px;
+  border-radius: 999px;
+  font-size: 11.5px;
+  font-weight: 500;
+  background: var(--bg-surface);
+  border: 1px solid var(--border-1);
+  color: var(--ink-2);
+  cursor: default;
+}
+
+/* Known flag tones */
+.flag-chip[data-kind="blurry"],
+.flag-chip[data-kind="cropped"],
+.flag-chip[data-kind="over"],
+.flag-chip[data-kind="residual"],
+.flag-chip[data-kind="low-conf"] {
+  --flag-tone: var(--fuzzy);
+}
+.flag-chip[data-kind="errored"],
+.flag-chip[data-kind="overflow"],
+.flag-chip[data-kind="garbled"] {
+  --flag-tone: var(--mismatch);
+}
+.flag-chip[data-kind="dark"] {
+  --flag-tone: var(--ink-2);
+}
+.flag-chip[data-kind="blank"],
+.flag-chip[data-kind="no-text"] {
+  --flag-tone: var(--ink-2);
+}
+/* Note: skew, asymmetric, halftone, misaligned, mixed-lang use purple;
+   sparse, loose, under, baseline use cyan. These are accent hues not in
+   the base token set — mapped to nearest semantic token as a conservative
+   fallback until a design-system token is defined. */
+.flag-chip[data-kind="skew"],
+.flag-chip[data-kind="asymmetric"],
+.flag-chip[data-kind="halftone"],
+.flag-chip[data-kind="misaligned"],
+.flag-chip[data-kind="mixed-lang"] {
+  --flag-tone: var(--gt);
+}
+.flag-chip[data-kind="sparse"],
+.flag-chip[data-kind="loose"],
+.flag-chip[data-kind="under"],
+.flag-chip[data-kind="baseline"] {
+  --flag-tone: var(--ocr);
+}
+.flag-chip[data-kind="mixed"] {
+  --flag-tone: var(--fuzzy);
+}
+
+.flag-chip[role="button"] {
+  cursor: pointer;
+}
+
+.flag-chip--active {
+  background: color-mix(in oklab, var(--flag-tone) 22%, var(--bg-surface));
+  border-color: var(--flag-tone);
+}
+
+.flag-chip--muted {
+  color: var(--ink-4);
+  opacity: 0.6;
+}
+
+.flag-chip__dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 99px;
+  background: var(--flag-tone);
+  flex-shrink: 0;
+}
+
+.flag-chip--muted .flag-chip__dot {
+  opacity: 0.45;
+}
+
+.flag-chip__count {
+  display: inline-flex;
+  align-items: center;
+  padding: 0 5px;
+  height: 14px;
+  border-radius: 7px;
+  background: var(--bg-raised);
+  font-size: 10px;
+  font-weight: 600;
+  font-family: var(--mono-font);
+  color: var(--ink-2);
+}
+
+/* ─── RowFlagBadge ──────────────────────────────────────── */
+
+.row-flag-badge {
+  --flag-tone: var(--ink-3);
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  height: 18px;
+  padding: 0 7px;
+  border-radius: 999px;
+  font-size: 10.5px;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  background: color-mix(in oklab, var(--flag-tone) 16%, var(--bg-surface));
+  color: var(--ink-1);
+  border: 1px solid color-mix(in oklab, var(--flag-tone) 40%, var(--border-1));
+}
+
+/* Tone mappings mirror FlagChip */
+.row-flag-badge[data-kind="blurry"],
+.row-flag-badge[data-kind="cropped"],
+.row-flag-badge[data-kind="over"],
+.row-flag-badge[data-kind="residual"],
+.row-flag-badge[data-kind="low-conf"],
+.row-flag-badge[data-kind="mixed"] {
+  --flag-tone: var(--fuzzy);
+}
+.row-flag-badge[data-kind="errored"],
+.row-flag-badge[data-kind="overflow"],
+.row-flag-badge[data-kind="garbled"] {
+  --flag-tone: var(--mismatch);
+}
+.row-flag-badge[data-kind="dark"],
+.row-flag-badge[data-kind="blank"],
+.row-flag-badge[data-kind="no-text"] {
+  --flag-tone: var(--ink-2);
+}
+.row-flag-badge[data-kind="skew"],
+.row-flag-badge[data-kind="asymmetric"],
+.row-flag-badge[data-kind="halftone"],
+.row-flag-badge[data-kind="misaligned"],
+.row-flag-badge[data-kind="mixed-lang"] {
+  --flag-tone: var(--gt);
+}
+.row-flag-badge[data-kind="sparse"],
+.row-flag-badge[data-kind="loose"],
+.row-flag-badge[data-kind="under"],
+.row-flag-badge[data-kind="baseline"] {
+  --flag-tone: var(--ocr);
+}
+
+.row-flag-badge__dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 99px;
+  background: var(--flag-tone);
+  flex-shrink: 0;
+}
+
+/* ─── Toggle (Radix Switch) ─────────────────────────────── */
+
+.toggle-wrapper {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.toggle {
+  display: inline-flex;
+  align-items: center;
+  width: 32px;
+  height: 18px;
+  border-radius: 999px;
+  padding: 2px;
+  background: var(--bg-sunk);
+  border: 1px solid var(--border-2);
+  cursor: pointer;
+  transition: background 150ms ease, border-color 150ms ease;
+  flex-shrink: 0;
+}
+
+.toggle:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.toggle[data-state="checked"],
+.toggle--on {
+  background: var(--accent);
+  border-color: var(--accent);
+}
+
+.toggle[disabled],
+.toggle:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.toggle__thumb {
+  display: block;
+  width: 14px;
+  height: 14px;
+  border-radius: 999px;
+  background: white;
+  box-shadow: 0 1px 2px rgba(15, 23, 42, 0.2);
+  transition: transform 150ms ease;
+  transform: translateX(0);
+  will-change: transform;
+}
+
+.toggle[data-state="checked"] .toggle__thumb {
+  transform: translateX(14px);
+}
+
+.toggle__label {
+  font-size: 13px;
+  color: var(--ink-2);
+  cursor: pointer;
+  user-select: none;
+}
+
+/* ─── DiskCostBanner ────────────────────────────────────── */
+
+.disk-cost-banner {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-1);
+  border-radius: 8px;
+  padding: 8px 10px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.disk-cost-banner__icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 15px;
+  height: 15px;
+  flex-shrink: 0;
+  color: var(--ink-3);
+  /* Icon rendered via mask-image in consuming app or left as visual placeholder */
+}
+
+.disk-cost-banner__body {
+  flex: 1;
+  font-size: 12px;
+  color: var(--ink-2);
+}
+
+.disk-cost-banner__prefix {
+  color: var(--ink-2);
+}
+
+.disk-cost-banner__size {
+  font-family: var(--mono-font);
   font-weight: 600;
   color: var(--ink-1);
 }
@@ -1149,6 +1440,147 @@ a { color: inherit; text-decoration: none; }
 .bulk-action-bar__actions {
   display: flex;
   align-items: center;
+
+.disk-cost-banner__prune {
+  font-size: 11.5px;
+  color: var(--ink-3);
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  flex-shrink: 0;
+}
+
+.disk-cost-banner__prune:hover {
+  color: var(--ink-2);
+}
+
+/* ─── ViewToggle ────────────────────────────────────────── */
+
+.view-toggle {
+  display: inline-flex;
+  padding: 3px;
+  background: var(--bg-raised);
+  border: 1px solid var(--border-1);
+  border-radius: 7px;
+}
+
+.view-toggle__option {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 9px;
+  border-radius: 5px;
+  border: none;
+  background: transparent;
+  box-shadow: none;
+  color: var(--ink-3);
+  font-size: 12px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: color 120ms ease, background 120ms ease;
+}
+
+.view-toggle__option--active {
+  background: var(--bg-surface);
+  box-shadow: 0 1px 1px rgba(15, 23, 42, 0.06), 0 0 0 1px var(--border-1);
+  color: var(--ink-1);
+  font-weight: 600;
+}
+
+.view-toggle__option-icon {
+  display: inline-block;
+  width: 12px;
+  height: 12px;
+  flex-shrink: 0;
+  /* Icon shape via mask-image; consumers may override */
+}
+
+/* ─── QualityBanner ─────────────────────────────────────── */
+
+.quality-banner {
+  margin: 20px 32px 0;
+  border-radius: 10px;
+  border: 1px solid color-mix(in oklab, var(--fuzzy) 45%, var(--border-1));
+  background: color-mix(in oklab, var(--fuzzy) 8%, var(--bg-surface));
+  display: flex;
+  align-items: stretch;
+  overflow: hidden;
+}
+
+.quality-banner--extreme {
+  border-color: color-mix(in oklab, var(--mismatch) 55%, var(--border-1));
+  background: color-mix(in oklab, var(--mismatch) 8%, var(--bg-surface));
+}
+
+.quality-banner__stripe {
+  width: 4px;
+  background: var(--fuzzy);
+  flex-shrink: 0;
+}
+
+.quality-banner--extreme .quality-banner__stripe {
+  background: var(--mismatch);
+}
+
+.quality-banner__body {
+  flex: 1;
+  padding: 14px 18px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  min-width: 0;
+}
+
+.quality-banner__icon-wrapper {
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  flex-shrink: 0;
+  background: color-mix(in oklab, var(--fuzzy) 18%, var(--bg-surface));
+  color: var(--fuzzy);
+  display: grid;
+  place-items: center;
+}
+
+.quality-banner--extreme .quality-banner__icon-wrapper {
+  background: color-mix(in oklab, var(--mismatch) 18%, var(--bg-surface));
+  color: var(--mismatch);
+}
+
+.quality-banner__icon {
+  display: block;
+  width: 16px;
+  height: 16px;
+  /* Icon shape provided via CSS mask-image by consuming app */
+}
+
+.quality-banner__content {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0;
+}
+
+.quality-banner__headline {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--ink-1);
+}
+
+.quality-banner__sub {
+  margin-top: 3px;
+  font-size: 12px;
+  color: var(--ink-2);
+  line-height: 1.5;
+}
+
+.quality-banner__chips {
+  margin-top: 10px;
+  display: flex;
   gap: 6px;
   flex-wrap: wrap;
 }
@@ -1168,3 +1600,34 @@ a { color: inherit; text-decoration: none; }
   font-size: 11px;
   color: var(--ink-4);
 }
+
+.quality-banner__actions {
+  display: flex;
+  gap: 8px;
+  flex-shrink: 0;
+  align-items: center;
+}
+
+.quality-banner__dismiss {
+  width: 36px;
+  align-self: stretch;
+  background: transparent;
+  border: none;
+  border-left: 1px solid var(--border-1);
+  color: var(--ink-3);
+  cursor: pointer;
+  flex-shrink: 0;
+  display: grid;
+  place-items: center;
+}
+
+.quality-banner__dismiss:hover {
+  color: var(--ink-2);
+}
+
+.quality-banner__dismiss-icon {
+  display: block;
+  width: 14px;
+  height: 14px;
+}
+
