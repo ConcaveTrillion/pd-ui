@@ -153,6 +153,28 @@ export type { BaseJobConfigDialogProps, BaseJobConfig } from './BaseJobConfigDia
 
 // Kanban board family
 export { KanbanBoard, KanbanColumn, PageChip } from './kanban/index.js';
+
+// Cross-stage molecules (phase 2, #344 batch 1)
+export { StatTile } from './StatTile.js';
+export type { StatTileProps, StatTileTone } from './StatTile.js';
+
+export { FlagChip } from './FlagChip.js';
+export type { FlagChipProps, FlagKind } from './FlagChip.js';
+
+export { RowFlagBadge } from './RowFlagBadge.js';
+export type { RowFlagBadgeProps } from './RowFlagBadge.js';
+
+export { Toggle } from './Toggle.js';
+export type { ToggleProps } from './Toggle.js';
+
+export { DiskCostBanner } from './DiskCostBanner.js';
+export type { DiskCostBannerProps } from './DiskCostBanner.js';
+
+export { ViewToggle } from './ViewToggle.js';
+export type { ViewToggleProps, ViewMode } from './ViewToggle.js';
+
+export { QualityBanner } from './QualityBanner.js';
+export type { QualityBannerProps, QualityBannerFlag } from './QualityBanner.js';
 export type {
   KanbanBoardProps,
   KanbanColumnProps,
