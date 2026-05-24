@@ -579,9 +579,16 @@ PageWorkbench composition components, exported from
 | `StageControlsPanel` | `649eacb` | Slot-based left-drawer chrome (inheritance banner + CPU-fallback warning + `controlsSlot` + sticky Revert/Save footer). Per-stage controls plug in via `controlsSlot`. |
 | `TextReviewPane` | `fad741f` | Collapsible bottom pane (CSS-only 280px/44px via `data-open`). Accepts string or ReactNode. |
 
-Remaining M2 cross-cutting (6 components): `PWHeader`, `HierarchyTreePanel`,
-`BlockTypePickerPanel`, `PageAttributesPanel`, `OcrTextPanel`,
-`LabelerCanvas`.
+### M2 cross-cutting — batch 2 (2026-05-24)
+
+| Export | Commit | Description |
+|---|---|---|
+| `PWHeader` | `7e08a19` | Page Workbench title bar — breadcrumb + page counter + Prev/Next + EditModeSelector + actions slot. |
+| `HierarchyTreePanel` | `e4417c2` | Right-drawer block/paragraph/line/word tree (recursive). Internal `TreeRow`. |
+| `BlockTypePickerPanel` | `63ba716` | Right-drawer type chooser (3-col grid with arrow-key nav). Internal `TypeGrid`. |
+| `PageAttributesPanel` | `6b77cde` | Right-drawer vertical form sibling of `PageAttributesBar` (shares `PageAttribute` type). |
+
+Remaining M2 cross-cutting (2 of 10): `OcrTextPanel`, `LabelerCanvas`.
 
 ---
 
