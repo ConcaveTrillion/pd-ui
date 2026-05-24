@@ -551,6 +551,22 @@ Unblocks: pd-prep-for-pgdp PageWorkbenchPage / Grayscale PageViewer /
 Crop BboxEditor / OCR labeler surfaces; pd-ocr-labeler-spa annotation
 canvas migration.
 
+### M2 atom promotions (2026-05-24)
+
+4 atoms promoted from stage folders to `src/primitives/` per §6.5 of
+the Phase 2 spec, exported from the existing `./primitives` subpath:
+
+| Export | Commit | Description |
+|---|---|---|
+| `BackendChip` | `1cfc595` | GPU/CPU/auto status chip (composes `Badge`; `fallback` prop adds `data-fallback` attribute for amber CPU-fallback state). |
+| `CheckIcon` | `4b1d788` | Pass/warn/error/running/skip state icon (uses `<Icon>` dispatcher; added `Minus` to lucide icon set). |
+| `PageChip` | `10d2688` | Mono-font page-prefix navigation chip (e.g. `p019`); button when `onClick` provided, span otherwise. **Breaking:** the prior kanban-internal `PageChip` re-export is now `KanbanPageChip` (and `PageChipProps` → `KanbanPageChipProps`); update imports if consuming the kanban drag chip. |
+| `ToggleBadge` | `48c4bce` | Mini inline labeled switch (composes existing `Toggle`); for inline table-row use. |
+
+Unblocks: M2 cross-cutting `StageControlsPanel` (`BackendChip`), M4
+Grayscale `StageControlsLeft` (`BackendChip`), M7 Scannos
+`ToggleBadge`, M9 Validation `CheckRow`/`CheckIcon`/`PageChip`.
+
 ---
 
 ## 12. Conscious omissions

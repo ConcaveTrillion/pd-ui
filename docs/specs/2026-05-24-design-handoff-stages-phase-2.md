@@ -255,7 +255,7 @@ All 43 net-new components. "Design source" references are
 
 | Component | Design source | Description |
 |---|---|---|
-| `BackendChip` | `final/grayscale/grayscale.jsx:43-63` | GPU/CPU indicator chip. Reused in Grayscale and Page Workbench. Promote to `src/primitives/` — see §6.5. Props: `backend`, `fallback`. |
+| `BackendChip` | `final/grayscale/grayscale.jsx:43-63` | GPU/CPU indicator chip. Reused in Grayscale and Page Workbench. Promote to `src/primitives/` — see §6.5. Props: `backend`, `fallback`. **Shipped 2026-05-24 · 1cfc595** (M2 atom promotion). |
 | `AutoDetectBanner` | `:70-112` | Rationale banner: detected mode + estimated time + re-detect button. Props: `mode`, `profile`, `estimatedSecondsPerPage`, `onRedetect`. |
 | `ModeCard` | `:119-209` | Two-up mode chooser (Standard/Perceptual): checkmark + time estimate badge (exact/fuzzy tone). Props: `selectedMode`, `onModeChange`, `estimates`. |
 | `AdvancedParams` | `:215-296` | 3-slider accordion (Sampler radius / Gamma 1–3 / Output range), each with numeric input + reset. Props: `params`, `onChange`. |
@@ -299,7 +299,7 @@ All 43 net-new components. "Design source" references are
 | `InlineMarkPopover` | `:366-413` | Inline popover on token click: accept / dismiss / promote actions + confidence label + rule source. Props: `token`, `open`, `onAccept`, `onDismiss`, `onPromote`, `onClose`. |
 | `CandidateDetail` | `wf05b/scanno-promote.jsx:300-410` | Right-pane candidate detail: evidence contexts (3 of N), promote-preview form, promote/dismiss actions. Props: `candidate`, `contexts`, `onPromote`, `onDismiss`. |
 | `RuleDetail` | `wf05b/scanno-configure.jsx:290-406` | Right-pane rule detail: hits count / contributing books / contributors + auto-apply toggle + conflict warnings. Props: `rule`, `onToggleAutoApply`. |
-| `ToggleBadge` | `:265-288` | Mini auto-apply toggle badge for table rows. Renders as a labeled switch inline with text. Promote to `src/primitives/` — see §6.5. Props: `checked`, `onCheckedChange`, `label`. |
+| `ToggleBadge` | `:265-288` | Mini auto-apply toggle badge for table rows. Renders as a labeled switch inline with text. Promote to `src/primitives/` — see §6.5. Props: `checked`, `onCheckedChange`, `label`. **Shipped 2026-05-24 · 48c4bce** (M2 atom promotion). |
 | `NavGroup` | `:236-263` | Side-nav category group header with expand/collapse. Used in the scanno rule library left nav. Props: `label`, `count`, `expanded`, `onToggle`, `children`. |
 
 #### Stage: Hyphen Join (`src/stages/HyphenJoin/`)
@@ -326,8 +326,8 @@ All 43 net-new components. "Design source" references are
 | `SummaryHeader` | `wf02/validation-panel.jsx:102-148` | Pass/warn/error state banner with check counts and primary CTA. Props: `state`, `counts`, `onDownload`, `onFixAll`. |
 | `PanelToolbar` | `:150-168` | Re-validate button + last-run timestamp. Props: `lastRun`, `onRevalidate`. |
 | `CheckRow` | `:42-100` | Collapsible check row: check name + `CheckIcon` + affected page chips (collapsed) / full affected page list (expanded). Props: `check`, `expanded`, `onToggle`. |
-| `CheckIcon` | `:7-25` | State icon: pass (green check) / warn (amber alert) / error (red x) / running (spinner) / skip (dash). Promote to `src/primitives/` — see §6.5. Props: `state`. |
-| `PageChip` | `:28-40` | Mono-font page prefix navigation chip (e.g. `p019`). Promote to `src/primitives/` — see §6.5. Props: `prefix`, `onClick`. |
+| `CheckIcon` | `:7-25` | State icon: pass (green check) / warn (amber alert) / error (red x) / running (spinner) / skip (dash). Promote to `src/primitives/` — see §6.5. Props: `state`. **Shipped 2026-05-24 · 4b1d788** (M2 atom promotion). |
+| `PageChip` | `:28-40` | Mono-font page prefix navigation chip (e.g. `p019`). Promote to `src/primitives/` — see §6.5. Props: `prefix`, `onClick`. **Shipped 2026-05-24 · 10d2688** (M2 atom promotion; kanban's prior `PageChip` export renamed to `KanbanPageChip` to clear the name). |
 | `DownloadFooter` | `:170-206` | Contextual CTA footer: "Download" (pass state) / "Download anyway" + "Fix & rebuild" (warn) / "Fix all (N)" (error, download disabled). Props: `state`, `fixableCount`, `onDownload`, `onFix`. |
 
 #### Page Workbench cross-cutting (`src/stages/PageWorkbench/`)
