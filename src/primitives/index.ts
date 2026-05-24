@@ -35,6 +35,9 @@ export type { SegmentedProps, SegmentedOption, SegmentedSize } from './Segmented
 export { Progress } from './Progress.js';
 export type { ProgressProps, ProgressStatus } from './Progress.js';
 
+export { StepDots } from './StepDots.js';
+export type { StepDotsProps, StepDotsState } from './StepDots.js';
+
 // Radix-layered primitives
 export {
   Dialog,
