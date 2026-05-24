@@ -222,7 +222,7 @@ Identifiers with count ≥ 3 from the frequency table (excluding `App` which is 
 | `VariationB` | 3 | wf03/wf03-variations, wf11/wf03-variations, wf-pw/wf03-variations | `skip` | — | Same — demo frame. |
 | `ThemedFrame` | 3 | wf03/wf03-variations, wf11/wf03-variations, wf-pw/wf03-variations | `skip` | — | Design-canvas theme wrapper. Equivalent of `AppFrame` in wireframe artboards. Not portworthy. |
 
-**Table 4 summary:** 23 cross-stage molecules identified for porting (21 in `src/primitives/`, 2 in `src/templates/`); 15 data constants or demo scaffolding (`skip`/`stage-specific`).
+**Table 4 summary:** 23 cross-stage molecules identified for porting (21 in `src/primitives/`, 2 in `src/templates/`); 15 `stage-specific` data constants or tightly-coupled helpers; 3 `skip` (demo scaffolding).
 
 ---
 
