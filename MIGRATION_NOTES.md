@@ -524,6 +524,35 @@ import { Separator } from '@concavetrillion/pd-ui/primitives';
 
 ---
 
+## 11b. Phase 2 — Shipped
+
+Tracks per-stage components landed under Phase 2 (spec:
+`docs/specs/2026-05-24-design-handoff-stages-phase-2.md`).
+
+### M1: ArtifactViewer + overlays (2026-05-24 · 9f81be7)
+
+New subpath: `@concavetrillion/pd-ui/stages/PageWorkbench`.
+
+| Export | Role |
+|---|---|
+| `ArtifactViewer` | Multi-consumer composition molecule — wraps `PageImageCanvas` with paper chrome and one of five overlay modes (`view` / `split` / `illust` / `rotate` / `words`). |
+| `SplitOverlay` | Draggable vertical split line for before/after compare. Exposes `SplitHandle` DOM sidecar with `role="separator"` for a11y. |
+| `IllustOverlay` | Illustration bbox highlight rects (Konva `underlay` slot). |
+| `WordBboxOverlay` | Per-word bbox rects (Konva `selection` slot with `selectionLayerListening`); fires `onWordClick(id)`. Each rect carries `data-testid="word-bbox-{id}"`. |
+| `RotateHandle` | Rotation drag handle for `overlayMode='rotate'`. |
+| Types | `OverlayMode`, `SplitProposal`, `IllustBbox`, `WordBbox`, `ArtifactViewerProps`. |
+
+Internal sub-components `ArtifactPlate` and `PaperRender` are **not**
+exported — consume `ArtifactViewer` for the composed surface. Consumers
+that need a custom outer shell can import the individual overlays
+directly.
+
+Unblocks: pd-prep-for-pgdp PageWorkbenchPage / Grayscale PageViewer /
+Crop BboxEditor / OCR labeler surfaces; pd-ocr-labeler-spa annotation
+canvas migration.
+
+---
+
 ## 12. Conscious omissions
 
 The following design-bundle identifiers were intentionally **not** ported:

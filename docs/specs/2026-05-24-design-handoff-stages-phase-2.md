@@ -336,7 +336,7 @@ All 43 net-new components. "Design source" references are
 
 | Component | Design source | Description |
 |---|---|---|
-| `ArtifactViewer` | `wf-pw/wf-pw-variations.jsx:264-444` | **Multi-consumer molecule** — see §6.3 for full API spec. Composes `ArtifactPlate` + `PaperRender` + three overlays on top of `PageImageCanvas`. |
+| `ArtifactViewer` | `wf-pw/wf-pw-variations.jsx:264-444` | **Multi-consumer molecule** — see §6.3 for full API spec. Composes `ArtifactPlate` + `PaperRender` + three overlays on top of `PageImageCanvas`. **Shipped 2026-05-24 · 9f81be7** (M1 complete: ArtifactViewer + SplitOverlay + IllustOverlay + WordBboxOverlay + RotateHandle; subpath `./stages/PageWorkbench`). |
 | `PWHeader` | `:19-52` | Page Workbench header: breadcrumb (project / stage / page) + Prev/Next page buttons + `EditModeSelector` + actions slot. Props: `breadcrumb`, `currentIdx`, `total`, `onPrev`, `onNext`, `mode`, `onModeChange`, `actionsSlot`. |
 | `EditModeSelector` | `:54-83` | Segmented control: View / Split / Illustration / Rotate. Props: `mode`, `onModeChange`. |
 | `PageAttributesBar` | `:100-223` | Collapsible inline attribute bar + `AttrEditorPopover` (inline value editing). Props: `attrs`, `onChange`. |
