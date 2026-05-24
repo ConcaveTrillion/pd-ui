@@ -58,3 +58,11 @@ export type {
   ProjectsLandingTemplateEmptyProps,
   ProjectsDetailTab,
 } from './ProjectsLandingTemplate.js';
+
+// ─── StageJumpPopover (#344 batch 3) ─────────────────────────────────────────
+export { StageJumpPopover } from './StageJumpPopover.js';
+export type { StageJumpPopoverProps } from './StageJumpPopover.js';
+
+// ─── ProjectConfigureFrame (#344 batch 3) ────────────────────────────────────
+export { ProjectConfigureFrame } from './ProjectConfigureFrame.js';
+export type { ProjectConfigureFrameProps } from './ProjectConfigureFrame.js';

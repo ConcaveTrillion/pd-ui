@@ -197,6 +197,23 @@ export type { TableHeaderProps, TableColumnDef, SortDir } from './TableHeader.js
 
 export { TableFooter } from './TableFooter.js';
 export type { TableFooterProps } from './TableFooter.js';
+
+// Cross-stage molecules (phase 2, #344 batch 3)
+export { ConfigureHeader } from './ConfigureHeader.js';
+export type { ConfigureHeaderProps, ConfigureHeaderTrailItem } from './ConfigureHeader.js';
+
+export { ConfigureTabs } from './ConfigureTabs.js';
+export type { ConfigureTabsProps, ConfigureTabItem } from './ConfigureTabs.js';
+
+export { RunAllDirtyPanel } from './RunAllDirtyPanel.js';
+export type { RunAllDirtyPanelProps } from './RunAllDirtyPanel.js';
+
+export { BuildPackagePanel } from './BuildPackagePanel.js';
+export type { BuildPackagePanelProps } from './BuildPackagePanel.js';
+
+export { ThumbGrid } from './ThumbGrid.js';
+export type { ThumbGridProps } from './ThumbGrid.js';
+
 export type {
   KanbanBoardProps,
   KanbanColumnProps,

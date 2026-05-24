@@ -84,3 +84,16 @@ export const PROJECTS_TAB_STRIP = 'projects-tab-strip' as const;
 export const PROJECTS_TAB_BODY = 'projects-tab-body' as const;
 export const PROJECTS_EMPTY_HERO = 'projects-empty-hero' as const;
 export const PROJECTS_CONTROLS = 'projects-controls' as const;
+
+// ─── ConfigureHeader (#344 batch 3) ──────────────────────────────────────────
+
+export const CONFIGURE_HEADER = 'configure-header' as const;
+
+// ─── ProjectConfigureFrame (#344 batch 3) ────────────────────────────────────
+
+export const PROJECT_CONFIGURE_FRAME = 'project-configure-frame' as const;
+
+// ─── StageJumpPopover (#344 batch 3) ─────────────────────────────────────────
+
+export const STAGE_JUMP_POPOVER = 'stage-jump-popover' as const;
+export const STAGE_JUMP_POPOVER_TRIGGER = 'stage-jump-popover-trigger' as const;

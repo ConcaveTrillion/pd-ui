@@ -178,6 +178,11 @@ export {
   FilterToolbar,
   TableHeader,
   TableFooter,
+  ConfigureHeader,
+  ConfigureTabs,
+  RunAllDirtyPanel,
+  BuildPackagePanel,
+  ThumbGrid,
 } from './primitives/index.js';
 export type {
   StatTileProps,
@@ -203,6 +208,13 @@ export type {
   TableColumnDef,
   SortDir,
   TableFooterProps,
+  ConfigureHeaderProps,
+  ConfigureHeaderTrailItem,
+  ConfigureTabsProps,
+  ConfigureTabItem,
+  RunAllDirtyPanelProps,
+  BuildPackagePanelProps,
+  ThumbGridProps,
 } from './primitives/index.js';
 
 // ─── Templates ───────────────────────────────────────────────────────────────
@@ -236,6 +248,12 @@ export type {
   ProjectSettingsTemplateProps,
   ProjectSettingsGroup,
 } from './templates/index.js';
+
+export { StageJumpPopover } from './templates/index.js';
+export type { StageJumpPopoverProps } from './templates/index.js';
+
+export { ProjectConfigureFrame } from './templates/index.js';
+export type { ProjectConfigureFrameProps } from './templates/index.js';
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 export * from './types/index.js';
