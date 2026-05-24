@@ -20,6 +20,7 @@ export default defineConfig({
         types: resolve(__dirname, 'src/types/index.ts'),
         stores: resolve(__dirname, 'src/stores/index.ts'),
         testids: resolve(__dirname, 'src/testids/index.ts'),
+        templates: resolve(__dirname, 'src/templates/index.ts'),
       },
       formats: ['es'],
     },

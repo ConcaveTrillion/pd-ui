@@ -23,6 +23,7 @@ describe('package.json contract', () => {
       './types',
       './stores',
       './testids',
+      './templates',
       './theme/tokens.css',
       './theme/primitives.css',
     ]

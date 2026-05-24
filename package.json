@@ -62,6 +62,10 @@
       "import": "./dist/testids.js",
       "types": "./dist/testids.d.ts"
     },
+    "./templates": {
+      "import": "./dist/templates.js",
+      "types": "./dist/templates.d.ts"
+    },
     "./theme/tokens.css": "./theme/tokens.css",
     "./theme/primitives.css": "./theme/primitives.css"
   },

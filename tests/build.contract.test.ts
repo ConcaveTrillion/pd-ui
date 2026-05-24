@@ -13,7 +13,7 @@ describe('vite.config.ts contract', () => {
 
   it('vite config declares all required entry points', () => {
     const content = readFileSync(resolve(__dirname, '../vite.config.ts'), 'utf-8')
-    const entries = ['index', 'canvas', 'worklist', 'shell', 'primitives', 'icons', 'types', 'stores', 'testids']
+    const entries = ['index', 'canvas', 'worklist', 'shell', 'primitives', 'icons', 'types', 'stores', 'testids', 'templates']
     for (const entry of entries) {
       expect(content, `entry '${entry}' must be declared in vite.config.ts`).toContain(entry)
     }
@@ -42,6 +42,7 @@ describe('dist/ output completeness', () => {
     'types',
     'stores',
     'testids',
+    'templates',
   ] as const
 
   it('dist/ directory exists after build', () => {

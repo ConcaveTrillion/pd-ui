@@ -45,7 +45,7 @@ afterAll(() => {
 })
 
 const REQUIRED_DIST_ENTRIES = [
-  'canvas', 'icons', 'index', 'primitives', 'shell', 'stores', 'testids', 'types', 'worklist',
+  'canvas', 'icons', 'index', 'primitives', 'shell', 'stores', 'templates', 'testids', 'types', 'worklist',
 ] as const
 
 describe('pnpm pack tarball contents', () => {
