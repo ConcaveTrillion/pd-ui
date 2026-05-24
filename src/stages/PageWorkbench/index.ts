@@ -1,0 +1,34 @@
+/**
+ * PageWorkbench stage barrel.
+ *
+ * Public exports from this subpath:
+ *   - ArtifactViewer (composition molecule + types)
+ *   - SplitOverlay, SplitHandle (tool slot + DOM sidecar)
+ *   - IllustOverlay
+ *   - WordBboxOverlay
+ *   - RotateHandle
+ *   - Types: OverlayMode, SplitProposal, IllustBbox, WordBbox, ArtifactViewerProps
+ *
+ * Internal sub-components (ArtifactPlate, PaperRender) are NOT exported.
+ */
+
+export { ArtifactViewer } from './ArtifactViewer.js'
+export type {
+  ArtifactViewerProps,
+  OverlayMode,
+  SplitProposal,
+  IllustBbox,
+  WordBbox,
+} from './ArtifactViewer.js'
+
+export { SplitOverlay, SplitHandle } from './SplitOverlay.js'
+export type { SplitOverlayProps, SplitHandleProps } from './SplitOverlay.js'
+
+export { IllustOverlay } from './IllustOverlay.js'
+export type { IllustOverlayProps } from './IllustOverlay.js'
+
+export { WordBboxOverlay } from './WordBboxOverlay.js'
+export type { WordBboxOverlayProps } from './WordBboxOverlay.js'
+
+export { RotateHandle } from './RotateHandle.js'
+export type { RotateHandleProps } from './RotateHandle.js'

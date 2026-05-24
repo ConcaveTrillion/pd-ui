@@ -21,6 +21,7 @@ export default defineConfig({
         stores: resolve(__dirname, 'src/stores/index.ts'),
         testids: resolve(__dirname, 'src/testids/index.ts'),
         templates: resolve(__dirname, 'src/templates/index.ts'),
+        'stages/PageWorkbench/index': resolve(__dirname, 'src/stages/PageWorkbench/index.ts'),
       },
       formats: ['es'],
     },

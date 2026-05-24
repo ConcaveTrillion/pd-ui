@@ -97,3 +97,22 @@ export const PROJECT_CONFIGURE_FRAME = 'project-configure-frame' as const;
 
 export const STAGE_JUMP_POPOVER = 'stage-jump-popover' as const;
 export const STAGE_JUMP_POPOVER_TRIGGER = 'stage-jump-popover-trigger' as const;
+
+// ─── ArtifactViewer / PageWorkbench (Phase 2 M1) ─────────────────────────────
+
+/** Prefix for per-word bbox testids: `word-bbox-{id}`. */
+export const WORD_BBOX_PREFIX = 'word-bbox-' as const;
+/** Build a testid for a specific word bbox: `word-bbox-{id}`. */
+export const wordBboxTestId = (id: string) => `${WORD_BBOX_PREFIX}${id}` as const;
+
+/** Draggable split handle (overlayMode='split'). */
+export const SPLIT_HANDLE = 'artifact-split-handle' as const;
+
+/** Rotation drag handle (overlayMode='rotate'). */
+export const ROTATE_HANDLE = 'artifact-rotate-handle' as const;
+
+/** Outer plate wrapper (ArtifactPlate). */
+export const ARTIFACT_PLATE = 'artifact-plate' as const;
+
+/** Inner paper render surface (PaperRender). */
+export const PAPER_RENDER = 'paper-render' as const;

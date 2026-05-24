@@ -255,5 +255,23 @@ export type { StageJumpPopoverProps } from './templates/index.js';
 export { ProjectConfigureFrame } from './templates/index.js';
 export type { ProjectConfigureFrameProps } from './templates/index.js';
 
+// ─── Stages / PageWorkbench ───────────────────────────────────────────────────
+export { ArtifactViewer } from './stages/PageWorkbench/index.js';
+export type {
+  ArtifactViewerProps,
+  OverlayMode,
+  SplitProposal,
+  IllustBbox,
+  WordBbox,
+} from './stages/PageWorkbench/index.js';
+export { SplitOverlay, SplitHandle, IllustOverlay, WordBboxOverlay, RotateHandle } from './stages/PageWorkbench/index.js';
+export type {
+  SplitOverlayProps,
+  SplitHandleProps,
+  IllustOverlayProps,
+  WordBboxOverlayProps,
+  RotateHandleProps,
+} from './stages/PageWorkbench/index.js';
+
 // ─── Types ────────────────────────────────────────────────────────────────────
 export * from './types/index.js';

@@ -73,6 +73,10 @@ const WHITELIST: ReadonlySet<string> = new Set([
 
   // Template sub-components — covered by the template's own stories
   'templates/ProjectInfoBand.tsx',
+
+  // PageWorkbench internal sub-components — covered by ArtifactViewer.stories.tsx
+  'stages/PageWorkbench/ArtifactPlate.tsx',
+  'stages/PageWorkbench/PaperRender.tsx',
 ]);
 
 // ── Helpers ──────────────────────────────────────────────────────────────────
