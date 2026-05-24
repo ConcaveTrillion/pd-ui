@@ -27,6 +27,9 @@ export type { ChipProps, ChipVariant } from './Chip.js';
 export { StatusPip } from './StatusPip.js';
 export type { StatusPipProps, StatusPipStatus } from './StatusPip.js';
 
+export { CheckIcon } from './CheckIcon.js';
+export type { CheckIconProps, CheckIconState } from './CheckIcon.js';
+
 export { JobStatusPip } from './JobStatusPip.js';
 export type { JobStatusPipProps, JobState } from './JobStatusPip.js';
 

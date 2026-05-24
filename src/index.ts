@@ -183,8 +183,11 @@ export {
   RunAllDirtyPanel,
   BuildPackagePanel,
   ThumbGrid,
+  CheckIcon,
 } from './primitives/index.js';
 export type {
+  CheckIconProps,
+  CheckIconState,
   StatTileProps,
   StatTileTone,
   FlagChipProps,

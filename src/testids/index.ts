@@ -121,3 +121,8 @@ export const PAPER_RENDER = 'paper-render' as const;
 
 /** GPU / CPU / auto status chip. */
 export const BACKEND_CHIP = 'backend-chip' as const;
+
+// ─── CheckIcon (Phase 2 M2) ───────────────────────────────────────────────────
+
+/** Outer span wrapper for CheckIcon. */
+export const CHECK_ICON = 'check-icon' as const;
