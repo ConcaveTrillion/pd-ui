@@ -147,7 +147,10 @@ export type components = {
              */
             type?: "Block";
             /** Unmatched Ground Truth Words */
-            unmatched_ground_truth_words?: string[];
+            unmatched_ground_truth_words?: ([
+                number,
+                string
+            ] | (number | string)[])[];
         };
         BoundingBox: {
             /** Bottom Right */
@@ -288,11 +291,17 @@ export type components = {
             /** Page Index */
             page_index: number;
             /** Provenance Live Ocr */
-            provenance_live_ocr?: string | null;
+            provenance_live_ocr?: {
+                [key: string]: unknown;
+            } | null;
             /** Provenance Saved */
-            provenance_saved?: string | null;
+            provenance_saved?: {
+                [key: string]: unknown;
+            } | null;
             /** Provenance Saved Ocr */
-            provenance_saved_ocr?: string | null;
+            provenance_saved_ocr?: {
+                [key: string]: unknown;
+            } | null;
             review?: components["schemas"]["ReviewMetadata"] | null;
             /** Rotation Applied */
             rotation_applied?: number | null;

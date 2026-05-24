@@ -5,7 +5,7 @@
 
 .PHONY: install lint typecheck test build codegen codegen-check theme-check storybook storybook-build ci e2e e2e-ci help \
         format format-check pre-commit-check \
-        upgrade-deps \
+        upgrade-deps update-pd-deps \
         release-patch release-minor release-major _do-release \
         frontend-install frontend-build frontend-dev frontend-test frontend-lint \
         frontend-format frontend-format-check frontend-knip \
@@ -46,6 +46,7 @@ help:
 	@echo "  format-check         check Prettier formatting without writing"
 	@echo "  pre-commit-check     lint + typecheck + format-check (no pre-commit config)"
 	@echo "  upgrade-deps         pnpm update --latest"
+	@echo "  update-pd-deps       Bump pd-* codegen inputs to registry latest; runs codegen; leaves diff staged"
 	@echo "  codegen              fetch wheels + emit JSON + generate TS"
 	@echo "  codegen-check        run codegen and check git diff"
 	@echo "  storybook            start Storybook dev server"
@@ -119,6 +120,9 @@ pre-commit-check: lint typecheck format-check
 
 upgrade-deps:
 	$(call _pnpm,update --latest)
+
+update-pd-deps: ## Bump pd-* codegen inputs to registry latest; runs codegen; leaves diff staged
+	@./scripts/update-pd-deps.sh
 
 # ---------------------------------------------------------------------------
 # Releases
