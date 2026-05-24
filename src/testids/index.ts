@@ -148,3 +148,10 @@ export const STAGE_CONTROLS_PANEL_REVERT = 'stage-controls-panel-revert' as cons
 
 /** Save-as-default button in StageControlsPanel footer. */
 export const STAGE_CONTROLS_PANEL_SAVE = 'stage-controls-panel-save' as const;
+// ─── TextReviewPane (Phase 2 M2) ─────────────────────────────────────────────
+
+/** Outer section wrapper for TextReviewPane. */
+export const TEXT_REVIEW_PANE = 'text-review-pane' as const;
+
+/** Toggle button inside TextReviewPane header. */
+export const TEXT_REVIEW_PANE_TOGGLE = 'text-review-pane-toggle' as const;

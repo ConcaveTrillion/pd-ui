@@ -17,6 +17,7 @@
  *   - "chevR"   → ChevronRight
  *   - "chevL"   → ChevronLeft
  *   - "chevD"   → ChevronDown
+ *   - "chevU"   → ChevronUp
  *   - "arrowR"  → ArrowRight
  *   - "arrowUp" → ArrowUp
  *   - "arrowDown" → ArrowDown
@@ -37,6 +38,7 @@ import {
   ChevronDown,
   ChevronLeft,
   ChevronRight,
+  ChevronUp,
   Copy,
   Download,
   Eye,
@@ -87,6 +89,7 @@ const ICON_MAP = {
   chevR:       ChevronRight,
   chevL:       ChevronLeft,
   chevD:       ChevronDown,
+  chevU:       ChevronUp,
   arrowR:      ArrowRight,
   search:      Search,
   bell:        Bell,

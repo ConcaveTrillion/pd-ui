@@ -32,6 +32,7 @@ const ALL_DESIGN_NAMES: Array<typeof ICON_NAMES[number]> = [
   'chevR',
   'chevL',
   'chevD',
+  'chevU',
   'arrowR',
   'search',
   'bell',
@@ -61,8 +62,8 @@ const ALL_DESIGN_NAMES: Array<typeof ICON_NAMES[number]> = [
 ];
 
 describe('<Icon name> dispatcher', () => {
-  it('ICON_NAMES contains all 41 design icon names', () => {
-    expect(ICON_NAMES).toHaveLength(41);
+  it('ICON_NAMES contains all 42 design icon names', () => {
+    expect(ICON_NAMES).toHaveLength(42);
     for (const name of ALL_DESIGN_NAMES) {
       expect(ICON_NAMES).toContain(name);
     }
