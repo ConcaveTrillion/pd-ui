@@ -79,6 +79,8 @@ const WHITELIST: ReadonlySet<string> = new Set([
   'stages/PageWorkbench/PaperRender.tsx',
   // AttrEditorPopover is an internal sub-component of PageAttributesBar — covered by PageAttributesBar.stories.tsx
   'stages/PageWorkbench/AttrEditorPopover.tsx',
+  // TreeRow is an internal sub-component of HierarchyTreePanel — covered by HierarchyTreePanel.stories.tsx
+  'stages/PageWorkbench/TreeRow.tsx',
 ]);
 
 // ── Helpers ──────────────────────────────────────────────────────────────────

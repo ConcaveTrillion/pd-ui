@@ -291,6 +291,9 @@ export type { PageAttributesBarProps, PageAttribute } from './stages/PageWorkben
 // PWHeader (Phase 2 M2)
 export { PWHeader } from './stages/PageWorkbench/index.js';
 export type { PWHeaderProps } from './stages/PageWorkbench/index.js';
+// HierarchyTreePanel (Phase 2 M2)
+export { HierarchyTreePanel } from './stages/PageWorkbench/index.js';
+export type { HierarchyTreePanelProps, TreeNode, TreeNodeType } from './stages/PageWorkbench/index.js';
 
 // ─── Phase 2 M2 atom promotions ───────────────────────────────────────────────
 export { BackendChip } from './primitives/index.js';

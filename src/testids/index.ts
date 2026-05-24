@@ -181,3 +181,14 @@ export const PW_HEADER_NEXT = 'pw-header-next' as const;
 
 /** Page counter span inside PWHeader (e.g. "p 5 of 24"). */
 export const PW_HEADER_COUNTER = 'pw-header-counter' as const;
+
+// ─── HierarchyTreePanel (Phase 2 M2) ─────────────────────────────────────────
+
+/** Outer nav wrapper for the hierarchy tree panel. */
+export const HIERARCHY_TREE_PANEL = 'hierarchy-tree-panel' as const;
+
+/**
+ * Build a testid for a specific tree row: `tree-row-{id}`.
+ * Playwright drivers use these to interact with individual nodes.
+ */
+export const treeRowTestId = (id: string) => `tree-row-${id}` as const;

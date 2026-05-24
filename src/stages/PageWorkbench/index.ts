@@ -44,3 +44,11 @@ export type { PageAttributesBarProps, PageAttribute } from './PageAttributesBar.
 // AttrEditorPopover is intentionally NOT exported — internal sub-component.
 export { PWHeader } from './PWHeader.js'
 export type { PWHeaderProps } from './PWHeader.js'
+
+export { HierarchyTreePanel } from './HierarchyTreePanel.js'
+export type {
+  HierarchyTreePanelProps,
+  TreeNode,
+  TreeNodeType,
+} from './HierarchyTreePanel.js'
+// TreeRow is intentionally NOT exported — internal sub-component of HierarchyTreePanel.
