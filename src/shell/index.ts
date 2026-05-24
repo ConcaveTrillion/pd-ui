@@ -79,3 +79,7 @@ export type { JobsPillProps, ActiveJob } from './JobsPill.js';
 // ─── JobRow (OQ-5 shell molecule) ─────────────────────────────────────────────
 export { JobRow } from './JobRow.js';
 export type { JobRowProps, Job, JobStatus } from './JobRow.js';
+
+// ─── AppHeader (OQ-5 shell molecule) ──────────────────────────────────────────
+export { AppHeader } from './AppHeader.js';
+export type { AppHeaderProps } from './AppHeader.js';
