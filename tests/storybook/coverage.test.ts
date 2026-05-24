@@ -83,6 +83,13 @@ const WHITELIST: ReadonlySet<string> = new Set([
   'stages/PageWorkbench/TreeRow.tsx',
   // TypeGrid is an internal sub-component of BlockTypePickerPanel — covered by BlockTypePickerPanel.stories.tsx
   'stages/PageWorkbench/TypeGrid.tsx',
+
+  // OcrTextPanel internal sub-components — covered by OcrTextPanel.stories.tsx
+  'stages/PageWorkbench/ConfPip.tsx',
+  'stages/PageWorkbench/WordCard.tsx',
+  'stages/PageWorkbench/WordRow.tsx',
+  'stages/PageWorkbench/LineBlockCard.tsx',
+  'stages/PageWorkbench/LineBlockRow.tsx',
 ]);
 
 // ── Helpers ──────────────────────────────────────────────────────────────────

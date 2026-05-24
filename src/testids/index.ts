@@ -214,3 +214,17 @@ export const PAGE_ATTRIBUTES_PANEL = 'page-attributes-panel' as const;
  * Playwright drivers use these to target individual attribute rows.
  */
 export const pageAttrPanelRowTestId = (id: string) => `page-attr-panel-row-${id}` as const;
+
+// ─── OcrTextPanel (Phase 2 M2) ──────────────────────────────────────────────
+
+/** Outer aside wrapper for OcrTextPanel (right-drawer OCR text review). */
+export const OCR_TEXT_PANEL = 'ocr-text-panel' as const;
+
+/** View-mode toggle (Cards/Rows) inside OcrTextPanel header. */
+export const OCR_TEXT_PANEL_VIEW_TOGGLE = 'ocr-text-panel-view-toggle' as const;
+
+/**
+ * Build a testid for a specific word: `ocr-word-{id}`.
+ * Playwright drivers use these to interact with individual words.
+ */
+export const ocrWordTestId = (id: string) => `ocr-word-${id}` as const;

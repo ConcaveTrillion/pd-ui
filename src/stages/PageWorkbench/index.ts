@@ -59,3 +59,12 @@ export type { BlockTypePickerPanelProps, BlockTypeOption } from './BlockTypePick
 
 export { PageAttributesPanel } from './PageAttributesPanel.js'
 export type { PageAttributesPanelProps } from './PageAttributesPanel.js'
+
+export { OcrTextPanel } from './OcrTextPanel.js'
+export type {
+  OcrTextPanelProps,
+  OcrLine,
+  OcrWord,
+  OcrViewMode,
+} from './OcrTextPanel.js'
+// LineBlockCard, LineBlockRow, WordCard, WordRow, ConfPip are intentionally NOT exported — internal sub-components.

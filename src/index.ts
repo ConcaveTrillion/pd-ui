@@ -300,6 +300,14 @@ export type { BlockTypePickerPanelProps, BlockTypeOption } from './stages/PageWo
 // PageAttributesPanel (Phase 2 M2)
 export { PageAttributesPanel } from './stages/PageWorkbench/index.js';
 export type { PageAttributesPanelProps } from './stages/PageWorkbench/index.js';
+// OcrTextPanel (Phase 2 M2)
+export { OcrTextPanel } from './stages/PageWorkbench/index.js';
+export type {
+  OcrTextPanelProps,
+  OcrLine,
+  OcrWord,
+  OcrViewMode,
+} from './stages/PageWorkbench/index.js';
 
 // ─── Phase 2 M2 atom promotions ───────────────────────────────────────────────
 export { BackendChip } from './primitives/index.js';
