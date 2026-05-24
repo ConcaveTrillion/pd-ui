@@ -160,6 +160,10 @@ export {
   ToggleGroup,
 } from './primitives/index.js';
 
+// ─── Templates ───────────────────────────────────────────────────────────────
+export { StageStrip, PIPELINE_STAGES } from './templates/index.js';
+export type { StageStripProps, StageDef } from './templates/index.js';
+
 // ─── Icons ────────────────────────────────────────────────────────────────────
 export * from './icons/index.js';
 

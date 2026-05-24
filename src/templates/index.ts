@@ -1,13 +1,17 @@
 /**
- * pd-ui/templates subpath export.
+ * Templates subpath barrel (`@concavetrillion/pd-ui/templates`).
  *
- * Re-exports all public templates API:
- *  - ProjectsDrawer (suite-wide molecule for project selection — OQ-12)
+ * Cross-stage layout molecules that compose primitive-layer components
+ * into shared pipeline / project UI patterns.
  *
- * Import via: import { ProjectsDrawer } from '@concavetrillion/pd-ui/templates'
+ * Import via: `import { ... } from '@concavetrillion/pd-ui/templates'`
  */
 
-// ─── ProjectsDrawer ───────────────────────────────────────────────────────────
+// ─── StageStrip (#340) ────────────────────────────────────────────────────────
+export { StageStrip, PIPELINE_STAGES } from './StageStrip.js';
+export type { StageStripProps, StageDef } from './StageStrip.js';
+
+// ─── ProjectsDrawer (#356, OQ-12) ─────────────────────────────────────────────
 export { ProjectsDrawer } from './ProjectsDrawer.js';
 export type {
   ProjectsDrawerProps,
