@@ -284,6 +284,10 @@ export type { StageControlsPanelProps, Inheritance } from './stages/PageWorkbenc
 export { TextReviewPane } from './stages/PageWorkbench/index.js';
 export type { TextReviewPaneProps } from './stages/PageWorkbench/index.js';
 
+// PageAttributesBar (Phase 2 M2)
+export { PageAttributesBar } from './stages/PageWorkbench/index.js';
+export type { PageAttributesBarProps, PageAttribute } from './stages/PageWorkbench/index.js';
+
 // ─── Phase 2 M2 atom promotions ───────────────────────────────────────────────
 export { BackendChip } from './primitives/index.js';
 export type { BackendChipProps, BackendValue } from './primitives/index.js';

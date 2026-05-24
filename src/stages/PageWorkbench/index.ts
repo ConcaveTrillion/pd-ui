@@ -39,3 +39,6 @@ export { StageControlsPanel } from './StageControlsPanel.js'
 export type { StageControlsPanelProps, Inheritance } from './StageControlsPanel.js'
 export { TextReviewPane } from './TextReviewPane.js'
 export type { TextReviewPaneProps } from './TextReviewPane.js'
+export { PageAttributesBar } from './PageAttributesBar.js'
+export type { PageAttributesBarProps, PageAttribute } from './PageAttributesBar.js'
+// AttrEditorPopover is intentionally NOT exported — internal sub-component.

@@ -155,3 +155,16 @@ export const TEXT_REVIEW_PANE = 'text-review-pane' as const;
 
 /** Toggle button inside TextReviewPane header. */
 export const TEXT_REVIEW_PANE_TOGGLE = 'text-review-pane-toggle' as const;
+// ─── PageAttributesBar (Phase 2 M2) ──────────────────────────────────────────
+
+/** Outer wrapper of the page attributes bar. */
+export const PAGE_ATTRIBUTES_BAR = 'page-attributes-bar' as const;
+
+/** Collapse/expand toggle button inside the page attributes bar. */
+export const PAGE_ATTRIBUTES_BAR_TOGGLE = 'page-attributes-bar-toggle' as const;
+
+/**
+ * Build a testid for a specific attribute chip: `page-attr-chip-{id}`.
+ * Playwright drivers use these to click individual chips.
+ */
+export const pageAttrChipTestId = (id: string) => `page-attr-chip-${id}` as const;

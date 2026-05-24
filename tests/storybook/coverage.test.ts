@@ -77,6 +77,8 @@ const WHITELIST: ReadonlySet<string> = new Set([
   // PageWorkbench internal sub-components — covered by ArtifactViewer.stories.tsx
   'stages/PageWorkbench/ArtifactPlate.tsx',
   'stages/PageWorkbench/PaperRender.tsx',
+  // AttrEditorPopover is an internal sub-component of PageAttributesBar — covered by PageAttributesBar.stories.tsx
+  'stages/PageWorkbench/AttrEditorPopover.tsx',
 ]);
 
 // ── Helpers ──────────────────────────────────────────────────────────────────
