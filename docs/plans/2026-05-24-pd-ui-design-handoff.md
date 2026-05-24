@@ -75,23 +75,26 @@ The design bundle's `Icon` component is a switch over ~50 inline SVGs.
 Lucide-first strategy: re-export lucide equivalents where available,
 implement domain glyphs as bespoke components.
 
-Approach: For each row in port-plan Table 3 with verdict `lucide`, add
-the lucide-react re-export to `src/icons/lucide.ts`. For each row with
-verdict `bespoke`, implement the component in `src/icons/bespoke.tsx`
-following the existing bespoke convention. Update `Icons.stories.tsx`
-to gallery every new icon. No `<Icon name="…">` switch component —
-apps continue to import named icon components.
+Approach: For each row in port-plan Table 3 with verdict `port to
+lucide`, add the lucide-react re-export to `src/icons/lucide.ts`.
+Port-plan determined: 12 already exist, 28 new lucide re-exports
+needed, zero bespoke. Per OQ-7: `alert` → `AlertTriangle` (lucide
+v0.x is installed). Per OQ-8: `swap` → `ArrowLeftRight`. Per **OQ-1**:
+ALSO add a name-dispatcher shim `<Icon name="check" />` in
+`src/icons/Icon.tsx` that maps to the named exports (typed
+string-literal union of all known names). Update `Icons.stories.tsx`
+to gallery every new icon plus the dispatcher.
 
 Blocked-by: #port-plan-audit
 
 Verification: `make ci AI=1`
 
 Acceptance:
-- [ ] Port-plan Table 3 rows reviewed and confirmed for this task's scope.
-- [ ] Every `lucide`-verdict design name has a corresponding re-export in `src/icons/lucide.ts`.
-- [ ] Every `bespoke`-verdict design name has a typed component in `src/icons/bespoke.tsx`.
-- [ ] `Icons.stories.tsx` galleries the new icons.
-- [ ] `src/icons/bespoke.test.tsx` covers the new bespoke components' rendering.
+- [ ] 28 new `port to lucide`-verdict design names re-exported from `src/icons/lucide.ts`.
+- [ ] `alert` exports as `AlertTriangle` (lucide v0.x); `swap` exports as `ArrowLeftRight`.
+- [ ] `src/icons/Icon.tsx` exports a typed `<Icon name="…" size?={number}/>` dispatcher mapping every design name to the corresponding named export.
+- [ ] `Icons.stories.tsx` galleries every new icon AND the dispatcher.
+- [ ] `src/icons/Icon.test.tsx` covers the dispatcher's name→component routing.
 - [ ] `make ci AI=1` green.
 
 ---
@@ -171,25 +174,26 @@ Acceptance:
 ---
 
 ## Task 6 — Reconcile token-diff gaps  {#reconcile-tokens}
-model: sonnet  effort: S  area: pd-ui-frontend
+model: haiku  effort: S  area: pd-ui-frontend
 
-Context: Recon suggests every design token already exists in pd-ui's
-`tokens.css`. Audit confirms or surfaces gaps. Anticipated no-op.
+Context: Port-plan Table 2 found 25 tokens identical, 0
+`value-mismatch`, and 2 `missing` (`--font-sans`, `--font-mono`
+back-compat aliases). Per **OQ-6**: CT decided NOT to add the aliases;
+consumers will use canonical `--ui-font` / `--mono-font`.
 
-Approach: For each port-plan Table 2 row with verdict `missing`, add
-the token to `src/theme/tokens.css` under the existing naming
-convention. For each `value-mismatch` row, surface to CT for decision
-(do not change values unilaterally). Sync to `docs/design-system/` via
-`scripts/sync-design-system.mjs`. If Table 2 has zero `missing` rows
-and zero `value-mismatch` rows, close as no-op.
+Approach: Close as no-op. Add a one-line comment in
+`src/theme/tokens.css` near the font tokens noting that the
+back-compat aliases are intentionally omitted (consumers reference
+canonical names).
 
 Blocked-by: #port-plan-audit
 
-Verification: `make ci AI=1 && node scripts/sync-design-system.mjs --check`
+Verification: `make ci AI=1`
 
 Acceptance:
-- [ ] Port-plan Table 2 reviewed.
-- [ ] Either: every `missing` token added to `src/theme/tokens.css` and synced, CI green; OR: task closed as no-op with reference to Table 2.
+- [ ] Comment added near `--ui-font` / `--mono-font` in `src/theme/tokens.css` noting OQ-6 decision.
+- [ ] No new tokens added.
+- [ ] `make ci AI=1` green.
 
 ---
 
@@ -342,21 +346,26 @@ Acceptance:
 model: sonnet  effort: M  area: pd-ui-frontend
 
 Context: Projects landing chrome from `final/projects/projects.jsx`.
-Slot-based.
+Per **OQ-11**: the design has `ProjectsPage` (populated) and
+`ProjectsEmpty` (empty state) as separate components but the
+`emptyState` prop on `ProjectsPage` is unused. Merge into one template
+with a discriminated-union `state` prop.
 
 Approach: Implement
-`src/templates/ProjectsLandingTemplate.tsx` exposing slot props
-`attributesPanel`, `coverGrid`, `pipelineMini`. Collocated stories +
-tests.
+`src/templates/ProjectsLandingTemplate.tsx` exposing a discriminated
+union prop `state: 'populated' | 'empty'`. When `state='populated'`,
+slot props `attributesPanel`, `coverGrid`, `pipelineMini` render. When
+`state='empty'`, render the empty-state layout (CTA card, illustration
+slot). Common chrome (header, breadcrumb) is shared.
 
 Blocked-by: #port-plan-audit
 
 Verification: `make ci AI=1`
 
 Acceptance:
-- [ ] `src/templates/ProjectsLandingTemplate.tsx` exports a typed template with slot props.
-- [ ] Stories cover every `DCArtboard` variant from the source.
-- [ ] Tests assert each slot renders into its testid region.
+- [ ] `src/templates/ProjectsLandingTemplate.tsx` exports a typed template with discriminated-union `state` prop.
+- [ ] Stories cover both `state='populated'` and `state='empty'` variants from the design sources.
+- [ ] Tests assert each slot renders into its testid region in each state.
 - [ ] `make ci AI=1` green.
 
 ---
@@ -383,6 +392,255 @@ Acceptance:
 
 ---
 
+## Task 16 — Extend pd-ui Button with icon/iconRight/full props  {#extend-button}
+model: sonnet  effort: S  area: pd-ui-frontend
+
+Context: Per **OQ-2**: design `Button` composes icons via `icon` /
+`iconRight` props and supports `full` (width: 100%). pd-ui `Button`
+has none. Extend non-breakingly.
+
+Approach: Add optional `icon?: ReactNode`, `iconRight?: ReactNode`,
+`full?: boolean` props to `src/primitives/Button.tsx`. Existing
+callers unaffected. Add stories covering each new prop and a
+combined-prop story. Add tests covering each new render path.
+
+Blocked-by: #port-plan-audit, #port-icon
+
+Verification: `make ci AI=1`
+
+Acceptance:
+- [ ] `src/primitives/Button.tsx` adds `icon` / `iconRight` / `full` optional props with correct typing.
+- [ ] Existing Button stories and tests still pass.
+- [ ] New stories cover each new prop and a combined-prop variant.
+- [ ] New tests cover each new prop's render path.
+- [ ] `make ci AI=1` green.
+
+---
+
+## Task 17 — Extend pd-ui Input with composite wrapper + suffix slot  {#extend-input}
+model: sonnet  effort: S  area: pd-ui-frontend
+
+Context: Per **OQ-3**: design `Input` is a `<div>` shell with child
+`<input>`, a `suffix` slot, and an inline focus ring on `autoFocus`.
+pd-ui `Input` is a bare styled `<input>`.
+
+Approach: Refactor `src/primitives/Input.tsx` to render a composite
+wrapper when `suffix` is provided (otherwise still render bare for
+back-compat). Add optional `suffix?: ReactNode` and `autoFocusRing?:
+boolean` props. The focus-ring styling lives in
+`src/theme/primitives.css` referencing existing `--accent` token.
+Existing callers unaffected.
+
+Blocked-by: #port-plan-audit
+
+Verification: `make ci AI=1`
+
+Acceptance:
+- [ ] `src/primitives/Input.tsx` adds `suffix` / `autoFocusRing` optional props with correct typing.
+- [ ] Composite wrapper renders only when `suffix` is provided; existing bare-input usage unaffected.
+- [ ] Existing Input stories and tests still pass.
+- [ ] New stories cover the suffix slot and autoFocusRing variants.
+- [ ] New tests cover composite render path and focus-ring class application.
+- [ ] `make ci AI=1` green.
+
+---
+
+## Task 18 — Extend pd-ui Badge with tone prop  {#extend-badge}
+model: sonnet  effort: S  area: pd-ui-frontend
+
+Context: Per **OQ-4**: design `Badge` uses a 13-value semantic `tone`
+prop driven by status tokens (exact / fuzzy / mismatch / ocr / gt /
+review / running / clean / dirty / etc.). pd-ui `Badge` has 3
+structural variants. The full list of tones comes from port-plan
+Table 1's note on the Badge row (which cross-references the design
+sources for the canonical 13 names).
+
+Approach: Add optional `tone?: 'exact' | 'fuzzy' | 'mismatch' | …`
+string-literal union prop to `src/primitives/Badge.tsx`. Each tone
+maps to a CSS class that uses the corresponding `--exact` / `--fuzzy`
+/ etc. token already defined in `src/theme/tokens.css`. Structural
+variants (default/primary/danger) remain. Stories cover every tone.
+
+Blocked-by: #port-plan-audit
+
+Verification: `make ci AI=1`
+
+Acceptance:
+- [ ] `src/primitives/Badge.tsx` adds `tone` optional string-literal union prop covering all 13 design tones.
+- [ ] Each tone class is defined in `src/theme/primitives.css` referencing the matching `--*` token.
+- [ ] Existing Badge stories and tests still pass.
+- [ ] New stories gallery every tone.
+- [ ] New tests cover tone → class mapping.
+- [ ] `make ci AI=1` green.
+
+---
+
+## Task 19 — Port AppHeader to src/shell/  {#port-appheader}
+model: sonnet  effort: M  area: pd-ui-frontend
+
+Context: Per **OQ-5**: design `AppHeader` is the opinionated suite
+chrome bar — app icon + search + jobs pill + bell + user avatar.
+Every pd-* SPA will need this; centralize.
+
+Approach: Implement `src/shell/AppHeader.tsx` composing pd-ui
+primitives. Slots: `logo`, `search?`, `jobsPill?`, `notifications?`,
+`userAvatar`. Props: `username`, `initials`, `unread?`. Stories cover
+the variants from `final/template/template.jsx`. Tests cover slot
+composition.
+
+Blocked-by: #port-plan-audit, #port-icon
+
+Verification: `make ci AI=1`
+
+Acceptance:
+- [ ] `src/shell/AppHeader.tsx` exports a typed `AppHeader` with documented slot props.
+- [ ] Stories cover each variant (with/without jobs pill, unread state, etc.).
+- [ ] Tests assert slot composition and prop rendering.
+- [ ] `make ci AI=1` green.
+
+---
+
+## Task 20 — Port JobsPill molecule  {#port-jobspill}
+model: sonnet  effort: S  area: pd-ui-frontend
+
+Context: Per **OQ-5**: status pill that displays active job count and
+opens JobsDrawer on click.
+
+Approach: Implement `src/shell/JobsPill.tsx` as a typed molecule with
+`activeJobs: number`, `onClick: () => void`, optional `running?:
+boolean` (for spinner state). Stories + tests.
+
+Blocked-by: #port-plan-audit, #port-icon
+
+Verification: `make ci AI=1`
+
+Acceptance:
+- [ ] `src/shell/JobsPill.tsx` exports a typed `JobsPill`.
+- [ ] Stories cover idle, running, and high-count variants.
+- [ ] Tests cover click handling and running-state rendering.
+- [ ] `make ci AI=1` green.
+
+---
+
+## Task 21 — Port JobsDrawer molecule  {#port-jobsdrawer}
+model: sonnet  effort: M  area: pd-ui-frontend
+
+Context: Per **OQ-5**: side drawer listing active and recent jobs.
+
+Approach: Implement `src/shell/JobsDrawer.tsx` as a typed molecule
+with `open: boolean`, `onOpenChange`, `jobs: JobRow[]` (typed). Uses
+existing pd-ui `Drawer` primitive or Radix Dialog (decide based on
+existing pattern). Stories + tests.
+
+Blocked-by: #port-plan-audit, #port-jobrow
+
+Verification: `make ci AI=1`
+
+Acceptance:
+- [ ] `src/shell/JobsDrawer.tsx` exports a typed `JobsDrawer`.
+- [ ] Stories cover empty, populated, and many-jobs variants.
+- [ ] Tests cover open/close behavior and job list rendering.
+- [ ] `make ci AI=1` green.
+
+---
+
+## Task 22 — Port JobRow molecule  {#port-jobrow}
+model: sonnet  effort: S  area: pd-ui-frontend
+
+Context: Per **OQ-5**: one row inside JobsDrawer — job name, status,
+progress, optional cancel action.
+
+Approach: Implement `src/shell/JobRow.tsx` as a typed molecule with
+typed `job` data prop (name, status, progress, etc.) and optional
+`onCancel` callback. Stories + tests.
+
+Blocked-by: #port-plan-audit, #port-icon
+
+Verification: `make ci AI=1`
+
+Acceptance:
+- [ ] `src/shell/JobRow.tsx` exports a typed `JobRow`.
+- [ ] Stories cover each status variant (queued, running, succeeded, failed).
+- [ ] Tests cover status rendering and cancel callback.
+- [ ] `make ci AI=1` green.
+
+---
+
+## Task 23 — Port ProjectsDrawer molecule  {#port-projectsdrawer}
+model: sonnet  effort: M  area: pd-ui-frontend
+
+Context: Per **OQ-12**: suite-wide project-picker drawer molecule.
+Lives at the molecule layer (not as an AppShell zone); templates that
+need it embed it.
+
+Approach: Implement `src/templates/ProjectsDrawer.tsx` with typed
+`projects: Project[]`, `currentProjectId?`, `onProjectChange`,
+`onCreateProject` slot. Stories + tests.
+
+Blocked-by: #port-plan-audit
+
+Verification: `make ci AI=1`
+
+Acceptance:
+- [ ] `src/templates/ProjectsDrawer.tsx` exports a typed `ProjectsDrawer`.
+- [ ] Stories cover empty, populated, and selected-project variants.
+- [ ] Tests cover project selection and create-project slot.
+- [ ] `make ci AI=1` green.
+
+---
+
+## Task 24 — Port SettingsNav template  {#port-settingsnav}
+model: sonnet  effort: S  area: pd-ui-frontend
+
+Context: Per **OQ-10**: extract the 8-item settings nav rail
+(general / bibliographic / pgdp / format / defaults / members /
+storage / danger) from `final/pipeline/project-settings.jsx` as a
+reusable molecule. Other pd-* SPAs with settings will reuse this
+pattern.
+
+Approach: Implement `src/templates/SettingsNav.tsx` as a typed
+molecule with `items: SettingsNavItem[]` (typed entries with `id`,
+`label`, optional `icon`, optional `tone` for danger-zone styling)
+and `current` (item id) and `onChange`. Stories + tests.
+
+Blocked-by: #port-plan-audit
+
+Verification: `make ci AI=1`
+
+Acceptance:
+- [ ] `src/templates/SettingsNav.tsx` exports a typed `SettingsNav`.
+- [ ] Stories cover the default 8-item layout plus a custom-items variant.
+- [ ] Tests cover current-item highlight, click handling, danger-zone tone.
+- [ ] `make ci AI=1` green.
+
+---
+
+## Task 25 — Deprecate AppShell drawer/rightPanel props (JSDoc + tests)  {#deprecate-appshell-zones}
+model: haiku  effort: S  area: pd-ui-frontend
+
+Context: Per **OQ-12**: AppShell's `drawer` and `rightPanel` slot
+props are deprecated. They remain functional for back-compat with
+`pd-ocr-labeler-spa` and `pd-prep-for-pgdp`. New templates own their
+own internal drawer / right-panel concerns. Removal happens in a
+separate future spec after the two consumers migrate.
+
+Approach: Add `@deprecated` JSDoc to `drawer` and `rightPanel` props
+in `src/shell/AppShell.tsx` with a migration note (point to template
+internal layouts or `ProjectsDrawer` molecule). Add an ESLint warning
+or a runtime `console.warn` (decide based on existing pattern;
+JSDoc-only is acceptable). Add a deprecation note to `AppShell.test.tsx`.
+
+Blocked-by: #port-plan-audit
+
+Verification: `make ci AI=1`
+
+Acceptance:
+- [ ] `drawer` and `rightPanel` props carry `@deprecated` JSDoc tags with migration guidance.
+- [ ] Tests still pass; both slots still render (back-compat preserved).
+- [ ] `make ci AI=1` green.
+
+---
+
 ## Task 15 — Write MIGRATION_NOTES.md  {#migration-notes}
 model: haiku  effort: S  area: pd-ui-docs
 
@@ -394,11 +652,12 @@ Approach: Write `MIGRATION_NOTES.md` at pd-ui repo root with five
 sections: new exports table (column 1 = pd-ui export path, column 2 =
 design source file); tokens added or aliased; icon mapping reference
 (link to port-plan Table 3); conscious omissions (every `co-locate` or
-`skip` verdict with one-line reason); open questions for CT.
+`skip` verdict with one-line reason); open questions for CT and how
+they were resolved (link to port-plan CT-decisions section).
 Demonstration of `final/source/source.jsx` → pd-ui imports is
 documented (the glue itself is part of the follow-on stages spec).
 
-Blocked-by: #port-icon, #port-segmented, #port-stepdots, #port-pageheader, #reconcile-tokens, #port-stagestrip, #port-tabsband, #port-bulkbar, #port-attributespanel, #port-additional-molecules, #port-pipelinetemplate, #port-projectslandingtemplate, #port-projectsettingstemplate
+Blocked-by: #port-icon, #port-segmented, #port-stepdots, #port-pageheader, #reconcile-tokens, #port-stagestrip, #port-tabsband, #port-bulkbar, #port-attributespanel, #port-additional-molecules, #port-pipelinetemplate, #port-projectslandingtemplate, #port-projectsettingstemplate, #extend-button, #extend-input, #extend-badge, #port-appheader, #port-jobspill, #port-jobsdrawer, #port-jobrow, #port-projectsdrawer, #port-settingsnav, #deprecate-appshell-zones
 
 Verification: `git ls-files MIGRATION_NOTES.md && make ci AI=1`
 
