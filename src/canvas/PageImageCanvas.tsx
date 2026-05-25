@@ -185,12 +185,27 @@ export function PageImageCanvas<
   )
 
   // ── Image load state ───────────────────────────────────────────────────────
+  // Clear immediately on src change so no stale image is shown while loading.
+  // A "cancelled" flag acts as a source token to discard late-arriving loads
+  // from a prior src (e.g. slow network + rapid src change).
+  // onerror keeps imageEl null so a broken image never shows a stale frame.
   const [imageEl, setImageEl] = useState<HTMLImageElement | null>(null)
   useEffect(() => {
+    let cancelled = false
+    setImageEl(null)
     const img = new window.Image()
     img.src = src
-    img.onload = () => { setImageEl(img) }
-    return () => { img.onload = null }
+    img.onload = () => {
+      if (!cancelled) setImageEl(img)
+    }
+    img.onerror = () => {
+      if (!cancelled) setImageEl(null)
+    }
+    return () => {
+      cancelled = true
+      img.onload = null
+      img.onerror = null
+    }
   }, [src])
 
   // ── Image node ref (issue #12) ─────────────────────────────────────────────
