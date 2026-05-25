@@ -519,3 +519,21 @@ export const SCANNO_TOKEN = 'scanno-token' as const;
 // ─── Stages / PageReorder (Phase 2 M8) ───────────────────────────────────────
 export const REORDER_AFTER_APPLY_STRIP = 'reorder-after-apply-strip' as const;
 export const REORDER_AFTER_APPLY_STRIP_UNDO = 'reorder-after-apply-strip-undo' as const;
+
+// ReorderScansBanner
+export const REORDER_SCANS_BANNER = 'reorder-scans-banner' as const;
+export const REORDER_SCANS_BANNER_SKIP = 'reorder-scans-banner-skip' as const;
+export const REORDER_SCANS_BANNER_AUTO_APPLY = 'reorder-scans-banner-auto-apply' as const;
+export const REORDER_SCANS_BANNER_REDETECT = 'reorder-scans-banner-redetect' as const;
+export const REORDER_SCANS_BANNER_SORT = 'reorder-scans-banner-sort' as const;
+
+// ─── Stages / Upload — ModalB (Phase 2 M12) ──────────────────────────────────
+
+/** Root dialog content of ModalB (compact drop-target upload modal). */
+export const UPLOAD_MODAL_B = 'upload-modal-b' as const;
+
+/** Drop zone div inside ModalB — role="button", aria-label="Upload images". */
+export const UPLOAD_MODAL_B_DROP_ZONE = 'upload-modal-b-drop-zone' as const;
+
+/** Hidden file input inside ModalB (fallback for keyboard / click). */
+export const UPLOAD_MODAL_B_FILE_INPUT = 'upload-modal-b-file-input' as const;
