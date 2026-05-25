@@ -29,6 +29,7 @@ export default defineConfig({
         'stages/Validation/index': resolve(__dirname, 'src/stages/Validation/index.ts'),
         'stages/QualityFlags/index': resolve(__dirname, 'src/stages/QualityFlags/index.ts'),
         'stages/Scannos/index': resolve(__dirname, 'src/stages/Scannos/index.ts'),
+        'stages/PageReorder/index': resolve(__dirname, 'src/stages/PageReorder/index.ts'),
       },
       formats: ['es'],
     },
