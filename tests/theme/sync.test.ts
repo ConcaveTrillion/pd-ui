@@ -13,14 +13,19 @@ const SYNC_SCRIPT = resolve(__dirname, '../../scripts/sync-design-system.mjs')
 // Resolve the node binary from the current process
 const NODE = process.execPath
 
-/** Build a minimal fake workspace tree in a tmp dir */
-function buildTmpWorkspace(opts: {
-  tokensContent?: string
-  primitivesContent?: string
-  docTokensContent?: string
-  docPrimitivesContent?: string
-}): string {
-  const tmpRoot = mkdtempSync(resolve(tmpdir(), 'pd-ui-sync-test-'))
+/** Build a minimal fake workspace tree in a tmp dir, optionally with spaces in the path */
+function buildTmpWorkspace(
+  opts: {
+    tokensContent?: string
+    primitivesContent?: string
+    docTokensContent?: string
+    docPrimitivesContent?: string
+  },
+  /** If true, the workspace root dir will contain a space in its name */
+  withSpaceInPath = false
+): string {
+  const prefix = withSpaceInPath ? resolve(tmpdir(), 'pd ui sync test ') : resolve(tmpdir(), 'pd-ui-sync-test-')
+  const tmpRoot = mkdtempSync(prefix)
 
   // pd-ui/theme/
   const themeDir = resolve(tmpRoot, 'pd-ui', 'theme')
@@ -174,5 +179,30 @@ describe('sync-design-system.mjs', () => {
 
     const result = runSync(tmpRoot, ['--check'])
     expect(result.status).toBe(0)
+  })
+
+  it('git-status guard handles paths with spaces (no shell injection)', () => {
+    // Build a workspace whose path contains spaces to verify execFileSync argv
+    // is used (not shell interpolation which would break on spaces).
+    const spaceRoot = buildTmpWorkspace(
+      {
+        tokensContent: ':root { --a: 1; }',
+        primitivesContent: '.btn {}',
+        docTokensContent: ':root { --a: 1; }',
+        docPrimitivesContent: '.btn {}',
+      },
+      true
+    )
+    try {
+      // Files are in sync and the dir is not a git repo, so the guard runs
+      // git status, git fails (not a repo), guard is skipped, and the script
+      // exits 0 reporting all-in-sync. A shell-interpolated invocation would
+      // either fail to parse the path or produce an incorrect result.
+      const result = runSync(spaceRoot, [])
+      expect(result.status, `stderr: ${String(result.stderr ?? '')}`).toBe(0)
+      expect(result.stdout).toContain('in sync')
+    } finally {
+      rmSync(spaceRoot, { recursive: true, force: true })
+    }
   })
 })
