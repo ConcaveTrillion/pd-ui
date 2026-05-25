@@ -21,8 +21,8 @@ const ANCHORS: InsertAnchorOption[] = [
 ];
 
 function renderOpen(overrides: Partial<React.ComponentProps<typeof InsertDialog>> = {}) {
-  const onInsert     = vi.fn<[InsertSubmission], void>();
-  const onOpenChange = vi.fn<[boolean], void>();
+  const onInsert     = vi.fn<(arg: InsertSubmission) => void>();
+  const onOpenChange = vi.fn<(arg: boolean) => void>();
 
   render(
     <InsertDialog

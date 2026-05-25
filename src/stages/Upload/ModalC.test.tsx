@@ -29,8 +29,8 @@ const STEP_CONTENT: Record<Step, React.ReactNode> = {
 };
 
 function renderOpen(overrides: Partial<React.ComponentProps<typeof ModalC>> = {}) {
-  const onOpenChange = vi.fn<[boolean], void>();
-  const onStepChange = vi.fn<[Step], void>();
+  const onOpenChange = vi.fn<(arg: boolean) => void>();
+  const onStepChange = vi.fn<(arg: Step) => void>();
 
   render(
     <ModalC
@@ -103,7 +103,7 @@ describe('ModalC', () => {
     const steps: Step[] = ['name', 'source', 'review', 'upload'];
     for (const targetStep of steps) {
       cleanup();
-      const onStepChange = vi.fn<[Step], void>();
+      const onStepChange = vi.fn<(arg: Step) => void>();
       render(
         <ModalC
           open={true}
