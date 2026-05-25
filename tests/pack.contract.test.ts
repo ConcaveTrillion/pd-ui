@@ -7,12 +7,15 @@
  */
 import { describe, it, expect, afterAll } from 'vitest';
 import { spawnSync } from 'child_process';
-import { existsSync, unlinkSync } from 'fs';
+import { existsSync, unlinkSync, readFileSync } from 'fs';
 import { resolve, dirname } from 'path';
 import { fileURLToPath } from 'url';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const ROOT = resolve(__dirname, '..');
+const PKG_VERSION = (
+  JSON.parse(readFileSync(resolve(ROOT, 'package.json'), 'utf-8')) as { version: string }
+).version;
 
 // Capture which tarballs exist before so we only remove the one we create.
 function runPack(): { files: string[]; filename: string } {
@@ -58,8 +61,8 @@ const REQUIRED_DIST_ENTRIES = [
 ] as const;
 
 describe('pnpm pack tarball contents', () => {
-  it('tarball filename contains version 0.1.0-alpha', () => {
-    expect(packResult.filename).toContain('0.1.0-alpha');
+  it('tarball filename contains current package version', () => {
+    expect(packResult.filename).toContain(PKG_VERSION);
   });
 
   it('tarball includes package.json', () => {

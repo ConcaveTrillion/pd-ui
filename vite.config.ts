@@ -44,6 +44,7 @@ export default defineConfig({
         'lucide-react', 'react-virtuoso', 'clsx',
       ],
     },
+    target: 'es2022',
     cssCodeSplit: true,
   },
   resolve: {

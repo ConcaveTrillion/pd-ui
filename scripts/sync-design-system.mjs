@@ -34,8 +34,15 @@ const docsDesignSystemDir = resolve(pdUiRoot, '..', 'docs', 'design-system')
 
 const FILES = ['tokens.css', 'primitives.css']
 
-// Validate docs/design-system/ exists
+// Validate docs/design-system/ exists.
+// In --check mode (CI) when the directory doesn't exist (e.g. first checkout or
+// agent worktree that lacks the workspace docs/ sibling), treat as in-sync and
+// exit 0. There is nothing to drift against.
 if (!existsSync(docsDesignSystemDir)) {
+  if (isCheck) {
+    console.log(`INFO: docs/design-system/ not found at ${docsDesignSystemDir} — skipping check (no workspace docs to drift against).`)
+    process.exit(0)
+  }
   console.error(`ERROR: docs/design-system/ directory not found at: ${docsDesignSystemDir}`)
   process.exit(1)
 }
