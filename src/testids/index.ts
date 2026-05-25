@@ -84,9 +84,6 @@ export const PROJECTS_TAB_STRIP = 'projects-tab-strip' as const;
 export const PROJECTS_TAB_BODY = 'projects-tab-body' as const;
 export const PROJECTS_EMPTY_HERO = 'projects-empty-hero' as const;
 export const PROJECTS_CONTROLS = 'projects-controls' as const;
-export const PROJECTS_PIPELINE_MINI = 'projects-pipeline-mini' as const;
-export const projectsPipelineMiniDotTestId = (stageId: string) =>
-  `projects-pipeline-mini-dot-${stageId}` as const;
 
 // ─── ConfigureHeader (#344 batch 3) ──────────────────────────────────────────
 
@@ -541,12 +538,6 @@ export const qualityPageRowScoreTestId = (pageId: string, key: string) =>
   `quality-page-row-score-${pageId}-${key}` as const;
 
 export const SCANNO_TOKEN = 'scanno-token' as const;
-
-/** Root element of the Scannos NavGroup (side-nav category group). */
-export const SCANNO_NAV_GROUP = 'scanno-nav-group' as const;
-
-/** Per-instance testid helper for NavGroup (e.g. `scannoNavGroupTestId('punctuation')`). */
-export const scannoNavGroupTestId = (id: string) => `scanno-nav-group-${id}` as const;
 
 // ─── Stages / PageReorder (Phase 2 M8) ───────────────────────────────────────
 export const REORDER_AFTER_APPLY_STRIP = 'reorder-after-apply-strip' as const;
