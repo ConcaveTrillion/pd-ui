@@ -70,6 +70,10 @@
       "import": "./dist/stages/PageWorkbench/index.js",
       "types": "./dist/stages/PageWorkbench/index.d.ts"
     },
+    "./stages/Source": {
+      "import": "./dist/stages/Source/index.js",
+      "types": "./dist/stages/Source/index.d.ts"
+    },
     "./theme/tokens.css": "./theme/tokens.css",
     "./theme/primitives.css": "./theme/primitives.css"
   },

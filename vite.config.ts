@@ -22,6 +22,7 @@ export default defineConfig({
         testids: resolve(__dirname, 'src/testids/index.ts'),
         templates: resolve(__dirname, 'src/templates/index.ts'),
         'stages/PageWorkbench/index': resolve(__dirname, 'src/stages/PageWorkbench/index.ts'),
+        'stages/Source/index': resolve(__dirname, 'src/stages/Source/index.ts'),
       },
       formats: ['es'],
     },

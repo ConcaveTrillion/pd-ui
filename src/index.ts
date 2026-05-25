@@ -13,7 +13,8 @@
  *   ./types       — generated TS types + *Like reductions
  *   ./stores      — Zustand store factories + context-bound hooks
  *   ./testids     — data-testid constants catalog
- *   ./templates   — composed molecules and page-level template components
+ *   ./templates         — composed molecules and page-level template components
+ *   ./stages/Source     — Source ingestion stage components (SourceBanner, …)
  *   ./theme/tokens.css      — dark/light CSS custom properties
  *   ./theme/primitives.css  — component-level CSS classes
  */
@@ -323,6 +324,14 @@ export type { BackendChipProps, BackendValue } from './primitives/index.js';
 // ─── PageChip (Phase 2 M2 atom promotion) ────────────────────────────────────
 export { PageChip } from './primitives/index.js';
 export type { PageChipProps } from './primitives/index.js';
+
+// ─── Stages / Source ─────────────────────────────────────────────────────────
+export { SourceBanner } from './stages/Source/index.js';
+export type {
+  SourceBannerProps,
+  SourceBannerState,
+  SourceBulkAction,
+} from './stages/Source/index.js';
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 export * from './types/index.js';

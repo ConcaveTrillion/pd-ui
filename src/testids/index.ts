@@ -134,6 +134,27 @@ export const PAGE_CHIP = 'page-chip' as const;
 
 export const TOGGLE_BADGE = 'toggle-badge' as const;
 
+// ─── SourceBanner (Phase 2 M3 — Source stage) ────────────────────────────────
+
+/** Root section for the Source stage banner. */
+export const SOURCE_BANNER = 'source-banner' as const;
+
+/** "Generate" CTA button (idle state). */
+export const SOURCE_BANNER_GENERATE = 'source-banner-generate' as const;
+
+/** "Re-generate" CTA button (idle state). */
+export const SOURCE_BANNER_REGENERATE = 'source-banner-regenerate' as const;
+
+/**
+ * Build a testid for a specific bulk-action button in selection state.
+ *
+ * Example: `sourceBulkActionTestId('remove')` → `'source-bulk-action-remove'`
+ *
+ * Renaming the pattern here is a breaking change to every consumer driver.
+ */
+export const sourceBulkActionTestId = (action: string) =>
+  `source-bulk-action-${action}` as const;
+
 // ─── EditModeSelector (Phase 2 M2) ───────────────────────────────────────────
 
 /** PageWorkbench segmented mode picker (View / Split / Illustration / Rotate). */
