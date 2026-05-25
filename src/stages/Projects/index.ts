@@ -9,3 +9,10 @@ export type {
   PipelineMiniStage,
   PipelineMiniStageStatus,
 } from './PipelineMini.js';
+
+// ─── ProjectsEmpty ────────────────────────────────────────────────────────────
+export { ProjectsEmpty } from './ProjectsEmpty.js';
+export type {
+  ProjectsEmptyAction,
+  ProjectsEmptyProps,
+} from './ProjectsEmpty.js';
