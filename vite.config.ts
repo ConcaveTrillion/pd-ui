@@ -26,6 +26,7 @@ export default defineConfig({
         'stages/Grayscale/index': resolve(__dirname, 'src/stages/Grayscale/index.ts'),
         'stages/Crop/index': resolve(__dirname, 'src/stages/Crop/index.ts'),
         'stages/HyphenJoin/index': resolve(__dirname, 'src/stages/HyphenJoin/index.ts'),
+        'stages/Validation/index': resolve(__dirname, 'src/stages/Validation/index.ts'),
       },
       formats: ['es'],
     },

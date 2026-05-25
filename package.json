@@ -86,6 +86,10 @@
       "import": "./dist/stages/HyphenJoin/index.js",
       "types": "./dist/stages/HyphenJoin/index.d.ts"
     },
+    "./stages/Validation": {
+      "import": "./dist/stages/Validation/index.js",
+      "types": "./dist/stages/Validation/index.d.ts"
+    },
     "./theme/tokens.css": "./theme/tokens.css",
     "./theme/primitives.css": "./theme/primitives.css"
   },

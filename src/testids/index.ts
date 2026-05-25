@@ -495,3 +495,11 @@ export const cropStrategyTestId = (s: string) => `crop-strategy-${s}` as const;
 
 /** Status pill for a hyphen-join decision row. */
 export const HJ_STATUS_PILL = 'hj-status-pill' as const;
+
+// ─── Stages / Validation (Phase 2 M9) ────────────────────────────────────────
+
+/** Root Banner element of the Validation SummaryHeader. */
+export const VALIDATION_SUMMARY_HEADER = 'validation-summary-header' as const;
+
+/** Primary CTA button inside the Validation SummaryHeader (Download or Fix All). */
+export const VALIDATION_SUMMARY_HEADER_CTA = 'validation-summary-header-cta' as const;
