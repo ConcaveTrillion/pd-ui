@@ -70,6 +70,7 @@ export function BaseJobConfigDialog({
     setSubmitting(true);
     try {
       await onSubmit({ projectName, outputDir });
+      onClose();
     } catch (err) {
       setError(err instanceof Error ? err.message : 'An error occurred.');
     } finally {
@@ -80,7 +81,7 @@ export function BaseJobConfigDialog({
   const label = submitLabel ?? 'Run →';
 
   return (
-    <Dialog open={open}>
+    <Dialog open={open} onOpenChange={(isOpen) => { if (!isOpen) onClose(); }}>
       <DialogContent>
         <DialogHeader>
           <DialogTitle>{title}</DialogTitle>
