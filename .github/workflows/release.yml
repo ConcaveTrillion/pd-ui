@@ -3,11 +3,18 @@ name: release
 # Triggered by an annotated tag push (`v*`).
 #
 # Steps:
-#   1. build job  — install deps + build library + pack tarball.
-#      Runs with contents:read only and persist-credentials:false so the
-#      write-scoped GITHUB_TOKEN is NOT available to pnpm install / build.
+#   1. build job  — full quality gate (lint + typecheck + test + audit +
+#      build + pack-verify + pack).  Runs with contents:read only and
+#      persist-credentials:false so the write-scoped GITHUB_TOKEN is NOT
+#      available to pnpm install / build.
 #   2. publish job — attests provenance, publishes GitHub Release, and
 #      dispatches pd-npm-publish.  Only this job holds write permissions.
+#
+# Quality gates intentionally excluded:
+#   - codegen-check: fetches Python wheels from the self-hosted pd-index-pip
+#     registry (unavailable in GitHub-hosted runners).  The committed
+#     src/types/generated/ snapshot is what CI typechecks.  Run
+#     `make codegen-check` locally before tagging a release.
 #
 # Consumers install via:
 #   @concavetrillion:registry=https://concavetrillion.github.io/pd-index-npm/
@@ -50,11 +57,32 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
-      - name: Build
+      - name: Lint
+        run: pnpm run lint
+
+      - name: Typecheck
+        run: pnpm run typecheck
+
+      - name: Build library (required by pack.contract.test.ts)
         run: pnpm run build
+
+      - name: Test
+        run: pnpm run test
+
+      - name: Audit dependencies
+        run: pnpm audit --audit-level=high
 
       - name: Pack
         run: pnpm pack --pack-destination dist/
+
+      - name: Verify pack contents
+        run: |
+          TARBALL=$(ls dist/*.tgz)
+          echo "Tarball: $TARBALL"
+          tar -tzf "$TARBALL" | head -40
+          # Ensure essential entry points are present in the packed artifact
+          tar -tzf "$TARBALL" | grep -q "dist/index" || { echo "ERROR: dist/index missing from pack"; exit 1; }
+          echo "Pack content check passed."
 
       - name: List built artifacts
         run: ls -la dist/
