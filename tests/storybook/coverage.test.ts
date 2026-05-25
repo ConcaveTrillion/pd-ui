@@ -50,8 +50,6 @@ const WHITELIST: ReadonlySet<string> = new Set([
 
   // Worklist internals — covered by WordList.stories.tsx
   'worklist/VirtualizedList.tsx',
-  'worklist/LineList.tsx',
-  'worklist/PageList.tsx',
 
   // Store context providers — covered by component stories that use AppShell
   'stores/StoreContexts.tsx',
