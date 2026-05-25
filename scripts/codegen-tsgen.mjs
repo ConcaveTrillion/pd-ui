@@ -132,6 +132,8 @@ async function main() {
 
   // openapi-typescript CLI path — reused for both book-tools and ocr-ops
   const cliPath = join(REPO_ROOT, 'node_modules/openapi-typescript/bin/cli.js')
+  // Prettier bin — used to format generated files so codegen-check stays stable
+  const prettierBin = join(REPO_ROOT, 'node_modules/.bin/prettier')
 
   try {
     writeFileSync(tmpSchemaPath, JSON.stringify(openApiDoc, null, 2), 'utf-8')
@@ -158,7 +160,16 @@ async function main() {
     // Prepend our custom header (replacing openapi-typescript's header)
     const withHeader = GENERATED_HEADER + '\n' + result
 
-    writeFileSync(typesOut, withHeader, 'utf-8')
+    // Format through Prettier so codegen-check stays stable when format-check
+    // is also in CI. Without this, openapi-typescript output differs from
+    // Prettier's canonical form and git diff --exit-code always fails.
+    const formatted = execFileSync(
+      prettierBin,
+      ['--stdin-filepath', typesOut, '--parser', 'typescript'],
+      { input: withHeader, encoding: 'utf-8', cwd: REPO_ROOT },
+    )
+
+    writeFileSync(typesOut, formatted, 'utf-8')
     console.log(`codegen:tsgen complete — wrote ${typesOut}`)
   } finally {
     rmSync(tmpDir, { recursive: true, force: true })
@@ -194,7 +205,13 @@ async function main() {
         { encoding: 'utf-8', cwd: REPO_ROOT },
       )
 
-      writeFileSync(opsTypesOut, OPS_GENERATED_HEADER + '\n' + opsResult, 'utf-8')
+      const opsWithHeader = OPS_GENERATED_HEADER + '\n' + opsResult
+      const opsFormatted = execFileSync(
+        prettierBin,
+        ['--stdin-filepath', opsTypesOut, '--parser', 'typescript'],
+        { input: opsWithHeader, encoding: 'utf-8', cwd: REPO_ROOT },
+      )
+      writeFileSync(opsTypesOut, opsFormatted, 'utf-8')
       console.log(`codegen:tsgen (ocr-ops) complete — wrote ${opsTypesOut}`)
     } finally {
       rmSync(opsTmpDir, { recursive: true, force: true })
