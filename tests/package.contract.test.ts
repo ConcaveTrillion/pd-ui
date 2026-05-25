@@ -82,7 +82,7 @@ describe('package.json contract', () => {
     expect(files).toContain('theme');
   });
 
-  it('version is 0.2.0-rc.1', () => {
-    expect(pkg['version']).toBe('0.2.0-rc.1');
+  it('version is 0.2.0', () => {
+    expect(pkg['version']).toBe('0.2.0');
   });
 });
