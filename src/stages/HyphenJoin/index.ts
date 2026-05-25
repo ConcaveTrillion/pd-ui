@@ -17,3 +17,7 @@ export type { HyphenOverviewProps, HyphenOverviewStats } from './HyphenOverview.
 // ─── HyphenUndecided ──────────────────────────────────────────────────────────
 export { HyphenUndecided } from './HyphenUndecided.js';
 export type { HyphenUndecidedProps, HJDecisionHandlers } from './HyphenUndecided.js';
+
+// ─── HyphenMismatch ───────────────────────────────────────────────────────────
+export { HyphenMismatch } from './HyphenMismatch.js';
+export type { HyphenMismatchProps, HyphenMismatchItem, HyphenDecision } from './HyphenMismatch.js';

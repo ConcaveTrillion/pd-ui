@@ -536,6 +536,18 @@ export const HYPHEN_UNDECIDED = 'hyphen-undecided' as const;
 export const hyphenUndecidedItemTestId = (id: string) =>
   `hyphen-undecided-item-${id}` as const;
 
+// ─── HyphenMismatch (Phase 2 M6 — HyphenJoin stage) ──────────────────────────
+
+/** Root section for the HyphenMismatch mismatch-report table. */
+export const HYPHEN_MISMATCH = 'hyphen-mismatch' as const;
+
+/**
+ * Build a testid for a specific mismatch row: `hyphen-mismatch-row-{id}`.
+ * Playwright drivers use these to target individual mismatch rows.
+ */
+export const hyphenMismatchRowTestId = (id: string) =>
+  `hyphen-mismatch-row-${id}` as const;
+
 // ─── Stages / Validation (Phase 2 M9) ────────────────────────────────────────
 
 /** Root Banner element of the Validation SummaryHeader. */
