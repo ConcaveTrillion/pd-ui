@@ -26,6 +26,14 @@ export type { HyphenMismatchProps, HyphenMismatchItem, HyphenDecision } from './
 export { HyphenAutoJoined } from './HyphenAutoJoined.js';
 export type { HyphenAutoJoinedProps, HyphenAutoJoinedGroup } from './HyphenAutoJoined.js';
 
+// ─── HyphenPageWorkbench ──────────────────────────────────────────────────────
+export { HyphenPageWorkbench } from './HyphenPageWorkbench.js';
+export type {
+  HyphenPageWorkbenchProps,
+  HyphenPageWorkbenchPage,
+  HJWorkbenchDecision,
+} from './HyphenPageWorkbench.js';
+
 // ─── HyphenStepSettings ───────────────────────────────────────────────────────
 export { HyphenStepSettings, HYPHEN_STEP_SETTINGS_DEFAULT } from './HyphenStepSettings.js';
 export type {

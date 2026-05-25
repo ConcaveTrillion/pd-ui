@@ -548,6 +548,17 @@ export const HYPHEN_MISMATCH = 'hyphen-mismatch' as const;
 export const hyphenMismatchRowTestId = (id: string) =>
   `hyphen-mismatch-row-${id}` as const;
 
+// ─── HyphenPageWorkbench (Phase 2 M6 — HyphenJoin stage) ─────────────────────
+
+/** Root div of the HyphenPageWorkbench per-page workbench. */
+export const HYPHEN_PAGE_WORKBENCH = 'hyphen-page-workbench' as const;
+
+/** ArtifactViewer slot inside HyphenPageWorkbench (top half). */
+export const HYPHEN_PAGE_WORKBENCH_VIEWER = 'hyphen-page-workbench-viewer' as const;
+
+/** Scrollable decisions list container inside HyphenPageWorkbench (bottom). */
+export const HYPHEN_PAGE_WORKBENCH_DECISIONS = 'hyphen-page-workbench-decisions' as const;
+
 // ─── HyphenStepSettings (Phase 2 M6 — HyphenJoin stage) ──────────────────────
 
 /** Root div of the HyphenStepSettings panel. */
