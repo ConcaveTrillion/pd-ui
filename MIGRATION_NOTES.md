@@ -597,6 +597,20 @@ PageWorkbench composition components, exported from
 
 **M2 complete: 14 exports** (4 atom promotions + 10 PageWorkbench components + their types).
 
+### M3 Source — batch 1 (2026-05-25)
+
+New subpath: `@concavetrillion/pd-ui/stages/Source`.
+
+| Export | Commit | Description |
+|---|---|---|
+| `SourceBanner` | `a49d8bd` | 3-state banner (idle / generating-with-progress / selection-with-bulk-actions). |
+| `FileToolbar` | `d84310f` | Filter chip group + S/M/L density Segmented + Insert CTA. |
+| `ThumbCard` | `6f70690` | Per-page card with thumbnail + status dot + role select. |
+| `BulkBar` | `14a765f` | Sticky bottom bulk-action bar (CSS-only sticky positioning). |
+
+Remaining M3 Source (3 of 7): `InsertDialog`, `SourcePageWorkbench`,
+`SourceStepSettings`.
+
 ---
 
 ## 12. Conscious omissions

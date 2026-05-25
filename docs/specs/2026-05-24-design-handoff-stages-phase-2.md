@@ -241,10 +241,10 @@ All 43 net-new components. "Design source" references are
 
 | Component | Design source | Description |
 |---|---|---|
-| `SourceBanner` | `final/source/source.jsx:238-341` | State-machine banner: idle / generating (with progress) / selection (count + bulk actions). Props: `state`, `progress`, `selectedCount`, `onBulkAction`. |
-| `FileToolbar` | `:344-406` | Filter chips (All/Marked/Skipped/Unmarked/Inserts with counts) + density toggle S/M/L + "Insert page" CTA. Props: `filter`, `onFilterChange`, `density`, `onDensityChange`, `onInsert`. |
-| `ThumbCard` | `:126-208` | Thumbnail card: checkbox (M/L density only), page number, status dot, role badge, image thumbnail. Props: `page`, `density`, `selected`, `onSelect`, `onRoleChange`. |
-| `BulkBar` | `:409-458` | Sticky bottom bulk-action bar: selected count + role actions (Page/Cover/Back/Blank/Duplicate) + danger Remove. Props: `selectedCount`, `onAction`. |
+| `SourceBanner` | `final/source/source.jsx:238-341` | State-machine banner: idle / generating (with progress) / selection (count + bulk actions). Props: `state`, `progress`, `selectedCount`, `onBulkAction`. **Shipped 2026-05-25 · a49d8bd** (3 discriminated branches; created `./stages/Source` subpath + vite entry). |
+| `FileToolbar` | `:344-406` | Filter chips (All/Marked/Skipped/Unmarked/Inserts with counts) + density toggle S/M/L + "Insert page" CTA. Props: `filter`, `onFilterChange`, `density`, `onDensityChange`, `onInsert`. **Shipped 2026-05-25 · d84310f** (plain `<button>` chips with `aria-pressed` — Chip primitive is non-interactive; Segmented for density). |
+| `ThumbCard` | `:126-208` | Thumbnail card: checkbox (M/L density only), page number, status dot, role badge, image thumbnail. Props: `page`, `density`, `selected`, `onSelect`, `onRoleChange`. **Shipped 2026-05-25 · 6f70690** (article container, button for clickable body — a11y; native `<select>` for role change; status dot via `data-status` attr). |
+| `BulkBar` | `:409-458` | Sticky bottom bulk-action bar: selected count + role actions (Page/Cover/Back/Blank/Duplicate) + danger Remove. Props: `selectedCount`, `onAction`. **Shipped 2026-05-25 · 14a765f** (`BulkAction` union; sticky positioning is CSS-only). |
 | `InsertDialog` | `:461-595` | Modal dialog: position (Before/After), anchor filename selector, kind (Missing/Blank/Errata/Manual), note with 280-char counter, replacement image dropzone. Props: `open`, `onOpenChange`, `anchorOptions`, `onInsert`. |
 | `SourcePageWorkbench` | `:1240-1267` | Per-page detail view: 5-button role segment, page number, rotation, tone hint, before/after image viewer (uses `ArtifactViewer`), prev/next/apply navigation. Props: `page`, `onRoleChange`, `onApply`, `onNavigate`. |
 | `SourceStepSettings` | Step Settings tab block | Preset dropdown + save-as-preset + thumbnail quality radio + concurrent workers slider (1–8) + re-generate button + auto-confirm toggle. Props: `settings`, `onChange`, `onSavePreset`. |
