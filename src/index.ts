@@ -333,6 +333,7 @@ export {
   BulkBar,
   InsertDialog,
   SourcePageWorkbench,
+  SourceStepSettings,
 } from './stages/Source/index.js';
 export type {
   SourceBannerProps,
@@ -355,6 +356,10 @@ export type {
   InsertAnchorOption,
   InsertSubmission,
   SourcePageWorkbenchProps,
+  SourceStepSettingsProps,
+  SourceSettings,
+  PresetOption,
+  ThumbQuality,
 } from './stages/Source/index.js';
 
 // ─── Types ────────────────────────────────────────────────────────────────────

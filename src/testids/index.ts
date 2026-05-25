@@ -307,6 +307,34 @@ export const thumbCardTestId = (id: string) => `thumb-card-${id}` as const;
 
 /** Testid for the role-change select inside a ThumbCard. */
 export const THUMB_CARD_ROLE_SELECT = 'thumb-card-role-select' as const;
+// ─── SourceStepSettings (Phase 2 M3 — Source stage) ─────────────────────────
+
+/** Outer section wrapper for SourceStepSettings. */
+export const SOURCE_STEP_SETTINGS = 'source-step-settings' as const;
+
+/** Preset <select> inside SourceStepSettings. */
+export const SOURCE_STEP_SETTINGS_PRESET = 'source-step-settings-preset' as const;
+
+/** "Save as preset…" button inside SourceStepSettings. */
+export const SOURCE_STEP_SETTINGS_SAVE_PRESET = 'source-step-settings-save-preset' as const;
+
+/** Concurrent workers <input type="range"> inside SourceStepSettings. */
+export const SOURCE_STEP_SETTINGS_WORKERS = 'source-step-settings-workers' as const;
+
+/** Auto-confirm row wrapper (contains the Toggle) inside SourceStepSettings. */
+export const SOURCE_STEP_SETTINGS_AUTO_CONFIRM = 'source-step-settings-auto-confirm' as const;
+
+/** Re-generate button inside SourceStepSettings (only rendered when onRegenerate is provided). */
+export const SOURCE_STEP_SETTINGS_REGENERATE = 'source-step-settings-regenerate' as const;
+
+/**
+ * Build a testid for a specific thumbnail quality radio label:
+ * `source-step-settings-quality-{q}`.
+ * q is one of 'low' | 'medium' | 'high'.
+ */
+export const sourceStepSettingsQualityTestId = (q: string) =>
+  `source-step-settings-quality-${q}` as const;
+
 // ─── BulkBar (Phase 2 M3 — Source stage) ─────────────────────────────────────
 
 /** Outer wrapper of the Source-stage sticky bulk action bar. */

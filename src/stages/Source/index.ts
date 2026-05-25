@@ -43,3 +43,11 @@ export type {
 // ─── SourcePageWorkbench (Phase 2 M3) ─────────────────────────────────────────
 export { SourcePageWorkbench } from './SourcePageWorkbench.js';
 export type { SourcePageWorkbenchProps } from './SourcePageWorkbench.js';
+// ─── SourceStepSettings (Phase 2 M3) ─────────────────────────────────────────
+export { SourceStepSettings } from './SourceStepSettings.js';
+export type {
+  SourceStepSettingsProps,
+  SourceSettings,
+  PresetOption,
+  ThumbQuality,
+} from './SourceStepSettings.js';
