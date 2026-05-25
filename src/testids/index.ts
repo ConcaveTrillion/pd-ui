@@ -601,6 +601,17 @@ export const SCANNO_INLINE_MARK_POPOVER_DISMISS = 'scanno-inline-mark-popover-di
 /** Promote action button inside InlineMarkPopover. */
 export const SCANNO_INLINE_MARK_POPOVER_PROMOTE = 'scanno-inline-mark-popover-promote' as const;
 
+// ─── Stages / PageReorder / SwapRow + PageThumb (Phase 2 M8) ─────────────────
+
+/** Root element of a SwapRow decision row. */
+export const REORDER_SWAP_ROW = 'reorder-swap-row' as const;
+
+/** Returns a stable testid for a specific swap row by its swap id. */
+export const reorderSwapRowTestId = (id: string) => `reorder-swap-row-${id}` as const;
+
+/** Root element of a PageThumb pair inside a SwapRow. */
+export const REORDER_PAGE_THUMB = 'reorder-page-thumb' as const;
+
 // ─── Stages / PageReorder / ReorderScansBanner (Phase 2 M8) ──────────────────
 
 export const REORDER_SCANS_BANNER = 'reorder-scans-banner' as const;
