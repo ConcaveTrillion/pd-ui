@@ -240,3 +240,11 @@ export type { BackendChipProps, BackendValue } from './BackendChip.js';
 // Standalone navigation chip (Phase 2 M2 atom promotion)
 export { PageChip } from './PageChip.js';
 export type { PageChipProps } from './PageChip.js';
+
+// Slot-based stage primitives (Phase 2 promotion)
+export { Banner } from './Banner.js';
+export type { BannerProps, BannerTone } from './Banner.js';
+export { StageToolbar } from './StageToolbar.js';
+export type { StageToolbarProps } from './StageToolbar.js';
+export { Thumbnail } from './Thumbnail.js';
+export type { ThumbnailProps, ThumbnailDensity } from './Thumbnail.js';

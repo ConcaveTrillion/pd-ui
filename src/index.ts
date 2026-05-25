@@ -186,6 +186,16 @@ export {
   BuildPackagePanel,
   ThumbGrid,
   CheckIcon,
+  Banner,
+  StageToolbar,
+  Thumbnail,
+} from './primitives/index.js';
+export type {
+  BannerProps,
+  BannerTone,
+  StageToolbarProps,
+  ThumbnailProps,
+  ThumbnailDensity,
 } from './primitives/index.js';
 export type {
   CheckIconProps,

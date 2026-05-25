@@ -450,3 +450,13 @@ export const pageViewerThumbTestId = (id: string) =>
 
 // ─── StageControlsLeft (Phase 2 M4 — Grayscale stage) ────────────────────────
 export const STAGE_CONTROLS_LEFT = 'stage-controls-left' as const;
+
+// ─── Slot-based stage primitives (Phase 2 promotion) ─────────────────────────
+/** Outer wrapper of the Banner primitive. */
+export const BANNER = 'banner' as const;
+/** Outer wrapper of the StageToolbar primitive. */
+export const STAGE_TOOLBAR = 'stage-toolbar' as const;
+/** Outer wrapper of the Thumbnail primitive. */
+export const THUMBNAIL = 'thumbnail' as const;
+/** Build a per-instance Thumbnail testid: `thumbnail-{id}`. */
+export const thumbnailTestId = (id: string) => `thumbnail-${id}` as const;
