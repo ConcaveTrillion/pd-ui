@@ -53,21 +53,13 @@ export function ScannoToken({
 
   if (onClick !== undefined) {
     return (
-      <button
-        type="button"
-        {...commonProps}
-        onClick={onClick}
-      >
+      <button type="button" {...commonProps} onClick={onClick}>
         {token}
       </button>
     );
   }
 
-  return (
-    <span {...commonProps}>
-      {token}
-    </span>
-  );
+  return <span {...commonProps}>{token}</span>;
 }
 
 ScannoToken.displayName = 'ScannoToken';

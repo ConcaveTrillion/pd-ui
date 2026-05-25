@@ -16,10 +16,7 @@ export interface RowFlagBadgeProps {
  */
 export function RowFlagBadge({ kind, className }: RowFlagBadgeProps): React.ReactElement {
   return (
-    <span
-      className={cn('row-flag-badge', className)}
-      data-kind={kind}
-    >
+    <span className={cn('row-flag-badge', className)} data-kind={kind}>
       <span className="row-flag-badge__dot" />
       {kind}
     </span>

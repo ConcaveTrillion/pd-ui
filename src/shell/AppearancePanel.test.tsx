@@ -100,11 +100,7 @@ describe('AppearancePanel — a11y: segmented controls', () => {
     const user = userEvent.setup();
     renderPanel();
     await user.click(screen.getByRole('radio', { name: 'Light' }));
-    expect(
-      screen.getByRole('radio', { name: 'Light' }).getAttribute('aria-checked'),
-    ).toBe('true');
-    expect(
-      screen.getByRole('radio', { name: 'Dark' }).getAttribute('aria-checked'),
-    ).toBe('false');
+    expect(screen.getByRole('radio', { name: 'Light' }).getAttribute('aria-checked')).toBe('true');
+    expect(screen.getByRole('radio', { name: 'Dark' }).getAttribute('aria-checked')).toBe('false');
   });
 });

@@ -6,15 +6,15 @@
  * Pairs with <StatusPip> (from primitives) for larger status indicators.
  */
 
-import * as React from 'react'
-import { cn } from '../primitives/cn'
-import type { MatchStatus } from './types'
+import * as React from 'react';
+import { cn } from '../primitives/cn';
+import type { MatchStatus } from './types';
 
 export interface MatchStatusChipProps extends React.HTMLAttributes<HTMLSpanElement> {
   /** The match status to display. */
-  status: MatchStatus
+  status: MatchStatus;
   /** Optional label text. When omitted, renders just the colored dot. */
-  label?: string | undefined
+  label?: string | undefined;
 }
 
 // Color token map — drives both text and background via color-mix
@@ -23,7 +23,7 @@ const statusToken: Record<MatchStatus, string> = {
   fuzzy: 'var(--fuzzy)',
   mismatch: 'var(--mismatch)',
   none: 'var(--ink-3)',
-}
+};
 
 /**
  * <MatchStatusChip> — colored chip for a word/line match status.
@@ -31,7 +31,7 @@ const statusToken: Record<MatchStatus, string> = {
  */
 export const MatchStatusChip = React.forwardRef<HTMLSpanElement, MatchStatusChipProps>(
   function MatchStatusChip({ status, label, className, style, ...props }, ref) {
-    const token = statusToken[status]
+    const token = statusToken[status];
 
     return (
       <span
@@ -64,8 +64,8 @@ export const MatchStatusChip = React.forwardRef<HTMLSpanElement, MatchStatusChip
         />
         {label !== undefined && <span>{label}</span>}
       </span>
-    )
+    );
   },
-)
+);
 
-MatchStatusChip.displayName = 'MatchStatusChip'
+MatchStatusChip.displayName = 'MatchStatusChip';

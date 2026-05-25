@@ -44,13 +44,10 @@ export const Paragraph: Story = {
         color: 'var(--fg-base)',
       }}
     >
-      The{' '}
-      <ScannoToken token="recieve" source="rule" onClick={() => undefined} />{' '}
-      function was added by{' '}
-      <ScannoToken token="Thimas" source="ocr" onClick={() => undefined} />{' '}
-      in{' '}
-      <ScannoToken token="Feburary" source="manual" onClick={() => undefined} />{' '}
-      of last year, and has remained unchanged since.
+      The <ScannoToken token="recieve" source="rule" onClick={() => undefined} /> function was added
+      by <ScannoToken token="Thimas" source="ocr" onClick={() => undefined} /> in{' '}
+      <ScannoToken token="Feburary" source="manual" onClick={() => undefined} /> of last year, and
+      has remained unchanged since.
     </p>
   ),
 };

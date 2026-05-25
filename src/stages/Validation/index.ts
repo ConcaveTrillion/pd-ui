@@ -4,11 +4,7 @@
 
 // ─── SummaryHeader ────────────────────────────────────────────────────────────
 export { SummaryHeader } from './SummaryHeader.js';
-export type {
-  SummaryHeaderProps,
-  ValidationState,
-  ValidationCounts,
-} from './SummaryHeader.js';
+export type { SummaryHeaderProps, ValidationState, ValidationCounts } from './SummaryHeader.js';
 
 // ─── PanelToolbar ─────────────────────────────────────────────────────────────
 export { PanelToolbar } from './PanelToolbar.js';

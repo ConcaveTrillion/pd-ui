@@ -7,12 +7,14 @@ import type { UIPrefs, UIPrefsConfig } from '../shell/types.js';
 
 function makeConfig(prefs: Partial<UIPrefs> = {}): UIPrefsConfig {
   return {
-    load: vi.fn(() => Promise.resolve({
-      theme: 'dark' as const,
-      density: 'normal' as const,
-      fontScale: 1.0,
-      ...prefs,
-    })),
+    load: vi.fn(() =>
+      Promise.resolve({
+        theme: 'dark' as const,
+        density: 'normal' as const,
+        fontScale: 1.0,
+        ...prefs,
+      }),
+    ),
     persistCommon: vi.fn(() => Promise.resolve()),
     persistApp: vi.fn(() => Promise.resolve()),
   };
@@ -46,9 +48,7 @@ describe('createUIPrefsStore (#164)', () => {
     await new Promise((r) => setTimeout(r, 0));
     store.getState().setTheme('light');
     expect(store.getState().prefs.theme).toBe('light');
-    expect(config.persistCommon).toHaveBeenCalledWith(
-      expect.objectContaining({ theme: 'light' }),
-    );
+    expect(config.persistCommon).toHaveBeenCalledWith(expect.objectContaining({ theme: 'light' }));
   });
 
   it('setDensity() updates prefs.density and calls persistCommon', async () => {
@@ -68,9 +68,7 @@ describe('createUIPrefsStore (#164)', () => {
     await new Promise((r) => setTimeout(r, 0));
     store.getState().setAppPref('show_diff', true);
     expect(store.getState().prefs.app?.['show_diff']).toBe(true);
-    expect(config.persistApp).toHaveBeenCalledWith(
-      expect.objectContaining({ show_diff: true }),
-    );
+    expect(config.persistApp).toHaveBeenCalledWith(expect.objectContaining({ show_diff: true }));
   });
 
   it('getLayerColor() returns CSS var fallback when no override', async () => {
@@ -134,7 +132,9 @@ describe('createUIPrefsStore — hydration race (#37)', () => {
    */
   function makeDeferred(serverPrefs: Partial<UIPrefs> = {}) {
     let resolve!: (value: UIPrefs) => void;
-    const promise = new Promise<UIPrefs>((res) => { resolve = res; });
+    const promise = new Promise<UIPrefs>((res) => {
+      resolve = res;
+    });
     const config: UIPrefsConfig = {
       load: vi.fn(() => promise),
       persistCommon: vi.fn(() => Promise.resolve()),

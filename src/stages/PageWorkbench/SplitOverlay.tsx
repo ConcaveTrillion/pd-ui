@@ -12,57 +12,57 @@
  * import and wire them directly.
  */
 
-import { useState, useCallback } from 'react'
-import { Line, Rect } from 'react-konva'
-import type { CoordContext } from '../../canvas/types.js'
-import { SPLIT_HANDLE } from '../../testids/index.js'
+import { useState, useCallback } from 'react';
+import { Line, Rect } from 'react-konva';
+import type { CoordContext } from '../../canvas/types.js';
+import { SPLIT_HANDLE } from '../../testids/index.js';
 
 export interface SplitOverlayProps {
   /** Coordinate context from SlotRenderProps. */
-  coords: CoordContext
+  coords: CoordContext;
   /** Normalized split x position (0–1). */
-  splitX: number
+  splitX: number;
   /** Called with new normalized x when user drags the handle. */
-  onSplitXChange?: (x: number) => void
+  onSplitXChange?: (x: number) => void;
 }
 
 /** Width (in page-space pixels) of the drag handle clickable zone. */
-const HANDLE_HIT_WIDTH = 12
+const HANDLE_HIT_WIDTH = 12;
 
 /**
  * Konva shapes for the split overlay. Render inside a PageImageCanvas slot fn.
  */
 export function SplitOverlay({ coords, splitX, onSplitXChange }: SplitOverlayProps) {
-  const [dragging, setDragging] = useState(false)
+  const [dragging, setDragging] = useState(false);
 
-  const xPx = splitX * coords.pageWidth
+  const xPx = splitX * coords.pageWidth;
 
   const handleDragMove = useCallback(
     (e: import('konva/lib/Node').KonvaEventObject<MouseEvent>) => {
-      const stage = e.target.getStage()
-      const pos = stage?.getPointerPosition()
-      if (!pos || !onSplitXChange) return
-      const scale = coords.scale || 1
-      const rawX = pos.x / scale
-      const clamped = Math.max(0, Math.min(1, rawX / coords.pageWidth))
-      onSplitXChange(clamped)
+      const stage = e.target.getStage();
+      const pos = stage?.getPointerPosition();
+      if (!pos || !onSplitXChange) return;
+      const scale = coords.scale || 1;
+      const rawX = pos.x / scale;
+      const clamped = Math.max(0, Math.min(1, rawX / coords.pageWidth));
+      onSplitXChange(clamped);
     },
     [coords, onSplitXChange],
-  )
+  );
 
   const handleDragEnd = useCallback(
     (e: import('konva/lib/Node').KonvaEventObject<MouseEvent>) => {
-      setDragging(false)
-      const stage = e.target.getStage()
-      const pos = stage?.getPointerPosition()
-      if (!pos || !onSplitXChange) return
-      const scale = coords.scale || 1
-      const rawX = pos.x / scale
-      const clamped = Math.max(0, Math.min(1, rawX / coords.pageWidth))
-      onSplitXChange(clamped)
+      setDragging(false);
+      const stage = e.target.getStage();
+      const pos = stage?.getPointerPosition();
+      if (!pos || !onSplitXChange) return;
+      const scale = coords.scale || 1;
+      const rawX = pos.x / scale;
+      const clamped = Math.max(0, Math.min(1, rawX / coords.pageWidth));
+      onSplitXChange(clamped);
     },
     [coords, onSplitXChange],
-  )
+  );
 
   return (
     <>
@@ -83,7 +83,9 @@ export function SplitOverlay({ coords, splitX, onSplitXChange }: SplitOverlayPro
         height={coords.pageHeight}
         fill="transparent"
         draggable
-        onDragStart={() => { setDragging(true) }}
+        onDragStart={() => {
+          setDragging(true);
+        }}
         onDragMove={handleDragMove}
         onDragEnd={handleDragEnd}
         dragBoundFunc={(pos) => ({
@@ -104,10 +106,10 @@ export function SplitOverlay({ coords, splitX, onSplitXChange }: SplitOverlayPro
         />
       )}
     </>
-  )
+  );
 }
 
-SplitOverlay.displayName = 'SplitOverlay'
+SplitOverlay.displayName = 'SplitOverlay';
 
 /**
  * DOM sidecar for accessibility: provides `role="separator"` + testid.
@@ -115,13 +117,13 @@ SplitOverlay.displayName = 'SplitOverlay'
  * `aria-valuenow` is the normalized x × 100.
  */
 export interface SplitHandleProps {
-  splitX: number
+  splitX: number;
   /** Total width of the canvas container in CSS px. */
-  containerWidth: number
+  containerWidth: number;
 }
 
 export function SplitHandle({ splitX, containerWidth }: SplitHandleProps) {
-  const leftPx = splitX * containerWidth
+  const leftPx = splitX * containerWidth;
   return (
     <div
       role="separator"
@@ -141,7 +143,7 @@ export function SplitHandle({ splitX, containerWidth }: SplitHandleProps) {
         pointerEvents: 'none', // Konva handles pointer events
       }}
     />
-  )
+  );
 }
 
-SplitHandle.displayName = 'SplitHandle'
+SplitHandle.displayName = 'SplitHandle';

@@ -124,9 +124,7 @@ export function PageRow({ page, flags, className }: PageRowProps): React.ReactEl
           <span className="quality-page-row__no-flags">—</span>
         ) : (
           resolvedFlags.map((flag) => {
-            const chipProps = flag.tone != null
-              ? { tone: flag.tone }
-              : {};
+            const chipProps = flag.tone != null ? { tone: flag.tone } : {};
             return (
               <FlagChip
                 key={flag.id}

@@ -59,7 +59,9 @@ function ModeCardItem({
       aria-checked={isSelected}
       data-testid={modeCardTestId(mode)}
       className={`mode-card${isSelected ? ' mode-card--selected' : ''}`}
-      onClick={() => { onSelect(mode); }}
+      onClick={() => {
+        onSelect(mode);
+      }}
       type="button"
     >
       <div className="mode-card__header">
@@ -67,9 +69,7 @@ function ModeCardItem({
           {isSelected ? '✓' : ''}
         </span>
         <h3 className="mode-card__name">{label}</h3>
-        <Badge tone={estimate.tone}>
-          ~{estimate.secondsPerPage}s/page
-        </Badge>
+        <Badge tone={estimate.tone}>~{estimate.secondsPerPage}s/page</Badge>
       </div>
       <p className="mode-card__description">{description}</p>
     </button>
@@ -94,33 +94,31 @@ const MODE_META: Record<GrayscaleMode, { label: string; description: string }> =
  * Each card displays the mode name, a description, and a time-estimate badge
  * whose tone (`exact` / `fuzzy`) signals estimate reliability.
  */
-export const ModeCard = React.forwardRef<HTMLDivElement, ModeCardProps>(
-  function ModeCard(
-    { selectedMode, onModeChange, estimates, 'data-testid': testId },
-    ref,
-  ) {
-    const modes: GrayscaleMode[] = ['standard', 'perceptual'];
+export const ModeCard = React.forwardRef<HTMLDivElement, ModeCardProps>(function ModeCard(
+  { selectedMode, onModeChange, estimates, 'data-testid': testId },
+  ref,
+) {
+  const modes: GrayscaleMode[] = ['standard', 'perceptual'];
 
-    return (
-      <div
-        ref={ref}
-        role="radiogroup"
-        aria-label="Grayscale conversion mode"
-        data-testid={testId ?? MODE_CARD_GROUP}
-        className="mode-card-group"
-      >
-        {modes.map((mode) => (
-          <ModeCardItem
-            key={mode}
-            mode={mode}
-            label={MODE_META[mode].label}
-            description={MODE_META[mode].description}
-            estimate={estimates[mode]}
-            isSelected={selectedMode === mode}
-            onSelect={onModeChange}
-          />
-        ))}
-      </div>
-    );
-  },
-);
+  return (
+    <div
+      ref={ref}
+      role="radiogroup"
+      aria-label="Grayscale conversion mode"
+      data-testid={testId ?? MODE_CARD_GROUP}
+      className="mode-card-group"
+    >
+      {modes.map((mode) => (
+        <ModeCardItem
+          key={mode}
+          mode={mode}
+          label={MODE_META[mode].label}
+          description={MODE_META[mode].description}
+          estimate={estimates[mode]}
+          isSelected={selectedMode === mode}
+          onSelect={onModeChange}
+        />
+      ))}
+    </div>
+  );
+});

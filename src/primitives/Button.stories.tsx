@@ -106,16 +106,30 @@ export const FullWidthWithIcon: Story = {
 export const AllVariants: Story = {
   render: () => (
     <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
-      <Button variant="primary" size="sm">Primary SM</Button>
+      <Button variant="primary" size="sm">
+        Primary SM
+      </Button>
       <Button variant="primary">Primary MD</Button>
-      <Button variant="primary" size="lg">Primary LG</Button>
-      <Button variant="ghost" size="sm">Ghost SM</Button>
+      <Button variant="primary" size="lg">
+        Primary LG
+      </Button>
+      <Button variant="ghost" size="sm">
+        Ghost SM
+      </Button>
       <Button variant="ghost">Ghost MD</Button>
-      <Button variant="ghost" size="lg">Ghost LG</Button>
-      <Button variant="danger" size="sm">Danger SM</Button>
+      <Button variant="ghost" size="lg">
+        Ghost LG
+      </Button>
+      <Button variant="danger" size="sm">
+        Danger SM
+      </Button>
       <Button variant="danger">Danger MD</Button>
-      <Button variant="danger" size="lg">Danger LG</Button>
-      <Button variant="primary" disabled>Disabled</Button>
+      <Button variant="danger" size="lg">
+        Danger LG
+      </Button>
+      <Button variant="primary" disabled>
+        Disabled
+      </Button>
     </div>
   ),
 };
@@ -123,12 +137,18 @@ export const AllVariants: Story = {
 export const WithIcons: Story = {
   render: () => (
     <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
-      <Button variant="primary" icon={<Plus size={14} />}>Add Item</Button>
-      <Button variant="ghost" iconRight={<ChevronRight size={14} />}>Continue</Button>
+      <Button variant="primary" icon={<Plus size={14} />}>
+        Add Item
+      </Button>
+      <Button variant="ghost" iconRight={<ChevronRight size={14} />}>
+        Continue
+      </Button>
       <Button variant="primary" icon={<Search size={14} />} iconRight={<ChevronRight size={14} />}>
         Search
       </Button>
-      <Button variant="danger" icon={<Trash2 size={14} />} size="sm">Delete</Button>
+      <Button variant="danger" icon={<Trash2 size={14} />} size="sm">
+        Delete
+      </Button>
     </div>
   ),
 };

@@ -21,9 +21,7 @@ import type { SourcePage, SourcePageRole, SourcePageStatus, ThumbDensity } from 
 const THUMB_PNG =
   'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAC0lEQVQI12NgAAIABQAABjE+ibYAAAAASUVORK5CYII=';
 
-const makePage = (
-  overrides: Partial<SourcePage> = {},
-): SourcePage => ({
+const makePage = (overrides: Partial<SourcePage> = {}): SourcePage => ({
   id: 'p1',
   pageNumber: 1,
   thumbnailUrl: THUMB_PNG,
@@ -81,14 +79,7 @@ export const Selected: Story = {
   },
 };
 
-const ALL_ROLES: SourcePageRole[] = [
-  'page',
-  'cover',
-  'back',
-  'blank',
-  'duplicate',
-  'removed',
-];
+const ALL_ROLES: SourcePageRole[] = ['page', 'cover', 'back', 'blank', 'duplicate', 'removed'];
 
 export function EachRole() {
   return (

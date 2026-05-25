@@ -83,7 +83,7 @@ describe('CheckIcon', () => {
   });
 
   it('aria-label reflects the correct label for each state', () => {
-    const labelMap: Record<typeof states[number], string> = {
+    const labelMap: Record<(typeof states)[number], string> = {
       pass: 'Pass',
       warn: 'Warning',
       error: 'Error',
@@ -91,7 +91,7 @@ describe('CheckIcon', () => {
       skip: 'Skip',
     };
     for (const [state, label] of Object.entries(labelMap)) {
-      const { unmount } = render(<CheckIcon state={state as typeof states[number]} />);
+      const { unmount } = render(<CheckIcon state={state as (typeof states)[number]} />);
       expect(screen.getByTestId(CHECK_ICON).getAttribute('aria-label')).toBe(label);
       unmount();
     }

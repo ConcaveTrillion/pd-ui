@@ -36,10 +36,7 @@ export const Extreme: Story = {
     title: 'Source quality issues',
     flagged: 180,
     total: 232,
-    flags: [
-      ...SOURCE_FLAGS,
-      { kind: 'errored' as const, count: 3 },
-    ],
+    flags: [...SOURCE_FLAGS, { kind: 'errored' as const, count: 3 }],
     sub: 'High failure rate — review thresholds before proceeding.',
     severe: true,
     actionLabel: 'View flagged',

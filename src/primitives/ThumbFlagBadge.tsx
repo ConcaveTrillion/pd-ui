@@ -18,7 +18,11 @@ export interface ThumbFlagBadgeProps extends Omit<FlagChipProps, 'className'> {
  *
  * Used in wf03/wf11/wf-pw page thumbnail grids.
  */
-export function ThumbFlagBadge({ kind, className, ...rest }: ThumbFlagBadgeProps): React.ReactElement {
+export function ThumbFlagBadge({
+  kind,
+  className,
+  ...rest
+}: ThumbFlagBadgeProps): React.ReactElement {
   return (
     <span className={cn('thumb-flag-badge', className)}>
       <FlagChip kind={kind} {...rest} />

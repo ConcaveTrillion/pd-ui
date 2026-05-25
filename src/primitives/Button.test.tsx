@@ -83,7 +83,9 @@ describe('Button', () => {
 
   it('renders both icon and iconRight around children', () => {
     render(
-      <Button icon={<FakeIcon />} iconRight={<FakeIconRight />}>Label</Button>
+      <Button icon={<FakeIcon />} iconRight={<FakeIconRight />}>
+        Label
+      </Button>,
     );
     const btn = screen.getByRole('button');
     const svgs = btn.querySelectorAll('svg');
@@ -115,7 +117,11 @@ describe('Button', () => {
   });
 
   it('combines full with variant and size correctly', () => {
-    render(<Button variant="primary" size="lg" full>Save</Button>);
+    render(
+      <Button variant="primary" size="lg" full>
+        Save
+      </Button>,
+    );
     const btn = screen.getByRole('button', { name: /save/i });
     expect(btn.classList.contains('primary')).toBe(true);
     expect(btn.classList.contains('lg')).toBe(true);

@@ -100,7 +100,7 @@ const FullFormStory = () => {
         onOpenChange={setOpen}
         anchorOptions={ANCHORS}
         defaultAnchor="p001.png"
-        onInsert={s => {
+        onInsert={(s) => {
           setSubmitted(true);
           setOpen(false);
           void s; // available for debugging in browser console via React DevTools

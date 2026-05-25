@@ -15,25 +15,25 @@
  * All hex fallback values use design-system token names; no hard-coded palette.
  */
 
-import { memo } from 'react'
-import { Rect } from 'react-konva'
-import type { WordSlotProps } from '../types'
-import { bboxToRect } from '../types'
+import { memo } from 'react';
+import { Rect } from 'react-konva';
+import type { WordSlotProps } from '../types';
+import { bboxToRect } from '../types';
 // WordSlotProps.word is CanvasWord (locally typed), not imported from generated types
 
 interface BBoxLayerProps extends WordSlotProps {
   /** CSS color for the fill (default: var(--layer-word-fill)). */
-  fill?: string
+  fill?: string;
   /** CSS color for the stroke (default: var(--layer-word-stroke)). */
-  stroke?: string
+  stroke?: string;
   /** Stroke width in pixels. Selected items use a wider stroke. */
-  strokeWidth?: number
+  strokeWidth?: number;
   /** Stroke width when the word is selected. */
-  selectedStrokeWidth?: number
+  selectedStrokeWidth?: number;
   /** Opacity when the item should be visually de-emphasised. */
-  dimmedOpacity?: number
+  dimmedOpacity?: number;
   /** Whether this item is de-emphasised (e.g., mismatches-only filter). */
-  dimmed?: boolean
+  dimmed?: boolean;
 }
 
 function BBoxLayerInner({
@@ -46,10 +46,10 @@ function BBoxLayerInner({
   dimmedOpacity = 0.2,
   dimmed = false,
 }: BBoxLayerProps) {
-  const rect = bboxToRect(word.bounding_box)
-  if (!rect) return null
+  const rect = bboxToRect(word.bounding_box);
+  if (!rect) return null;
 
-  const opacity = dimmed ? dimmedOpacity : 1
+  const opacity = dimmed ? dimmedOpacity : 1;
 
   return (
     <Rect
@@ -64,8 +64,8 @@ function BBoxLayerInner({
       listening={false}
       perfectDrawEnabled={false}
     />
-  )
+  );
 }
 
-export const BBoxLayer = memo(BBoxLayerInner)
-BBoxLayer.displayName = 'BBoxLayer'
+export const BBoxLayer = memo(BBoxLayerInner);
+BBoxLayer.displayName = 'BBoxLayer';

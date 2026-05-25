@@ -1,10 +1,7 @@
 import * as React from 'react';
 import { Button } from '../../primitives/Button.js';
 import { CheckCircle } from '../../icons/index.js';
-import {
-  REORDER_AFTER_APPLY_STRIP,
-  REORDER_AFTER_APPLY_STRIP_UNDO,
-} from '../../testids/index.js';
+import { REORDER_AFTER_APPLY_STRIP, REORDER_AFTER_APPLY_STRIP_UNDO } from '../../testids/index.js';
 
 // ─── Public types ─────────────────────────────────────────────────────────────
 
@@ -51,11 +48,7 @@ export function AfterApplyStrip({
 
   return (
     <div className="after-apply-strip" data-testid={testId}>
-      <CheckCircle
-        className="after-apply-strip__icon"
-        size={15}
-        aria-hidden="true"
-      />
+      <CheckCircle className="after-apply-strip__icon" size={15} aria-hidden="true" />
       <span className="after-apply-strip__summary">
         {`Accepted ${acceptedCount} · Skipped ${skippedCount}`}
       </span>

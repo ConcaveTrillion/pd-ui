@@ -24,7 +24,12 @@ function DefaultDemo() {
 
   return (
     <>
-      <Button variant="primary" onClick={() => { setOpen(true); }}>
+      <Button
+        variant="primary"
+        onClick={() => {
+          setOpen(true);
+        }}
+      >
         Open Job Config
       </Button>
       <BaseJobConfigDialog
@@ -32,7 +37,9 @@ function DefaultDemo() {
         title="Start OCR Job"
         description="Configure output settings before running."
         sourcePath="/books/my-scanned-book.pdf"
-        onClose={() => { setOpen(false); }}
+        onClose={() => {
+          setOpen(false);
+        }}
         onSubmit={handleSubmit}
       />
     </>
@@ -48,7 +55,9 @@ function WithErrorDemo() {
 
   async function handleSubmit(): Promise<void> {
     await new Promise<void>((_, reject) =>
-      setTimeout(() => { reject(new Error('Backend unreachable — check pd-ocr-ops.')); }, 600),
+      setTimeout(() => {
+        reject(new Error('Backend unreachable — check pd-ocr-ops.'));
+      }, 600),
     );
   }
 
@@ -57,7 +66,9 @@ function WithErrorDemo() {
       open={open}
       title="Start OCR Job"
       sourcePath="/books/war-and-peace.pdf"
-      onClose={() => { setOpen(false); }}
+      onClose={() => {
+        setOpen(false);
+      }}
       onSubmit={handleSubmit}
       submitLabel="Process"
     />
@@ -83,7 +94,9 @@ function WithExtraFieldsDemo() {
       title="Advanced OCR Config"
       description="Fill in all fields."
       sourcePath="/books/sample.pdf"
-      onClose={() => { setOpen(false); }}
+      onClose={() => {
+        setOpen(false);
+      }}
       onSubmit={handleSubmit}
     >
       <div style={{ color: 'var(--ink-3)', fontSize: '11px', fontStyle: 'italic' }}>

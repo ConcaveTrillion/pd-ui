@@ -37,10 +37,11 @@ export function CheckIcon({ state, size = 16, className }: CheckIconProps): Reac
       style={{ color: config.color, display: 'inline-flex', alignItems: 'center' }}
       aria-label={config.label}
     >
-      {state === 'running'
-        ? <Icon name={config.icon} size={size} className="check-icon__spin" />
-        : <Icon name={config.icon} size={size} />
-      }
+      {state === 'running' ? (
+        <Icon name={config.icon} size={size} className="check-icon__spin" />
+      ) : (
+        <Icon name={config.icon} size={size} />
+      )}
     </span>
   );
 }
@@ -58,9 +59,9 @@ interface StateConfig {
 }
 
 const STATE_CONFIG: Record<CheckIconState, StateConfig> = {
-  pass:    { icon: 'check',  color: 'var(--exact)',    label: 'Pass'    },
-  warn:    { icon: 'alert',  color: 'var(--fuzzy)',    label: 'Warning' },
-  error:   { icon: 'x',     color: 'var(--mismatch)', label: 'Error'   },
-  running: { icon: 'loader', color: 'var(--ink-2)',    label: 'Running' },
-  skip:    { icon: 'minus',  color: 'var(--ink-2)',    label: 'Skip'    },
+  pass: { icon: 'check', color: 'var(--exact)', label: 'Pass' },
+  warn: { icon: 'alert', color: 'var(--fuzzy)', label: 'Warning' },
+  error: { icon: 'x', color: 'var(--mismatch)', label: 'Error' },
+  running: { icon: 'loader', color: 'var(--ink-2)', label: 'Running' },
+  skip: { icon: 'minus', color: 'var(--ink-2)', label: 'Skip' },
 };

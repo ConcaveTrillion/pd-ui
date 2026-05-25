@@ -18,10 +18,7 @@ export interface LineBlockCardProps {
 /**
  * LineBlockCard — cards-mode view of a single OCR line.
  */
-export function LineBlockCard({
-  line,
-  onWordEdit,
-}: LineBlockCardProps): React.ReactElement {
+export function LineBlockCard({ line, onWordEdit }: LineBlockCardProps): React.ReactElement {
   const hasWords = line.words != null && line.words.length > 0;
 
   return (
@@ -62,9 +59,7 @@ export function LineBlockCard({
           {line.id}
         </span>
         {line.blockId != null && (
-          <span style={{ color: 'var(--ink-4)', fontSize: 10.5 }}>
-            {line.blockId}
-          </span>
+          <span style={{ color: 'var(--ink-4)', fontSize: 10.5 }}>{line.blockId}</span>
         )}
       </div>
 
@@ -83,7 +78,11 @@ export function LineBlockCard({
               key={word.id}
               word={word}
               {...(onWordEdit != null
-                ? { onClick: () => { onWordEdit(word.id); } }
+                ? {
+                    onClick: () => {
+                      onWordEdit(word.id);
+                    },
+                  }
                 : {})}
             />
           ))}

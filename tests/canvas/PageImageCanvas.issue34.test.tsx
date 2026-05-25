@@ -11,9 +11,9 @@
  * window.Image is mocked to control load/error timing.
  */
 
-import { describe, it, expect, vi, beforeEach, afterEach, type MockInstance } from 'vitest'
-import { render, screen, act } from '@testing-library/react'
-import React from 'react'
+import { describe, it, expect, vi, beforeEach, afterEach, type MockInstance } from 'vitest';
+import { render, screen, act } from '@testing-library/react';
+import React from 'react';
 
 vi.mock('react-konva', () => ({
   Stage: ({
@@ -22,22 +22,18 @@ vi.mock('react-konva', () => ({
     height,
     'data-testid': tid,
   }: {
-    children?: React.ReactNode
-    width?: number
-    height?: number
-    'data-testid'?: string
+    children?: React.ReactNode;
+    width?: number;
+    height?: number;
+    'data-testid'?: string;
   }) => (
     <div data-testid={tid ?? 'konva-stage'} data-width={width} data-height={height}>
       {children}
     </div>
   ),
-  Layer: ({
-    children,
-    name,
-  }: {
-    children?: React.ReactNode
-    name?: string
-  }) => <div data-layer-name={name}>{children}</div>,
+  Layer: ({ children, name }: { children?: React.ReactNode; name?: string }) => (
+    <div data-layer-name={name}>{children}</div>
+  ),
   Rect: ({
     x,
     y,
@@ -45,11 +41,11 @@ vi.mock('react-konva', () => ({
     height,
     'data-testid': tid,
   }: {
-    x?: number
-    y?: number
-    width?: number
-    height?: number
-    'data-testid'?: string
+    x?: number;
+    y?: number;
+    width?: number;
+    height?: number;
+    'data-testid'?: string;
   }) => (
     <div
       data-testid={tid ?? 'konva-rect'}
@@ -59,16 +55,10 @@ vi.mock('react-konva', () => ({
       data-height={height}
     />
   ),
-  Image: ({
-    image,
-    'data-testid': tid,
-  }: {
-    image?: HTMLImageElement
-    'data-testid'?: string
-  }) => (
+  Image: ({ image, 'data-testid': tid }: { image?: HTMLImageElement; 'data-testid'?: string }) => (
     <div data-testid={tid ?? 'konva-image'} data-src={image?.src} />
   ),
-}))
+}));
 
 // ── Controlled Image mock ─────────────────────────────────────────────────────
 
@@ -77,43 +67,43 @@ vi.mock('react-konva', () => ({
  * Returns the list of captured mock instances.
  */
 type MockImageInstance = {
-  src: string
-  onload: (() => void) | null
-  onerror: (() => void) | null
-  triggerLoad: () => void
-  triggerError: () => void
-}
+  src: string;
+  onload: (() => void) | null;
+  onerror: (() => void) | null;
+  triggerLoad: () => void;
+  triggerError: () => void;
+};
 
-let capturedImages: MockImageInstance[] = []
-let OriginalImage: typeof window.Image
-let ImageSpy: MockInstance
+let capturedImages: MockImageInstance[] = [];
+let OriginalImage: typeof window.Image;
+let ImageSpy: MockInstance;
 
 function setupImageMock() {
-  capturedImages = []
-  OriginalImage = window.Image
+  capturedImages = [];
+  OriginalImage = window.Image;
   const MockImage = vi.fn().mockImplementation(() => {
     const instance: MockImageInstance = {
       src: '',
       onload: null,
       onerror: null,
       triggerLoad() {
-        this.onload?.()
+        this.onload?.();
       },
       triggerError() {
-        this.onerror?.()
+        this.onerror?.();
       },
-    }
-    capturedImages.push(instance)
-    return instance
-  })
-  window.Image = MockImage as typeof window.Image
-  ImageSpy = MockImage
-  return capturedImages
+    };
+    capturedImages.push(instance);
+    return instance;
+  });
+  window.Image = MockImage as typeof window.Image;
+  ImageSpy = MockImage;
+  return capturedImages;
 }
 
 function teardownImageMock() {
-  window.Image = OriginalImage
-  ImageSpy.mockRestore()
+  window.Image = OriginalImage;
+  ImageSpy.mockRestore();
 }
 
 // ── Fixtures ──────────────────────────────────────────────────────────────────
@@ -126,106 +116,112 @@ const page = {
   image_path: '/page.png',
   items: [],
   review: null,
-}
+};
 
-const words: never[] = []
+const words: never[] = [];
 
 // ── Tests ─────────────────────────────────────────────────────────────────────
 
-import { PageImageCanvas } from '../../src/canvas/PageImageCanvas'
+import { PageImageCanvas } from '../../src/canvas/PageImageCanvas';
 
 describe('PageImageCanvas — image-load lifecycle (issue #34)', () => {
   beforeEach(() => {
-    setupImageMock()
-  })
+    setupImageMock();
+  });
 
   afterEach(() => {
-    teardownImageMock()
-  })
+    teardownImageMock();
+  });
 
   it('renders the Konva Image after a successful load', () => {
-    render(<PageImageCanvas src="/page-a.png" page={page} words={words} />)
+    render(<PageImageCanvas src="/page-a.png" page={page} words={words} />);
 
     // Before load completes: no image element visible
-    expect(screen.queryByTestId('konva-image')).not.toBeInTheDocument()
+    expect(screen.queryByTestId('konva-image')).not.toBeInTheDocument();
 
     // Trigger load
-    const [img] = capturedImages
-    expect(img).toBeDefined()
-    act(() => { img!.triggerLoad() })
+    const [img] = capturedImages;
+    expect(img).toBeDefined();
+    act(() => {
+      img!.triggerLoad();
+    });
 
     // After load: image is rendered
-    expect(screen.getByTestId('konva-image')).toBeInTheDocument()
-  })
+    expect(screen.getByTestId('konva-image')).toBeInTheDocument();
+  });
 
   it('clears the image immediately when src changes before new load resolves', () => {
-    const { rerender } = render(
-      <PageImageCanvas src="/page-a.png" page={page} words={words} />
-    )
+    const { rerender } = render(<PageImageCanvas src="/page-a.png" page={page} words={words} />);
 
     // Load first src
-    act(() => { capturedImages[0]!.triggerLoad() })
-    expect(screen.getByTestId('konva-image')).toBeInTheDocument()
+    act(() => {
+      capturedImages[0]!.triggerLoad();
+    });
+    expect(screen.getByTestId('konva-image')).toBeInTheDocument();
 
     // Change src — image must be cleared immediately (stale image gone)
-    rerender(<PageImageCanvas src="/page-b.png" page={page} words={words} />)
+    rerender(<PageImageCanvas src="/page-b.png" page={page} words={words} />);
 
     // Image should be gone while the new src is still loading
-    expect(screen.queryByTestId('konva-image')).not.toBeInTheDocument()
-  })
+    expect(screen.queryByTestId('konva-image')).not.toBeInTheDocument();
+  });
 
   it('ignores a late load from a previous src (source token)', () => {
-    const { rerender } = render(
-      <PageImageCanvas src="/page-a.png" page={page} words={words} />
-    )
+    const { rerender } = render(<PageImageCanvas src="/page-a.png" page={page} words={words} />);
 
     // Don't trigger load for /page-a.png yet — simulate in-flight
-    const imgA = capturedImages[0]!
+    const imgA = capturedImages[0]!;
 
     // Change src to /page-b.png
-    rerender(<PageImageCanvas src="/page-b.png" page={page} words={words} />)
+    rerender(<PageImageCanvas src="/page-b.png" page={page} words={words} />);
 
     // Now the stale load from /page-a.png arrives
-    act(() => { imgA.triggerLoad() })
+    act(() => {
+      imgA.triggerLoad();
+    });
 
     // The image should NOT appear — it belongs to the old src
-    expect(screen.queryByTestId('konva-image')).not.toBeInTheDocument()
-  })
+    expect(screen.queryByTestId('konva-image')).not.toBeInTheDocument();
+  });
 
   it('clears the image when a load error occurs', () => {
-    const { rerender } = render(
-      <PageImageCanvas src="/page-a.png" page={page} words={words} />
-    )
+    const { rerender } = render(<PageImageCanvas src="/page-a.png" page={page} words={words} />);
 
     // Load first src successfully
-    act(() => { capturedImages[0]!.triggerLoad() })
-    expect(screen.getByTestId('konva-image')).toBeInTheDocument()
+    act(() => {
+      capturedImages[0]!.triggerLoad();
+    });
+    expect(screen.getByTestId('konva-image')).toBeInTheDocument();
 
     // Load a new src — immediately after change the image is cleared
-    rerender(<PageImageCanvas src="/page-broken.png" page={page} words={words} />)
-    expect(screen.queryByTestId('konva-image')).not.toBeInTheDocument()
+    rerender(<PageImageCanvas src="/page-broken.png" page={page} words={words} />);
+    expect(screen.queryByTestId('konva-image')).not.toBeInTheDocument();
 
     // The new load fails
-    act(() => { capturedImages[1]!.triggerError() })
+    act(() => {
+      capturedImages[1]!.triggerError();
+    });
 
     // Image must remain absent after error — no stale image shown
-    expect(screen.queryByTestId('konva-image')).not.toBeInTheDocument()
-  })
+    expect(screen.queryByTestId('konva-image')).not.toBeInTheDocument();
+  });
 
   it('renders the correct image after src changes and new load succeeds', () => {
-    const { rerender } = render(
-      <PageImageCanvas src="/page-a.png" page={page} words={words} />
-    )
+    const { rerender } = render(<PageImageCanvas src="/page-a.png" page={page} words={words} />);
 
-    act(() => { capturedImages[0]!.triggerLoad() })
-    expect(screen.getByTestId('konva-image')).toBeInTheDocument()
+    act(() => {
+      capturedImages[0]!.triggerLoad();
+    });
+    expect(screen.getByTestId('konva-image')).toBeInTheDocument();
 
-    rerender(<PageImageCanvas src="/page-b.png" page={page} words={words} />)
+    rerender(<PageImageCanvas src="/page-b.png" page={page} words={words} />);
 
     // New image loads
-    act(() => { capturedImages[1]!.triggerLoad() })
+    act(() => {
+      capturedImages[1]!.triggerLoad();
+    });
 
     // Now the image is back
-    expect(screen.getByTestId('konva-image')).toBeInTheDocument()
-  })
-})
+    expect(screen.getByTestId('konva-image')).toBeInTheDocument();
+  });
+});

@@ -5,9 +5,9 @@
  * Accepts a `renderRow` render-prop for custom row content.
  */
 
-import * as React from 'react'
-import { VirtualizedList } from './VirtualizedList'
-import type { PageListProps, PageListItem, PageRowProps } from './types'
+import * as React from 'react';
+import { VirtualizedList } from './VirtualizedList';
+import type { PageListProps, PageListItem, PageRowProps } from './types';
 
 // ── default row renderer ──────────────────────────────────────────────────────
 
@@ -16,7 +16,7 @@ function DefaultPageRow<TPage extends PageListItem>({
   index,
   isSelected,
 }: PageRowProps<TPage>) {
-  const label = item.name ?? `Page ${(item.page_index ?? index) + 1}`
+  const label = item.name ?? `Page ${(item.page_index ?? index) + 1}`;
   return (
     <div
       className={`page-list-row${isSelected ? ' page-list-row--selected' : ''}`}
@@ -32,7 +32,7 @@ function DefaultPageRow<TPage extends PageListItem>({
     >
       {label}
     </div>
-  )
+  );
 }
 
 // ── <PageList> ────────────────────────────────────────────────────────────────
@@ -50,13 +50,15 @@ function PageListInner<TPage extends PageListItem = PageListItem>(
 ) {
   const renderItem = React.useCallback(
     (item: TPage, index: number, isSelected: boolean) => {
-      const rowProps: PageRowProps<TPage> = { item, index, isSelected }
-      return renderRow
-        ? renderRow(rowProps)
-        : <DefaultPageRow<TPage> item={item} index={index} isSelected={isSelected} />
+      const rowProps: PageRowProps<TPage> = { item, index, isSelected };
+      return renderRow ? (
+        renderRow(rowProps)
+      ) : (
+        <DefaultPageRow<TPage> item={item} index={index} isSelected={isSelected} />
+      );
     },
     [renderRow],
-  )
+  );
 
   return (
     <VirtualizedList<TPage>
@@ -69,7 +71,7 @@ function PageListInner<TPage extends PageListItem = PageListItem>(
       renderItem={renderItem}
       defaultAriaLabel="Page list"
     />
-  )
+  );
 }
 
 /**
@@ -80,6 +82,5 @@ export const PageList = React.forwardRef(PageListInner) as <
   TPage extends PageListItem = PageListItem,
 >(
   props: PageListProps<TPage> & { ref?: React.Ref<HTMLDivElement> },
-) => React.ReactElement | null
-
-;(PageList as { displayName?: string }).displayName = 'PageList'
+) => React.ReactElement | null;
+(PageList as { displayName?: string }).displayName = 'PageList';

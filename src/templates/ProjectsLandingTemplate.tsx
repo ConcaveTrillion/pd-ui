@@ -44,23 +44,23 @@ export type ProjectsDetailTab = 'activity' | 'attributes' | 'manage';
 type StatusKey = ProjectsDrawerProject['status'] | 'archived';
 
 const STATUS_TONE: Record<StatusKey, BadgeTone> = {
-  queued:    'neutral',
-  running:   'running',
-  review:    'review',
-  ready:     'clean',
+  queued: 'neutral',
+  running: 'running',
+  review: 'review',
+  ready: 'clean',
   submitted: 'neutral',
-  error:     'failed',
-  archived:  'neutral',
+  error: 'failed',
+  archived: 'neutral',
 };
 
 const STATUS_LABEL: Record<StatusKey, string> = {
-  queued:    'queued',
-  running:   'running',
-  review:    'review',
-  ready:     'ready',
+  queued: 'queued',
+  running: 'running',
+  review: 'review',
+  ready: 'ready',
   submitted: 'submitted',
-  error:     'error',
-  archived:  'archived',
+  error: 'error',
+  archived: 'archived',
 };
 
 // ─── Shared props ─────────────────────────────────────────────────────────────
@@ -128,15 +128,15 @@ interface PipelineMiniProps {
 
 function PipelineMini({ total, current, status, height = 8 }: PipelineMiniProps) {
   const color =
-    status === 'error'   ? 'var(--mismatch)' :
-    status === 'running' ? 'var(--ocr)' :
-    status === 'review'  ? 'var(--fuzzy)' :
-                           'var(--exact)';
+    status === 'error'
+      ? 'var(--mismatch)'
+      : status === 'running'
+        ? 'var(--ocr)'
+        : status === 'review'
+          ? 'var(--fuzzy)'
+          : 'var(--exact)';
   return (
-    <div
-      aria-hidden="true"
-      style={{ display: 'flex', alignItems: 'center', gap: 2, height }}
-    >
+    <div aria-hidden="true" style={{ display: 'flex', alignItems: 'center', gap: 2, height }}>
       {Array.from({ length: total }).map((_, i) => {
         const done = i < current;
         const here = i === current;
@@ -164,7 +164,11 @@ interface CoverPlaceholderProps {
 }
 
 function CoverPlaceholder({ author, size = 56 }: CoverPlaceholderProps) {
-  const initials = author.split(' ').map((w) => w[0]).slice(0, 2).join('');
+  const initials = author
+    .split(' ')
+    .map((w) => w[0])
+    .slice(0, 2)
+    .join('');
   const hue = [...author].reduce((a, c) => a + c.charCodeAt(0), 0) % 360;
   return (
     <div
@@ -182,8 +186,7 @@ function CoverPlaceholder({ author, size = 56 }: CoverPlaceholderProps) {
         fontWeight: 600,
         fontSize: Math.round(size * 0.28),
         letterSpacing: '0.04em',
-        boxShadow:
-          'inset 0 0 0 1px rgba(255,255,255,0.08), inset -2px 0 0 rgba(0,0,0,0.18)',
+        boxShadow: 'inset 0 0 0 1px rgba(255,255,255,0.08), inset -2px 0 0 rgba(0,0,0,0.18)',
       }}
     >
       {initials}
@@ -262,20 +265,20 @@ function PopulatedLayout({ props }: PopulatedLayoutProps) {
   const statusTone = STATUS_TONE[statusKey];
   const statusLabel = STATUS_LABEL[statusKey];
 
-  const progressPct = Math.round(
-    (selected.currentStage / selected.totalStages) * 100,
-  );
+  const progressPct = Math.round((selected.currentStage / selected.totalStages) * 100);
 
   const stats: Array<{ label: string; value: string | number; sub?: string; toneVar?: string }> = [
-    { label: 'pages',   value: selected.pages },
+    { label: 'pages', value: selected.pages },
     { label: 'on disk', value: selected.size },
     ...(selected.flagged != null
-      ? [{
-          label: 'flagged',
-          value: selected.flagged,
-          toneVar: 'var(--fuzzy)' as string,
-          sub: 'awaiting review',
-        }]
+      ? [
+          {
+            label: 'flagged',
+            value: selected.flagged,
+            toneVar: 'var(--fuzzy)' as string,
+            sub: 'awaiting review',
+          },
+        ]
       : [{ label: 'flagged', value: '—', sub: 'none' }]),
     {
       label: 'progress',
@@ -287,9 +290,9 @@ function PopulatedLayout({ props }: PopulatedLayoutProps) {
   ];
 
   const DETAIL_TABS: Array<{ id: ProjectsDetailTab; label: string; count?: string }> = [
-    { id: 'activity',   label: 'Recent activity', count: 'last 3' },
+    { id: 'activity', label: 'Recent activity', count: 'last 3' },
     { id: 'attributes', label: 'Attributes' },
-    { id: 'manage',     label: 'Manage' },
+    { id: 'manage', label: 'Manage' },
   ];
 
   const manageActions = selected.archived
@@ -402,14 +405,9 @@ function PopulatedLayout({ props }: PopulatedLayoutProps) {
         />
 
         {/* Right pane — selected project detail */}
-        <div
-          data-testid="projects-detail"
-          style={{ padding: '32px 40px', overflow: 'auto' }}
-        >
+        <div data-testid="projects-detail" style={{ padding: '32px 40px', overflow: 'auto' }}>
           {/* Header: cover + title + status + open button */}
-          <div
-            style={{ display: 'flex', gap: 20, alignItems: 'flex-start' }}
-          >
+          <div style={{ display: 'flex', gap: 20, alignItems: 'flex-start' }}>
             <CoverPlaceholder author={selected.author} size={88} />
             <div style={{ flex: 1, minWidth: 0 }}>
               <div
@@ -434,14 +432,10 @@ function PopulatedLayout({ props }: PopulatedLayoutProps) {
                   {statusLabel}
                 </Badge>
               </div>
-              <div
-                style={{ marginTop: 4, fontSize: 13, color: 'var(--ink-3)' }}
-              >
+              <div style={{ marginTop: 4, fontSize: 13, color: 'var(--ink-3)' }}>
                 {selected.author}
                 {' · '}
-                <span style={{ fontFamily: 'var(--mono-font)' }}>
-                  {selected.id}
-                </span>
+                <span style={{ fontFamily: 'var(--mono-font)' }}>{selected.id}</span>
               </div>
             </div>
             <Button
@@ -475,10 +469,7 @@ function PopulatedLayout({ props }: PopulatedLayoutProps) {
                   padding: '14px 14px 12px',
                 }}
               >
-                <div
-                  className="label"
-                  style={{ color: 'var(--ink-3)' }}
-                >
+                <div className="label" style={{ color: 'var(--ink-3)' }}>
                   {stat.label}
                 </div>
                 <div
@@ -511,10 +502,7 @@ function PopulatedLayout({ props }: PopulatedLayoutProps) {
 
           {/* Pipeline progress */}
           <div data-testid="projects-pipeline" style={{ marginTop: 24 }}>
-            <div
-              className="label"
-              style={{ marginBottom: 8, color: 'var(--ink-3)' }}
-            >
+            <div className="label" style={{ marginBottom: 8, color: 'var(--ink-3)' }}>
               Pipeline
             </div>
             <div
@@ -547,18 +535,11 @@ function PopulatedLayout({ props }: PopulatedLayoutProps) {
                 </span>
                 <span
                   style={{
-                    color:
-                      selected.flagged != null
-                        ? 'var(--fuzzy)'
-                        : 'var(--ink-4)',
+                    color: selected.flagged != null ? 'var(--fuzzy)' : 'var(--ink-4)',
                   }}
                 >
-                  {selected.flagged != null
-                    ? `${selected.flagged} pages flagged`
-                    : ''}
-                  {selected.archived
-                    ? ` archived ${selected.archivedOn ?? ''}`
-                    : ''}
+                  {selected.flagged != null ? `${selected.flagged} pages flagged` : ''}
+                  {selected.archived ? ` archived ${selected.archivedOn ?? ''}` : ''}
                 </span>
               </div>
             </div>
@@ -697,9 +678,7 @@ function PopulatedLayout({ props }: PopulatedLayoutProps) {
                       >
                         {stage}
                       </span>
-                      <span style={{ fontSize: 12, color: 'var(--ink-3)' }}>
-                        {desc}
-                      </span>
+                      <span style={{ fontSize: 12, color: 'var(--ink-3)' }}>{desc}</span>
                       <span
                         className="mono"
                         style={{
@@ -721,17 +700,10 @@ function PopulatedLayout({ props }: PopulatedLayoutProps) {
                       justifyContent: 'space-between',
                     }}
                   >
-                    <span
-                      className="mono"
-                      style={{ fontSize: 11, color: 'var(--ink-4)' }}
-                    >
+                    <span className="mono" style={{ fontSize: 11, color: 'var(--ink-4)' }}>
                       + earlier entries
                     </span>
-                    <Button
-                      variant="ghost"
-                      size="sm"
-                      iconRight={<Icon name="arrowR" size={11} />}
-                    >
+                    <Button variant="ghost" size="sm" iconRight={<Icon name="arrowR" size={11} />}>
                       Open activity log
                     </Button>
                   </div>
@@ -763,8 +735,7 @@ function PopulatedLayout({ props }: PopulatedLayoutProps) {
                         gap: 14,
                         padding: '14px 16px',
                         alignItems: 'center',
-                        borderTop:
-                          i === 0 ? 0 : '1px solid var(--border-1)',
+                        borderTop: i === 0 ? 0 : '1px solid var(--border-1)',
                       }}
                     >
                       <div
@@ -819,10 +790,7 @@ function PopulatedLayout({ props }: PopulatedLayoutProps) {
                           justifyContent: 'flex-end',
                         }}
                       >
-                        <Button
-                          variant={a.danger ? 'danger' : 'ghost'}
-                          size="sm"
-                        >
+                        <Button variant={a.danger ? 'danger' : 'ghost'} size="sm">
                           {a.cta}
                         </Button>
                       </div>
@@ -894,10 +862,7 @@ function EmptyLayout({ props }: EmptyLayoutProps) {
           }}
         >
           {/* Iconographic page stack (no AI-generated SVGs) */}
-          <div
-            aria-hidden="true"
-            style={{ position: 'relative', width: 140, height: 100 }}
-          >
+          <div aria-hidden="true" style={{ position: 'relative', width: 140, height: 100 }}>
             {[0, 1, 2].map((i) => (
               <div
                 key={i}
@@ -950,17 +915,14 @@ function EmptyLayout({ props }: EmptyLayoutProps) {
                 marginInline: 'auto',
               }}
             >
-              A project bundles a book&#39;s pages, settings, and pipeline
-              state — everything needed to assemble a PGDP-ready package.
-              Start by uploading a folder of scans, or paste a source URL
-              from archive.org / Google Books.
+              A project bundles a book&#39;s pages, settings, and pipeline state — everything needed
+              to assemble a PGDP-ready package. Start by uploading a folder of scans, or paste a
+              source URL from archive.org / Google Books.
             </p>
           </div>
 
           {/* Primary CTAs */}
-          <div
-            style={{ display: 'flex', gap: 10, alignItems: 'center' }}
-          >
+          <div style={{ display: 'flex', gap: 10, alignItems: 'center' }}>
             {createSlot !== undefined ? (
               createSlot
             ) : (
@@ -973,11 +935,7 @@ function EmptyLayout({ props }: EmptyLayoutProps) {
                 >
                   Create new project
                 </Button>
-                <Button
-                  variant="ghost"
-                  size="lg"
-                  icon={<Icon name="link" size={16} />}
-                >
+                <Button variant="ghost" size="lg" icon={<Icon name="link" size={16} />}>
                   Paste source URL
                 </Button>
               </>
@@ -1000,14 +958,30 @@ function EmptyLayout({ props }: EmptyLayoutProps) {
           >
             <button
               type="button"
-              style={{ color: 'var(--ink-3)', background: 'transparent', border: 0, cursor: 'pointer', fontSize: 12, textDecoration: 'none', padding: 0 }}
+              style={{
+                color: 'var(--ink-3)',
+                background: 'transparent',
+                border: 0,
+                cursor: 'pointer',
+                fontSize: 12,
+                textDecoration: 'none',
+                padding: 0,
+              }}
             >
               Import a .pgdp-prep archive
             </button>
             <span style={{ color: 'var(--border-2)' }}>·</span>
             <button
               type="button"
-              style={{ color: 'var(--ink-3)', background: 'transparent', border: 0, cursor: 'pointer', fontSize: 12, textDecoration: 'none', padding: 0 }}
+              style={{
+                color: 'var(--ink-3)',
+                background: 'transparent',
+                border: 0,
+                cursor: 'pointer',
+                fontSize: 12,
+                textDecoration: 'none',
+                padding: 0,
+              }}
             >
               Open the format style guide
             </button>
@@ -1035,9 +1009,7 @@ export const ProjectsLandingTemplate = React.forwardRef<
   ProjectsLandingTemplateProps
 >(function ProjectsLandingTemplate(props, ref) {
   const themeAttr =
-    props.theme !== undefined
-      ? ({ 'data-theme': props.theme } as Record<string, string>)
-      : {};
+    props.theme !== undefined ? ({ 'data-theme': props.theme } as Record<string, string>) : {};
 
   return (
     <div

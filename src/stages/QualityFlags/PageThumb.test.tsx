@@ -49,17 +49,13 @@ describe('PageThumb', () => {
   });
 
   it('selected: data-selected attribute is set', () => {
-    const { container } = render(
-      <PageThumb page={page} flags={[]} selected />,
-    );
+    const { container } = render(<PageThumb page={page} flags={[]} selected />);
     const root = container.firstChild as HTMLElement;
     expect(root).toHaveAttribute('data-selected', 'true');
   });
 
   it('when onSelect provided, root becomes a button with aria-pressed', () => {
-    const { container } = render(
-      <PageThumb page={page} flags={[]} onSelect={() => undefined} />,
-    );
+    const { container } = render(<PageThumb page={page} flags={[]} onSelect={() => undefined} />);
     const root = container.firstChild as HTMLElement;
     expect(root.tagName).toBe('BUTTON');
     expect(root).toHaveAttribute('aria-pressed', 'false');

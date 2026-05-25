@@ -42,46 +42,32 @@ export interface BlockTypePickerPanelProps {
  * Slot-based: the set of available types is supplied via the `types` prop.
  * The panel is fully controlled; consumers own selected state.
  */
-export const BlockTypePickerPanel = React.forwardRef<
-  HTMLElement,
-  BlockTypePickerPanelProps
->(function BlockTypePickerPanel(
-  {
-    types,
-    selectedType,
-    onSelect,
-    title,
-    'data-testid': testId = BLOCK_TYPE_PICKER_PANEL,
+export const BlockTypePickerPanel = React.forwardRef<HTMLElement, BlockTypePickerPanelProps>(
+  function BlockTypePickerPanel(
+    { types, selectedType, onSelect, title, 'data-testid': testId = BLOCK_TYPE_PICKER_PANEL },
+    ref,
+  ) {
+    const headingId = React.useId();
+
+    return (
+      <aside
+        ref={ref}
+        className="block-type-picker-panel"
+        aria-labelledby={headingId}
+        data-testid={testId}
+      >
+        <header className="block-type-picker-panel__header">
+          <h2 id={headingId} className="block-type-picker-panel__title">
+            {title ?? 'Block type'}
+          </h2>
+        </header>
+
+        <div className="block-type-picker-panel__body">
+          <TypeGrid types={types} selectedType={selectedType} onSelect={onSelect} />
+        </div>
+      </aside>
+    );
   },
-  ref,
-) {
-  const headingId = React.useId();
-
-  return (
-    <aside
-      ref={ref}
-      className="block-type-picker-panel"
-      aria-labelledby={headingId}
-      data-testid={testId}
-    >
-      <header className="block-type-picker-panel__header">
-        <h2
-          id={headingId}
-          className="block-type-picker-panel__title"
-        >
-          {title ?? 'Block type'}
-        </h2>
-      </header>
-
-      <div className="block-type-picker-panel__body">
-        <TypeGrid
-          types={types}
-          selectedType={selectedType}
-          onSelect={onSelect}
-        />
-      </div>
-    </aside>
-  );
-});
+);
 
 BlockTypePickerPanel.displayName = 'BlockTypePickerPanel';

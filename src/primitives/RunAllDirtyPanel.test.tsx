@@ -38,7 +38,9 @@ describe('RunAllDirtyPanel', () => {
   });
 
   it('forwards className', () => {
-    const { container } = render(<RunAllDirtyPanel dirtyCount={0} onRunAll={() => {}} className="custom" />);
+    const { container } = render(
+      <RunAllDirtyPanel dirtyCount={0} onRunAll={() => {}} className="custom" />,
+    );
     expect(container.querySelector('.custom')).toBeTruthy();
   });
 

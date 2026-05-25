@@ -11,7 +11,7 @@ import type { OcrLine } from './OcrTextPanel.js';
 
 const WORD_A = { id: 'w1', text: 'Hello', confidence: 0.95 };
 const WORD_B = { id: 'w2', text: 'world', confidence: 0.75 };
-const WORD_C = { id: 'w3', text: 'foo', confidence: 0.50, flags: ['dict-miss', 'low-conf'] };
+const WORD_C = { id: 'w3', text: 'foo', confidence: 0.5, flags: ['dict-miss', 'low-conf'] };
 
 const LINE_1: OcrLine = { id: 'L1', text: 'Hello world', words: [WORD_A, WORD_B] };
 const LINE_2: OcrLine = { id: 'L2', text: 'foo bar', words: [WORD_C] };
@@ -42,13 +42,7 @@ describe('OcrTextPanel', () => {
 
   it('switching viewMode fires onViewModeChange', () => {
     const onViewModeChange = vi.fn();
-    render(
-      <OcrTextPanel
-        lines={[LINE_1]}
-        viewMode="cards"
-        onViewModeChange={onViewModeChange}
-      />,
-    );
+    render(<OcrTextPanel lines={[LINE_1]} viewMode="cards" onViewModeChange={onViewModeChange} />);
 
     // Click the "Rows" segment button
     const rowsButton = screen.getByText('Rows');
@@ -69,9 +63,7 @@ describe('OcrTextPanel', () => {
 
   it('clicking a word in rows mode fires onWordEdit(wordId)', () => {
     const onWordEdit = vi.fn();
-    render(
-      <OcrTextPanel lines={[LINE_1]} viewMode="rows" onWordEdit={onWordEdit} />,
-    );
+    render(<OcrTextPanel lines={[LINE_1]} viewMode="rows" onWordEdit={onWordEdit} />);
 
     const helloEl = screen.getByText('Hello');
     fireEvent.click(helloEl);
@@ -116,11 +108,7 @@ describe('OcrTextPanel', () => {
 
     const onViewModeChange = vi.fn();
     rerender(
-      <OcrTextPanel
-        lines={[LINE_1]}
-        viewMode="cards"
-        onViewModeChange={onViewModeChange}
-      />,
+      <OcrTextPanel lines={[LINE_1]} viewMode="cards" onViewModeChange={onViewModeChange} />,
     );
     expect(screen.getByText('Cards')).toBeInTheDocument();
     expect(screen.getByText('Rows')).toBeInTheDocument();

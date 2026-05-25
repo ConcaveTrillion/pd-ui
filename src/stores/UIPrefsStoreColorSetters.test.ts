@@ -13,12 +13,14 @@ import type { UIPrefs, UIPrefsConfig } from '../shell/types.js';
 
 function makeConfig(prefs: Partial<UIPrefs> = {}): UIPrefsConfig {
   return {
-    load: vi.fn(() => Promise.resolve({
-      theme: 'dark' as const,
-      density: 'normal' as const,
-      fontScale: 1.0,
-      ...prefs,
-    })),
+    load: vi.fn(() =>
+      Promise.resolve({
+        theme: 'dark' as const,
+        density: 'normal' as const,
+        fontScale: 1.0,
+        ...prefs,
+      }),
+    ),
     persistCommon: vi.fn(() => Promise.resolve()),
     persistApp: vi.fn(() => Promise.resolve()),
   };
@@ -38,7 +40,9 @@ describe('createUIPrefsStore color setters (#18)', () => {
     const store = createUIPrefsStore(config);
     await new Promise((r) => setTimeout(r, 0));
     store.getState().setLayerColor('para', '#112233');
-    const lastCall = (config.persistCommon as ReturnType<typeof vi.fn>).mock.calls.at(-1) as [Omit<UIPrefs, 'app'>];
+    const lastCall = (config.persistCommon as ReturnType<typeof vi.fn>).mock.calls.at(-1) as [
+      Omit<UIPrefs, 'app'>,
+    ];
     expect(lastCall[0].layerColors?.['para']).toBe('#112233');
   });
 
@@ -64,7 +68,9 @@ describe('createUIPrefsStore color setters (#18)', () => {
     const store = createUIPrefsStore(config);
     await new Promise((r) => setTimeout(r, 0));
     store.getState().setStatusColor('fuzzy', '#445566');
-    const lastCall = (config.persistCommon as ReturnType<typeof vi.fn>).mock.calls.at(-1) as [Omit<UIPrefs, 'app'>];
+    const lastCall = (config.persistCommon as ReturnType<typeof vi.fn>).mock.calls.at(-1) as [
+      Omit<UIPrefs, 'app'>,
+    ];
     expect(lastCall[0].statusColors?.['fuzzy']).toBe('#445566');
   });
 
@@ -118,7 +124,9 @@ describe('createUIPrefsStore color setters (#18)', () => {
     const store = createUIPrefsStore(config);
     await new Promise((r) => setTimeout(r, 0));
     store.getState().setLayerColor('line', '#334455');
-    const call = (config.persistCommon as ReturnType<typeof vi.fn>).mock.calls.at(-1)?.[0] as Record<string, unknown>;
+    const call = (config.persistCommon as ReturnType<typeof vi.fn>).mock.calls.at(
+      -1,
+    )?.[0] as Record<string, unknown>;
     // Should include all non-app fields
     expect(call).toHaveProperty('theme', 'light');
     expect(call).toHaveProperty('density', 'compact');

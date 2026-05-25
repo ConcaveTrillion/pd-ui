@@ -13,8 +13,19 @@ const meta: Meta<typeof Badge> = {
     tone: {
       control: 'select',
       options: [
-        'neutral', 'brand', 'clean', 'exact', 'dirty', 'fuzzy',
-        'review', 'running', 'ocr', 'failed', 'mismatch', 'error', 'gt',
+        'neutral',
+        'brand',
+        'clean',
+        'exact',
+        'dirty',
+        'fuzzy',
+        'review',
+        'running',
+        'ocr',
+        'failed',
+        'mismatch',
+        'error',
+        'gt',
       ],
     },
     dot: { control: 'boolean' },
@@ -48,8 +59,19 @@ export const AllVariants: Story = {
 };
 
 const ALL_TONES: BadgeTone[] = [
-  'neutral', 'brand', 'clean', 'exact', 'dirty', 'fuzzy',
-  'review', 'running', 'ocr', 'failed', 'mismatch', 'error', 'gt',
+  'neutral',
+  'brand',
+  'clean',
+  'exact',
+  'dirty',
+  'fuzzy',
+  'review',
+  'running',
+  'ocr',
+  'failed',
+  'mismatch',
+  'error',
+  'gt',
 ];
 
 export const AllTones: Story = {

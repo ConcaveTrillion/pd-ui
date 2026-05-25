@@ -14,7 +14,12 @@ import { render, screen } from '@testing-library/react';
 import { describe, it, expect, vi } from 'vitest';
 import { AppShell } from '../../src/shell/AppShell.js';
 import { SuiteSiblingsContext } from '../../src/shell/SuiteSiblingsContext.js';
-import type { AppShellProps, UIPrefsConfig, InstalledApp, LaunchResult } from '../../src/shell/types.js';
+import type {
+  AppShellProps,
+  UIPrefsConfig,
+  InstalledApp,
+  LaunchResult,
+} from '../../src/shell/types.js';
 
 // ─── Fixtures ─────────────────────────────────────────────────────────────────
 
@@ -85,7 +90,9 @@ describe("AppShell #30 — launcherSlot='header' (default)", () => {
   });
 
   it('launcher-slot is NOT inside the rail zone when launcherSlot=header', () => {
-    renderWithSiblings(minimalProps({ launcherSlot: 'header', rail: <div data-testid="rail-content">rail</div> }));
+    renderWithSiblings(
+      minimalProps({ launcherSlot: 'header', rail: <div data-testid="rail-content">rail</div> }),
+    );
     const rail = screen.getByTestId('app-shell-rail');
     const launcher = screen.getByTestId('launcher-slot');
     expect(rail.contains(launcher)).toBe(false);

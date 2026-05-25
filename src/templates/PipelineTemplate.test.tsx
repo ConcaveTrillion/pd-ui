@@ -13,11 +13,7 @@
 import * as React from 'react';
 import { describe, it, expect } from 'vitest';
 import { render, screen } from '@testing-library/react';
-import {
-  PipelineTemplate,
-  PipelineEmptySlot,
-  type PipelineProject,
-} from './PipelineTemplate.js';
+import { PipelineTemplate, PipelineEmptySlot, type PipelineProject } from './PipelineTemplate.js';
 import { PIPELINE_STAGES } from './StageStrip.js';
 
 const SAMPLE_PROJECT: PipelineProject = {
@@ -32,11 +28,7 @@ const SAMPLE_PROJECT: PipelineProject = {
 describe('PipelineTemplate', () => {
   it('renders the project info band with project title', () => {
     render(
-      <PipelineTemplate
-        project={SAMPLE_PROJECT}
-        stage="threshold"
-        stages={[...PIPELINE_STAGES]}
-      />,
+      <PipelineTemplate project={SAMPLE_PROJECT} stage="threshold" stages={[...PIPELINE_STAGES]} />,
     );
     expect(screen.getByTestId('pipeline-template')).toBeInTheDocument();
     expect(screen.getByTestId('pipeline-project-info')).toBeInTheDocument();
@@ -45,33 +37,21 @@ describe('PipelineTemplate', () => {
 
   it('renders the stage strip', () => {
     render(
-      <PipelineTemplate
-        project={SAMPLE_PROJECT}
-        stage="threshold"
-        stages={[...PIPELINE_STAGES]}
-      />,
+      <PipelineTemplate project={SAMPLE_PROJECT} stage="threshold" stages={[...PIPELINE_STAGES]} />,
     );
     expect(screen.getByTestId('pipeline-stage-strip')).toBeInTheDocument();
   });
 
   it('renders the default TabsBand tabs slot', () => {
     render(
-      <PipelineTemplate
-        project={SAMPLE_PROJECT}
-        stage="threshold"
-        stages={[...PIPELINE_STAGES]}
-      />,
+      <PipelineTemplate project={SAMPLE_PROJECT} stage="threshold" stages={[...PIPELINE_STAGES]} />,
     );
     expect(screen.getByTestId('pipeline-tabs')).toBeInTheDocument();
   });
 
   it('renders the default PipelineEmptySlot children', () => {
     render(
-      <PipelineTemplate
-        project={SAMPLE_PROJECT}
-        stage="threshold"
-        stages={[...PIPELINE_STAGES]}
-      />,
+      <PipelineTemplate project={SAMPLE_PROJECT} stage="threshold" stages={[...PIPELINE_STAGES]} />,
     );
     expect(screen.getByTestId('pipeline-body')).toBeInTheDocument();
     // Default slot is PipelineEmptySlot
@@ -93,11 +73,7 @@ describe('PipelineTemplate', () => {
 
   it('renders custom children when provided', () => {
     render(
-      <PipelineTemplate
-        project={SAMPLE_PROJECT}
-        stage="threshold"
-        stages={[...PIPELINE_STAGES]}
-      >
+      <PipelineTemplate project={SAMPLE_PROJECT} stage="threshold" stages={[...PIPELINE_STAGES]}>
         <div data-testid="custom-body">Custom Body</div>
       </PipelineTemplate>,
     );
@@ -111,10 +87,7 @@ describe('PipelineTemplate', () => {
         project={SAMPLE_PROJECT}
         stage="threshold"
         stages={[...PIPELINE_STAGES]}
-        trail={[
-          { label: 'Projects' },
-          { label: 'custom-trail-id', mono: true },
-        ]}
+        trail={[{ label: 'Projects' }, { label: 'custom-trail-id', mono: true }]}
       />,
     );
     const bc = screen.getByTestId('pipeline-breadcrumb');
@@ -139,22 +112,14 @@ describe('PipelineTemplate', () => {
 
   it('renders project author in the project info band', () => {
     render(
-      <PipelineTemplate
-        project={SAMPLE_PROJECT}
-        stage="threshold"
-        stages={[...PIPELINE_STAGES]}
-      />,
+      <PipelineTemplate project={SAMPLE_PROJECT} stage="threshold" stages={[...PIPELINE_STAGES]} />,
     );
     expect(screen.getByText('Test Author')).toBeInTheDocument();
   });
 
   it('renders project id in the project info band', () => {
     render(
-      <PipelineTemplate
-        project={SAMPLE_PROJECT}
-        stage="threshold"
-        stages={[...PIPELINE_STAGES]}
-      />,
+      <PipelineTemplate project={SAMPLE_PROJECT} stage="threshold" stages={[...PIPELINE_STAGES]} />,
     );
     const infoBand = screen.getByTestId('pipeline-project-info');
     // project.id appears in the meta row inside info band
@@ -163,11 +128,7 @@ describe('PipelineTemplate', () => {
 
   it('renders the CoverPlaceholder with initials', () => {
     render(
-      <PipelineTemplate
-        project={SAMPLE_PROJECT}
-        stage="threshold"
-        stages={[...PIPELINE_STAGES]}
-      />,
+      <PipelineTemplate project={SAMPLE_PROJECT} stage="threshold" stages={[...PIPELINE_STAGES]} />,
     );
     const cover = screen.getByTestId('cover-placeholder');
     expect(cover).toBeInTheDocument();

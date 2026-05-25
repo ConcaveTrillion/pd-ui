@@ -14,8 +14,7 @@ export interface SuiteSiblingsContextValue {
   loading: boolean;
 }
 
-export const SuiteSiblingsContext =
-  React.createContext<SuiteSiblingsContextValue | null>(null);
+export const SuiteSiblingsContext = React.createContext<SuiteSiblingsContextValue | null>(null);
 
 /**
  * Returns the SuiteSiblings context. Must be used inside a <SuiteSiblingsProvider>.

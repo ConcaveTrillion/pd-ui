@@ -66,7 +66,9 @@ const meta: Meta<typeof BlockTypePickerPanel> = {
   },
   args: {
     types: STRUCTURAL,
-    onSelect: (value: string) => { console.log('onSelect', value); },
+    onSelect: (value: string) => {
+      console.log('onSelect', value);
+    },
   },
 };
 

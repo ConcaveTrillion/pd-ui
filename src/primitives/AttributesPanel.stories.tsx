@@ -60,7 +60,10 @@ export const DefaultAllOpen: Story = {
 export const LightTheme: Story = {
   name: 'D2 · Light theme · all sections open',
   render: () => (
-    <div data-theme="light" style={{ maxWidth: 900, background: 'var(--bg-page)', padding: 24, borderRadius: 8 }}>
+    <div
+      data-theme="light"
+      style={{ maxWidth: 900, background: 'var(--bg-page)', padding: 24, borderRadius: 8 }}
+    >
       <AttributesPanel project={austen} />
     </div>
   ),
@@ -151,13 +154,21 @@ export const CustomCommentsSlot: Story = {
   render: () => (
     <div style={{ maxWidth: 900 }}>
       <AttributesPanel project={dickens}>
-        <div style={{ fontSize: 12.5, color: 'var(--ink-2)', lineHeight: 1.55, padding: '14px 16px' }}>
-          <p>Preserve all original Dickens spellings. Chapter headings are styled with small-caps.</p>
+        <div
+          style={{ fontSize: 12.5, color: 'var(--ink-2)', lineHeight: 1.55, padding: '14px 16px' }}
+        >
+          <p>
+            Preserve all original Dickens spellings. Chapter headings are styled with small-caps.
+          </p>
           <p style={{ marginTop: 8 }}>
-            Footnote anchors:
-            {' '}<span className="mono" style={{ color: 'var(--ink-1)' }}>[Note 3]</span>{' '}
-            inline, and
-            {' '}<span className="mono" style={{ color: 'var(--ink-1)' }}>[Footnote 3: …]</span>{' '}
+            Footnote anchors:{' '}
+            <span className="mono" style={{ color: 'var(--ink-1)' }}>
+              [Note 3]
+            </span>{' '}
+            inline, and{' '}
+            <span className="mono" style={{ color: 'var(--ink-1)' }}>
+              [Footnote 3: …]
+            </span>{' '}
             at the page bottom.
           </p>
         </div>

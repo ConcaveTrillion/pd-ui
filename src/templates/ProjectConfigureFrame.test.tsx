@@ -81,12 +81,7 @@ describe('ProjectConfigureFrame', () => {
 
   it('renders children slot when provided', () => {
     render(
-      <ProjectConfigureFrame
-        diskSize="1 GB"
-        dirtyCount={0}
-        onRunAll={() => {}}
-        onBuild={() => {}}
-      >
+      <ProjectConfigureFrame diskSize="1 GB" dirtyCount={0} onRunAll={() => {}} onBuild={() => {}}>
         <div data-testid="slot-content">custom content</div>
       </ProjectConfigureFrame>,
     );

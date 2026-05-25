@@ -12,9 +12,7 @@ import {
 
 // ── helpers ───────────────────────────────────────────────────────────────────
 
-function renderBanner(
-  props: Partial<React.ComponentProps<typeof SourceBanner>> = {},
-) {
+function renderBanner(props: Partial<React.ComponentProps<typeof SourceBanner>> = {}) {
   const defaults: React.ComponentProps<typeof SourceBanner> = {
     state: 'idle',
     ...props,

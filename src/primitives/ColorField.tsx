@@ -44,61 +44,59 @@ export interface ColorFieldProps {
  * Used by the AppearancePanel inside the SettingsModal for layer, status, and
  * accent color overrides.
  */
-export const ColorField = React.forwardRef<HTMLDivElement, ColorFieldProps>(
-  function ColorField(
-    { id, label, value, onChange, defaultValue, className, inputAriaLabel, inputTestId, resetTestId },
-    ref,
-  ) {
-    const isOverridden = defaultValue !== undefined && value !== defaultValue;
+export const ColorField = React.forwardRef<HTMLDivElement, ColorFieldProps>(function ColorField(
+  { id, label, value, onChange, defaultValue, className, inputAriaLabel, inputTestId, resetTestId },
+  ref,
+) {
+  const isOverridden = defaultValue !== undefined && value !== defaultValue;
 
-    const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-      onChange(e.target.value);
-    };
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    onChange(e.target.value);
+  };
 
-    const handleReset = () => {
-      if (defaultValue !== undefined) {
-        onChange(defaultValue);
-      }
-    };
+  const handleReset = () => {
+    if (defaultValue !== undefined) {
+      onChange(defaultValue);
+    }
+  };
 
-    return (
-      <div ref={ref} className={cn('color-field', className)}>
-        <label htmlFor={id} className="color-field-label">
-          {label}
-        </label>
-        <div className="color-field-control">
-          {/* Swatch: shows the currently selected color.
+  return (
+    <div ref={ref} className={cn('color-field', className)}>
+      <label htmlFor={id} className="color-field-label">
+        {label}
+      </label>
+      <div className="color-field-control">
+        {/* Swatch: shows the currently selected color.
               Inline style is intentional: value comes from user pref, not a design token. */}
-          <span
-            className="color-field-swatch"
-            style={{ backgroundColor: value }}
-            aria-hidden="true"
-          />
-          <input
-            ref={null}
-            id={id}
-            type="color"
-            className="color-field-input"
-            value={value}
-            onChange={handleInputChange}
-            aria-label={inputAriaLabel}
-            data-testid={inputTestId}
-          />
-          {isOverridden && (
-            <button
-              type="button"
-              className="color-field-reset"
-              onClick={handleReset}
-              aria-label={`Reset ${label} to default`}
-              data-testid={resetTestId}
-            >
-              Reset
-            </button>
-          )}
-        </div>
+        <span
+          className="color-field-swatch"
+          style={{ backgroundColor: value }}
+          aria-hidden="true"
+        />
+        <input
+          ref={null}
+          id={id}
+          type="color"
+          className="color-field-input"
+          value={value}
+          onChange={handleInputChange}
+          aria-label={inputAriaLabel}
+          data-testid={inputTestId}
+        />
+        {isOverridden && (
+          <button
+            type="button"
+            className="color-field-reset"
+            onClick={handleReset}
+            aria-label={`Reset ${label} to default`}
+            data-testid={resetTestId}
+          >
+            Reset
+          </button>
+        )}
       </div>
-    );
-  },
-);
+    </div>
+  );
+});
 
 ColorField.displayName = 'ColorField';

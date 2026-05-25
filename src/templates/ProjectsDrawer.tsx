@@ -26,13 +26,7 @@ import { cn } from '../primitives/cn.js';
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 
-export type ProjectStatus =
-  | 'queued'
-  | 'running'
-  | 'review'
-  | 'ready'
-  | 'submitted'
-  | 'error';
+export type ProjectStatus = 'queued' | 'running' | 'review' | 'ready' | 'submitted' | 'error';
 
 export interface ProjectsDrawerProject {
   /** Unique project id (slug). */
@@ -85,23 +79,23 @@ export interface ProjectsDrawerProps {
 // ─── Status → badge tone mapping ──────────────────────────────────────────────
 
 const STATUS_TONE: Record<ProjectStatus | 'archived', BadgeTone> = {
-  queued:    'neutral',
-  running:   'running',
-  review:    'review',
-  ready:     'clean',
+  queued: 'neutral',
+  running: 'running',
+  review: 'review',
+  ready: 'clean',
   submitted: 'neutral',
-  error:     'failed',
-  archived:  'neutral',
+  error: 'failed',
+  archived: 'neutral',
 };
 
 const STATUS_LABEL: Record<ProjectStatus | 'archived', string> = {
-  queued:    'queued',
-  running:   'running',
-  review:    'review',
-  ready:     'ready',
+  queued: 'queued',
+  running: 'running',
+  review: 'review',
+  ready: 'ready',
   submitted: 'submitted',
-  error:     'error',
-  archived:  'archived',
+  error: 'error',
+  archived: 'archived',
 };
 
 // ─── Mini pipeline progress strip ─────────────────────────────────────────────
@@ -114,10 +108,13 @@ interface PipelineMiniProps {
 
 function PipelineMini({ total, current, status }: PipelineMiniProps) {
   const color =
-    status === 'error'   ? 'var(--mismatch)' :
-    status === 'running' ? 'var(--ocr)' :
-    status === 'review'  ? 'var(--fuzzy)' :
-                           'var(--exact)';
+    status === 'error'
+      ? 'var(--mismatch)'
+      : status === 'running'
+        ? 'var(--ocr)'
+        : status === 'review'
+          ? 'var(--fuzzy)'
+          : 'var(--exact)';
 
   return (
     <div
@@ -151,230 +148,218 @@ function PipelineMini({ total, current, status }: PipelineMiniProps) {
 
 // ─── ProjectsDrawer ───────────────────────────────────────────────────────────
 
-export const ProjectsDrawer = React.forwardRef<
-  HTMLDivElement,
-  ProjectsDrawerProps
->(function ProjectsDrawer(
-  {
-    projects,
-    selectedId,
-    onSelect,
-    onCreateProject,
-    createSlot,
-    defaultTab = 'active',
-    className,
-  },
-  ref,
-) {
-  const [tab, setTab] = React.useState<ProjectsDrawerTab>(defaultTab);
+export const ProjectsDrawer = React.forwardRef<HTMLDivElement, ProjectsDrawerProps>(
+  function ProjectsDrawer(
+    {
+      projects,
+      selectedId,
+      onSelect,
+      onCreateProject,
+      createSlot,
+      defaultTab = 'active',
+      className,
+    },
+    ref,
+  ) {
+    const [tab, setTab] = React.useState<ProjectsDrawerTab>(defaultTab);
 
-  const activeProjects   = projects.filter((p) => !p.archived);
-  const archivedProjects = projects.filter((p) => p.archived);
-  const visibleProjects  = tab === 'archived' ? archivedProjects : activeProjects;
+    const activeProjects = projects.filter((p) => !p.archived);
+    const archivedProjects = projects.filter((p) => p.archived);
+    const visibleProjects = tab === 'archived' ? archivedProjects : activeProjects;
 
-  return (
-    <div
-      ref={ref}
-      data-testid="projects-drawer"
-      className={cn('projects-drawer', className)}
-      style={{
-        display: 'flex',
-        flexDirection: 'column',
-        height: '100%',
-        background: 'var(--bg-surface)',
-        borderRight: '1px solid var(--border-1)',
-      }}
-    >
-      {/* Create-project slot */}
-      <div style={{ padding: '16px 16px 12px' }}>
-        {createSlot !== undefined ? (
-          createSlot
-        ) : (
-          <Button
-            variant="primary"
-            full
-            onClick={onCreateProject}
-          >
-            New project
-          </Button>
-        )}
-      </div>
-
-      {/* Active / Archived tab strip */}
+    return (
       <div
+        ref={ref}
+        data-testid="projects-drawer"
+        className={cn('projects-drawer', className)}
         style={{
-          padding: '0 12px 10px',
           display: 'flex',
-          alignItems: 'center',
-          gap: 4,
+          flexDirection: 'column',
+          height: '100%',
+          background: 'var(--bg-surface)',
+          borderRight: '1px solid var(--border-1)',
         }}
       >
-        {([
-          { id: 'active'   as const, label: 'Active',   count: activeProjects.length },
-          { id: 'archived' as const, label: 'Archived', count: archivedProjects.length },
-        ] satisfies Array<{ id: ProjectsDrawerTab; label: string; count: number }>).map((t) => {
-          const on = tab === t.id;
-          return (
-            <button
-              key={t.id}
-              onClick={() => setTab(t.id)}
-              aria-pressed={on}
+        {/* Create-project slot */}
+        <div style={{ padding: '16px 16px 12px' }}>
+          {createSlot !== undefined ? (
+            createSlot
+          ) : (
+            <Button variant="primary" full onClick={onCreateProject}>
+              New project
+            </Button>
+          )}
+        </div>
+
+        {/* Active / Archived tab strip */}
+        <div
+          style={{
+            padding: '0 12px 10px',
+            display: 'flex',
+            alignItems: 'center',
+            gap: 4,
+          }}
+        >
+          {(
+            [
+              { id: 'active' as const, label: 'Active', count: activeProjects.length },
+              { id: 'archived' as const, label: 'Archived', count: archivedProjects.length },
+            ] satisfies Array<{ id: ProjectsDrawerTab; label: string; count: number }>
+          ).map((t) => {
+            const on = tab === t.id;
+            return (
+              <button
+                key={t.id}
+                onClick={() => setTab(t.id)}
+                aria-pressed={on}
+                style={{
+                  flex: 1,
+                  height: 28,
+                  borderRadius: 6,
+                  cursor: 'pointer',
+                  background: on ? 'var(--bg-raised)' : 'transparent',
+                  border: '1px solid ' + (on ? 'var(--border-2)' : 'transparent'),
+                  color: on ? 'var(--ink-1)' : 'var(--ink-3)',
+                  fontSize: 12,
+                  fontWeight: on ? 600 : 500,
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  gap: 6,
+                }}
+              >
+                {t.label}
+                <span
+                  data-testid={`tab-${t.id}-count`}
+                  style={{
+                    fontSize: 10,
+                    padding: '1px 5px',
+                    borderRadius: 4,
+                    background: on
+                      ? 'color-mix(in srgb, var(--accent) 18%, transparent)'
+                      : 'var(--bg-sunk)',
+                    color: on ? 'var(--accent)' : 'var(--ink-4)',
+                    fontFamily: 'var(--mono-font)',
+                  }}
+                >
+                  {t.count}
+                </span>
+              </button>
+            );
+          })}
+        </div>
+
+        {/* Project rows */}
+        <div
+          style={{
+            flex: 1,
+            overflow: 'auto',
+            borderTop: '1px solid var(--border-1)',
+          }}
+        >
+          {visibleProjects.length === 0 ? (
+            <div
+              data-testid="projects-drawer-empty"
               style={{
-                flex: 1,
-                height: 28,
-                borderRadius: 6,
-                cursor: 'pointer',
-                background: on ? 'var(--bg-raised)' : 'transparent',
-                border: '1px solid ' + (on ? 'var(--border-2)' : 'transparent'),
-                color: on ? 'var(--ink-1)' : 'var(--ink-3)',
+                padding: '32px 20px',
+                textAlign: 'center',
+                color: 'var(--ink-4)',
                 fontSize: 12,
-                fontWeight: on ? 600 : 500,
-                display: 'inline-flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                gap: 6,
+                fontFamily: 'var(--ui-font)',
               }}
             >
-              {t.label}
-              <span
-                data-testid={`tab-${t.id}-count`}
-                style={{
-                  fontSize: 10,
-                  padding: '1px 5px',
-                  borderRadius: 4,
-                  background: on
-                    ? 'color-mix(in srgb, var(--accent) 18%, transparent)'
-                    : 'var(--bg-sunk)',
-                  color: on ? 'var(--accent)' : 'var(--ink-4)',
-                  fontFamily: 'var(--mono-font)',
-                }}
-              >
-                {t.count}
-              </span>
-            </button>
-          );
-        })}
-      </div>
+              No {tab} projects.
+            </div>
+          ) : (
+            visibleProjects.map((p) => {
+              const statusKey: ProjectStatus | 'archived' = p.archived ? 'archived' : p.status;
+              const tone = STATUS_TONE[statusKey];
+              const label = STATUS_LABEL[statusKey];
+              const isSel = p.id === selectedId;
 
-      {/* Project rows */}
-      <div
-        style={{
-          flex: 1,
-          overflow: 'auto',
-          borderTop: '1px solid var(--border-1)',
-        }}
-      >
-        {visibleProjects.length === 0 ? (
-          <div
-            data-testid="projects-drawer-empty"
-            style={{
-              padding: '32px 20px',
-              textAlign: 'center',
-              color: 'var(--ink-4)',
-              fontSize: 12,
-              fontFamily: 'var(--ui-font)',
-            }}
-          >
-            No {tab} projects.
-          </div>
-        ) : (
-          visibleProjects.map((p) => {
-            const statusKey: ProjectStatus | 'archived' =
-              p.archived ? 'archived' : p.status;
-            const tone  = STATUS_TONE[statusKey];
-            const label = STATUS_LABEL[statusKey];
-            const isSel = p.id === selectedId;
-
-            return (
-              <div
-                key={p.id}
-                data-testid="project-row"
-                data-selected={isSel ? 'true' : 'false'}
-                role="button"
-                tabIndex={0}
-                onClick={() => onSelect(p.id)}
-                onKeyDown={(e) => {
-                  if (e.key === 'Enter' || e.key === ' ') {
-                    e.preventDefault();
-                    onSelect(p.id);
-                  }
-                }}
-                style={{
-                  padding: '10px 16px',
-                  background: isSel ? 'var(--bg-raised)' : 'transparent',
-                  borderLeft: isSel
-                    ? '2px solid var(--accent)'
-                    : '2px solid transparent',
-                  opacity: p.archived ? 0.9 : 1,
-                  cursor: 'pointer',
-                  display: 'flex',
-                  flexDirection: 'column',
-                  gap: 4,
-                }}
-              >
-                {/* Row header: title + status badge */}
+              return (
                 <div
+                  key={p.id}
+                  data-testid="project-row"
+                  data-selected={isSel ? 'true' : 'false'}
+                  role="button"
+                  tabIndex={0}
+                  onClick={() => onSelect(p.id)}
+                  onKeyDown={(e) => {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                      e.preventDefault();
+                      onSelect(p.id);
+                    }
+                  }}
                   style={{
+                    padding: '10px 16px',
+                    background: isSel ? 'var(--bg-raised)' : 'transparent',
+                    borderLeft: isSel ? '2px solid var(--accent)' : '2px solid transparent',
+                    opacity: p.archived ? 0.9 : 1,
+                    cursor: 'pointer',
                     display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'space-between',
-                    gap: 8,
+                    flexDirection: 'column',
+                    gap: 4,
                   }}
                 >
-                  <span
+                  {/* Row header: title + status badge */}
+                  <div
                     style={{
-                      fontSize: 13,
-                      fontWeight: isSel ? 600 : 500,
-                      color: p.archived ? 'var(--ink-2)' : 'var(--ink-1)',
-                      overflow: 'hidden',
-                      textOverflow: 'ellipsis',
-                      whiteSpace: 'nowrap',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'space-between',
+                      gap: 8,
                     }}
                   >
-                    {p.title}
-                  </span>
-                  <Badge tone={tone} mono>
-                    {label}
-                  </Badge>
-                </div>
+                    <span
+                      style={{
+                        fontSize: 13,
+                        fontWeight: isSel ? 600 : 500,
+                        color: p.archived ? 'var(--ink-2)' : 'var(--ink-1)',
+                        overflow: 'hidden',
+                        textOverflow: 'ellipsis',
+                        whiteSpace: 'nowrap',
+                      }}
+                    >
+                      {p.title}
+                    </span>
+                    <Badge tone={tone} mono>
+                      {label}
+                    </Badge>
+                  </div>
 
-                {/* Row meta: id · pages · size · updated */}
-                <div
-                  style={{
-                    fontSize: 10.5,
-                    color: 'var(--ink-4)',
-                    fontFamily: 'var(--mono-font)',
-                    display: 'flex',
-                    alignItems: 'center',
-                    gap: 6,
-                  }}
-                >
-                  <span>{p.id}</span>
-                  <span style={{ color: 'var(--border-3)' }}>·</span>
-                  <span>{p.pages}p</span>
-                  <span style={{ color: 'var(--border-3)' }}>·</span>
-                  <span>{p.size}</span>
-                  <span style={{ flex: 1 }} />
-                  <span>
-                    {p.archived
-                      ? `archived ${p.archivedOn?.split(',')[0] ?? ''}`
-                      : p.updatedRel}
-                  </span>
-                </div>
+                  {/* Row meta: id · pages · size · updated */}
+                  <div
+                    style={{
+                      fontSize: 10.5,
+                      color: 'var(--ink-4)',
+                      fontFamily: 'var(--mono-font)',
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: 6,
+                    }}
+                  >
+                    <span>{p.id}</span>
+                    <span style={{ color: 'var(--border-3)' }}>·</span>
+                    <span>{p.pages}p</span>
+                    <span style={{ color: 'var(--border-3)' }}>·</span>
+                    <span>{p.size}</span>
+                    <span style={{ flex: 1 }} />
+                    <span>
+                      {p.archived ? `archived ${p.archivedOn?.split(',')[0] ?? ''}` : p.updatedRel}
+                    </span>
+                  </div>
 
-                {/* Mini pipeline progress strip */}
-                <PipelineMini
-                  total={p.totalStages}
-                  current={p.currentStage}
-                  status={p.status}
-                />
-              </div>
-            );
-          })
-        )}
+                  {/* Mini pipeline progress strip */}
+                  <PipelineMini total={p.totalStages} current={p.currentStage} status={p.status} />
+                </div>
+              );
+            })
+          )}
+        </div>
       </div>
-    </div>
-  );
-});
+    );
+  },
+);
 
 ProjectsDrawer.displayName = 'ProjectsDrawer';

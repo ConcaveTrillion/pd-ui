@@ -4,10 +4,10 @@
  * Covers: Open / Closed / WithLongText / WithRichContent / Controlled.
  */
 
-import React, { useState } from 'react'
-import type { Meta, StoryObj } from '@storybook/react'
-import { TextReviewPane } from './TextReviewPane.js'
-import type { TextReviewPaneProps } from './TextReviewPane.js'
+import React, { useState } from 'react';
+import type { Meta, StoryObj } from '@storybook/react';
+import { TextReviewPane } from './TextReviewPane.js';
+import type { TextReviewPaneProps } from './TextReviewPane.js';
 
 const SAMPLE_TEXT = `CHAPTER I.
 Down the Rabbit-Hole
@@ -16,7 +16,7 @@ Alice was beginning to get very tired of sitting by her sister on the
 bank, and of having nothing to do: once or twice she had peeped into
 the book her sister was reading, but it had no pictures or conversations
 in it, "and what is the use of a book," thought Alice "without pictures
-or conversations?"`
+or conversations?"`;
 
 const LONG_TEXT = `Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod
 tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
@@ -34,18 +34,18 @@ Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit,
 sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt.
 Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur,
 adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et
-dolore magnam aliquam quaerat voluptatem.`
+dolore magnam aliquam quaerat voluptatem.`;
 
 const meta: Meta<TextReviewPaneProps> = {
   title: 'Stages/PageWorkbench/TextReviewPane',
   component: TextReviewPane,
   parameters: { layout: 'padded' },
   tags: ['autodocs'],
-}
+};
 
-export default meta
+export default meta;
 
-type Story = StoryObj<TextReviewPaneProps>
+type Story = StoryObj<TextReviewPaneProps>;
 
 // ---------------------------------------------------------------------------
 // Static stories
@@ -60,7 +60,7 @@ export const Open: Story = {
     open: true,
     onOpenChange: () => {},
   },
-}
+};
 
 /**
  * Closed — only the 44px header strip visible.
@@ -71,7 +71,7 @@ export const Closed: Story = {
     open: false,
     onOpenChange: () => {},
   },
-}
+};
 
 /**
  * WithLongText — verifies scroll / overflow handling in the content area.
@@ -83,7 +83,7 @@ export const WithLongText: Story = {
     onOpenChange: () => {},
     title: 'OCR output',
   },
-}
+};
 
 // ---------------------------------------------------------------------------
 // Rich content story
@@ -101,7 +101,7 @@ function RichContent(): React.ReactElement {
         <li>sitting — confidence 0.95</li>
       </ul>
     </div>
-  )
+  );
 }
 
 /**
@@ -114,14 +114,14 @@ export const WithRichContent: Story = {
     onOpenChange: () => {},
     title: 'Word confidence',
   },
-}
+};
 
 // ---------------------------------------------------------------------------
 // Controlled story
 // ---------------------------------------------------------------------------
 
 function ControlledStory(): React.ReactElement {
-  const [open, setOpen] = useState(true)
+  const [open, setOpen] = useState(true);
   return (
     <div>
       <div style={{ marginBottom: 8, fontSize: 12, color: 'var(--ink-3)' }}>
@@ -134,7 +134,7 @@ function ControlledStory(): React.ReactElement {
         title="Text review (controlled)"
       />
     </div>
-  )
+  );
 }
 
 /**
@@ -142,4 +142,4 @@ function ControlledStory(): React.ReactElement {
  */
 export const Controlled: StoryObj = {
   render: () => <ControlledStory />,
-}
+};

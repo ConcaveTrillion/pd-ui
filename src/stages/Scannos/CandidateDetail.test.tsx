@@ -59,33 +59,18 @@ describe('CandidateDetail', () => {
   // ─ Render basics ─────────────────────────────────────────────────────────
 
   it('renders the root element with SCANNO_CANDIDATE_DETAIL testid', () => {
-    render(
-      <CandidateDetail
-        candidate={candidate}
-        contexts={fewContexts}
-      />,
-    );
+    render(<CandidateDetail candidate={candidate} contexts={fewContexts} />);
     expect(screen.getByTestId(SCANNO_CANDIDATE_DETAIL)).toBeInTheDocument();
   });
 
   it('renders the candidate token text', () => {
-    render(
-      <CandidateDetail
-        candidate={candidate}
-        contexts={fewContexts}
-      />,
-    );
+    render(<CandidateDetail candidate={candidate} contexts={fewContexts} />);
     // token appears multiple times (header + promote form); at least one instance
     expect(screen.getAllByText('tbe').length).toBeGreaterThan(0);
   });
 
   it('renders the suggested value in the input', () => {
-    render(
-      <CandidateDetail
-        candidate={candidate}
-        contexts={fewContexts}
-      />,
-    );
+    render(<CandidateDetail candidate={candidate} contexts={fewContexts} />);
     const input = screen.getByTestId(SCANNO_CANDIDATE_DETAIL_SUGGESTED_INPUT);
     expect(input).toHaveValue('the');
   });
@@ -93,45 +78,25 @@ describe('CandidateDetail', () => {
   // ─ Confidence ────────────────────────────────────────────────────────────
 
   it('renders confidence as a percentage when present', () => {
-    render(
-      <CandidateDetail
-        candidate={candidate}
-        contexts={fewContexts}
-      />,
-    );
+    render(<CandidateDetail candidate={candidate} contexts={fewContexts} />);
     expect(screen.getByText('87%')).toBeInTheDocument();
   });
 
   it('does not render a confidence value when absent', () => {
-    render(
-      <CandidateDetail
-        candidate={candidateNoConf}
-        contexts={fewContexts}
-      />,
-    );
+    render(<CandidateDetail candidate={candidateNoConf} contexts={fewContexts} />);
     expect(screen.queryByText(/%$/)).toBeNull();
   });
 
   // ─ Contexts ──────────────────────────────────────────────────────────────
 
   it('renders all contexts when there are 3 or fewer', () => {
-    render(
-      <CandidateDetail
-        candidate={candidate}
-        contexts={fewContexts}
-      />,
-    );
+    render(<CandidateDetail candidate={candidate} contexts={fewContexts} />);
     expect(screen.getByText('he saw tbe cat')).toBeInTheDocument();
     expect(screen.getByText('tbe quick fox')).toBeInTheDocument();
   });
 
   it('renders only the first 3 contexts when there are more than 3', () => {
-    render(
-      <CandidateDetail
-        candidate={candidate}
-        contexts={manyContexts}
-      />,
-    );
+    render(<CandidateDetail candidate={candidate} contexts={manyContexts} />);
     expect(screen.getByText('he saw tbe cat')).toBeInTheDocument();
     expect(screen.getByText('tbe quick fox')).toBeInTheDocument();
     expect(screen.getByText('said tbe man')).toBeInTheDocument();
@@ -139,22 +104,12 @@ describe('CandidateDetail', () => {
   });
 
   it('renders Show-all link when contexts.length > 3', () => {
-    render(
-      <CandidateDetail
-        candidate={candidate}
-        contexts={manyContexts}
-      />,
-    );
+    render(<CandidateDetail candidate={candidate} contexts={manyContexts} />);
     expect(screen.getByText(/show all 4/i)).toBeInTheDocument();
   });
 
   it('does not render Show-all link when contexts.length <= 3', () => {
-    render(
-      <CandidateDetail
-        candidate={candidate}
-        contexts={fewContexts}
-      />,
-    );
+    render(<CandidateDetail candidate={candidate} contexts={fewContexts} />);
     expect(screen.queryByText(/show all/i)).toBeNull();
   });
 
@@ -162,13 +117,7 @@ describe('CandidateDetail', () => {
 
   it('editing the suggested input updates the displayed value', async () => {
     const user = userEvent.setup();
-    render(
-      <CandidateDetail
-        candidate={candidate}
-        contexts={fewContexts}
-        onPromote={vi.fn()}
-      />,
-    );
+    render(<CandidateDetail candidate={candidate} contexts={fewContexts} onPromote={vi.fn()} />);
     const input = screen.getByTestId(SCANNO_CANDIDATE_DETAIL_SUGGESTED_INPUT);
     await user.clear(input);
     await user.type(input, 'thee');
@@ -180,13 +129,7 @@ describe('CandidateDetail', () => {
   it('fires onPromote with original suggested value when not edited', async () => {
     const onPromote = vi.fn();
     const user = userEvent.setup();
-    render(
-      <CandidateDetail
-        candidate={candidate}
-        contexts={fewContexts}
-        onPromote={onPromote}
-      />,
-    );
+    render(<CandidateDetail candidate={candidate} contexts={fewContexts} onPromote={onPromote} />);
     await user.click(screen.getByTestId(SCANNO_CANDIDATE_DETAIL_PROMOTE));
     expect(onPromote).toHaveBeenCalledWith('the');
   });
@@ -194,13 +137,7 @@ describe('CandidateDetail', () => {
   it('fires onPromote with the edited suggested value', async () => {
     const onPromote = vi.fn();
     const user = userEvent.setup();
-    render(
-      <CandidateDetail
-        candidate={candidate}
-        contexts={fewContexts}
-        onPromote={onPromote}
-      />,
-    );
+    render(<CandidateDetail candidate={candidate} contexts={fewContexts} onPromote={onPromote} />);
     const input = screen.getByTestId(SCANNO_CANDIDATE_DETAIL_SUGGESTED_INPUT);
     await user.clear(input);
     await user.type(input, 'thee');
@@ -213,13 +150,7 @@ describe('CandidateDetail', () => {
   it('fires onDismiss when Dismiss button is clicked', async () => {
     const onDismiss = vi.fn();
     const user = userEvent.setup();
-    render(
-      <CandidateDetail
-        candidate={candidate}
-        contexts={fewContexts}
-        onDismiss={onDismiss}
-      />,
-    );
+    render(<CandidateDetail candidate={candidate} contexts={fewContexts} onDismiss={onDismiss} />);
     await user.click(screen.getByTestId(SCANNO_CANDIDATE_DETAIL_DISMISS));
     expect(onDismiss).toHaveBeenCalledTimes(1);
   });
@@ -227,56 +158,29 @@ describe('CandidateDetail', () => {
   // ─ Disabled state when callbacks absent ──────────────────────────────────
 
   it('Promote button is disabled when onPromote is not provided', () => {
-    render(
-      <CandidateDetail
-        candidate={candidate}
-        contexts={fewContexts}
-      />,
-    );
+    render(<CandidateDetail candidate={candidate} contexts={fewContexts} />);
     expect(screen.getByTestId(SCANNO_CANDIDATE_DETAIL_PROMOTE)).toBeDisabled();
   });
 
   it('Dismiss button is disabled when onDismiss is not provided', () => {
-    render(
-      <CandidateDetail
-        candidate={candidate}
-        contexts={fewContexts}
-      />,
-    );
+    render(<CandidateDetail candidate={candidate} contexts={fewContexts} />);
     expect(screen.getByTestId(SCANNO_CANDIDATE_DETAIL_DISMISS)).toBeDisabled();
   });
 
   // ─ Testids ───────────────────────────────────────────────────────────────
 
   it('renders Promote button testid', () => {
-    render(
-      <CandidateDetail
-        candidate={candidate}
-        contexts={fewContexts}
-        onPromote={vi.fn()}
-      />,
-    );
+    render(<CandidateDetail candidate={candidate} contexts={fewContexts} onPromote={vi.fn()} />);
     expect(screen.getByTestId(SCANNO_CANDIDATE_DETAIL_PROMOTE)).toBeInTheDocument();
   });
 
   it('renders Dismiss button testid', () => {
-    render(
-      <CandidateDetail
-        candidate={candidate}
-        contexts={fewContexts}
-        onDismiss={vi.fn()}
-      />,
-    );
+    render(<CandidateDetail candidate={candidate} contexts={fewContexts} onDismiss={vi.fn()} />);
     expect(screen.getByTestId(SCANNO_CANDIDATE_DETAIL_DISMISS)).toBeInTheDocument();
   });
 
   it('renders suggested input testid', () => {
-    render(
-      <CandidateDetail
-        candidate={candidate}
-        contexts={fewContexts}
-      />,
-    );
+    render(<CandidateDetail candidate={candidate} contexts={fewContexts} />);
     expect(screen.getByTestId(SCANNO_CANDIDATE_DETAIL_SUGGESTED_INPUT)).toBeInTheDocument();
   });
 });

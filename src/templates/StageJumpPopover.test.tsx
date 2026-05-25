@@ -10,9 +10,7 @@ const stages = [
 
 describe('StageJumpPopover', () => {
   it('renders the trigger button', () => {
-    render(
-      <StageJumpPopover stages={stages} currentStage="threshold" onJump={() => {}} />,
-    );
+    render(<StageJumpPopover stages={stages} currentStage="threshold" onJump={() => {}} />);
     expect(screen.getByRole('button', { name: /jump to stage/i })).toBeTruthy();
   });
 
@@ -37,9 +35,7 @@ describe('StageJumpPopover', () => {
 
   it('calls onJump with stage id when a stage item is clicked', () => {
     const onJump = vi.fn();
-    render(
-      <StageJumpPopover stages={stages} currentStage="source" onJump={onJump} defaultOpen />,
-    );
+    render(<StageJumpPopover stages={stages} currentStage="source" onJump={onJump} defaultOpen />);
     // Stage list should be visible since defaultOpen=true; items show the "short" label
     const stageItem = screen.getByText('thresh');
     fireEvent.click(stageItem.closest('button') as HTMLElement);

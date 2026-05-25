@@ -19,12 +19,18 @@ import type { PageAttribute, PageAttributesBarProps } from './PageAttributesBar.
 const FIVE_ATTRS: PageAttribute[] = [
   { id: 'skew', label: 'Skew', value: '2.5' },
   { id: 'dpi', label: 'DPI', value: '300', editor: 'number' },
-  { id: 'lang', label: 'Lang', value: 'en', editor: 'select', options: [
-    { value: 'en', label: 'English' },
-    { value: 'fr', label: 'French' },
-    { value: 'de', label: 'German' },
-    { value: 'es', label: 'Spanish' },
-  ]},
+  {
+    id: 'lang',
+    label: 'Lang',
+    value: 'en',
+    editor: 'select',
+    options: [
+      { value: 'en', label: 'English' },
+      { value: 'fr', label: 'French' },
+      { value: 'de', label: 'German' },
+      { value: 'es', label: 'Spanish' },
+    ],
+  },
   { id: 'quality', label: 'Quality', value: '92', editor: 'number' },
   { id: 'color', label: 'Color', value: 'grayscale' },
 ];
@@ -42,9 +48,7 @@ function Controlled({ attrs: initialAttrs, ...rest }: PageAttributesBarProps) {
   const [attrs, setAttrs] = useState<PageAttribute[]>(initialAttrs as PageAttribute[]);
 
   const handleChange = (id: string, nextValue: string) => {
-    setAttrs((prev) =>
-      prev.map((a) => (a.id === id ? { ...a, value: nextValue } : a)),
-    );
+    setAttrs((prev) => prev.map((a) => (a.id === id ? { ...a, value: nextValue } : a)));
   };
 
   return <PageAttributesBar {...rest} attrs={attrs} onChange={handleChange} />;
@@ -79,9 +83,7 @@ export const Collapsed: Story = {
 };
 
 export const WithReadOnly: Story = {
-  render: (args) => (
-    <Controlled {...args} attrs={WITH_READONLY} onChange={() => {}} />
-  ),
+  render: (args) => <Controlled {...args} attrs={WITH_READONLY} onChange={() => {}} />,
   name: 'With ReadOnly',
 };
 
@@ -90,16 +92,28 @@ export const WithSelectEditor: Story = {
     <Controlled
       {...args}
       attrs={[
-        { id: 'lang', label: 'Lang', value: 'en', editor: 'select', options: [
-          { value: 'en', label: 'English' },
-          { value: 'fr', label: 'French' },
-          { value: 'de', label: 'German' },
-        ]},
-        { id: 'script', label: 'Script', value: 'latin', editor: 'select', options: [
-          { value: 'latin', label: 'Latin' },
-          { value: 'cyrillic', label: 'Cyrillic' },
-          { value: 'arabic', label: 'Arabic' },
-        ]},
+        {
+          id: 'lang',
+          label: 'Lang',
+          value: 'en',
+          editor: 'select',
+          options: [
+            { value: 'en', label: 'English' },
+            { value: 'fr', label: 'French' },
+            { value: 'de', label: 'German' },
+          ],
+        },
+        {
+          id: 'script',
+          label: 'Script',
+          value: 'latin',
+          editor: 'select',
+          options: [
+            { value: 'latin', label: 'Latin' },
+            { value: 'cyrillic', label: 'Cyrillic' },
+            { value: 'arabic', label: 'Arabic' },
+          ],
+        },
       ]}
       onChange={() => {}}
     />

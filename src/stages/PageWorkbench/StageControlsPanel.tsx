@@ -74,93 +74,86 @@ const INHERITANCE_MODIFIER: Record<Inheritance, string> = {
  * Save-as-default footer. Per-stage content (`ThresholdControls`,
  * `GrayscaleControls`, etc.) is composed here by the consuming page.
  */
-export const StageControlsPanel = React.forwardRef<
-  HTMLElement,
-  StageControlsPanelProps
->(function StageControlsPanel(
-  {
-    inheritance,
-    presetName,
-    cpuFallback,
-    controlsSlot,
-    onRevert,
-    onSave,
-    disabled = false,
-    'data-testid': testId = STAGE_CONTROLS_PANEL,
-  },
-  ref,
-) {
-  const modifier = INHERITANCE_MODIFIER[inheritance];
+export const StageControlsPanel = React.forwardRef<HTMLElement, StageControlsPanelProps>(
+  function StageControlsPanel(
+    {
+      inheritance,
+      presetName,
+      cpuFallback,
+      controlsSlot,
+      onRevert,
+      onSave,
+      disabled = false,
+      'data-testid': testId = STAGE_CONTROLS_PANEL,
+    },
+    ref,
+  ) {
+    const modifier = INHERITANCE_MODIFIER[inheritance];
 
-  return (
-    <aside
-      ref={ref}
-      className="stage-controls-panel"
-      data-testid={testId}
-      data-inheritance={inheritance}
-    >
-      {/* ── Header: inheritance banner ── */}
-      <header
-        className={`stage-controls-panel__header stage-controls-panel__header--${modifier}`}
+    return (
+      <aside
+        ref={ref}
+        className="stage-controls-panel"
+        data-testid={testId}
+        data-inheritance={inheritance}
       >
-        <div className="stage-controls-panel__banner">
-          <span
-            className={`stage-controls-panel__banner-indicator stage-controls-panel__banner-indicator--${modifier}`}
-            aria-hidden="true"
-          />
-          <div className="stage-controls-panel__banner-text">
-            <span className="stage-controls-panel__banner-label">
-              {INHERITANCE_LABEL[inheritance]}
-            </span>
-            {inheritance === 'preset' && presetName != null ? (
-              <span className="stage-controls-panel__banner-preset mono">
-                {presetName}
+        {/* ── Header: inheritance banner ── */}
+        <header
+          className={`stage-controls-panel__header stage-controls-panel__header--${modifier}`}
+        >
+          <div className="stage-controls-panel__banner">
+            <span
+              className={`stage-controls-panel__banner-indicator stage-controls-panel__banner-indicator--${modifier}`}
+              aria-hidden="true"
+            />
+            <div className="stage-controls-panel__banner-text">
+              <span className="stage-controls-panel__banner-label">
+                {INHERITANCE_LABEL[inheritance]}
               </span>
-            ) : null}
+              {inheritance === 'preset' && presetName != null ? (
+                <span className="stage-controls-panel__banner-preset mono">{presetName}</span>
+              ) : null}
+            </div>
           </div>
-        </div>
-      </header>
+        </header>
 
-      {/* ── CPU-fallback warning row ── */}
-      {cpuFallback === true ? (
-        <div
-          className="stage-controls-panel__cpu-warning"
-          role="alert"
-          aria-live="polite"
-        >
-          <BackendChip backend="cpu" fallback={true} />
-          <span className="stage-controls-panel__cpu-warning-text">
-            GPU unavailable — running on CPU
-          </span>
-        </div>
-      ) : null}
+        {/* ── CPU-fallback warning row ── */}
+        {cpuFallback === true ? (
+          <div className="stage-controls-panel__cpu-warning" role="alert" aria-live="polite">
+            <BackendChip backend="cpu" fallback={true} />
+            <span className="stage-controls-panel__cpu-warning-text">
+              GPU unavailable — running on CPU
+            </span>
+          </div>
+        ) : null}
 
-      {/* ── Scrollable controls body ── */}
-      <div className="stage-controls-panel__content">{controlsSlot}</div>
+        {/* ── Scrollable controls body ── */}
+        <div className="stage-controls-panel__content">{controlsSlot}</div>
 
-      {/* ── Sticky footer ── */}
-      <footer className="stage-controls-panel__footer">
-        <Button
-          variant="ghost"
-          size="sm"
-          disabled={disabled}
-          data-testid={STAGE_CONTROLS_PANEL_REVERT}
-          onClick={disabled ? undefined : onRevert}
-        >
-          Revert
-        </Button>
-        <Button
-          variant="primary"
-          size="sm"
-          disabled={disabled}
-          data-testid={STAGE_CONTROLS_PANEL_SAVE}
-          onClick={disabled ? undefined : onSave}
-        >
-          Save as default
-        </Button>
-      </footer>
-    </aside>
-  );
-});
+        {/* ── Sticky footer ── */}
+        <footer className="stage-controls-panel__footer">
+          <Button
+            variant="ghost"
+            size="sm"
+            disabled={disabled}
+            data-testid={STAGE_CONTROLS_PANEL_REVERT}
+            onClick={disabled ? undefined : onRevert}
+          >
+            Revert
+          </Button>
+          <Button
+            variant="primary"
+            size="sm"
+            disabled={disabled}
+            data-testid={STAGE_CONTROLS_PANEL_SAVE}
+            onClick={disabled ? undefined : onSave}
+          >
+            Save as default
+          </Button>
+        </footer>
+      </aside>
+    );
+  },
+);
 
 StageControlsPanel.displayName = 'StageControlsPanel';

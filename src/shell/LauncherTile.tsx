@@ -49,13 +49,7 @@ export function LauncherTile({ sibling }: LauncherTileProps) {
         }}
       >
         {sibling.iconUrl !== undefined && (
-          <img
-            src={sibling.iconUrl}
-            alt=""
-            aria-hidden="true"
-            width={20}
-            height={20}
-          />
+          <img src={sibling.iconUrl} alt="" aria-hidden="true" width={20} height={20} />
         )}
         <span style={{ fontSize: '10px', lineHeight: 1 }}>{sibling.displayName}</span>
       </button>

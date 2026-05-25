@@ -33,9 +33,7 @@ describe('ThumbCard', () => {
   });
 
   it('renders status dot with correct data-status attribute', () => {
-    const { container } = render(
-      <ThumbCard page={makePage({ status: 'error' })} density="m" />,
-    );
+    const { container } = render(<ThumbCard page={makePage({ status: 'error' })} density="m" />);
     const dot = container.querySelector('.thumb-card__status');
     expect(dot).toBeTruthy();
     expect(dot?.getAttribute('data-status')).toBe('error');
@@ -60,17 +58,13 @@ describe('ThumbCard', () => {
   });
 
   it('selected prop drives data-selected attribute', () => {
-    const { container } = render(
-      <ThumbCard page={makePage()} density="m" selected={true} />,
-    );
+    const { container } = render(<ThumbCard page={makePage()} density="m" selected={true} />);
     const card = container.querySelector('.thumb-card');
     expect(card?.getAttribute('data-selected')).toBe('true');
   });
 
   it('selected=false sets data-selected to false', () => {
-    const { container } = render(
-      <ThumbCard page={makePage()} density="m" selected={false} />,
-    );
+    const { container } = render(<ThumbCard page={makePage()} density="m" selected={false} />);
     const card = container.querySelector('.thumb-card');
     expect(card?.getAttribute('data-selected')).toBe('false');
   });
@@ -122,9 +116,7 @@ describe('ThumbCard', () => {
   });
 
   it('role select has correct testid based on page id', () => {
-    const { container } = render(
-      <ThumbCard page={makePage({ id: 'pg5' })} density="m" />,
-    );
+    const { container } = render(<ThumbCard page={makePage({ id: 'pg5' })} density="m" />);
     const select = container.querySelector('select');
     expect(select?.getAttribute('data-testid')).toBe('thumb-card-pg5-role-select');
   });
@@ -139,13 +131,7 @@ describe('ThumbCard', () => {
 
   it('does not call onSelect when role select is changed', () => {
     const onSelect = vi.fn();
-    const { container } = render(
-      <ThumbCard
-        page={makePage()}
-        density="m"
-        onSelect={onSelect}
-      />,
-    );
+    const { container } = render(<ThumbCard page={makePage()} density="m" onSelect={onSelect} />);
     const select = container.querySelector('select') as HTMLSelectElement;
     fireEvent.change(select, { target: { value: 'blank' } });
     expect(onSelect).not.toHaveBeenCalled();

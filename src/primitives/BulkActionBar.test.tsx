@@ -38,9 +38,7 @@ describe('BulkActionBar', () => {
   // ---------- action slot ----------
 
   it('renders actions slot when provided', () => {
-    render(
-      <BulkActionBar count={3} actions={<button data-testid="rerun">Re-run</button>} />,
-    );
+    render(<BulkActionBar count={3} actions={<button data-testid="rerun">Re-run</button>} />);
     expect(screen.getByTestId('rerun').textContent).toBe('Re-run');
   });
 
@@ -50,9 +48,7 @@ describe('BulkActionBar', () => {
   });
 
   it('renders actions slot in a named container', () => {
-    render(
-      <BulkActionBar count={3} actions={<button>Foo</button>} />,
-    );
+    render(<BulkActionBar count={3} actions={<button>Foo</button>} />);
     expect(screen.getByTestId('bulk-action-bar-actions')).toBeTruthy();
   });
 

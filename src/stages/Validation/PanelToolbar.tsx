@@ -52,8 +52,7 @@ export function PanelToolbar({
   onRevalidate,
   'data-testid': testId = VALIDATION_PANEL_TOOLBAR,
 }: PanelToolbarProps): React.ReactElement {
-  const lastRunLabel =
-    lastRun != null ? `Last run ${formatLastRun(lastRun)}` : 'Never validated';
+  const lastRunLabel = lastRun != null ? `Last run ${formatLastRun(lastRun)}` : 'Never validated';
 
   return (
     <div
@@ -70,9 +69,7 @@ export function PanelToolbar({
     >
       <span style={{ fontSize: 11.5, color: 'var(--ink-3)' }}>{lastRunLabel}</span>
       <span style={{ color: 'var(--ink-4)' }}>·</span>
-      <span style={{ fontSize: 11.5, color: 'var(--ink-3)' }}>
-        Auto re-runs after fixes
-      </span>
+      <span style={{ fontSize: 11.5, color: 'var(--ink-3)' }}>Auto re-runs after fixes</span>
       <div style={{ flex: 1 }} />
       <Button
         variant="ghost"

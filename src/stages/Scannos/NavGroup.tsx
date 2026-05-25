@@ -64,21 +64,14 @@ export function NavGroup({
 
         {/* Count badge — rendered only when count is provided */}
         {count !== undefined && (
-          <span
-            className="scanno-nav-group__count"
-            data-testid="scanno-nav-group-count"
-          >
+          <span className="scanno-nav-group__count" data-testid="scanno-nav-group-count">
             {count}
           </span>
         )}
       </button>
 
       {/* ── Children — visible only when expanded ───────────────────────── */}
-      {expanded && (
-        <ul className="scanno-nav-group__list">
-          {children}
-        </ul>
-      )}
+      {expanded && <ul className="scanno-nav-group__list">{children}</ul>}
     </div>
   );
 }

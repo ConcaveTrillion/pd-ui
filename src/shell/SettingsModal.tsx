@@ -15,12 +15,7 @@
  * live in AppShell).
  */
 import * as React from 'react';
-import {
-  Dialog,
-  DialogContent,
-  DialogTitle,
-  DialogClose,
-} from '../primitives/Dialog.js';
+import { Dialog, DialogContent, DialogTitle, DialogClose } from '../primitives/Dialog.js';
 import { AppearancePanel } from './AppearancePanel.js';
 import { useSettingsModal } from './SettingsModalContext.js';
 import type { SettingsPanelDescriptor } from './types.js';
@@ -51,12 +46,15 @@ export function SettingsModal({ settingsPanels }: SettingsModalProps) {
   ];
 
   // Ensure we always have a valid active panel id.
-  const resolvedActive = panels.some((p) => p.id === activePanel)
-    ? activePanel
-    : 'appearance';
+  const resolvedActive = panels.some((p) => p.id === activePanel) ? activePanel : 'appearance';
 
   return (
-    <Dialog open={open} onOpenChange={(isOpen) => { if (!isOpen) closeModal(); }}>
+    <Dialog
+      open={open}
+      onOpenChange={(isOpen) => {
+        if (!isOpen) closeModal();
+      }}
+    >
       <DialogContent
         data-testid="settings-modal"
         style={{
@@ -70,7 +68,15 @@ export function SettingsModal({ settingsPanels }: SettingsModalProps) {
         }}
       >
         {/* ── Hidden title for a11y ──────────────────────────────────── */}
-        <DialogTitle style={{ position: 'absolute', width: 1, height: 1, overflow: 'hidden', clip: 'rect(0,0,0,0)' }}>
+        <DialogTitle
+          style={{
+            position: 'absolute',
+            width: 1,
+            height: 1,
+            overflow: 'hidden',
+            clip: 'rect(0,0,0,0)',
+          }}
+        >
           Settings
         </DialogTitle>
 
@@ -97,7 +103,9 @@ export function SettingsModal({ settingsPanels }: SettingsModalProps) {
                 role="tab"
                 aria-selected={isActive}
                 data-testid={`settings-modal-tab-${panel.id}`}
-                onClick={() => { openPanel(panel.id); }}
+                onClick={() => {
+                  openPanel(panel.id);
+                }}
                 style={{
                   display: 'flex',
                   alignItems: 'center',

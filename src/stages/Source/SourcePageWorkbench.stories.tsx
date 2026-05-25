@@ -106,9 +106,7 @@ export const Interactive: Story = {
       <SourcePageWorkbench
         {...args}
         page={page}
-        onRoleChange={(role: SourcePageRole) =>
-          setPage((prev) => ({ ...prev, role }))
-        }
+        onRoleChange={(role: SourcePageRole) => setPage((prev) => ({ ...prev, role }))}
       />
     );
   },
@@ -157,14 +155,24 @@ export const EachRole: Story = {
     return (
       <div style={{ display: 'flex', flexDirection: 'column', gap: 40, padding: 24 }}>
         {roles.map((role) => (
-          <div key={role} style={{ border: '1px solid var(--border-1)', borderRadius: 8, overflow: 'hidden' }}>
-            <div style={{ padding: '8px 16px', background: 'var(--bg-surface)', fontSize: 11, color: 'var(--ink-3)', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '.06em' }}>
+          <div
+            key={role}
+            style={{ border: '1px solid var(--border-1)', borderRadius: 8, overflow: 'hidden' }}
+          >
+            <div
+              style={{
+                padding: '8px 16px',
+                background: 'var(--bg-surface)',
+                fontSize: 11,
+                color: 'var(--ink-3)',
+                fontWeight: 600,
+                textTransform: 'uppercase',
+                letterSpacing: '.06em',
+              }}
+            >
               role: {role}
             </div>
-            <SourcePageWorkbench
-              {...args}
-              page={{ ...args.page, role }}
-            />
+            <SourcePageWorkbench {...args} page={{ ...args.page, role }} />
           </div>
         ))}
       </div>

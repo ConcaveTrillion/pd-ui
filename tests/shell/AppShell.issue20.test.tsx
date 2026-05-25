@@ -16,7 +16,11 @@ import { render, screen, fireEvent } from '@testing-library/react';
 import { describe, it, expect, vi } from 'vitest';
 import { AppShell } from '../../src/shell/AppShell.js';
 import { useSettingsModal } from '../../src/shell/SettingsModalContext.js';
-import type { AppShellProps, UIPrefsConfig, SettingsPanelDescriptor } from '../../src/shell/types.js';
+import type {
+  AppShellProps,
+  UIPrefsConfig,
+  SettingsPanelDescriptor,
+} from '../../src/shell/types.js';
 
 // ─── Fixtures ─────────────────────────────────────────────────────────────────
 
@@ -183,7 +187,12 @@ function CloseModalBtn() {
 function OpenPanelBtn({ id }: { id: string }) {
   const { openPanel } = useSettingsModal();
   return (
-    <button data-testid="hook-open-panel" onClick={() => { openPanel(id); }}>
+    <button
+      data-testid="hook-open-panel"
+      onClick={() => {
+        openPanel(id);
+      }}
+    >
       open panel
     </button>
   );
@@ -233,10 +242,7 @@ describe('AppShell #20 — useSettingsModal() hook', () => {
       },
     ];
     render(
-      <AppShell
-        {...minimalProps({ settingsPanels: panels })}
-        main={<OpenPanelBtn id="ocr" />}
-      />,
+      <AppShell {...minimalProps({ settingsPanels: panels })} main={<OpenPanelBtn id="ocr" />} />,
     );
 
     fireEvent.click(screen.getByTestId('hook-open-panel'));
@@ -247,12 +253,7 @@ describe('AppShell #20 — useSettingsModal() hook', () => {
   });
 
   it('openPanel(appearance) opens to the built-in Appearance tab', () => {
-    render(
-      <AppShell
-        {...minimalProps()}
-        main={<OpenPanelBtn id="appearance" />}
-      />,
-    );
+    render(<AppShell {...minimalProps()} main={<OpenPanelBtn id="appearance" />} />);
 
     fireEvent.click(screen.getByTestId('hook-open-panel'));
 

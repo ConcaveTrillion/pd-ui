@@ -43,10 +43,7 @@ export function BuildPackagePanel({
   return (
     <div className={cn('build-package-panel', className)}>
       {status != null && statusLabel != null ? (
-        <Badge
-          tone={status}
-          className="build-package-panel__status"
-        >
+        <Badge tone={status} className="build-package-panel__status">
           {statusLabel}
         </Badge>
       ) : null}

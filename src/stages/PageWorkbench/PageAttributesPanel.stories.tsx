@@ -61,9 +61,7 @@ function Controlled({ attrs: initialAttrs, ...rest }: PageAttributesPanelProps) 
 
   const handleChange = (id: string, nextValue: string) => {
     setAttrs((prev: PageAttribute[]) =>
-      prev.map((a: PageAttribute): PageAttribute =>
-        a.id === id ? { ...a, value: nextValue } : a,
-      ),
+      prev.map((a: PageAttribute): PageAttribute => (a.id === id ? { ...a, value: nextValue } : a)),
     );
   };
 
@@ -87,41 +85,28 @@ type Story = StoryObj<typeof PageAttributesPanel>;
 // ── Stories ───────────────────────────────────────────────────────────────────
 
 export const Default: Story = {
-  render: (args) => (
-    <Controlled {...args} attrs={MIXED_ATTRS} onChange={() => {}} />
-  ),
+  render: (args) => <Controlled {...args} attrs={MIXED_ATTRS} onChange={() => {}} />,
   name: 'Default',
 };
 
 export const Mixed: Story = {
   render: (args) => (
-    <Controlled
-      {...args}
-      attrs={MIXED_ATTRS}
-      onChange={() => {}}
-      title="Text + Number + Select"
-    />
+    <Controlled {...args} attrs={MIXED_ATTRS} onChange={() => {}} title="Text + Number + Select" />
   ),
   name: 'Mixed (text + number + select)',
 };
 
 export const WithReadOnly: Story = {
-  render: (args) => (
-    <Controlled {...args} attrs={WITH_READONLY_ATTRS} onChange={() => {}} />
-  ),
+  render: (args) => <Controlled {...args} attrs={WITH_READONLY_ATTRS} onChange={() => {}} />,
   name: 'With ReadOnly',
 };
 
 export const Empty: Story = {
-  render: (args) => (
-    <PageAttributesPanel {...args} attrs={[]} onChange={() => {}} />
-  ),
+  render: (args) => <PageAttributesPanel {...args} attrs={[]} onChange={() => {}} />,
   name: 'Empty',
 };
 
 export const Controlled_: Story = {
-  render: (args) => (
-    <Controlled {...args} attrs={MIXED_ATTRS} onChange={() => {}} />
-  ),
+  render: (args) => <Controlled {...args} attrs={MIXED_ATTRS} onChange={() => {}} />,
   name: 'Controlled (state-bound)',
 };

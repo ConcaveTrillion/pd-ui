@@ -98,9 +98,7 @@ export const Segmented = React.forwardRef<HTMLDivElement, SegmentedProps>(
 
         if (next !== null) {
           const group = e.currentTarget.closest('[role="radiogroup"]');
-          const buttons = group?.querySelectorAll<HTMLButtonElement>(
-            'button[role="radio"]',
-          );
+          const buttons = group?.querySelectorAll<HTMLButtonElement>('button[role="radio"]');
           buttons?.[next]?.focus();
         }
       },
@@ -111,12 +109,7 @@ export const Segmented = React.forwardRef<HTMLDivElement, SegmentedProps>(
       <div
         ref={ref}
         role="radiogroup"
-        className={cn(
-          'segmented',
-          `segmented--${size}`,
-          full && 'segmented--full',
-          className,
-        )}
+        className={cn('segmented', `segmented--${size}`, full && 'segmented--full', className)}
       >
         {options.map((opt, idx) => {
           const isActive = opt.value === active;
@@ -127,12 +120,9 @@ export const Segmented = React.forwardRef<HTMLDivElement, SegmentedProps>(
               role="radio"
               aria-checked={isActive}
               tabIndex={isActive ? 0 : -1}
-              className={cn(
-                'segmented__item',
-                isActive && 'segmented__item--active',
-              )}
+              className={cn('segmented__item', isActive && 'segmented__item--active')}
               onClick={() => handleSelect(opt.value)}
-              onKeyDown={e => handleKeyDown(e, idx)}
+              onKeyDown={(e) => handleKeyDown(e, idx)}
             >
               {opt.icon !== undefined && (
                 <span className="segmented__icon" aria-hidden="true">

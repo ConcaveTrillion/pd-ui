@@ -124,20 +124,10 @@ export function AttrEditorPopover({
           )}
 
           <div className="attr-editor-popover__actions">
-            <Button
-              size="sm"
-              variant="ghost"
-              onClick={handleCancel}
-              aria-label="Cancel edit"
-            >
+            <Button size="sm" variant="ghost" onClick={handleCancel} aria-label="Cancel edit">
               Cancel
             </Button>
-            <Button
-              size="sm"
-              variant="primary"
-              onClick={handleApply}
-              aria-label="Apply edit"
-            >
+            <Button size="sm" variant="primary" onClick={handleApply} aria-label="Apply edit">
               Apply
             </Button>
           </div>

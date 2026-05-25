@@ -14,17 +14,17 @@
  *   throttle(() => setState(latestValue))
  */
 export function makeRafThrottle(): (fn: () => void) => void {
-  let pending = false
-  let latestFn: (() => void) | null = null
+  let pending = false;
+  let latestFn: (() => void) | null = null;
   return function schedule(fn: () => void): void {
-    latestFn = fn
+    latestFn = fn;
     if (!pending) {
-      pending = true
+      pending = true;
       requestAnimationFrame(() => {
-        pending = false
-        latestFn?.()
-        latestFn = null
-      })
+        pending = false;
+        latestFn?.();
+        latestFn = null;
+      });
     }
-  }
+  };
 }

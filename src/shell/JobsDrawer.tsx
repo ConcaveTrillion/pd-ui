@@ -103,11 +103,7 @@ function ToastCard({ toast, onOpen, onDismiss }: ToastCardProps) {
         fontSize: 12,
       }}
     >
-      <CheckCircle
-        size={14}
-        aria-hidden
-        style={{ color: 'var(--exact)', flex: '0 0 auto' }}
-      />
+      <CheckCircle size={14} aria-hidden style={{ color: 'var(--exact)', flex: '0 0 auto' }} />
       <div style={{ flex: 1, minWidth: 0 }}>
         <div
           style={{
@@ -186,13 +182,12 @@ export function JobsDrawer({
     return null;
   }
 
-  const running = activeJobs.filter(j => j.status !== 'done' && j.status !== 'succeeded');
-  const done = activeJobs.filter(j => j.status === 'done' || j.status === 'succeeded');
+  const running = activeJobs.filter((j) => j.status !== 'done' && j.status !== 'succeeded');
+  const done = activeJobs.filter((j) => j.status === 'done' || j.status === 'succeeded');
   const summary = buildSummary(running, done);
 
   const showDrawerBody = mode !== 'dismissed' && activeJobs.length > 0;
-  const singleRunning: Job | undefined =
-    running.length === 1 ? running[0] : undefined;
+  const singleRunning: Job | undefined = running.length === 1 ? running[0] : undefined;
 
   return (
     <div
@@ -207,7 +202,7 @@ export function JobsDrawer({
       }}
     >
       {/* Tombstone toast cards — rendered above the drawer */}
-      {toasts.map(t => (
+      {toasts.map((t) => (
         <ToastCard
           key={t.id}
           toast={t}
@@ -225,8 +220,7 @@ export function JobsDrawer({
             background: 'var(--bg-surface)',
             border: '1px solid var(--border-1)',
             borderRadius: 10,
-            boxShadow:
-              '0 14px 36px rgba(15,23,42,.20), 0 2px 6px rgba(15,23,42,.08)',
+            boxShadow: '0 14px 36px rgba(15,23,42,.20), 0 2px 6px rgba(15,23,42,.08)',
             overflow: 'hidden',
             display: 'flex',
             flexDirection: 'column',
@@ -357,8 +351,7 @@ export function JobsDrawer({
                 size={13}
                 aria-hidden
                 style={{
-                  transform:
-                    mode === 'expanded' ? 'rotate(0deg)' : 'rotate(180deg)',
+                  transform: mode === 'expanded' ? 'rotate(0deg)' : 'rotate(180deg)',
                   transition: 'transform .15s',
                 }}
               />
@@ -432,14 +425,12 @@ export function JobsDrawer({
                 flexDirection: 'column',
               }}
             >
-              {activeJobs.map(job => (
+              {activeJobs.map((job) => (
                 <JobRow
                   key={job.id}
                   job={job}
                   {...(onJobOpen !== undefined ? { onOpen: onJobOpen } : {})}
-                  {...(onJobPauseResume !== undefined
-                    ? { onPauseResume: onJobPauseResume }
-                    : {})}
+                  {...(onJobPauseResume !== undefined ? { onPauseResume: onJobPauseResume } : {})}
                   {...(onJobCancel !== undefined ? { onCancel: onJobCancel } : {})}
                 />
               ))}
@@ -462,9 +453,7 @@ export function JobsDrawer({
                   textAlign: 'left',
                 }}
               >
-                <span style={{ fontSize: 12, color: 'var(--ink-2)' }}>
-                  View all jobs
-                </span>
+                <span style={{ fontSize: 12, color: 'var(--ink-2)' }}>View all jobs</span>
                 <ArrowRight size={12} aria-hidden style={{ color: 'var(--ink-3)' }} />
               </button>
             </div>

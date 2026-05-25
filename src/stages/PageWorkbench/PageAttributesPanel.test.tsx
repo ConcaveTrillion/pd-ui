@@ -42,9 +42,7 @@ const ATTRS: PageAttribute[] = [
 
 function setup(props?: Partial<React.ComponentProps<typeof PageAttributesPanel>>) {
   const onChange = vi.fn();
-  const utils = render(
-    <PageAttributesPanel attrs={ATTRS} onChange={onChange} {...props} />,
-  );
+  const utils = render(<PageAttributesPanel attrs={ATTRS} onChange={onChange} {...props} />);
   return { onChange, ...utils };
 }
 
@@ -77,9 +75,7 @@ describe('PageAttributesPanel', () => {
   });
 
   it('uses default data-testid page-attributes-panel', () => {
-    const { container } = render(
-      <PageAttributesPanel attrs={[]} onChange={vi.fn()} />,
-    );
+    const { container } = render(<PageAttributesPanel attrs={[]} onChange={vi.fn()} />);
     expect(container.querySelector('[data-testid="page-attributes-panel"]')).toBeTruthy();
   });
 

@@ -18,11 +18,13 @@ import { BaseJobConfigDialog } from '../../src/primitives/BaseJobConfigDialog.js
 
 // ─── Helpers ──────────────────────────────────────────────────────────────────
 
-function renderDialog(overrides: {
-  open?: boolean;
-  onClose?: () => void;
-  onSubmit?: (base: { projectName: string; outputDir: string }) => Promise<void>;
-} = {}) {
+function renderDialog(
+  overrides: {
+    open?: boolean;
+    onClose?: () => void;
+    onSubmit?: (base: { projectName: string; outputDir: string }) => Promise<void>;
+  } = {},
+) {
   const onClose = overrides.onClose ?? vi.fn();
   const onSubmit = overrides.onSubmit ?? vi.fn().mockResolvedValue(undefined);
   const open = overrides.open ?? true;
@@ -35,7 +37,7 @@ function renderDialog(overrides: {
       sourcePath="/home/user/book.pdf"
       onClose={onClose}
       onSubmit={onSubmit}
-    />
+    />,
   );
 
   return { onClose, onSubmit };

@@ -79,14 +79,14 @@ interface KindDescriptor {
 
 const KIND_OPTIONS: ReadonlyArray<KindDescriptor> = [
   { id: 'missing', name: 'Missing', desc: 'Page absent from scan' },
-  { id: 'blank',   name: 'Blank',   desc: 'Intentional blank' },
-  { id: 'errata',  name: 'Errata',  desc: 'Correction sheet' },
-  { id: 'manual',  name: 'Manual',  desc: 'Typed transcription' },
+  { id: 'blank', name: 'Blank', desc: 'Intentional blank' },
+  { id: 'errata', name: 'Errata', desc: 'Correction sheet' },
+  { id: 'manual', name: 'Manual', desc: 'Typed transcription' },
 ] as const;
 
 const POSITION_OPTIONS = [
   { value: 'before' as InsertPosition, label: 'Before' },
-  { value: 'after'  as InsertPosition, label: 'After'  },
+  { value: 'after' as InsertPosition, label: 'After' },
 ];
 
 const NOTE_MAX = 280;
@@ -103,10 +103,10 @@ export const InsertDialog: React.FC<InsertDialogProps> = ({
 }) => {
   // ── Controlled state ──────────────────────────────────────────────────────
   const [position, setPosition] = React.useState<InsertPosition>('before');
-  const [anchor, setAnchor]     = React.useState<string>(defaultAnchor ?? '');
-  const [kind, setKind]         = React.useState<InsertKind>('missing');
-  const [note, setNote]         = React.useState<string>('');
-  const [file, setFile]         = React.useState<File | undefined>(undefined);
+  const [anchor, setAnchor] = React.useState<string>(defaultAnchor ?? '');
+  const [kind, setKind] = React.useState<InsertKind>('missing');
+  const [note, setNote] = React.useState<string>('');
+  const [file, setFile] = React.useState<File | undefined>(undefined);
   const [dragOver, setDragOver] = React.useState(false);
 
   // Reset state when dialog opens so re-opens start fresh unless defaultAnchor changes.
@@ -122,7 +122,7 @@ export const InsertDialog: React.FC<InsertDialogProps> = ({
   }, [open, defaultAnchor]);
 
   // ── Derived ───────────────────────────────────────────────────────────────
-  const noteLen       = note.length;
+  const noteLen = note.length;
   const noteOverLimit = noteLen > NOTE_MAX;
   const insertEnabled = anchor !== '' && !noteOverLimit;
 
@@ -131,27 +131,18 @@ export const InsertDialog: React.FC<InsertDialogProps> = ({
     setPosition(val as InsertPosition);
   }, []);
 
-  const handleAnchorChange = React.useCallback(
-    (e: React.ChangeEvent<HTMLSelectElement>) => {
-      setAnchor(e.target.value);
-    },
-    [],
-  );
+  const handleAnchorChange = React.useCallback((e: React.ChangeEvent<HTMLSelectElement>) => {
+    setAnchor(e.target.value);
+  }, []);
 
-  const handleNoteChange = React.useCallback(
-    (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-      setNote(e.target.value);
-    },
-    [],
-  );
+  const handleNoteChange = React.useCallback((e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    setNote(e.target.value);
+  }, []);
 
-  const handleFileChange = React.useCallback(
-    (e: React.ChangeEvent<HTMLInputElement>) => {
-      const picked = e.target.files?.[0];
-      if (picked !== undefined) setFile(picked);
-    },
-    [],
-  );
+  const handleFileChange = React.useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
+    const picked = e.target.files?.[0];
+    if (picked !== undefined) setFile(picked);
+  }, []);
 
   const handleDrop = React.useCallback((e: React.DragEvent<HTMLDivElement>) => {
     e.preventDefault();
@@ -198,11 +189,7 @@ export const InsertDialog: React.FC<InsertDialogProps> = ({
             </p>
           </div>
           <DialogClose asChild>
-            <button
-              type="button"
-              aria-label="Close"
-              className="insert-dialog__close"
-            >
+            <button type="button" aria-label="Close" className="insert-dialog__close">
               ✕
             </button>
           </DialogClose>
@@ -210,7 +197,6 @@ export const InsertDialog: React.FC<InsertDialogProps> = ({
 
         {/* ── Body ────────────────────────────────────────────────────── */}
         <div className="insert-dialog__body">
-
           {/* Position + Anchor row */}
           <div className="insert-dialog__field">
             <div className="insert-dialog__label">Position</div>
@@ -232,7 +218,7 @@ export const InsertDialog: React.FC<InsertDialogProps> = ({
                 <option value="" disabled>
                   Select anchor…
                 </option>
-                {anchorOptions.map(opt => (
+                {anchorOptions.map((opt) => (
                   <option key={opt.value} value={opt.value}>
                     {opt.label}
                   </option>
@@ -245,7 +231,7 @@ export const InsertDialog: React.FC<InsertDialogProps> = ({
           <div className="insert-dialog__field">
             <div className="insert-dialog__label">Kind</div>
             <div className="insert-dialog__kind-grid">
-              {KIND_OPTIONS.map(k => (
+              {KIND_OPTIONS.map((k) => (
                 <button
                   key={k.id}
                   type="button"
@@ -269,13 +255,11 @@ export const InsertDialog: React.FC<InsertDialogProps> = ({
           <div className="insert-dialog__field">
             <div className="insert-dialog__label-row">
               <span className="insert-dialog__label">
-                Note{' '}
-                <span className="insert-dialog__label-opt">· optional</span>
+                Note <span className="insert-dialog__label-opt">· optional</span>
               </span>
               <span
                 className={
-                  'insert-dialog__counter' +
-                  (noteOverLimit ? ' insert-dialog__counter--over' : '')
+                  'insert-dialog__counter' + (noteOverLimit ? ' insert-dialog__counter--over' : '')
                 }
                 data-testid={INSERT_DIALOG_NOTE_COUNTER}
                 aria-live="polite"
@@ -297,13 +281,11 @@ export const InsertDialog: React.FC<InsertDialogProps> = ({
           {/* Replacement image */}
           <div className="insert-dialog__field">
             <div className="insert-dialog__label">
-              Replacement image{' '}
-              <span className="insert-dialog__label-opt">· optional</span>
+              Replacement image <span className="insert-dialog__label-opt">· optional</span>
             </div>
             <div
               className={
-                'insert-dialog__dropzone' +
-                (dragOver ? ' insert-dialog__dropzone--over' : '')
+                'insert-dialog__dropzone' + (dragOver ? ' insert-dialog__dropzone--over' : '')
               }
               onDrop={handleDrop}
               onDragOver={handleDragOver}
@@ -341,11 +323,7 @@ export const InsertDialog: React.FC<InsertDialogProps> = ({
         {/* ── Footer ──────────────────────────────────────────────────── */}
         <DialogFooter>
           <DialogClose asChild>
-            <Button
-              variant="ghost"
-              size="md"
-              data-testid={INSERT_DIALOG_CANCEL}
-            >
+            <Button variant="ghost" size="md" data-testid={INSERT_DIALOG_CANCEL}>
               Cancel
             </Button>
           </DialogClose>

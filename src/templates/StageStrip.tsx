@@ -46,28 +46,28 @@ export interface StageDef {
 // ─────────────────────────────────────────────────────────────────────────────
 
 export const PIPELINE_STAGES: readonly StageDef[] = [
-  { id: 'source',        short: 'source',    group: 'Source' },
-  { id: 'initial_crop',  short: 'init crop', group: 'Source' },
-  { id: 'dewarp',        short: 'dewarp',    group: 'Source' },
-  { id: 'deskew',        short: 'deskew',    group: 'Source' },
-  { id: 'grayscale',     short: 'grayscale', group: 'Image' },
-  { id: 'threshold',     short: 'threshold', group: 'Image' },
-  { id: 'denoise',       short: 'denoise',   group: 'Image' },
-  { id: 'canvas_map',    short: 'canvas',    group: 'Image' },
-  { id: 'text_zones',    short: 'zones',     group: 'OCR' },
-  { id: 'ocr',           short: 'ocr',       group: 'OCR' },
-  { id: 'spellcheck',    short: 'spell',     group: 'OCR' },
-  { id: 'text_review',   short: 'review',    group: 'OCR' },
-  { id: 'illust',        short: 'illust',    group: 'Pack' },
-  { id: 'hyphen_join',   short: 'hyphen',    group: 'Pack' },
-  { id: 'regex',         short: 'regex',     group: 'Pack' },
-  { id: 'page_split',    short: 'split',     group: 'Pack' },
-  { id: 'proof_pack',    short: 'proof',     group: 'Pack' },
-  { id: 'build_package', short: 'package',   group: 'Pack' },
-  { id: 'validation',    short: 'validate',  group: 'Pack' },
-  { id: 'zip',           short: 'zip',       group: 'Pack' },
-  { id: 'submit_check',  short: 'submit',    group: 'Pack' },
-  { id: 'archive',       short: 'archive',   group: 'Pack' },
+  { id: 'source', short: 'source', group: 'Source' },
+  { id: 'initial_crop', short: 'init crop', group: 'Source' },
+  { id: 'dewarp', short: 'dewarp', group: 'Source' },
+  { id: 'deskew', short: 'deskew', group: 'Source' },
+  { id: 'grayscale', short: 'grayscale', group: 'Image' },
+  { id: 'threshold', short: 'threshold', group: 'Image' },
+  { id: 'denoise', short: 'denoise', group: 'Image' },
+  { id: 'canvas_map', short: 'canvas', group: 'Image' },
+  { id: 'text_zones', short: 'zones', group: 'OCR' },
+  { id: 'ocr', short: 'ocr', group: 'OCR' },
+  { id: 'spellcheck', short: 'spell', group: 'OCR' },
+  { id: 'text_review', short: 'review', group: 'OCR' },
+  { id: 'illust', short: 'illust', group: 'Pack' },
+  { id: 'hyphen_join', short: 'hyphen', group: 'Pack' },
+  { id: 'regex', short: 'regex', group: 'Pack' },
+  { id: 'page_split', short: 'split', group: 'Pack' },
+  { id: 'proof_pack', short: 'proof', group: 'Pack' },
+  { id: 'build_package', short: 'package', group: 'Pack' },
+  { id: 'validation', short: 'validate', group: 'Pack' },
+  { id: 'zip', short: 'zip', group: 'Pack' },
+  { id: 'submit_check', short: 'submit', group: 'Pack' },
+  { id: 'archive', short: 'archive', group: 'Pack' },
 ] as const;
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -113,167 +113,167 @@ export interface StageStripProps extends React.HTMLAttributes<HTMLDivElement> {
 // Component
 // ─────────────────────────────────────────────────────────────────────────────
 
-export const StageStrip = React.forwardRef<HTMLDivElement, StageStripProps>(
-  function StageStrip(
-    {
-      className,
-      stages,
-      current,
-      running = false,
-      flagged,
-      dirty,
-      onStageClick,
-      onPrev,
-      onNext,
-      actions,
-      variant,
-      ...props
-    },
-    ref,
-  ) {
-    const idx = Math.max(0, stages.findIndex((s) => s.id === current));
-    const cur = stages[idx];
+export const StageStrip = React.forwardRef<HTMLDivElement, StageStripProps>(function StageStrip(
+  {
+    className,
+    stages,
+    current,
+    running = false,
+    flagged,
+    dirty,
+    onStageClick,
+    onPrev,
+    onNext,
+    actions,
+    variant,
+    ...props
+  },
+  ref,
+) {
+  const idx = Math.max(
+    0,
+    stages.findIndex((s) => s.id === current),
+  );
+  const cur = stages[idx];
 
-    return (
-      <div
-        ref={ref}
-        className={cn(
-          'stage-strip',
-          running ? 'stage-strip--running' : undefined,
-          variant === 'configure' ? 'stage-strip--configure' : undefined,
-          className,
-        )}
-        {...props}
-      >
-        {/* ── Left: stage label + current-stage pill + KeyCap ── */}
-        <div className="stage-strip__label-col">
-          <span className="stage-strip__label-text">Stage</span>
-          <button
-            type="button"
-            className={cn(
-              'stage-strip__pill',
-              running ? 'stage-strip__pill--running' : 'stage-strip__pill--done',
-            )}
-            title={cur?.id}
-            onClick={() => cur != null && onStageClick?.(cur.id)}
-            aria-label={`Current stage: ${cur?.id ?? 'unknown'}`}
-          >
-            <span className="stage-strip__pill-dot" aria-hidden="true" />
-            <span className="stage-strip__pill-id mono">{cur?.id}</span>
-            <span className="stage-strip__pill-counter mono">
-              {idx + 1}/{stages.length}
-            </span>
-            <Icon name="chevD" size={12} className="stage-strip__pill-chev" />
-          </button>
-          <KeyCap keys="⌘P" />
-        </div>
+  return (
+    <div
+      ref={ref}
+      className={cn(
+        'stage-strip',
+        running ? 'stage-strip--running' : undefined,
+        variant === 'configure' ? 'stage-strip--configure' : undefined,
+        className,
+      )}
+      {...props}
+    >
+      {/* ── Left: stage label + current-stage pill + KeyCap ── */}
+      <div className="stage-strip__label-col">
+        <span className="stage-strip__label-text">Stage</span>
+        <button
+          type="button"
+          className={cn(
+            'stage-strip__pill',
+            running ? 'stage-strip__pill--running' : 'stage-strip__pill--done',
+          )}
+          title={cur?.id}
+          onClick={() => cur != null && onStageClick?.(cur.id)}
+          aria-label={`Current stage: ${cur?.id ?? 'unknown'}`}
+        >
+          <span className="stage-strip__pill-dot" aria-hidden="true" />
+          <span className="stage-strip__pill-id mono">{cur?.id}</span>
+          <span className="stage-strip__pill-counter mono">
+            {idx + 1}/{stages.length}
+          </span>
+          <Icon name="chevD" size={12} className="stage-strip__pill-chev" />
+        </button>
+        <KeyCap keys="⌘P" />
+      </div>
 
-        <Separator orientation="vertical" className="stage-strip__sep" />
+      <Separator orientation="vertical" className="stage-strip__sep" />
 
-        {/* ── Center: pipeline dot track ── */}
-        <div className="stage-strip__track" role="list" aria-label="Pipeline stages">
-          {stages.map((s, i) => {
-            const isCur = i === idx;
-            const isDone = i < idx;
+      {/* ── Center: pipeline dot track ── */}
+      <div className="stage-strip__track" role="list" aria-label="Pipeline stages">
+        {stages.map((s, i) => {
+          const isCur = i === idx;
+          const isDone = i < idx;
 
-            return (
-              <React.Fragment key={s.id}>
-                {isCur ? (
-                  /* Expanded current-stage dot */
-                  <button
-                    type="button"
-                    title={s.id}
+          return (
+            <React.Fragment key={s.id}>
+              {isCur ? (
+                /* Expanded current-stage dot */
+                <button
+                  type="button"
+                  title={s.id}
+                  className={cn(
+                    'stage-strip__dot-cur',
+                    running ? 'stage-strip__dot-cur--running' : 'stage-strip__dot-cur--done',
+                  )}
+                  onClick={() => onStageClick?.(s.id)}
+                  aria-current="step"
+                  aria-label={`Current: ${s.id}`}
+                >
+                  <span className="stage-strip__dot-pip" aria-hidden="true" />
+                  <span className="stage-strip__dot-label mono">{s.short}</span>
+                </button>
+              ) : (
+                /* Collapsed non-current dot */
+                <button
+                  type="button"
+                  title={`${i + 1}. ${s.id}`}
+                  className="stage-strip__dot-item"
+                  onClick={() => onStageClick?.(s.id)}
+                  aria-label={`${isDone ? 'Done' : 'Pending'}: ${s.id}`}
+                >
+                  <span
                     className={cn(
-                      'stage-strip__dot-cur',
-                      running ? 'stage-strip__dot-cur--running' : 'stage-strip__dot-cur--done',
+                      'stage-strip__dot-pip',
+                      isDone ? 'stage-strip__dot-pip--done' : 'stage-strip__dot-pip--pending',
                     )}
-                    onClick={() => onStageClick?.(s.id)}
-                    aria-current="step"
-                    aria-label={`Current: ${s.id}`}
-                  >
-                    <span className="stage-strip__dot-pip" aria-hidden="true" />
-                    <span className="stage-strip__dot-label mono">{s.short}</span>
-                  </button>
-                ) : (
-                  /* Collapsed non-current dot */
-                  <button
-                    type="button"
-                    title={`${i + 1}. ${s.id}`}
-                    className="stage-strip__dot-item"
-                    onClick={() => onStageClick?.(s.id)}
-                    aria-label={`${isDone ? 'Done' : 'Pending'}: ${s.id}`}
-                  >
-                    <span
-                      className={cn(
-                        'stage-strip__dot-pip',
-                        isDone ? 'stage-strip__dot-pip--done' : 'stage-strip__dot-pip--pending',
-                      )}
-                      aria-hidden="true"
-                    />
-                  </button>
-                )}
-                {i < stages.length - 1 ? (
-                  <span className="stage-strip__connector" aria-hidden="true" />
-                ) : null}
-              </React.Fragment>
-            );
-          })}
-        </div>
+                    aria-hidden="true"
+                  />
+                </button>
+              )}
+              {i < stages.length - 1 ? (
+                <span className="stage-strip__connector" aria-hidden="true" />
+              ) : null}
+            </React.Fragment>
+          );
+        })}
+      </div>
 
-        <Separator orientation="vertical" className="stage-strip__sep" />
+      <Separator orientation="vertical" className="stage-strip__sep" />
 
-        {/* ── Right: error / warning counts ── */}
-        <div className="stage-strip__counts mono">
-          {flagged != null ? (
-            <span className="stage-strip__flagged">
-              <span className="stage-strip__count">{flagged}</span>
-              {' '}errors
-            </span>
-          ) : null}
-          {flagged != null && dirty != null ? (
-            <span className="stage-strip__dot-sep" aria-hidden="true"> · </span>
-          ) : null}
-          {dirty != null ? (
-            <span className="stage-strip__dirty">
-              <span className="stage-strip__count stage-strip__count--dirty">{dirty}</span>
-              {' '}warnings
-            </span>
-          ) : null}
-          {flagged == null && dirty == null ? (
-            <span className="stage-strip__all-green">all checks green</span>
-          ) : null}
-        </div>
-
-        {/* ── Nav buttons ── */}
-        <div className="stage-strip__nav">
-          <Button
-            variant="ghost"
-            size="sm"
-            icon={<Icon name="chevL" size={14} />}
-            onClick={onPrev}
-            aria-label="Previous stage"
-          >
-            Prev
-          </Button>
-          <Button
-            variant="primary"
-            size="sm"
-            iconRight={<Icon name="chevR" size={14} />}
-            disabled={flagged != null && flagged > 0}
-            onClick={onNext}
-            aria-label="Next stage"
-          >
-            Next
-          </Button>
-        </div>
-
-        {/* ── Optional actions slot ── */}
-        {actions != null ? (
-          <div className="stage-strip__actions">{actions}</div>
+      {/* ── Right: error / warning counts ── */}
+      <div className="stage-strip__counts mono">
+        {flagged != null ? (
+          <span className="stage-strip__flagged">
+            <span className="stage-strip__count">{flagged}</span> errors
+          </span>
+        ) : null}
+        {flagged != null && dirty != null ? (
+          <span className="stage-strip__dot-sep" aria-hidden="true">
+            {' '}
+            ·{' '}
+          </span>
+        ) : null}
+        {dirty != null ? (
+          <span className="stage-strip__dirty">
+            <span className="stage-strip__count stage-strip__count--dirty">{dirty}</span> warnings
+          </span>
+        ) : null}
+        {flagged == null && dirty == null ? (
+          <span className="stage-strip__all-green">all checks green</span>
         ) : null}
       </div>
-    );
-  },
-);
+
+      {/* ── Nav buttons ── */}
+      <div className="stage-strip__nav">
+        <Button
+          variant="ghost"
+          size="sm"
+          icon={<Icon name="chevL" size={14} />}
+          onClick={onPrev}
+          aria-label="Previous stage"
+        >
+          Prev
+        </Button>
+        <Button
+          variant="primary"
+          size="sm"
+          iconRight={<Icon name="chevR" size={14} />}
+          disabled={flagged != null && flagged > 0}
+          onClick={onNext}
+          aria-label="Next stage"
+        >
+          Next
+        </Button>
+      </div>
+
+      {/* ── Optional actions slot ── */}
+      {actions != null ? <div className="stage-strip__actions">{actions}</div> : null}
+    </div>
+  );
+});
 
 StageStrip.displayName = 'StageStrip';

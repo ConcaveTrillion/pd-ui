@@ -75,7 +75,11 @@ describe('Field', () => {
   });
 
   it('does NOT render label when label prop not provided', () => {
-    render(<Field data-testid="f"><Input id="x" /></Field>);
+    render(
+      <Field data-testid="f">
+        <Input id="x" />
+      </Field>,
+    );
     // The only element in the field should be the input, no label element
     const field = screen.getByTestId('f');
     expect(field.querySelector('label')).toBeNull();

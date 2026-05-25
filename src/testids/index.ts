@@ -33,13 +33,16 @@ export const SETTINGS_APPEARANCE_THEME_DARK = 'settings-appearance-theme-dark' a
 export const SETTINGS_APPEARANCE_THEME_LIGHT = 'settings-appearance-theme-light' as const;
 export const SETTINGS_APPEARANCE_DENSITY_COMPACT = 'settings-appearance-density-compact' as const;
 export const SETTINGS_APPEARANCE_DENSITY_NORMAL = 'settings-appearance-density-normal' as const;
-export const SETTINGS_APPEARANCE_DENSITY_COMFORTABLE = 'settings-appearance-density-comfortable' as const;
-export const SETTINGS_APPEARANCE_FONT_SCALE_SLIDER = 'settings-appearance-font-scale-slider' as const;
+export const SETTINGS_APPEARANCE_DENSITY_COMFORTABLE =
+  'settings-appearance-density-comfortable' as const;
+export const SETTINGS_APPEARANCE_FONT_SCALE_SLIDER =
+  'settings-appearance-font-scale-slider' as const;
 
 /** Color input for a given key: `settings-appearance-color-${key}` */
 export const settingsAppearanceColor = (key: string) => `settings-appearance-color-${key}` as const;
 /** Reset button for a given color key: `settings-appearance-color-${key}-reset` */
-export const settingsAppearanceColorReset = (key: string) => `settings-appearance-color-${key}-reset` as const;
+export const settingsAppearanceColorReset = (key: string) =>
+  `settings-appearance-color-${key}-reset` as const;
 
 // ─── JobRow ───────────────────────────────────────────────────────────────────
 
@@ -152,8 +155,7 @@ export const SOURCE_BANNER_REGENERATE = 'source-banner-regenerate' as const;
  *
  * Renaming the pattern here is a breaking change to every consumer driver.
  */
-export const sourceBulkActionTestId = (action: string) =>
-  `source-bulk-action-${action}` as const;
+export const sourceBulkActionTestId = (action: string) => `source-bulk-action-${action}` as const;
 
 // ─── EditModeSelector (Phase 2 M2) ───────────────────────────────────────────
 
@@ -285,15 +287,13 @@ export const FILE_TOOLBAR_INSERT = 'file-toolbar-insert' as const;
  * Build a testid for a specific filter chip: `file-toolbar-filter-{filter}`.
  * Filter is one of 'all' | 'marked' | 'skipped' | 'unmarked' | 'inserts'.
  */
-export const fileToolbarFilterTestId = (filter: string) =>
-  `file-toolbar-filter-${filter}` as const;
+export const fileToolbarFilterTestId = (filter: string) => `file-toolbar-filter-${filter}` as const;
 
 /**
  * Build a testid for a specific density segment: `file-toolbar-density-{d}`.
  * d is one of 's' | 'm' | 'l'.
  */
-export const fileToolbarDensityTestId = (d: string) =>
-  `file-toolbar-density-${d}` as const;
+export const fileToolbarDensityTestId = (d: string) => `file-toolbar-density-${d}` as const;
 // ─── ThumbCard (Phase 2 M3 — Source stage) ───────────────────────────────────
 
 /** Default testid for the ThumbCard article element. */
@@ -372,15 +372,13 @@ export const INSERT_DIALOG_CANCEL = 'insert-dialog-cancel' as const;
  * Build a testid for the position segmented wrapper: `insert-dialog-position-{p}`.
  * p is one of 'before' | 'after'.
  */
-export const insertDialogPositionTestId = (p: string) =>
-  `insert-dialog-position-${p}` as const;
+export const insertDialogPositionTestId = (p: string) => `insert-dialog-position-${p}` as const;
 
 /**
  * Build a testid for a kind card button: `insert-dialog-kind-{k}`.
  * k is one of 'missing' | 'blank' | 'errata' | 'manual'.
  */
-export const insertDialogKindTestId = (k: string) =>
-  `insert-dialog-kind-${k}` as const;
+export const insertDialogKindTestId = (k: string) => `insert-dialog-kind-${k}` as const;
 // ─── SourcePageWorkbench (Phase 2 M3 — Source stage) ─────────────────────────
 
 /** Outer wrapper of the SourcePageWorkbench per-page detail view. */
@@ -401,8 +399,7 @@ export const SOURCE_PAGE_WORKBENCH_NEXT = 'spw-next' as const;
  * These hidden anchors are used by Playwright drivers to determine
  * active role state without querying Segmented internals.
  */
-export const sourcePageWorkbenchRoleTestId = (role: string) =>
-  `spw-role-${role}` as const;
+export const sourcePageWorkbenchRoleTestId = (role: string) => `spw-role-${role}` as const;
 
 // ─── AutoDetectBanner (Phase 2 M4 — Grayscale stage) ─────────────────────────
 
@@ -427,9 +424,8 @@ export const ADVANCED_PARAMS = 'advanced-params' as const;
 export const advancedParamsSliderTestId = (
   key: 'samplerRadius' | 'gamma' | 'outputMin' | 'outputMax',
 ) => `advanced-params-slider-${key}` as const;
-export const advancedParamsResetTestId = (
-  key: 'samplerRadius' | 'gamma' | 'outputRange',
-) => `advanced-params-reset-${key}` as const;
+export const advancedParamsResetTestId = (key: 'samplerRadius' | 'gamma' | 'outputRange') =>
+  `advanced-params-reset-${key}` as const;
 
 // ─── GrayscaleOverview (Phase 2 M4) ──────────────────────────────────────────
 export const GRAYSCALE_OVERVIEW = 'grayscale-overview' as const;
@@ -445,8 +441,7 @@ export const grayThumbTestId = (id: string) => `gray-thumb-${id}` as const;
 // ─── PageViewer (Phase 2 M4 — Grayscale stage) ───────────────────────────────
 export const PAGE_VIEWER = 'page-viewer' as const;
 export const PAGE_VIEWER_RERUN = 'page-viewer-rerun' as const;
-export const pageViewerThumbTestId = (id: string) =>
-  `page-viewer-thumb-${id}` as const;
+export const pageViewerThumbTestId = (id: string) => `page-viewer-thumb-${id}` as const;
 
 // ─── StageControlsLeft (Phase 2 M4 — Grayscale stage) ────────────────────────
 export const STAGE_CONTROLS_LEFT = 'stage-controls-left' as const;
@@ -473,10 +468,12 @@ export const cropToolbarDensityTestId = (d: string) => `crop-toolbar-density-${d
 
 export const CROP_CARD = 'crop-card' as const;
 export const cropCardTestId = (id: string) => `crop-card-${id}` as const;
-export const cropCardFlagTestId = (id: string, kind: string) => `crop-card-flag-${id}-${kind}` as const;
+export const cropCardFlagTestId = (id: string, kind: string) =>
+  `crop-card-flag-${id}-${kind}` as const;
 
 export const CROP_BULK_BAR = 'crop-bulk-bar' as const;
-export const cropBulkBarActionTestId = (action: string) => `crop-bulk-bar-action-${action}` as const;
+export const cropBulkBarActionTestId = (action: string) =>
+  `crop-bulk-bar-action-${action}` as const;
 
 export const BBOX_EDITOR = 'bbox-editor' as const;
 export const BBOX_EDITOR_APPLY = 'bbox-editor-apply' as const;
@@ -533,8 +530,7 @@ export const HYPHEN_UNDECIDED = 'hyphen-undecided' as const;
  * Build a testid for a specific undecided queue sidebar item: `hyphen-undecided-item-{id}`.
  * Playwright drivers use these to click individual sidebar rows.
  */
-export const hyphenUndecidedItemTestId = (id: string) =>
-  `hyphen-undecided-item-${id}` as const;
+export const hyphenUndecidedItemTestId = (id: string) => `hyphen-undecided-item-${id}` as const;
 
 // ─── HyphenMismatch (Phase 2 M6 — HyphenJoin stage) ──────────────────────────
 
@@ -545,8 +541,7 @@ export const HYPHEN_MISMATCH = 'hyphen-mismatch' as const;
  * Build a testid for a specific mismatch row: `hyphen-mismatch-row-{id}`.
  * Playwright drivers use these to target individual mismatch rows.
  */
-export const hyphenMismatchRowTestId = (id: string) =>
-  `hyphen-mismatch-row-${id}` as const;
+export const hyphenMismatchRowTestId = (id: string) => `hyphen-mismatch-row-${id}` as const;
 
 // ─── HyphenPageWorkbench (Phase 2 M6 — HyphenJoin stage) ─────────────────────
 
@@ -611,8 +606,7 @@ export const QUALITY_PAGE_THUMB = 'quality-page-thumb' as const;
  * Build a testid for a specific QualityFlags PageThumb: `quality-page-thumb-{pageId}`.
  * Playwright drivers use this to target individual page thumbnails.
  */
-export const qualityPageThumbTestId = (pageId: string) =>
-  `quality-page-thumb-${pageId}` as const;
+export const qualityPageThumbTestId = (pageId: string) => `quality-page-thumb-${pageId}` as const;
 
 export const SCANNO_TOKEN = 'scanno-token' as const;
 
@@ -626,8 +620,7 @@ export const REORDER_AFTER_APPLY_STRIP_UNDO = 'reorder-after-apply-strip-undo' a
 export const VALIDATION_DOWNLOAD_FOOTER = 'validation-download-footer' as const;
 
 /** Download / Download anyway button inside DownloadFooter. */
-export const VALIDATION_DOWNLOAD_FOOTER_DOWNLOAD =
-  'validation-download-footer-download' as const;
+export const VALIDATION_DOWNLOAD_FOOTER_DOWNLOAD = 'validation-download-footer-download' as const;
 
 /** Fix & rebuild / Fix all (N) button inside DownloadFooter. */
 export const VALIDATION_DOWNLOAD_FOOTER_FIX = 'validation-download-footer-fix' as const;
@@ -638,8 +631,7 @@ export const VALIDATION_DOWNLOAD_FOOTER_FIX = 'validation-download-footer-fix' a
 export const VALIDATION_CHECK_ROW = 'validation-check-row' as const;
 
 /** Returns a stable testid for a specific check row by its id. */
-export const validationCheckRowTestId = (id: string) =>
-  `validation-check-row-${id}` as const;
+export const validationCheckRowTestId = (id: string) => `validation-check-row-${id}` as const;
 
 // ─── Stages / Scannos / NavGroup (Phase 2 M7) ────────────────────────────────
 
@@ -749,8 +741,7 @@ export const UPLOAD_MODAL_C_RAIL = 'upload-modal-c-rail' as const;
  * step is one of 'name' | 'source' | 'review' | 'upload'.
  * Playwright drivers use these to click individual rail items.
  */
-export const uploadModalCStepTestId = (step: string) =>
-  `upload-modal-c-step-${step}` as const;
+export const uploadModalCStepTestId = (step: string) => `upload-modal-c-step-${step}` as const;
 
 // ─── Stages / Scannos — RuleDetail (Phase 2 M7) ──────────────────────────────
 

@@ -70,14 +70,14 @@ export interface SettingsNavProps {
  * Source: pipeline-template.jsx ProjectSettingsTemplate (lines 362–370).
  */
 export const PROJECT_SETTINGS_GROUPS: SettingsNavGroup[] = [
-  { id: 'general',   name: 'General',           icon: 'wrench'   },
-  { id: 'bib',       name: 'Bibliographic',      icon: 'fileText' },
-  { id: 'pgdp',      name: 'PGDP submission',    icon: 'package'  },
-  { id: 'format',    name: 'Format & content',   icon: 'file'     },
-  { id: 'defaults',  name: 'Stage defaults',     icon: 'sparkles' },
-  { id: 'members',   name: 'Members',            icon: 'image'    },
-  { id: 'storage',   name: 'Storage & cleanup',  icon: 'hardDrive' },
-  { id: 'danger',    name: 'Danger zone',        icon: 'trash',   danger: true },
+  { id: 'general', name: 'General', icon: 'wrench' },
+  { id: 'bib', name: 'Bibliographic', icon: 'fileText' },
+  { id: 'pgdp', name: 'PGDP submission', icon: 'package' },
+  { id: 'format', name: 'Format & content', icon: 'file' },
+  { id: 'defaults', name: 'Stage defaults', icon: 'sparkles' },
+  { id: 'members', name: 'Members', icon: 'image' },
+  { id: 'storage', name: 'Storage & cleanup', icon: 'hardDrive' },
+  { id: 'danger', name: 'Danger zone', icon: 'trash', danger: true },
 ];
 
 // ---------------------------------------------------------------------------
@@ -119,16 +119,11 @@ export const SettingsNav: React.FC<SettingsNavProps> = ({
   label,
   className,
 }) => (
-  <nav
-    aria-label={label ?? 'Settings navigation'}
-    className={cn('settings-nav', className)}
-  >
-    {label != null ? (
-      <div className="settings-nav__label">{label}</div>
-    ) : null}
+  <nav aria-label={label ?? 'Settings navigation'} className={cn('settings-nav', className)}>
+    {label != null ? <div className="settings-nav__label">{label}</div> : null}
 
     <div className="settings-nav__list">
-      {groups.map(group => {
+      {groups.map((group) => {
         const active = group.id === currentGroup;
         return (
           <button
@@ -137,7 +132,7 @@ export const SettingsNav: React.FC<SettingsNavProps> = ({
             aria-current={active ? 'page' : undefined}
             className={cn(
               'settings-nav__item',
-              active      && 'settings-nav__item--active',
+              active && 'settings-nav__item--active',
               group.danger && 'settings-nav__item--danger',
             )}
             onClick={() => onGroupChange(group.id)}

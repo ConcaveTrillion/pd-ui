@@ -58,10 +58,7 @@ describe('CropToolbar', () => {
       'aria-pressed',
       'true',
     );
-    expect(screen.getByTestId('crop-toolbar-filter-all')).toHaveAttribute(
-      'aria-pressed',
-      'false',
-    );
+    expect(screen.getByTestId('crop-toolbar-filter-all')).toHaveAttribute('aria-pressed', 'false');
     expect(screen.getByTestId('crop-toolbar-filter-clean')).toHaveAttribute(
       'aria-pressed',
       'false',

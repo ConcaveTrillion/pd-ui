@@ -4,7 +4,11 @@
 
 // ─── CandidateDetail ──────────────────────────────────────────────────────────
 export { CandidateDetail } from './CandidateDetail.js';
-export type { CandidateDetailProps, ScannoCandidateItem, ScannoContext } from './CandidateDetail.js';
+export type {
+  CandidateDetailProps,
+  ScannoCandidateItem,
+  ScannoContext,
+} from './CandidateDetail.js';
 
 // ─── ScannoToken ──────────────────────────────────────────────────────────────
 export { ScannoToken } from './ScannoToken.js';
@@ -16,7 +20,11 @@ export type { NavGroupProps } from './NavGroup.js';
 
 // ─── InlineMarkPopover ────────────────────────────────────────────────────────
 export { InlineMarkPopover } from './InlineMarkPopover.js';
-export type { InlineMarkPopoverProps, InlineMarkToken, InlineMarkSource } from './InlineMarkPopover.js';
+export type {
+  InlineMarkPopoverProps,
+  InlineMarkToken,
+  InlineMarkSource,
+} from './InlineMarkPopover.js';
 
 // ─── RuleDetail ───────────────────────────────────────────────────────────────
 export { RuleDetail } from './RuleDetail.js';

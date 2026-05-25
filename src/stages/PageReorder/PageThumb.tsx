@@ -25,11 +25,7 @@ function ThumbCell({ page }: { page: PageRef }): React.ReactElement {
     <div className="page-thumb__cell">
       <div className="page-thumb__img-wrap">
         {page.thumbnailUrl != null ? (
-          <img
-            className="page-thumb__img"
-            src={page.thumbnailUrl}
-            alt={`Page ${page.number}`}
-          />
+          <img className="page-thumb__img" src={page.thumbnailUrl} alt={`Page ${page.number}`} />
         ) : (
           <div className="page-thumb__placeholder" aria-hidden="true" />
         )}

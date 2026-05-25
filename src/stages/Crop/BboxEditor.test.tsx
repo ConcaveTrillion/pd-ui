@@ -89,9 +89,7 @@ const PAGE: BboxEditorPage = {
 
 const MARGINS: BboxMargins = { top: 20, right: 15, bottom: 12, left: 8 };
 
-function renderEditor(
-  overrides: Partial<React.ComponentProps<typeof BboxEditor>> = {},
-) {
+function renderEditor(overrides: Partial<React.ComponentProps<typeof BboxEditor>> = {}) {
   const onMarginsChange = vi.fn();
   const onUnitChange = vi.fn();
   const onScopeChange = vi.fn();
@@ -260,8 +258,7 @@ describe('BboxEditor', () => {
 
   it('renders 8 handle dots', () => {
     renderEditor();
-    const handles = document
-      .querySelectorAll('[data-handle]');
+    const handles = document.querySelectorAll('[data-handle]');
     expect(handles).toHaveLength(8);
   });
 });

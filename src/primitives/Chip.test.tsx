@@ -12,12 +12,20 @@ describe('Chip', () => {
   });
 
   it('adds the dashed class for variant="dashed"', () => {
-    render(<Chip variant="dashed" data-testid="c">x</Chip>);
+    render(
+      <Chip variant="dashed" data-testid="c">
+        x
+      </Chip>,
+    );
     expect(screen.getByTestId('c').classList.contains('dashed')).toBe(true);
   });
 
   it('does NOT add a class for variant="static"', () => {
-    render(<Chip variant="static" data-testid="c">x</Chip>);
+    render(
+      <Chip variant="static" data-testid="c">
+        x
+      </Chip>,
+    );
     expect(screen.getByTestId('c').classList.contains('static')).toBe(false);
   });
 
@@ -28,7 +36,11 @@ describe('Chip', () => {
   });
 
   it('merges custom className', () => {
-    render(<Chip className="extra" data-testid="c">x</Chip>);
+    render(
+      <Chip className="extra" data-testid="c">
+        x
+      </Chip>,
+    );
     expect(screen.getByTestId('c').classList.contains('chip')).toBe(true);
     expect(screen.getByTestId('c').classList.contains('extra')).toBe(true);
   });

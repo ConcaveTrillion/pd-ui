@@ -23,9 +23,7 @@ describe('CropBulkBar', () => {
 
   it('does not show flagSummary element when not provided', () => {
     render(<CropBulkBar selectedCount={1} onAction={vi.fn()} />);
-    expect(
-      screen.queryByTestId('bulk-action-bar-flag-summary'),
-    ).not.toBeInTheDocument();
+    expect(screen.queryByTestId('bulk-action-bar-flag-summary')).not.toBeInTheDocument();
   });
 
   it('fires onAction("redeskew") when Re-deskew is clicked', async () => {
@@ -53,9 +51,7 @@ describe('CropBulkBar', () => {
   it('fires onAction("restoreDefault") when Restore default is clicked', async () => {
     const onAction = vi.fn();
     render(<CropBulkBar selectedCount={1} onAction={onAction} />);
-    await userEvent.click(
-      screen.getByTestId('crop-bulk-bar-action-restoreDefault'),
-    );
+    await userEvent.click(screen.getByTestId('crop-bulk-bar-action-restoreDefault'));
     expect(onAction).toHaveBeenCalledWith('restoreDefault');
   });
 
@@ -91,20 +87,12 @@ describe('CropBulkBar', () => {
   });
 
   it('uses dock variant by default', () => {
-    const { container } = render(
-      <CropBulkBar selectedCount={1} onAction={vi.fn()} />,
-    );
+    const { container } = render(<CropBulkBar selectedCount={1} onAction={vi.fn()} />);
     expect(container.querySelector('.bulk-action-bar--dock')).toBeInTheDocument();
   });
 
   it('forwards data-testid to the root element', () => {
-    render(
-      <CropBulkBar
-        selectedCount={1}
-        onAction={vi.fn()}
-        data-testid="my-crop-bar"
-      />,
-    );
+    render(<CropBulkBar selectedCount={1} onAction={vi.fn()} data-testid="my-crop-bar" />);
     expect(screen.getByTestId('my-crop-bar')).toBeInTheDocument();
   });
 

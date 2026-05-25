@@ -14,23 +14,17 @@ describe('ScannoToken', () => {
     expect(screen.getByText('teh')).toBeInTheDocument();
   });
 
-  it.each(SOURCES)(
-    'applies modifier class scanno-token--%s for source=%s',
-    (source) => {
-      const { container } = render(<ScannoToken token="teh" source={source} />);
-      const el = container.firstElementChild;
-      expect(el).toHaveClass(`scanno-token--${source}`);
-    },
-  );
+  it.each(SOURCES)('applies modifier class scanno-token--%s for source=%s', (source) => {
+    const { container } = render(<ScannoToken token="teh" source={source} />);
+    const el = container.firstElementChild;
+    expect(el).toHaveClass(`scanno-token--${source}`);
+  });
 
-  it.each(SOURCES)(
-    'sets data-source=%s attribute for CSS hooks',
-    (source) => {
-      const { container } = render(<ScannoToken token="teh" source={source} />);
-      const el = container.firstElementChild;
-      expect(el).toHaveAttribute('data-source', source);
-    },
-  );
+  it.each(SOURCES)('sets data-source=%s attribute for CSS hooks', (source) => {
+    const { container } = render(<ScannoToken token="teh" source={source} />);
+    const el = container.firstElementChild;
+    expect(el).toHaveAttribute('data-source', source);
+  });
 
   // ─── Element type switch ────────────────────────────────────────────────────
 
@@ -66,19 +60,11 @@ describe('ScannoToken', () => {
 
   it('sets the default data-testid on the root element', () => {
     const { container } = render(<ScannoToken token="teh" source="rule" />);
-    expect(container.firstElementChild).toHaveAttribute(
-      'data-testid',
-      'scanno-token',
-    );
+    expect(container.firstElementChild).toHaveAttribute('data-testid', 'scanno-token');
   });
 
   it('accepts a custom data-testid', () => {
-    const { container } = render(
-      <ScannoToken token="teh" source="rule" data-testid="my-token" />,
-    );
-    expect(container.firstElementChild).toHaveAttribute(
-      'data-testid',
-      'my-token',
-    );
+    const { container } = render(<ScannoToken token="teh" source="rule" data-testid="my-token" />);
+    expect(container.firstElementChild).toHaveAttribute('data-testid', 'my-token');
   });
 });

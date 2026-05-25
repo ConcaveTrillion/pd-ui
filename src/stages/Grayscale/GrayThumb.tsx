@@ -42,66 +42,52 @@ function formatEstimate(seconds: number): string {
  * When `interactive` is true and `onClick` is provided, wraps the
  * thumbnail body in a `<button>` that fires `onClick(page.id)`.
  */
-export const GrayThumb = React.forwardRef<HTMLElement, GrayThumbProps>(
-  function GrayThumb(
-    {
-      page,
-      estimatedSeconds,
-      onClick,
-      interactive = false,
-      'data-testid': testId = GRAY_THUMB,
-    },
-    ref,
-  ) {
-    const handleClick = () => {
-      if (onClick !== undefined) {
-        onClick(page.id);
-      }
-    };
+export const GrayThumb = React.forwardRef<HTMLElement, GrayThumbProps>(function GrayThumb(
+  { page, estimatedSeconds, onClick, interactive = false, 'data-testid': testId = GRAY_THUMB },
+  ref,
+) {
+  const handleClick = () => {
+    if (onClick !== undefined) {
+      onClick(page.id);
+    }
+  };
 
-    const thumbnailContent = (
-      <>
-        <img
-          src={page.thumbnailUrl}
-          alt={`page ${page.pageNumber}`}
-          className="gray-thumb__image"
-        />
-        <span
-          className="gray-thumb__pageno"
-          aria-label={`page ${page.pageNumber}`}
-        >
-          {page.pageNumber}
-        </span>
-        <span className="gray-thumb__estimate" aria-label={`estimate ${formatEstimate(estimatedSeconds)}`}>
-          {formatEstimate(estimatedSeconds)}
-        </span>
-      </>
-    );
-
-    return (
-      <article
-        ref={ref}
-        className="gray-thumb"
-        {...(page.status !== undefined ? { 'data-status': page.status } : {})}
-        data-testid={testId ?? grayThumbTestId(page.id)}
+  const thumbnailContent = (
+    <>
+      <img src={page.thumbnailUrl} alt={`page ${page.pageNumber}`} className="gray-thumb__image" />
+      <span className="gray-thumb__pageno" aria-label={`page ${page.pageNumber}`}>
+        {page.pageNumber}
+      </span>
+      <span
+        className="gray-thumb__estimate"
+        aria-label={`estimate ${formatEstimate(estimatedSeconds)}`}
       >
-        {interactive && onClick !== undefined ? (
-          <button
-            type="button"
-            className="gray-thumb__body"
-            onClick={handleClick}
-            aria-label={`Process page ${page.pageNumber}`}
-          >
-            {thumbnailContent}
-          </button>
-        ) : (
-          <div className="gray-thumb__body">
-            {thumbnailContent}
-          </div>
-        )}
-      </article>
-    );
-  },
-);
+        {formatEstimate(estimatedSeconds)}
+      </span>
+    </>
+  );
+
+  return (
+    <article
+      ref={ref}
+      className="gray-thumb"
+      {...(page.status !== undefined ? { 'data-status': page.status } : {})}
+      data-testid={testId ?? grayThumbTestId(page.id)}
+    >
+      {interactive && onClick !== undefined ? (
+        <button
+          type="button"
+          className="gray-thumb__body"
+          onClick={handleClick}
+          aria-label={`Process page ${page.pageNumber}`}
+        >
+          {thumbnailContent}
+        </button>
+      ) : (
+        <div className="gray-thumb__body">{thumbnailContent}</div>
+      )}
+    </article>
+  );
+});
 
 GrayThumb.displayName = 'GrayThumb';

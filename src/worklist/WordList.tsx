@@ -16,14 +16,9 @@
  * internally.
  */
 
-import * as React from 'react'
-import { VirtualizedList } from './VirtualizedList'
-import type {
-  WordListProps,
-  WordListItem,
-  WordRowProps,
-  MatchStatus,
-} from './types'
+import * as React from 'react';
+import { VirtualizedList } from './VirtualizedList';
+import type { WordListProps, WordListItem, WordRowProps, MatchStatus } from './types';
 
 // ── default row renderer ──────────────────────────────────────────────────────
 
@@ -52,7 +47,7 @@ function DefaultWordRow<TWord extends WordListItem>({
     >
       {item.text}
     </div>
-  )
+  );
 }
 
 // ── <WordList> ────────────────────────────────────────────────────────────────
@@ -71,21 +66,28 @@ function WordListInner<TWord extends WordListItem = WordListItem>(
 ) {
   const resolveMatchStatus = React.useCallback(
     (item: TWord): MatchStatus => {
-      return getMatchStatus ? getMatchStatus(item) : 'none'
+      return getMatchStatus ? getMatchStatus(item) : 'none';
     },
     [getMatchStatus],
-  )
+  );
 
   const renderItem = React.useCallback(
     (item: TWord, index: number, isSelected: boolean) => {
-      const matchStatus = resolveMatchStatus(item)
-      const rowProps: WordRowProps<TWord> = { item, index, isSelected, matchStatus }
-      return renderRow
-        ? renderRow(rowProps)
-        : <DefaultWordRow<TWord> item={item} index={index} isSelected={isSelected} matchStatus={matchStatus} />
+      const matchStatus = resolveMatchStatus(item);
+      const rowProps: WordRowProps<TWord> = { item, index, isSelected, matchStatus };
+      return renderRow ? (
+        renderRow(rowProps)
+      ) : (
+        <DefaultWordRow<TWord>
+          item={item}
+          index={index}
+          isSelected={isSelected}
+          matchStatus={matchStatus}
+        />
+      );
     },
     [resolveMatchStatus, renderRow],
-  )
+  );
 
   return (
     <VirtualizedList<TWord>
@@ -98,7 +100,7 @@ function WordListInner<TWord extends WordListItem = WordListItem>(
       renderItem={renderItem}
       defaultAriaLabel="Word list"
     />
-  )
+  );
 }
 
 /**
@@ -110,6 +112,5 @@ export const WordList = React.forwardRef(WordListInner) as <
   TWord extends WordListItem = WordListItem,
 >(
   props: WordListProps<TWord> & { ref?: React.Ref<HTMLDivElement> },
-) => React.ReactElement | null
-
-;(WordList as { displayName?: string }).displayName = 'WordList'
+) => React.ReactElement | null;
+(WordList as { displayName?: string }).displayName = 'WordList';

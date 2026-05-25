@@ -27,7 +27,9 @@ import type { UIPrefsConfig } from '../shell/types.js';
 
 function noop(): UIPrefsConfig {
   return {
-    load: vi.fn(() => Promise.resolve({ theme: 'dark' as const, density: 'normal' as const, fontScale: 1.0 })),
+    load: vi.fn(() =>
+      Promise.resolve({ theme: 'dark' as const, density: 'normal' as const, fontScale: 1.0 }),
+    ),
     persistCommon: vi.fn(() => Promise.resolve()),
     persistApp: vi.fn(() => Promise.resolve()),
   };
@@ -58,13 +60,17 @@ describe('useSelection (#163)', () => {
         <SelectionReadout />
       </SelectionStoreProvider>,
     );
-    act(() => { store.getState().select('w1'); });
+    act(() => {
+      store.getState().select('w1');
+    });
     expect(screen.getByTestId('sel-count').textContent).toBe('1');
   });
 
   it('throws outside provider', () => {
     const original = console.error;
-    console.error = () => { /* suppress React error boundary output */ };
+    console.error = () => {
+      /* suppress React error boundary output */
+    };
     expect(() => render(<SelectionReadout />)).toThrow();
     console.error = original;
   });
@@ -95,7 +101,9 @@ describe('useViewport (#163)', () => {
         <ViewportReadout />
       </ViewportStoreProvider>,
     );
-    act(() => { store.getState().setScale(2.5); });
+    act(() => {
+      store.getState().setScale(2.5);
+    });
     expect(screen.getByTestId('vp-scale').textContent).toBe('2.5');
   });
 });
@@ -125,7 +133,9 @@ describe('useWorklist (#163)', () => {
         <WorklistReadout />
       </WorklistStoreProvider>,
     );
-    act(() => { store.getState().setFilter('foo'); });
+    act(() => {
+      store.getState().setFilter('foo');
+    });
     expect(screen.getByTestId('wl-filter').textContent).toBe('foo');
   });
 });
@@ -227,7 +237,9 @@ describe('useTheme / useDensity / useLayerColor / useStatusColor / useAccentColo
       </UIPrefsStoreProvider>,
     );
     await act(() => Promise.resolve());
-    act(() => { store.getState().setTheme('light'); });
+    act(() => {
+      store.getState().setTheme('light');
+    });
     expect(screen.getByTestId('theme').textContent).toBe('light');
   });
 

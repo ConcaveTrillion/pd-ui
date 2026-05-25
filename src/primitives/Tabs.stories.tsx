@@ -18,17 +18,23 @@ export const Default: Story = {
         <TabsTrigger value="pages">Pages</TabsTrigger>
       </TabsList>
       <TabsContent value="words">
-        <div style={{ padding: 'var(--space-3)', color: 'var(--ink-2)', fontSize: 'var(--text-sm)' }}>
+        <div
+          style={{ padding: 'var(--space-3)', color: 'var(--ink-2)', fontSize: 'var(--text-sm)' }}
+        >
           Word-level review content goes here.
         </div>
       </TabsContent>
       <TabsContent value="lines">
-        <div style={{ padding: 'var(--space-3)', color: 'var(--ink-2)', fontSize: 'var(--text-sm)' }}>
+        <div
+          style={{ padding: 'var(--space-3)', color: 'var(--ink-2)', fontSize: 'var(--text-sm)' }}
+        >
           Line-level review content goes here.
         </div>
       </TabsContent>
       <TabsContent value="pages">
-        <div style={{ padding: 'var(--space-3)', color: 'var(--ink-2)', fontSize: 'var(--text-sm)' }}>
+        <div
+          style={{ padding: 'var(--space-3)', color: 'var(--ink-2)', fontSize: 'var(--text-sm)' }}
+        >
           Page navigation content goes here.
         </div>
       </TabsContent>

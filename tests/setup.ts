@@ -1,4 +1,4 @@
-import '@testing-library/jest-dom'
+import '@testing-library/jest-dom';
 
 // jsdom doesn't implement ResizeObserver. Provide a no-op stub so
 // components that use it (e.g. PageImageCanvas) don't throw.
@@ -7,7 +7,7 @@ if (typeof globalThis.ResizeObserver === 'undefined') {
     observe() {}
     unobserve() {}
     disconnect() {}
-  }
+  };
 }
 
 // jsdom doesn't implement PointerEvent. Radix UI's DismissableLayer uses
@@ -15,12 +15,12 @@ if (typeof globalThis.ResizeObserver === 'undefined') {
 // Provide a minimal class that extends MouseEvent so dispatchEvent works.
 if (typeof globalThis.PointerEvent === 'undefined') {
   class PointerEventPolyfill extends MouseEvent {
-    readonly pointerType: string
+    readonly pointerType: string;
     constructor(type: string, init?: PointerEventInit) {
-      super(type, init)
-      this.pointerType = init?.pointerType ?? 'mouse'
+      super(type, init);
+      this.pointerType = init?.pointerType ?? 'mouse';
     }
   }
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  (globalThis as Record<string, any>)['PointerEvent'] = PointerEventPolyfill
+  (globalThis as Record<string, any>)['PointerEvent'] = PointerEventPolyfill;
 }

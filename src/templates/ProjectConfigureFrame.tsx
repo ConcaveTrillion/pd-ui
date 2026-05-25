@@ -68,9 +68,7 @@ export function ProjectConfigureFrame({
 }: ProjectConfigureFrameProps): React.ReactElement {
   return (
     <aside className={cn('project-configure-frame', className)}>
-      {children != null ? (
-        <div className="project-configure-frame__slot">{children}</div>
-      ) : null}
+      {children != null ? <div className="project-configure-frame__slot">{children}</div> : null}
 
       <DiskCostBanner
         size={diskSize}

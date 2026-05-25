@@ -48,9 +48,7 @@ describe('StepDots', () => {
 
   it('calls onStepClick with step index when a step is clicked', () => {
     const onStepClick = vi.fn();
-    const { container } = render(
-      <StepDots steps={steps} current={0} onStepClick={onStepClick} />,
-    );
+    const { container } = render(<StepDots steps={steps} current={0} onStepClick={onStepClick} />);
     const items = container.querySelectorAll('.step-item');
     fireEvent.click(items[2] as Element);
     expect(onStepClick).toHaveBeenCalledWith(2);
@@ -83,9 +81,7 @@ describe('StepDots', () => {
   });
 
   it('merges extra className onto root', () => {
-    const { container } = render(
-      <StepDots steps={steps} current={0} className="extra-class" />,
-    );
+    const { container } = render(<StepDots steps={steps} current={0} className="extra-class" />);
     expect(container.querySelector('.step-dots')?.classList.contains('extra-class')).toBe(true);
   });
 

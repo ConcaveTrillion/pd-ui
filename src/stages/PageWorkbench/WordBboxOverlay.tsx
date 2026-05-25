@@ -12,43 +12,43 @@
  * click events reach the Konva shapes.
  */
 
-import { Rect } from 'react-konva'
-import type { CoordContext } from '../../canvas/types.js'
+import { Rect } from 'react-konva';
+import type { CoordContext } from '../../canvas/types.js';
 
 export interface WordBbox {
-  id: string
+  id: string;
   /** Normalized [x, y, w, h] relative to image dimensions. */
-  bbox: [number, number, number, number]
-  confidence?: number
-  selected?: boolean
+  bbox: [number, number, number, number];
+  confidence?: number;
+  selected?: boolean;
 }
 
 export interface WordBboxOverlayProps {
   /** Coordinate context from SlotRenderProps. */
-  coords: CoordContext
+  coords: CoordContext;
   /** Word bboxes to render. */
-  wordBboxes: WordBbox[]
+  wordBboxes: WordBbox[];
   /** Called when a word bbox rect is clicked. */
-  onWordClick?: (id: string) => void
+  onWordClick?: (id: string) => void;
 }
 
 export function WordBboxOverlay({ coords, wordBboxes, onWordClick }: WordBboxOverlayProps) {
   return (
     <>
       {wordBboxes.map((wb) => {
-        const [nx, ny, nw, nh] = wb.bbox
-        const x = nx * coords.pageWidth
-        const y = ny * coords.pageHeight
-        const w = nw * coords.pageWidth
-        const h = nh * coords.pageHeight
+        const [nx, ny, nw, nh] = wb.bbox;
+        const x = nx * coords.pageWidth;
+        const y = ny * coords.pageHeight;
+        const w = nw * coords.pageWidth;
+        const h = nh * coords.pageHeight;
 
-        const isSelected = wb.selected === true
+        const isSelected = wb.selected === true;
         const strokeColor = isSelected
           ? 'var(--mismatch, #ef4444)'
-          : 'color-mix(in oklab, var(--ocr, #22c55e) 70%, transparent)'
+          : 'color-mix(in oklab, var(--ocr, #22c55e) 70%, transparent)';
         const fillColor = isSelected
           ? 'color-mix(in oklab, var(--mismatch, #ef4444) 18%, transparent)'
-          : 'color-mix(in oklab, var(--ocr, #22c55e) 12%, transparent)'
+          : 'color-mix(in oklab, var(--ocr, #22c55e) 12%, transparent)';
 
         return (
           <Rect
@@ -62,14 +62,18 @@ export function WordBboxOverlay({ coords, wordBboxes, onWordClick }: WordBboxOve
             strokeWidth={isSelected ? 1.5 : 1}
             fill={fillColor}
             listening={onWordClick !== undefined}
-            onClick={() => { onWordClick?.(wb.id) }}
-            onTap={() => { onWordClick?.(wb.id) }}
+            onClick={() => {
+              onWordClick?.(wb.id);
+            }}
+            onTap={() => {
+              onWordClick?.(wb.id);
+            }}
             perfectDrawEnabled={false}
           />
-        )
+        );
       })}
     </>
-  )
+  );
 }
 
-WordBboxOverlay.displayName = 'WordBboxOverlay'
+WordBboxOverlay.displayName = 'WordBboxOverlay';

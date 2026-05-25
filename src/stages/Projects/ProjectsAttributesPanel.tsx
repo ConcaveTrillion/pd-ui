@@ -68,8 +68,10 @@ export interface ProjectSummary {
   comments?: string;
 }
 
-export interface ProjectsAttributesPanelProps
-  extends Omit<React.HTMLAttributes<HTMLDivElement>, 'onChange'> {
+export interface ProjectsAttributesPanelProps extends Omit<
+  React.HTMLAttributes<HTMLDivElement>,
+  'onChange'
+> {
   /**
    * The project data to display.
    * When `sections` is omitted, default sections are derived from this shape.
@@ -110,8 +112,7 @@ const CustomSectionsRenderer = ({
 
   const [open, setOpen] = React.useState<Record<string, boolean>>(initialOpen);
 
-  const toggle = (id: string) =>
-    setOpen((prev) => ({ ...prev, [id]: !prev[id] }));
+  const toggle = (id: string) => setOpen((prev) => ({ ...prev, [id]: !prev[id] }));
 
   return (
     <div className="pap-custom-sections">
@@ -155,14 +156,8 @@ const CustomSectionsRenderer = ({
             </span>
             {/* Prevent toggle propagation from action slot */}
             {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions */}
-            <span
-              className="ap-section-header__actions"
-              onClick={(e) => e.stopPropagation()}
-            >
-              <button
-                className="btn btn--ghost btn--sm ap-section-header__edit"
-                type="button"
-              >
+            <span className="ap-section-header__actions" onClick={(e) => e.stopPropagation()}>
+              <button className="btn btn--ghost btn--sm ap-section-header__edit" type="button">
                 Edit
               </button>
             </span>
@@ -182,7 +177,9 @@ const CustomSectionsRenderer = ({
                   <div key={field.id} className="ap-field-row" data-index={i}>
                     <span className="ap-field-row__key">{field.label}</span>
                     <span
-                      className={field.mono === true ? 'mono ap-field-row__value' : 'ap-field-row__value'}
+                      className={
+                        field.mono === true ? 'mono ap-field-row__value' : 'ap-field-row__value'
+                      }
                     >
                       {field.value}
                     </span>

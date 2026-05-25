@@ -38,7 +38,9 @@ type Story = StoryObj<typeof meta>;
 export const Default: Story = {
   args: {
     count: 3,
-    onClear: () => { /* no-op */ },
+    onClear: () => {
+      /* no-op */
+    },
   },
 };
 
@@ -50,7 +52,9 @@ export const WithFlagSummary: Story = {
   args: {
     count: 5,
     flagSummary: '2 over-crop · 1 deskew·fail · 1 overflow · 1 asymmetric',
-    onClear: () => { /* no-op */ },
+    onClear: () => {
+      /* no-op */
+    },
   },
 };
 
@@ -63,14 +67,26 @@ export const DockVariant: Story = {
   args: {
     count: 4,
     variant: 'dock',
-    onClear: () => { /* no-op */ },
+    onClear: () => {
+      /* no-op */
+    },
     actions: (
       <>
-        <Badge tone="neutral" mono>blurry · 3</Badge>
-        <Badge tone="dirty" mono>skew · 1</Badge>
-        <Badge tone="failed" mono>errored · 1</Badge>
-        <Button variant="ghost" size="sm">Mark as fine</Button>
-        <Button variant="primary" size="sm">Re-run from canvas_map</Button>
+        <Badge tone="neutral" mono>
+          blurry · 3
+        </Badge>
+        <Badge tone="dirty" mono>
+          skew · 1
+        </Badge>
+        <Badge tone="failed" mono>
+          errored · 1
+        </Badge>
+        <Button variant="ghost" size="sm">
+          Mark as fine
+        </Button>
+        <Button variant="primary" size="sm">
+          Re-run from canvas_map
+        </Button>
       </>
     ),
   },
@@ -93,10 +109,14 @@ export const FloatVariant: Story = {
     count: 5,
     variant: 'float',
     flagSummary: '2 over-crop · 1 deskew·fail · 1 overflow · 1 asymmetric',
-    onClear: () => { /* no-op */ },
+    onClear: () => {
+      /* no-op */
+    },
     actions: (
       <>
-        <Button variant="ghost" size="sm" icon={<RefreshCw size={12} />}>Re-deskew only</Button>
+        <Button variant="ghost" size="sm" icon={<RefreshCw size={12} />}>
+          Re-deskew only
+        </Button>
         <Button variant="primary" size="sm" icon={<RefreshCw size={12} />}>
           Re-run from initial_crop (5)
         </Button>
@@ -105,7 +125,14 @@ export const FloatVariant: Story = {
   },
   decorators: [
     (Story) => (
-      <div style={{ height: 120, position: 'relative', background: 'var(--bg-page)', border: '1px dashed var(--border-2)' }}>
+      <div
+        style={{
+          height: 120,
+          position: 'relative',
+          background: 'var(--bg-page)',
+          border: '1px dashed var(--border-2)',
+        }}
+      >
         <Story />
       </div>
     ),
@@ -118,11 +145,17 @@ export const FloatVariant: Story = {
 export const WithActions: Story = {
   args: {
     count: 7,
-    onClear: () => { /* no-op */ },
+    onClear: () => {
+      /* no-op */
+    },
     actions: (
       <>
-        <Button variant="ghost" size="sm">Open workbench</Button>
-        <Button variant="primary" size="sm">Re-run from source (7)</Button>
+        <Button variant="ghost" size="sm">
+          Open workbench
+        </Button>
+        <Button variant="primary" size="sm">
+          Re-run from source (7)
+        </Button>
       </>
     ),
   },
@@ -145,9 +178,13 @@ export const LightTheme: Story = {
   args: {
     count: 3,
     flagSummary: '1 blurry · 1 skew',
-    onClear: () => { /* no-op */ },
+    onClear: () => {
+      /* no-op */
+    },
     actions: (
-      <Button variant="primary" size="sm">Re-run (3)</Button>
+      <Button variant="primary" size="sm">
+        Re-run (3)
+      </Button>
     ),
   },
   parameters: {

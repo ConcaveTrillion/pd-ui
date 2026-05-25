@@ -81,9 +81,7 @@ function Section({ title, sub, children }: SectionProps): React.ReactElement {
     <div className="hyphen-step-settings__section">
       <div className="hyphen-step-settings__section-header">
         <div className="hyphen-step-settings__section-title">{title}</div>
-        {sub != null ? (
-          <div className="hyphen-step-settings__section-sub">{sub}</div>
-        ) : null}
+        {sub != null ? <div className="hyphen-step-settings__section-sub">{sub}</div> : null}
       </div>
       {children}
     </div>
@@ -101,9 +99,7 @@ function SettingsRow({ label, sub, children }: SettingsRowProps): React.ReactEle
     <div className="hyphen-step-settings__row">
       <div className="hyphen-step-settings__row-info">
         <span className="hyphen-step-settings__field-label">{label}</span>
-        {sub != null ? (
-          <span className="hyphen-step-settings__field-sub">{sub}</span>
-        ) : null}
+        {sub != null ? <span className="hyphen-step-settings__field-sub">{sub}</span> : null}
       </div>
       <div className="hyphen-step-settings__row-control">{children}</div>
     </div>
@@ -136,9 +132,7 @@ export function HyphenStepSettings({
   function handleRuleToggle(ruleId: string, checked: boolean): void {
     onChange({
       ...settings,
-      rules: settings.rules.map((r) =>
-        r.id === ruleId ? { ...r, enabled: checked } : r,
-      ),
+      rules: settings.rules.map((r) => (r.id === ruleId ? { ...r, enabled: checked } : r)),
     });
   }
 
@@ -174,8 +168,8 @@ export function HyphenStepSettings({
       <div className="hyphen-step-settings__header">
         <h2 className="hyphen-step-settings__title">Stage settings · Hyphen join</h2>
         <p className="hyphen-step-settings__subtitle">
-          Which rule library to use, auto-flag thresholds for the queue, and how mismatched
-          dashes are resolved at submission time.
+          Which rule library to use, auto-flag thresholds for the queue, and how mismatched dashes
+          are resolved at submission time.
         </p>
       </div>
 
@@ -190,7 +184,9 @@ export function HyphenStepSettings({
               <span className="hyphen-step-settings__rule-label">{rule.label}</span>
               <Toggle
                 checked={rule.enabled}
-                onCheckedChange={(checked) => { handleRuleToggle(rule.id, checked); }}
+                onCheckedChange={(checked) => {
+                  handleRuleToggle(rule.id, checked);
+                }}
                 label={rule.label}
               />
             </div>
@@ -204,10 +200,7 @@ export function HyphenStepSettings({
         sub="Controls the Google Books n-gram corpus cache used for auto-join confidence scoring."
       >
         <div className="hyphen-step-settings__rows">
-          <SettingsRow
-            label="Cache size (MB)"
-            sub="Maximum disk space the n-gram cache may use."
-          >
+          <SettingsRow label="Cache size (MB)" sub="Maximum disk space the n-gram cache may use.">
             <input
               type="number"
               min={1}

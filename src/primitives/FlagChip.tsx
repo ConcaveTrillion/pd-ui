@@ -9,11 +9,27 @@ import { cn } from './cn.js';
  * tones via CSS `data-kind` attribute.
  */
 export type FlagKind =
-  | 'blurry' | 'skew' | 'dark' | 'sparse' | 'cropped'
-  | 'asymmetric' | 'loose' | 'under' | 'over' | 'halftone'
-  | 'mixed' | 'residual' | 'baseline' | 'overflow' | 'blank'
-  | 'misaligned' | 'low-conf' | 'no-text' | 'garbled'
-  | 'mixed-lang' | 'errored'
+  | 'blurry'
+  | 'skew'
+  | 'dark'
+  | 'sparse'
+  | 'cropped'
+  | 'asymmetric'
+  | 'loose'
+  | 'under'
+  | 'over'
+  | 'halftone'
+  | 'mixed'
+  | 'residual'
+  | 'baseline'
+  | 'overflow'
+  | 'blank'
+  | 'misaligned'
+  | 'low-conf'
+  | 'no-text'
+  | 'garbled'
+  | 'mixed-lang'
+  | 'errored'
   | (string & Record<never, never>);
 
 export interface FlagChipProps {
@@ -50,9 +66,7 @@ export function FlagChip({
   tone,
   className,
 }: FlagChipProps): React.ReactElement {
-  const style: React.CSSProperties = tone != null
-    ? { ['--flag-tone' as string]: tone }
-    : {};
+  const style: React.CSSProperties = tone != null ? { ['--flag-tone' as string]: tone } : {};
 
   return (
     <span
@@ -65,20 +79,22 @@ export function FlagChip({
       data-kind={kind}
       style={style}
       onClick={onClick}
-      onKeyDown={onClick != null ? (e) => {
-        if (e.key === 'Enter' || e.key === ' ') {
-          e.preventDefault();
-          onClick();
-        }
-      } : undefined}
+      onKeyDown={
+        onClick != null
+          ? (e) => {
+              if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                onClick();
+              }
+            }
+          : undefined
+      }
       role={onClick != null ? 'button' : undefined}
       tabIndex={onClick != null ? 0 : undefined}
     >
       <span className="flag-chip__dot" />
       <span className="flag-chip__label">{label ?? kind}</span>
-      {count != null ? (
-        <span className="flag-chip__count">{count}</span>
-      ) : null}
+      {count != null ? <span className="flag-chip__count">{count}</span> : null}
     </span>
   );
 }

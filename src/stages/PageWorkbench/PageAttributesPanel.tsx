@@ -69,13 +69,8 @@ function AttrRow({ attr, onChange, rowTestId }: AttrRowProps): React.ReactElemen
   const isReadOnly = attr.readOnly === true;
 
   return (
-    <li
-      className="page-attributes-panel__row"
-      data-testid={rowTestId}
-    >
-      <span className="page-attributes-panel__row-label">
-        {attr.label}
-      </span>
+    <li className="page-attributes-panel__row" data-testid={rowTestId}>
+      <span className="page-attributes-panel__row-label">{attr.label}</span>
 
       {isReadOnly ? (
         <span className="page-attributes-panel__row-value page-attributes-panel__row-value--readonly">
@@ -137,9 +132,7 @@ export function PageAttributesPanel({
           ))}
         </ul>
       ) : (
-        <div className="page-attributes-panel__empty">
-          No attributes
-        </div>
+        <div className="page-attributes-panel__empty">No attributes</div>
       )}
     </aside>
   );

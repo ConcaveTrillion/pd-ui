@@ -17,18 +17,11 @@ describe('ProjectsEmpty', () => {
   it('renders default copy without props', () => {
     render(<ProjectsEmpty />);
     expect(screen.getByText('No projects yet')).toBeInTheDocument();
-    expect(
-      screen.getByText(/A project bundles a book/),
-    ).toBeInTheDocument();
+    expect(screen.getByText(/A project bundles a book/)).toBeInTheDocument();
   });
 
   it('renders with custom title and description', () => {
-    render(
-      <ProjectsEmpty
-        title="Hello world"
-        description="Custom description text"
-      />,
-    );
+    render(<ProjectsEmpty title="Hello world" description="Custom description text" />);
     expect(screen.getByText('Hello world')).toBeInTheDocument();
     expect(screen.getByText('Custom description text')).toBeInTheDocument();
   });
@@ -43,30 +36,20 @@ describe('ProjectsEmpty', () => {
   it('fires primary CTA callback on click', async () => {
     const user = userEvent.setup();
     const onClick = vi.fn();
-    render(
-      <ProjectsEmpty
-        primaryAction={{ label: 'Create new project', onClick }}
-      />,
-    );
+    render(<ProjectsEmpty primaryAction={{ label: 'Create new project', onClick }} />);
     await user.click(screen.getByTestId(PROJECTS_EMPTY_PRIMARY_CTA));
     expect(onClick).toHaveBeenCalledTimes(1);
   });
 
   it('hides secondary CTA when secondaryAction is not provided', () => {
     render(<ProjectsEmpty />);
-    expect(
-      screen.queryByTestId(PROJECTS_EMPTY_SECONDARY_CTA),
-    ).not.toBeInTheDocument();
+    expect(screen.queryByTestId(PROJECTS_EMPTY_SECONDARY_CTA)).not.toBeInTheDocument();
   });
 
   it('renders secondary CTA when provided', async () => {
     const user = userEvent.setup();
     const onSecondary = vi.fn();
-    render(
-      <ProjectsEmpty
-        secondaryAction={{ label: 'Paste source URL', onClick: onSecondary }}
-      />,
-    );
+    render(<ProjectsEmpty secondaryAction={{ label: 'Paste source URL', onClick: onSecondary }} />);
     const secondary = screen.getByTestId(PROJECTS_EMPTY_SECONDARY_CTA);
     expect(secondary).toBeInTheDocument();
     await user.click(secondary);

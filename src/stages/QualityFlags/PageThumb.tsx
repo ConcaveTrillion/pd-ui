@@ -2,10 +2,7 @@ import * as React from 'react';
 import { Thumbnail } from '../../primitives/Thumbnail.js';
 import { FlagChip } from '../../primitives/FlagChip.js';
 import type { FlagKind } from '../../primitives/FlagChip.js';
-import {
-  QUALITY_PAGE_THUMB,
-  qualityPageThumbTestId,
-} from '../../testids/index.js';
+import { QUALITY_PAGE_THUMB, qualityPageThumbTestId } from '../../testids/index.js';
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 

@@ -11,9 +11,7 @@ import {
 
 // ── helpers ──────────────────────────────────────────────────────────────────
 
-function renderPanel(
-  props: Partial<React.ComponentProps<typeof StageControlsPanel>> = {},
-) {
+function renderPanel(props: Partial<React.ComponentProps<typeof StageControlsPanel>> = {}) {
   const defaults: React.ComponentProps<typeof StageControlsPanel> = {
     inheritance: 'clean',
     controlsSlot: <div data-testid="slot-content">controls here</div>,
@@ -200,12 +198,8 @@ describe('StageControlsPanel — data-testid', () => {
 describe('StageControlsPanel — footer', () => {
   it('footer has Revert and Save as default buttons', () => {
     renderPanel();
-    expect(
-      screen.getByTestId(STAGE_CONTROLS_PANEL_REVERT),
-    ).toHaveTextContent('Revert');
-    expect(
-      screen.getByTestId(STAGE_CONTROLS_PANEL_SAVE),
-    ).toHaveTextContent('Save as default');
+    expect(screen.getByTestId(STAGE_CONTROLS_PANEL_REVERT)).toHaveTextContent('Revert');
+    expect(screen.getByTestId(STAGE_CONTROLS_PANEL_SAVE)).toHaveTextContent('Save as default');
   });
 
   it('footer buttons are inside the __footer element', () => {

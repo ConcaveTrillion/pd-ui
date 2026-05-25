@@ -52,9 +52,7 @@ describe('TabsBand', () => {
   });
 
   it('adds sticky class when sticky prop is true', () => {
-    const { container } = render(
-      <TabsBand items={ITEMS} current="overview" sticky />,
-    );
+    const { container } = render(<TabsBand items={ITEMS} current="overview" sticky />);
     // The root element should have the sticky class
     const root = container.firstElementChild;
     expect(root).toHaveClass('tabs-band--sticky');

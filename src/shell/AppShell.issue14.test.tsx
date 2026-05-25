@@ -7,18 +7,19 @@
  * 3. When footer is absent, no empty footer zone is rendered (no data-testid="app-shell-footer").
  * 4. The footer zone appears in the DOM after the main content area.
  */
-import * as React from 'react'
-import { render, screen } from '@testing-library/react'
-import { describe, it, expect } from 'vitest'
-import { AppShell } from './AppShell.js'
-import type { AppShellProps } from './types.js'
+import * as React from 'react';
+import { render, screen } from '@testing-library/react';
+import { describe, it, expect } from 'vitest';
+import { AppShell } from './AppShell.js';
+import type { AppShellProps } from './types.js';
 
 function noopPrefsConfig(): AppShellProps['uiPrefsConfig'] {
   return {
-    load: () => Promise.resolve({ theme: 'dark' as const, density: 'normal' as const, fontScale: 1.0 }),
+    load: () =>
+      Promise.resolve({ theme: 'dark' as const, density: 'normal' as const, fontScale: 1.0 }),
     persistCommon: () => Promise.resolve(),
     persistApp: () => Promise.resolve(),
-  }
+  };
 }
 
 function minimalProps(overrides?: Partial<AppShellProps>): AppShellProps {
@@ -29,7 +30,7 @@ function minimalProps(overrides?: Partial<AppShellProps>): AppShellProps {
     main: <div data-testid="slot-main">main</div>,
     uiPrefsConfig: noopPrefsConfig(),
     ...overrides,
-  }
+  };
 }
 
 describe('AppShell — footer slot (#14)', () => {
@@ -40,10 +41,10 @@ describe('AppShell — footer slot (#14)', () => {
           footer: <div data-testid="slot-footer">status bar</div>,
         })}
       />,
-    )
-    expect(screen.getByTestId('slot-footer')).toBeTruthy()
-    expect(screen.getByTestId('slot-footer').textContent).toBe('status bar')
-  })
+    );
+    expect(screen.getByTestId('slot-footer')).toBeTruthy();
+    expect(screen.getByTestId('slot-footer').textContent).toBe('status bar');
+  });
 
   it('renders the footer zone wrapper when footer is provided', () => {
     render(
@@ -52,14 +53,14 @@ describe('AppShell — footer slot (#14)', () => {
           footer: <span>footer content</span>,
         })}
       />,
-    )
-    expect(screen.getByTestId('app-shell-footer')).toBeTruthy()
-  })
+    );
+    expect(screen.getByTestId('app-shell-footer')).toBeTruthy();
+  });
 
   it('does NOT render the footer zone when footer prop is absent', () => {
-    render(<AppShell {...minimalProps()} />)
-    expect(screen.queryByTestId('app-shell-footer')).toBeNull()
-  })
+    render(<AppShell {...minimalProps()} />);
+    expect(screen.queryByTestId('app-shell-footer')).toBeNull();
+  });
 
   it('still renders main content alongside footer', () => {
     render(
@@ -68,9 +69,9 @@ describe('AppShell — footer slot (#14)', () => {
           footer: <div>footer</div>,
         })}
       />,
-    )
-    expect(screen.getByTestId('slot-main')).toBeTruthy()
-  })
+    );
+    expect(screen.getByTestId('slot-main')).toBeTruthy();
+  });
 
   it('app-shell grid still has data-testid="app-shell" when footer is present', () => {
     render(
@@ -79,7 +80,7 @@ describe('AppShell — footer slot (#14)', () => {
           footer: <div>footer</div>,
         })}
       />,
-    )
-    expect(screen.getByTestId('app-shell')).toBeTruthy()
-  })
-})
+    );
+    expect(screen.getByTestId('app-shell')).toBeTruthy();
+  });
+});

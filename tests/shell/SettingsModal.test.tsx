@@ -18,13 +18,19 @@ import { render, screen, fireEvent, act, waitFor } from '@testing-library/react'
 import { describe, it, expect, vi } from 'vitest';
 import { AppShell } from '../../src/shell/AppShell.js';
 import { useSettingsModal } from '../../src/shell/SettingsModalContext.js';
-import type { AppShellProps, UIPrefsConfig, UIPrefs, SettingsPanelDescriptor } from '../../src/shell/types.js';
+import type {
+  AppShellProps,
+  UIPrefsConfig,
+  UIPrefs,
+  SettingsPanelDescriptor,
+} from '../../src/shell/types.js';
 
 // ─── Fixtures ─────────────────────────────────────────────────────────────────
 
 function makePrefsConfig(overrides?: Partial<UIPrefsConfig>): UIPrefsConfig {
   return {
-    load: () => Promise.resolve({ theme: 'dark' as const, density: 'normal' as const, fontScale: 1.0 }),
+    load: () =>
+      Promise.resolve({ theme: 'dark' as const, density: 'normal' as const, fontScale: 1.0 }),
     persistCommon: vi.fn().mockResolvedValue(undefined),
     persistApp: vi.fn().mockResolvedValue(undefined),
     ...overrides,
@@ -206,7 +212,7 @@ describe('AppShell — headerActions', () => {
       <AppShell
         {...minimalProps()}
         headerActions={<button data-testid="custom-header-btn">Export</button>}
-      />
+      />,
     );
     expect(screen.getByTestId('custom-header-btn')).toBeTruthy();
   });
@@ -240,13 +246,22 @@ describe('AppShell — settingsPanels', () => {
 
 function OpenModalButton() {
   const { openModal } = useSettingsModal();
-  return <button data-testid="open-btn" onClick={openModal}>Open</button>;
+  return (
+    <button data-testid="open-btn" onClick={openModal}>
+      Open
+    </button>
+  );
 }
 
 function OpenPanelButton({ panelId }: { panelId: string }) {
   const { openPanel } = useSettingsModal();
   return (
-    <button data-testid="open-panel-btn" onClick={() => { openPanel(panelId); }}>
+    <button
+      data-testid="open-panel-btn"
+      onClick={() => {
+        openPanel(panelId);
+      }}
+    >
       Open Panel
     </button>
   );
@@ -254,7 +269,11 @@ function OpenPanelButton({ panelId }: { panelId: string }) {
 
 function CloseModalButton() {
   const { closeModal } = useSettingsModal();
-  return <button data-testid="close-btn" onClick={closeModal}>Close</button>;
+  return (
+    <button data-testid="close-btn" onClick={closeModal}>
+      Close
+    </button>
+  );
 }
 
 describe('useSettingsModal()', () => {
@@ -262,12 +281,7 @@ describe('useSettingsModal()', () => {
     const panels: SettingsPanelDescriptor[] = [
       { id: 'ocr', label: 'OCR', content: <div>ocr content</div> },
     ];
-    render(
-      <AppShell
-        {...minimalProps({ settingsPanels: panels })}
-        main={<OpenModalButton />}
-      />
-    );
+    render(<AppShell {...minimalProps({ settingsPanels: panels })} main={<OpenModalButton />} />);
 
     expect(screen.queryByTestId('settings-modal')).toBeNull();
     fireEvent.click(screen.getByTestId('open-btn'));
@@ -284,7 +298,7 @@ describe('useSettingsModal()', () => {
             <CloseModalButton />
           </>
         }
-      />
+      />,
     );
 
     fireEvent.click(screen.getByTestId('open-btn'));
@@ -302,7 +316,7 @@ describe('useSettingsModal()', () => {
       <AppShell
         {...minimalProps({ settingsPanels: panels })}
         main={<OpenPanelButton panelId="ocr" />}
-      />
+      />,
     );
 
     fireEvent.click(screen.getByTestId('open-panel-btn'));
@@ -376,16 +390,15 @@ describe('AppearancePanel — store wiring', () => {
 
   it('color reset button clears the override', () => {
     const persistCommon = vi.fn().mockResolvedValue(undefined);
-    const load = () => Promise.resolve({
-      theme: 'dark' as const,
-      density: 'normal' as const,
-      fontScale: 1.0,
-      accentColor: '#ff0000',
-    });
+    const load = () =>
+      Promise.resolve({
+        theme: 'dark' as const,
+        density: 'normal' as const,
+        fontScale: 1.0,
+        accentColor: '#ff0000',
+      });
     render(
-      <AppShell
-        {...minimalProps({ uiPrefsConfig: makePrefsConfig({ load, persistCommon }) })}
-      />
+      <AppShell {...minimalProps({ uiPrefsConfig: makePrefsConfig({ load, persistCommon }) })} />,
     );
 
     // Wait for load to resolve

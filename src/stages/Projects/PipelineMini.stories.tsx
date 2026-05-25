@@ -15,17 +15,32 @@ import type { PipelineMiniStage, PipelineMiniStageStatus } from './PipelineMini.
 // ─── Stage-name catalog (matches real pd-* pipeline) ─────────────────────────
 
 const STAGE_IDS = [
-  'source', 'scan-check', 'deskew', 'crop', 'grayscale', 'threshold',
-  'ocr-detect', 'ocr-recog', 'word-align', 'line-join', 'hyphen-join',
-  'validation', 'quality-flags', 'scannos', 'footnotes', 'headers',
-  'page-reorder', 'page-workbench', 'review', 'ready', 'submit',
-  'post-process', 'archive',
+  'source',
+  'scan-check',
+  'deskew',
+  'crop',
+  'grayscale',
+  'threshold',
+  'ocr-detect',
+  'ocr-recog',
+  'word-align',
+  'line-join',
+  'hyphen-join',
+  'validation',
+  'quality-flags',
+  'scannos',
+  'footnotes',
+  'headers',
+  'page-reorder',
+  'page-workbench',
+  'review',
+  'ready',
+  'submit',
+  'post-process',
+  'archive',
 ] as const;
 
-function makeStages(
-  activeIdx: number | null,
-  doneUpTo: number,
-): PipelineMiniStage[] {
+function makeStages(activeIdx: number | null, doneUpTo: number): PipelineMiniStage[] {
   return STAGE_IDS.map((id, i) => {
     let status: PipelineMiniStageStatus = 'pending';
     if (i < doneUpTo) status = 'done';

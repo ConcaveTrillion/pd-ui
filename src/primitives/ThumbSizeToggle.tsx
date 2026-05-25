@@ -52,11 +52,7 @@ export function ThumbSizeToggle({
       className={cn('thumb-size-toggle', className)}
     >
       {sizes.map((size) => (
-        <ToggleGroupItem
-          key={size.id}
-          value={size.id}
-          aria-label={size.label}
-        >
+        <ToggleGroupItem key={size.id} value={size.id} aria-label={size.label}>
           {size.label}
         </ToggleGroupItem>
       ))}

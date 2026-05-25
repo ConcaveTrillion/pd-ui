@@ -43,13 +43,7 @@ export interface PWHeaderProps {
 
 // ─── Helper: crumb rendering ─────────────────────────────────────────────────
 
-function CrumbItem({
-  item,
-  isLast,
-}: {
-  item: { label: string; href?: string };
-  isLast: boolean;
-}) {
+function CrumbItem({ item, isLast }: { item: { label: string; href?: string }; isLast: boolean }) {
   return (
     <>
       <li>
@@ -140,11 +134,7 @@ export function PWHeader({
       >
         <Breadcrumb>
           {breadcrumb.map((item, i) => (
-            <CrumbItem
-              key={i}
-              item={item}
-              isLast={i === breadcrumb.length - 1}
-            />
+            <CrumbItem key={i} item={item} isLast={i === breadcrumb.length - 1} />
           ))}
         </Breadcrumb>
       </div>
@@ -181,9 +171,7 @@ export function PWHeader({
           }}
         >
           {'p '}
-          <span style={{ color: 'var(--ink-1)', fontWeight: 600 }}>
-            {currentIdx + 1}
-          </span>
+          <span style={{ color: 'var(--ink-1)', fontWeight: 600 }}>{currentIdx + 1}</span>
           <span style={{ color: 'var(--ink-4)' }}>{' of '}</span>
           <span style={{ color: 'var(--ink-2)' }}>{total}</span>
         </span>

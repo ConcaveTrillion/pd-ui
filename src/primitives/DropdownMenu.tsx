@@ -32,11 +32,7 @@ const DropdownMenuSubContent = React.forwardRef<
   React.ComponentRef<typeof DropdownMenuPrimitive.SubContent>,
   React.ComponentPropsWithoutRef<typeof DropdownMenuPrimitive.SubContent>
 >(({ className, ...props }, ref) => (
-  <DropdownMenuPrimitive.SubContent
-    ref={ref}
-    className={cn('dropdown', className)}
-    {...props}
-  />
+  <DropdownMenuPrimitive.SubContent ref={ref} className={cn('dropdown', className)} {...props} />
 ));
 DropdownMenuSubContent.displayName = DropdownMenuPrimitive.SubContent.displayName;
 
@@ -90,11 +86,7 @@ const DropdownMenuRadioItem = React.forwardRef<
   React.ComponentRef<typeof DropdownMenuPrimitive.RadioItem>,
   React.ComponentPropsWithoutRef<typeof DropdownMenuPrimitive.RadioItem>
 >(({ className, children, ...props }, ref) => (
-  <DropdownMenuPrimitive.RadioItem
-    ref={ref}
-    className={cn('dropdown-item', className)}
-    {...props}
-  >
+  <DropdownMenuPrimitive.RadioItem ref={ref} className={cn('dropdown-item', className)} {...props}>
     <span className="dropdown-item-indicator">
       <DropdownMenuPrimitive.ItemIndicator>
         <span aria-hidden>&#8226;</span>

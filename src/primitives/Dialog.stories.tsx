@@ -28,9 +28,7 @@ export const Default: Story = {
       <DialogContent>
         <DialogHeader>
           <DialogTitle>Dialog Title</DialogTitle>
-          <DialogDescription>
-            This is a dialog description with more context.
-          </DialogDescription>
+          <DialogDescription>This is a dialog description with more context.</DialogDescription>
         </DialogHeader>
         <div style={{ padding: 'var(--space-4) 0', color: 'var(--ink-2)' }}>
           Dialog body content goes here.

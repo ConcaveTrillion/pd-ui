@@ -45,8 +45,4 @@ export type {
 
 // ─── CropStepSettings ─────────────────────────────────────────────────────────
 export { CropStepSettings, CROP_SETTINGS_DEFAULT } from './CropStepSettings.js';
-export type {
-  CropStepSettingsProps,
-  CropSettings,
-  CropStrategy,
-} from './CropStepSettings.js';
+export type { CropStepSettingsProps, CropSettings, CropStrategy } from './CropStepSettings.js';

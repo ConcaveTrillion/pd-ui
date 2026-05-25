@@ -85,9 +85,7 @@ export const Interactive: Story = {
 export const FullSlots: Story = {
   args: {
     pageNumber: '9',
-    overlayTopLeft: (
-      <input type="checkbox" aria-label="Select page 9" defaultChecked />
-    ),
+    overlayTopLeft: <input type="checkbox" aria-label="Select page 9" defaultChecked />,
     overlayTopRight: (
       <span
         style={{
@@ -127,7 +125,13 @@ export const FullSlots: Story = {
     ),
     imageOverlay: (
       <svg
-        style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', pointerEvents: 'none' }}
+        style={{
+          position: 'absolute',
+          inset: 0,
+          width: '100%',
+          height: '100%',
+          pointerEvents: 'none',
+        }}
         aria-hidden="true"
       >
         <rect

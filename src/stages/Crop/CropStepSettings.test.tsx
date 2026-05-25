@@ -1,11 +1,7 @@
 import * as React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
 import { describe, it, expect, vi } from 'vitest';
-import {
-  CropStepSettings,
-  CROP_SETTINGS_DEFAULT,
-  type CropSettings,
-} from './CropStepSettings.js';
+import { CropStepSettings, CROP_SETTINGS_DEFAULT, type CropSettings } from './CropStepSettings.js';
 
 function makeSettings(overrides?: Partial<CropSettings>): CropSettings {
   return { ...CROP_SETTINGS_DEFAULT, ...overrides };
@@ -13,12 +9,7 @@ function makeSettings(overrides?: Partial<CropSettings>): CropSettings {
 
 describe('CropStepSettings', () => {
   it('renders all 4 strategy radio labels', () => {
-    render(
-      <CropStepSettings
-        settings={makeSettings()}
-        onChange={vi.fn()}
-      />,
-    );
+    render(<CropStepSettings settings={makeSettings()} onChange={vi.fn()} />);
 
     expect(screen.getByLabelText('Edge-detect')).toBeInTheDocument();
     expect(screen.getByLabelText('ML model')).toBeInTheDocument();
@@ -27,12 +18,7 @@ describe('CropStepSettings', () => {
   });
 
   it('strategy radios have correct testids', () => {
-    render(
-      <CropStepSettings
-        settings={makeSettings()}
-        onChange={vi.fn()}
-      />,
-    );
+    render(<CropStepSettings settings={makeSettings()} onChange={vi.fn()} />);
 
     expect(screen.getByTestId('crop-strategy-edgeDetect')).toBeInTheDocument();
     expect(screen.getByTestId('crop-strategy-mlModel')).toBeInTheDocument();
@@ -42,10 +28,7 @@ describe('CropStepSettings', () => {
 
   it('correct strategy radio is checked based on settings', () => {
     render(
-      <CropStepSettings
-        settings={makeSettings({ strategy: 'mlModel' })}
-        onChange={vi.fn()}
-      />,
+      <CropStepSettings settings={makeSettings({ strategy: 'mlModel' })} onChange={vi.fn()} />,
     );
 
     const mlRadio = screen.getByTestId('crop-strategy-mlModel');
@@ -163,44 +146,21 @@ describe('CropStepSettings', () => {
   });
 
   it('stale warning does NOT render when stale is false', () => {
-    render(
-      <CropStepSettings
-        settings={makeSettings()}
-        onChange={vi.fn()}
-        stale={false}
-      />,
-    );
+    render(<CropStepSettings settings={makeSettings()} onChange={vi.fn()} stale={false} />);
 
-    expect(
-      screen.queryByText(/Settings have changed/i),
-    ).not.toBeInTheDocument();
+    expect(screen.queryByText(/Settings have changed/i)).not.toBeInTheDocument();
   });
 
   it('stale warning does NOT render when stale is undefined', () => {
-    render(
-      <CropStepSettings
-        settings={makeSettings()}
-        onChange={vi.fn()}
-      />,
-    );
+    render(<CropStepSettings settings={makeSettings()} onChange={vi.fn()} />);
 
-    expect(
-      screen.queryByText(/Settings have changed/i),
-    ).not.toBeInTheDocument();
+    expect(screen.queryByText(/Settings have changed/i)).not.toBeInTheDocument();
   });
 
   it('stale warning renders when stale=true', () => {
-    render(
-      <CropStepSettings
-        settings={makeSettings()}
-        onChange={vi.fn()}
-        stale={true}
-      />,
-    );
+    render(<CropStepSettings settings={makeSettings()} onChange={vi.fn()} stale={true} />);
 
-    expect(
-      screen.getByText(/Settings have changed — re-run to apply/i),
-    ).toBeInTheDocument();
+    expect(screen.getByText(/Settings have changed — re-run to apply/i)).toBeInTheDocument();
   });
 
   it('Re-run button renders when stale=true and onRerun is provided', () => {
@@ -214,9 +174,7 @@ describe('CropStepSettings', () => {
     );
 
     expect(screen.getByTestId('crop-step-settings-rerun')).toBeInTheDocument();
-    expect(
-      screen.getByRole('button', { name: /Re-run now/i }),
-    ).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: /Re-run now/i })).toBeInTheDocument();
   });
 
   it('Re-run button fires onRerun when clicked', () => {
@@ -235,18 +193,10 @@ describe('CropStepSettings', () => {
   });
 
   it('Re-run button does not render when stale=true but onRerun is absent', () => {
-    render(
-      <CropStepSettings
-        settings={makeSettings()}
-        onChange={vi.fn()}
-        stale={true}
-      />,
-    );
+    render(<CropStepSettings settings={makeSettings()} onChange={vi.fn()} stale={true} />);
 
     // Banner still shows but no Re-run button
-    expect(
-      screen.queryByTestId('crop-step-settings-rerun'),
-    ).not.toBeInTheDocument();
+    expect(screen.queryByTestId('crop-step-settings-rerun')).not.toBeInTheDocument();
   });
 
   it('data-testid is forwarded to the root element', () => {
@@ -262,23 +212,13 @@ describe('CropStepSettings', () => {
   });
 
   it('displays margin slack value as percentage', () => {
-    render(
-      <CropStepSettings
-        settings={makeSettings({ marginSlackPct: 8 })}
-        onChange={vi.fn()}
-      />,
-    );
+    render(<CropStepSettings settings={makeSettings({ marginSlackPct: 8 })} onChange={vi.fn()} />);
 
     expect(screen.getByText('8%')).toBeInTheDocument();
   });
 
   it('displays min page area as percentage (30% for 0.3)', () => {
-    render(
-      <CropStepSettings
-        settings={makeSettings({ minPageArea: 0.3 })}
-        onChange={vi.fn()}
-      />,
-    );
+    render(<CropStepSettings settings={makeSettings({ minPageArea: 0.3 })} onChange={vi.fn()} />);
 
     expect(screen.getByText('30%')).toBeInTheDocument();
   });

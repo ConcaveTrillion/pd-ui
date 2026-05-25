@@ -40,11 +40,7 @@ export interface SelectionStoreProviderProps {
 }
 
 export function SelectionStoreProvider({ value, children }: SelectionStoreProviderProps) {
-  return (
-    <SelectionStoreContext.Provider value={value}>
-      {children}
-    </SelectionStoreContext.Provider>
-  );
+  return <SelectionStoreContext.Provider value={value}>{children}</SelectionStoreContext.Provider>;
 }
 
 export function useSelection() {
@@ -63,11 +59,7 @@ export interface ViewportStoreProviderProps {
 }
 
 export function ViewportStoreProvider({ value, children }: ViewportStoreProviderProps) {
-  return (
-    <ViewportStoreContext.Provider value={value}>
-      {children}
-    </ViewportStoreContext.Provider>
-  );
+  return <ViewportStoreContext.Provider value={value}>{children}</ViewportStoreContext.Provider>;
 }
 
 export function useViewport() {
@@ -86,11 +78,7 @@ export interface WorklistStoreProviderProps {
 }
 
 export function WorklistStoreProvider({ value, children }: WorklistStoreProviderProps) {
-  return (
-    <WorklistStoreContext.Provider value={value}>
-      {children}
-    </WorklistStoreContext.Provider>
-  );
+  return <WorklistStoreContext.Provider value={value}>{children}</WorklistStoreContext.Provider>;
 }
 
 export function useWorklist() {
@@ -109,11 +97,7 @@ export interface UIPrefsStoreProviderProps {
 }
 
 export function UIPrefsStoreProvider({ value, children }: UIPrefsStoreProviderProps) {
-  return (
-    <UIPrefsStoreContext.Provider value={value}>
-      {children}
-    </UIPrefsStoreContext.Provider>
-  );
+  return <UIPrefsStoreContext.Provider value={value}>{children}</UIPrefsStoreContext.Provider>;
 }
 
 export function useUIPrefs() {

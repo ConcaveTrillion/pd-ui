@@ -51,10 +51,7 @@ describe('FileToolbar', () => {
       'aria-pressed',
       'true',
     );
-    expect(screen.getByTestId('file-toolbar-filter-all')).toHaveAttribute(
-      'aria-pressed',
-      'false',
-    );
+    expect(screen.getByTestId('file-toolbar-filter-all')).toHaveAttribute('aria-pressed', 'false');
     expect(screen.getByTestId('file-toolbar-filter-skipped')).toHaveAttribute(
       'aria-pressed',
       'false',

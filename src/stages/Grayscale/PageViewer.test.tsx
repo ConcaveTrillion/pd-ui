@@ -175,41 +175,25 @@ describe('PageViewer', () => {
   });
 
   it('active thumb has data-active=true', () => {
-    render(
-      <PageViewer
-        {...BASE_PROPS}
-        thumbs={MOCK_THUMBS}
-        activeThumbId="p-005"
-      />,
-    );
+    render(<PageViewer {...BASE_PROPS} thumbs={MOCK_THUMBS} activeThumbId="p-005" />);
     const activeThumb = screen.getByTestId(pageViewerThumbTestId('p-005'));
     expect(activeThumb.getAttribute('data-active')).toBe('true');
   });
 
   it('inactive thumb has data-active=false', () => {
-    render(
-      <PageViewer
-        {...BASE_PROPS}
-        thumbs={MOCK_THUMBS}
-        activeThumbId="p-005"
-      />,
-    );
+    render(<PageViewer {...BASE_PROPS} thumbs={MOCK_THUMBS} activeThumbId="p-005" />);
     const inactiveThumb = screen.getByTestId(pageViewerThumbTestId('p-004'));
     expect(inactiveThumb.getAttribute('data-active')).toBe('false');
   });
 
   it('thumb scroller absent when thumbs not provided', () => {
     render(<PageViewer {...BASE_PROPS} />);
-    expect(
-      screen.queryByTestId(`${PAGE_VIEWER}-thumb-scroller`),
-    ).not.toBeInTheDocument();
+    expect(screen.queryByTestId(`${PAGE_VIEWER}-thumb-scroller`)).not.toBeInTheDocument();
   });
 
   it('thumb scroller absent when thumbs is empty array', () => {
     render(<PageViewer {...BASE_PROPS} thumbs={[]} />);
-    expect(
-      screen.queryByTestId(`${PAGE_VIEWER}-thumb-scroller`),
-    ).not.toBeInTheDocument();
+    expect(screen.queryByTestId(`${PAGE_VIEWER}-thumb-scroller`)).not.toBeInTheDocument();
   });
 
   it('forwards data-testid', () => {
@@ -223,17 +207,9 @@ describe('PageViewer', () => {
   });
 
   it('all thumbs render in scroller', () => {
-    render(
-      <PageViewer
-        {...BASE_PROPS}
-        thumbs={MOCK_THUMBS}
-        activeThumbId="p-005"
-      />,
-    );
+    render(<PageViewer {...BASE_PROPS} thumbs={MOCK_THUMBS} activeThumbId="p-005" />);
     for (const thumb of MOCK_THUMBS) {
-      expect(
-        screen.getByTestId(pageViewerThumbTestId(thumb.id)),
-      ).toBeInTheDocument();
+      expect(screen.getByTestId(pageViewerThumbTestId(thumb.id))).toBeInTheDocument();
     }
   });
 });

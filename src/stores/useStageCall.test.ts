@@ -15,36 +15,41 @@ describe('useStageCall (#166)', () => {
 
   it('is a stub (no-op) when submit is not provided', () => {
     const { result } = renderHook(() => useStageCall('s', 'p'));
-    act(() => { result.current.run({}); });
+    act(() => {
+      result.current.run({});
+    });
     expect(result.current.status).toBe('idle');
   });
 
   it('goes pending then done when submit resolves', async () => {
     const submit = vi.fn(() => Promise.resolve({ text: 'result' }));
-    const { result } = renderHook(() =>
-      useStageCall('stage1', 'p1', { submit }),
-    );
-    await act(() => { result.current.run({}); return Promise.resolve(); });
+    const { result } = renderHook(() => useStageCall('stage1', 'p1', { submit }));
+    await act(() => {
+      result.current.run({});
+      return Promise.resolve();
+    });
     expect(result.current.status).toBe('done');
     expect(result.current.result).toEqual({ text: 'result' });
   });
 
   it('goes error when submit rejects with non-503', async () => {
     const submit = vi.fn(() => Promise.reject(new Error('fail')));
-    const { result } = renderHook(() =>
-      useStageCall('stage1', 'p1', { submit }),
-    );
-    await act(() => { result.current.run({}); return Promise.resolve(); });
+    const { result } = renderHook(() => useStageCall('stage1', 'p1', { submit }));
+    await act(() => {
+      result.current.run({});
+      return Promise.resolve();
+    });
     expect(result.current.status).toBe('error');
   });
 
   it('goes warming when submit rejects with 503-like error', async () => {
     // eslint-disable-next-line @typescript-eslint/prefer-promise-reject-errors
     const submit = vi.fn(() => Promise.reject({ status: 503, retryAfter: 1000 }));
-    const { result } = renderHook(() =>
-      useStageCall('stage1', 'p1', { submit }),
-    );
-    await act(() => { result.current.run({}); return Promise.resolve(); });
+    const { result } = renderHook(() => useStageCall('stage1', 'p1', { submit }));
+    await act(() => {
+      result.current.run({});
+      return Promise.resolve();
+    });
     expect(result.current.status).toBe('warming');
     expect(result.current.isWarming).toBe(true);
     expect(result.current.retryAt).toBeGreaterThan(Date.now() - 100);
@@ -62,9 +67,7 @@ describe('useStageCall warming retry (#23)', () => {
 
   it('exposes retriesRemaining = maxRetries initially', () => {
     const submit = vi.fn(() => Promise.resolve({}));
-    const { result } = renderHook(() =>
-      useStageCall('s', 'p', { submit, maxRetries: 3 }),
-    );
+    const { result } = renderHook(() => useStageCall('s', 'p', { submit, maxRetries: 3 }));
     expect(result.current.retriesRemaining).toBe(3);
   });
 
@@ -79,9 +82,7 @@ describe('useStageCall warming retry (#23)', () => {
       return Promise.resolve({ text: 'ok' });
     });
 
-    const { result } = renderHook(() =>
-      useStageCall('stage1', 'p1', { submit, maxRetries: 3 }),
-    );
+    const { result } = renderHook(() => useStageCall('stage1', 'p1', { submit, maxRetries: 3 }));
 
     // Trigger initial call — goes warming.
     await act(async () => {
@@ -115,9 +116,7 @@ describe('useStageCall warming retry (#23)', () => {
       () => Promise.reject({ status: 503, retryAfter: 500 }),
     );
 
-    const { result } = renderHook(() =>
-      useStageCall('stage1', 'p1', { submit, maxRetries: 2 }),
-    );
+    const { result } = renderHook(() => useStageCall('stage1', 'p1', { submit, maxRetries: 2 }));
 
     // Initial call — 1st 503.
     await act(async () => {
@@ -160,9 +159,7 @@ describe('useStageCall warming retry (#23)', () => {
       return Promise.resolve({ text: 'fresh' });
     });
 
-    const { result } = renderHook(() =>
-      useStageCall('stage1', 'p1', { submit, maxRetries: 1 }),
-    );
+    const { result } = renderHook(() => useStageCall('stage1', 'p1', { submit, maxRetries: 1 }));
 
     // First call → warming.
     await act(async () => {
@@ -236,9 +233,7 @@ describe('useStageCall warming retry (#23)', () => {
       return Promise.resolve({ text: 'default-delay' });
     });
 
-    const { result } = renderHook(() =>
-      useStageCall('stage1', 'p1', { submit, maxRetries: 1 }),
-    );
+    const { result } = renderHook(() => useStageCall('stage1', 'p1', { submit, maxRetries: 1 }));
 
     await act(async () => {
       result.current.run({});

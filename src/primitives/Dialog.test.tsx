@@ -1,13 +1,7 @@
 import { describe, it, expect } from 'vitest';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import {
-  Dialog,
-  DialogTrigger,
-  DialogContent,
-  DialogTitle,
-  DialogDescription,
-} from './Dialog.js';
+import { Dialog, DialogTrigger, DialogContent, DialogTitle, DialogDescription } from './Dialog.js';
 
 describe('Dialog', () => {
   it('content is not in DOM when closed', () => {

@@ -80,16 +80,9 @@ export const TabsBand: React.FC<TabsBandProps> = ({
   rightSlot,
   className,
 }) => (
-  <div
-    role="tablist"
-    className={cn(
-      'tabs-band',
-      sticky && 'tabs-band--sticky',
-      className,
-    )}
-  >
+  <div role="tablist" className={cn('tabs-band', sticky && 'tabs-band--sticky', className)}>
     <div className="tabs-band__tabs">
-      {items.map(item => {
+      {items.map((item) => {
         const active = current === item.id;
         return (
           <button
@@ -97,10 +90,7 @@ export const TabsBand: React.FC<TabsBandProps> = ({
             type="button"
             role="tab"
             aria-selected={active}
-            className={cn(
-              'tabs-band__tab',
-              active && 'tabs-band__tab--active',
-            )}
+            className={cn('tabs-band__tab', active && 'tabs-band__tab--active')}
             onClick={() => onTabChange?.(item.id)}
           >
             {item.icon != null ? (
@@ -109,16 +99,12 @@ export const TabsBand: React.FC<TabsBandProps> = ({
               </span>
             ) : null}
             <span className="tabs-band__label">{item.name}</span>
-            {item.count != null ? (
-              <span className="tabs-band__count">{item.count}</span>
-            ) : null}
+            {item.count != null ? <span className="tabs-band__count">{item.count}</span> : null}
           </button>
         );
       })}
     </div>
-    {rightSlot != null ? (
-      <div className="tabs-band__right">{rightSlot}</div>
-    ) : null}
+    {rightSlot != null ? <div className="tabs-band__right">{rightSlot}</div> : null}
   </div>
 );
 

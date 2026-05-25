@@ -5,15 +5,15 @@
  * Uses role="progressbar" and aria-valuenow for accessibility.
  */
 
-import * as React from 'react'
-import { cn } from '../primitives/cn'
+import * as React from 'react';
+import { cn } from '../primitives/cn';
 
 export interface ConfidenceBarProps extends React.HTMLAttributes<HTMLDivElement> {
   /**
    * OCR confidence value in the range [0, 1].
    * Values outside this range are clamped. null/undefined renders as 0.
    */
-  confidence: number | null | undefined
+  confidence: number | null | undefined;
 }
 
 /**
@@ -25,16 +25,11 @@ export interface ConfidenceBarProps extends React.HTMLAttributes<HTMLDivElement>
  */
 export const ConfidenceBar = React.forwardRef<HTMLDivElement, ConfidenceBarProps>(
   function ConfidenceBar({ confidence, className, style, ...props }, ref) {
-    const raw = confidence ?? 0
-    const pct = Math.max(0, Math.min(100, Math.round(raw * 100)))
+    const raw = confidence ?? 0;
+    const pct = Math.max(0, Math.min(100, Math.round(raw * 100)));
 
     // Derive fill color token based on confidence bucket
-    const fillColor =
-      pct >= 80
-        ? 'var(--exact)'
-        : pct >= 50
-          ? 'var(--fuzzy)'
-          : 'var(--mismatch)'
+    const fillColor = pct >= 80 ? 'var(--exact)' : pct >= 50 ? 'var(--fuzzy)' : 'var(--mismatch)';
 
     return (
       <div
@@ -67,8 +62,8 @@ export const ConfidenceBar = React.forwardRef<HTMLDivElement, ConfidenceBarProps
           }}
         />
       </div>
-    )
+    );
   },
-)
+);
 
-ConfidenceBar.displayName = 'ConfidenceBar'
+ConfidenceBar.displayName = 'ConfidenceBar';

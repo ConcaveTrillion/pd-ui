@@ -147,17 +147,12 @@ function CaseRow({ decisionCase }: CaseRowProps): React.ReactElement {
       </span>
 
       {/* Join proposal */}
-      <span
-        className="mono"
-        style={{ fontSize: 12.5, color: 'var(--ink-1)', fontWeight: 600 }}
-      >
+      <span className="mono" style={{ fontSize: 12.5, color: 'var(--ink-1)', fontWeight: 600 }}>
         {decisionCase.joinProposal}
       </span>
 
       {/* Status pill — only when status is present */}
-      {decisionCase.status !== undefined ? (
-        <HJStatusPill status={decisionCase.status} />
-      ) : null}
+      {decisionCase.status !== undefined ? <HJStatusPill status={decisionCase.status} /> : null}
     </li>
   );
 }
@@ -232,16 +227,8 @@ export function HyphenAutoJoined({
           flexWrap: 'wrap',
         }}
       >
-        <StatTile
-          label="Auto-joined cases"
-          value={String(totalCases)}
-          tone="clean"
-        />
-        <StatTile
-          label="Unique words"
-          value={String(groupCount)}
-          tone="neutral"
-        />
+        <StatTile label="Auto-joined cases" value={String(totalCases)} tone="clean" />
+        <StatTile label="Unique words" value={String(groupCount)} tone="neutral" />
       </div>
 
       {/* Group sections */}

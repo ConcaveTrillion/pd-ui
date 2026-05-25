@@ -34,9 +34,7 @@ function seed(): Map<string, DatasetPage[]> {
 
 function BoardHarness(): React.ReactElement {
   const [items, setItems] = React.useState<Map<string, DatasetPage[]>>(seed);
-  const [selectedIds, setSelectedIds] = React.useState<ReadonlySet<string>>(
-    new Set(),
-  );
+  const [selectedIds, setSelectedIds] = React.useState<ReadonlySet<string>>(new Set());
 
   return (
     <div style={{ height: 420, display: 'flex' }}>

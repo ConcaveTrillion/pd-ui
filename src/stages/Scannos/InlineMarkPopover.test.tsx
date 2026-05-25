@@ -52,11 +52,7 @@ describe('InlineMarkPopover', () => {
   it('renders popover content when open=true', () => {
     render(
       <Wrapper>
-        <InlineMarkPopover
-          token={ruleToken}
-          open
-          onClose={vi.fn()}
-        />
+        <InlineMarkPopover token={ruleToken} open onClose={vi.fn()} />
       </Wrapper>,
     );
     expect(screen.getByTestId(SCANNO_INLINE_MARK_POPOVER)).toBeInTheDocument();
@@ -65,11 +61,7 @@ describe('InlineMarkPopover', () => {
   it('does not render popover content when open=false', () => {
     render(
       <Wrapper>
-        <InlineMarkPopover
-          token={ruleToken}
-          open={false}
-          onClose={vi.fn()}
-        />
+        <InlineMarkPopover token={ruleToken} open={false} onClose={vi.fn()} />
       </Wrapper>,
     );
     expect(screen.queryByTestId(SCANNO_INLINE_MARK_POPOVER)).toBeNull();
@@ -78,11 +70,7 @@ describe('InlineMarkPopover', () => {
   it('renders the token text', () => {
     render(
       <Wrapper>
-        <InlineMarkPopover
-          token={ruleToken}
-          open
-          onClose={vi.fn()}
-        />
+        <InlineMarkPopover token={ruleToken} open onClose={vi.fn()} />
       </Wrapper>,
     );
     expect(screen.getByText('modcrn')).toBeInTheDocument();
@@ -91,11 +79,7 @@ describe('InlineMarkPopover', () => {
   it('renders confidence as percentage when present', () => {
     render(
       <Wrapper>
-        <InlineMarkPopover
-          token={ruleToken}
-          open
-          onClose={vi.fn()}
-        />
+        <InlineMarkPopover token={ruleToken} open onClose={vi.fn()} />
       </Wrapper>,
     );
     // 0.64 → 64%
@@ -105,11 +89,7 @@ describe('InlineMarkPopover', () => {
   it('does not render confidence when absent', () => {
     render(
       <Wrapper>
-        <InlineMarkPopover
-          token={manualToken}
-          open
-          onClose={vi.fn()}
-        />
+        <InlineMarkPopover token={manualToken} open onClose={vi.fn()} />
       </Wrapper>,
     );
     expect(screen.queryByText(/%/)).toBeNull();
@@ -118,11 +98,7 @@ describe('InlineMarkPopover', () => {
   it('renders source badge with rule text', () => {
     render(
       <Wrapper>
-        <InlineMarkPopover
-          token={ruleToken}
-          open
-          onClose={vi.fn()}
-        />
+        <InlineMarkPopover token={ruleToken} open onClose={vi.fn()} />
       </Wrapper>,
     );
     expect(screen.getByText('rule')).toBeInTheDocument();
@@ -131,11 +107,7 @@ describe('InlineMarkPopover', () => {
   it('renders source badge with ocr text', () => {
     render(
       <Wrapper>
-        <InlineMarkPopover
-          token={ocrToken}
-          open
-          onClose={vi.fn()}
-        />
+        <InlineMarkPopover token={ocrToken} open onClose={vi.fn()} />
       </Wrapper>,
     );
     expect(screen.getByText('ocr')).toBeInTheDocument();
@@ -144,11 +116,7 @@ describe('InlineMarkPopover', () => {
   it('renders source badge with manual text', () => {
     render(
       <Wrapper>
-        <InlineMarkPopover
-          token={manualToken}
-          open
-          onClose={vi.fn()}
-        />
+        <InlineMarkPopover token={manualToken} open onClose={vi.fn()} />
       </Wrapper>,
     );
     expect(screen.getByText('manual')).toBeInTheDocument();
@@ -159,12 +127,7 @@ describe('InlineMarkPopover', () => {
     const user = userEvent.setup();
     render(
       <Wrapper>
-        <InlineMarkPopover
-          token={ruleToken}
-          open
-          onClose={vi.fn()}
-          onAccept={onAccept}
-        />
+        <InlineMarkPopover token={ruleToken} open onClose={vi.fn()} onAccept={onAccept} />
       </Wrapper>,
     );
     await user.click(screen.getByTestId(SCANNO_INLINE_MARK_POPOVER_ACCEPT));
@@ -176,12 +139,7 @@ describe('InlineMarkPopover', () => {
     const user = userEvent.setup();
     render(
       <Wrapper>
-        <InlineMarkPopover
-          token={ruleToken}
-          open
-          onClose={vi.fn()}
-          onDismiss={onDismiss}
-        />
+        <InlineMarkPopover token={ruleToken} open onClose={vi.fn()} onDismiss={onDismiss} />
       </Wrapper>,
     );
     await user.click(screen.getByTestId(SCANNO_INLINE_MARK_POPOVER_DISMISS));
@@ -193,12 +151,7 @@ describe('InlineMarkPopover', () => {
     const user = userEvent.setup();
     render(
       <Wrapper>
-        <InlineMarkPopover
-          token={ruleToken}
-          open
-          onClose={vi.fn()}
-          onPromote={onPromote}
-        />
+        <InlineMarkPopover token={ruleToken} open onClose={vi.fn()} onPromote={onPromote} />
       </Wrapper>,
     );
     await user.click(screen.getByTestId(SCANNO_INLINE_MARK_POPOVER_PROMOTE));
@@ -208,11 +161,7 @@ describe('InlineMarkPopover', () => {
   it('renders Accept button testid', () => {
     render(
       <Wrapper>
-        <InlineMarkPopover
-          token={ruleToken}
-          open
-          onClose={vi.fn()}
-        />
+        <InlineMarkPopover token={ruleToken} open onClose={vi.fn()} />
       </Wrapper>,
     );
     expect(screen.getByTestId(SCANNO_INLINE_MARK_POPOVER_ACCEPT)).toBeInTheDocument();
@@ -221,11 +170,7 @@ describe('InlineMarkPopover', () => {
   it('renders Dismiss button testid', () => {
     render(
       <Wrapper>
-        <InlineMarkPopover
-          token={ruleToken}
-          open
-          onClose={vi.fn()}
-        />
+        <InlineMarkPopover token={ruleToken} open onClose={vi.fn()} />
       </Wrapper>,
     );
     expect(screen.getByTestId(SCANNO_INLINE_MARK_POPOVER_DISMISS)).toBeInTheDocument();
@@ -234,11 +179,7 @@ describe('InlineMarkPopover', () => {
   it('renders Promote button testid', () => {
     render(
       <Wrapper>
-        <InlineMarkPopover
-          token={ruleToken}
-          open
-          onClose={vi.fn()}
-        />
+        <InlineMarkPopover token={ruleToken} open onClose={vi.fn()} />
       </Wrapper>,
     );
     expect(screen.getByTestId(SCANNO_INLINE_MARK_POPOVER_PROMOTE)).toBeInTheDocument();
@@ -247,11 +188,7 @@ describe('InlineMarkPopover', () => {
   it('renders ruleId when provided', () => {
     render(
       <Wrapper>
-        <InlineMarkPopover
-          token={ruleToken}
-          open
-          onClose={vi.fn()}
-        />
+        <InlineMarkPopover token={ruleToken} open onClose={vi.fn()} />
       </Wrapper>,
     );
     expect(screen.getByText('c-e-in-cm-cn')).toBeInTheDocument();
@@ -260,11 +197,7 @@ describe('InlineMarkPopover', () => {
   it('does not render ruleId when absent', () => {
     render(
       <Wrapper>
-        <InlineMarkPopover
-          token={ocrToken}
-          open
-          onClose={vi.fn()}
-        />
+        <InlineMarkPopover token={ocrToken} open onClose={vi.fn()} />
       </Wrapper>,
     );
     // No ruleId text — just verify token renders without crash

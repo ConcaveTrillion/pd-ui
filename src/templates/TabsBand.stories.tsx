@@ -17,10 +17,10 @@ type Story = StoryObj<typeof TabsBand>;
 
 // Canonical tab set matching the design source (pipeline-template.jsx STAGE_TABS)
 const PIPELINE_TABS: TabsBandItem[] = [
-  { id: 'overview',  name: 'Overview' },
-  { id: 'pages',     name: 'Pages', count: 47 },
+  { id: 'overview', name: 'Overview' },
+  { id: 'pages', name: 'Pages', count: 47 },
   { id: 'workbench', name: 'Page workbench' },
-  { id: 'settings',  name: 'Stage settings' },
+  { id: 'settings', name: 'Stage settings' },
 ];
 
 // ─── DCArtboard: D · TabsBand · default (dark) ─────────────────────────────
@@ -44,9 +44,7 @@ export const Default: Story = {
 
 export const OverviewActive: Story = {
   name: 'D · Overview tab active',
-  render: () => (
-    <TabsBand items={PIPELINE_TABS} current="overview" />
-  ),
+  render: () => <TabsBand items={PIPELINE_TABS} current="overview" />,
 };
 
 // ─── DCArtboard: D · TabsBand · with rightSlot ──────────────────────────────
@@ -87,14 +85,21 @@ export const StickyBand: Story = {
   },
   render: () => (
     <div style={{ height: 300, overflowY: 'auto', position: 'relative' }}>
-      <div style={{ height: 80, background: 'var(--bg-raised)', borderBottom: '1px solid var(--border-1)', display: 'flex', alignItems: 'center', padding: '0 28px', color: 'var(--ink-2)', fontSize: 12 }}>
+      <div
+        style={{
+          height: 80,
+          background: 'var(--bg-raised)',
+          borderBottom: '1px solid var(--border-1)',
+          display: 'flex',
+          alignItems: 'center',
+          padding: '0 28px',
+          color: 'var(--ink-2)',
+          fontSize: 12,
+        }}
+      >
         Project info band (scroll down)
       </div>
-      <TabsBand
-        items={PIPELINE_TABS}
-        current="pages"
-        sticky
-      />
+      <TabsBand items={PIPELINE_TABS} current="pages" sticky />
       <div style={{ padding: 24, display: 'flex', flexDirection: 'column', gap: 12 }}>
         {Array.from({ length: 10 }, (_, i) => (
           <div
@@ -143,7 +148,7 @@ export const LightTheme: Story = {
     backgrounds: { default: 'light' },
   },
   decorators: [
-    Story => (
+    (Story) => (
       <div data-theme="light">
         <Story />
       </div>
@@ -152,8 +157,6 @@ export const LightTheme: Story = {
   render: () => {
     // eslint-disable-next-line react-hooks/rules-of-hooks
     const [current, setCurrent] = React.useState('pages');
-    return (
-      <TabsBand items={PIPELINE_TABS} current={current} onTabChange={setCurrent} />
-    );
+    return <TabsBand items={PIPELINE_TABS} current={current} onTabChange={setCurrent} />;
   },
 };

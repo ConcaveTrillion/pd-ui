@@ -46,9 +46,7 @@ const pillButtonStyle = (isActive: boolean): React.CSSProperties => ({
   height: 26,
   padding: '0 9px',
   borderRadius: 6,
-  background: isActive
-    ? 'color-mix(in oklab, var(--ocr) 12%, transparent)'
-    : 'transparent',
+  background: isActive ? 'color-mix(in oklab, var(--ocr) 12%, transparent)' : 'transparent',
   border: `1px solid ${isActive ? 'color-mix(in oklab, var(--ocr) 35%, transparent)' : 'transparent'}`,
   color: isActive ? 'var(--ink-1)' : 'var(--ink-3)',
   cursor: 'pointer',
@@ -91,12 +89,7 @@ const popoverStyle: React.CSSProperties = {
 
 // ─── JobsPill ─────────────────────────────────────────────────────────────────
 
-export function JobsPill({
-  activeJobs = [],
-  open = false,
-  onClick,
-  className,
-}: JobsPillProps) {
+export function JobsPill({ activeJobs = [], open = false, onClick, className }: JobsPillProps) {
   const [hover, setHover] = React.useState(false);
   const show = open || hover;
   const isActive = activeJobs.length > 0;
@@ -117,21 +110,13 @@ export function JobsPill({
         onClick={onClick}
       >
         {isActive ? (
-          <span
-            data-testid="jobs-pill-pulse"
-            aria-hidden="true"
-            style={pulseDotStyle}
-          />
+          <span data-testid="jobs-pill-pulse" aria-hidden="true" style={pulseDotStyle} />
         ) : (
           <Package size={13} aria-hidden="true" />
         )}
         Jobs
         {isActive ? (
-          <span
-            data-testid="jobs-pill-count"
-            aria-hidden="true"
-            style={countBadgeStyle}
-          >
+          <span data-testid="jobs-pill-count" aria-hidden="true" style={countBadgeStyle}>
             {activeJobs.length}
           </span>
         ) : null}
@@ -255,8 +240,7 @@ export function JobsPill({
                 color: 'var(--ink-3)',
               }}
             >
-              No active jobs. Background ingest, OCR runs, and exports will
-              appear here.
+              No active jobs. Background ingest, OCR runs, and exports will appear here.
             </div>
           )}
 
@@ -271,9 +255,7 @@ export function JobsPill({
               cursor: 'pointer',
             }}
           >
-            <span style={{ fontSize: 12, color: 'var(--ink-2)' }}>
-              View all jobs
-            </span>
+            <span style={{ fontSize: 12, color: 'var(--ink-2)' }}>View all jobs</span>
             <ArrowRight size={12} style={{ color: 'var(--ink-3)' }} />
           </div>
         </div>

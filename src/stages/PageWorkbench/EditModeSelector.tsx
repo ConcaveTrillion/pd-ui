@@ -20,10 +20,10 @@ export interface EditModeSelectorProps {
 // ─── Option definitions ───────────────────────────────────────────────────────
 
 const OPTIONS: SegmentedOption[] = [
-  { value: 'view',   label: 'View',         icon: <Icon name="eye"    size={12} /> },
-  { value: 'split',  label: 'Split',        icon: <Icon name="grip"   size={12} /> },
-  { value: 'illust', label: 'Illustration', icon: <Icon name="image"  size={12} /> },
-  { value: 'rotate', label: 'Rotate',       icon: <Icon name="arrowR" size={12} /> },
+  { value: 'view', label: 'View', icon: <Icon name="eye" size={12} /> },
+  { value: 'split', label: 'Split', icon: <Icon name="grip" size={12} /> },
+  { value: 'illust', label: 'Illustration', icon: <Icon name="image" size={12} /> },
+  { value: 'rotate', label: 'Rotate', icon: <Icon name="arrowR" size={12} /> },
 ];
 
 // ─── Component ───────────────────────────────────────────────────────────────
@@ -41,31 +41,23 @@ const OPTIONS: SegmentedOption[] = [
  * arrow-key navigation from `Segmented`. The outer `ref` attaches to the
  * root wrapper span; ARIA semantics live on the inner `Segmented` track.
  */
-export const EditModeSelector = React.forwardRef<
-  HTMLSpanElement,
-  EditModeSelectorProps
->(({ mode, onModeChange, ...rest }, ref) => {
-  const handleChange = React.useCallback(
-    (val: string) => {
-      onModeChange(val as EditMode);
-    },
-    [onModeChange],
-  );
+export const EditModeSelector = React.forwardRef<HTMLSpanElement, EditModeSelectorProps>(
+  ({ mode, onModeChange, ...rest }, ref) => {
+    const handleChange = React.useCallback(
+      (val: string) => {
+        onModeChange(val as EditMode);
+      },
+      [onModeChange],
+    );
 
-  const testidProps = 'data-testid' in rest
-    ? { 'data-testid': rest['data-testid'] }
-    : {};
+    const testidProps = 'data-testid' in rest ? { 'data-testid': rest['data-testid'] } : {};
 
-  return (
-    <span ref={ref} className="edit-mode-selector" {...testidProps}>
-      <Segmented
-        options={OPTIONS}
-        value={mode}
-        onChange={handleChange}
-        size="sm"
-      />
-    </span>
-  );
-});
+    return (
+      <span ref={ref} className="edit-mode-selector" {...testidProps}>
+        <Segmented options={OPTIONS} value={mode} onChange={handleChange} size="sm" />
+      </span>
+    );
+  },
+);
 
 EditModeSelector.displayName = 'EditModeSelector';

@@ -43,8 +43,18 @@ export function ConfigureHeader({
       {trail != null && trail.length > 0 ? (
         <Breadcrumb className="configure-header__breadcrumb">
           {trail.map((item, i) => (
-            <li key={i} className={cn('configure-header__crumb', item.mono === true ? 'configure-header__crumb--mono' : undefined)}>
-              {i > 0 ? <span className="configure-header__sep" aria-hidden="true">/</span> : null}
+            <li
+              key={i}
+              className={cn(
+                'configure-header__crumb',
+                item.mono === true ? 'configure-header__crumb--mono' : undefined,
+              )}
+            >
+              {i > 0 ? (
+                <span className="configure-header__sep" aria-hidden="true">
+                  /
+                </span>
+              ) : null}
               <span>{item.label}</span>
             </li>
           ))}

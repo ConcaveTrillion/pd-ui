@@ -39,11 +39,7 @@ export const PipelineMini = ({
   'data-testid': testId = PROJECTS_PIPELINE_MINI,
 }: PipelineMiniProps): React.ReactElement => {
   return (
-    <div
-      className="pipeline-mini"
-      data-testid={testId}
-      aria-label="Pipeline progress"
-    >
+    <div className="pipeline-mini" data-testid={testId} aria-label="Pipeline progress">
       {stages.map((stage) => {
         const resolvedStatus = resolveStatus(stage, activeStageId);
         const label = stage.label ?? stage.id;

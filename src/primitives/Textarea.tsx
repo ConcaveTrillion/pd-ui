@@ -20,14 +20,7 @@ export const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(fun
     fieldA11y['aria-invalid'] = true;
   }
 
-  return (
-    <textarea
-      ref={ref}
-      className={cn('textarea', className)}
-      {...fieldA11y}
-      {...props}
-    />
-  );
+  return <textarea ref={ref} className={cn('textarea', className)} {...fieldA11y} {...props} />;
 });
 
 Textarea.displayName = 'Textarea';

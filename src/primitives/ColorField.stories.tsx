@@ -18,14 +18,7 @@ type Story = StoryObj<typeof meta>;
 
 function DefaultDemo() {
   const [value, setValue] = React.useState('#3b82f6');
-  return (
-    <ColorField
-      id="accent-color"
-      label="Accent color"
-      value={value}
-      onChange={setValue}
-    />
-  );
+  return <ColorField id="accent-color" label="Accent color" value={value} onChange={setValue} />;
 }
 
 export const Default: Story = {
@@ -73,10 +66,34 @@ function LayerColorsDemo() {
   const [word, setWord] = React.useState('#ec4899');
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: '12px', maxWidth: '280px' }}>
-      <ColorField id="block" label="Block layer" value={block} onChange={setBlock} defaultValue="#6366f1" />
-      <ColorField id="para" label="Paragraph layer" value={para} onChange={setPara} defaultValue="#22c55e" />
-      <ColorField id="line" label="Line layer" value={line} onChange={setLine} defaultValue="#f59e0b" />
-      <ColorField id="word" label="Word layer" value={word} onChange={setWord} defaultValue="#ec4899" />
+      <ColorField
+        id="block"
+        label="Block layer"
+        value={block}
+        onChange={setBlock}
+        defaultValue="#6366f1"
+      />
+      <ColorField
+        id="para"
+        label="Paragraph layer"
+        value={para}
+        onChange={setPara}
+        defaultValue="#22c55e"
+      />
+      <ColorField
+        id="line"
+        label="Line layer"
+        value={line}
+        onChange={setLine}
+        defaultValue="#f59e0b"
+      />
+      <ColorField
+        id="word"
+        label="Word layer"
+        value={word}
+        onChange={setWord}
+        defaultValue="#ec4899"
+      />
     </div>
   );
 }

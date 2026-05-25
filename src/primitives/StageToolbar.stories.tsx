@@ -127,7 +127,11 @@ export const Sticky: Story = {
     <StageToolbar
       sticky
       leftSlot={<Chip variant="static">All</Chip>}
-      rightSlot={<Button variant="primary" size="sm">Save</Button>}
+      rightSlot={
+        <Button variant="primary" size="sm">
+          Save
+        </Button>
+      }
     />
   ),
 };

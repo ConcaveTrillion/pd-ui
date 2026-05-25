@@ -33,12 +33,7 @@ vi.mock('../PageWorkbench/ArtifactViewer.js', () => ({
     pageHeight?: number;
     overlayMode?: string;
     'data-testid'?: string;
-  }) => (
-    <div
-      data-testid={tid ?? 'artifact-viewer-mock'}
-      data-src={imageSrc}
-    />
-  ),
+  }) => <div data-testid={tid ?? 'artifact-viewer-mock'} data-src={imageSrc} />,
 }));
 
 import { HyphenPageWorkbench } from './HyphenPageWorkbench.js';
@@ -87,46 +82,22 @@ describe('HyphenPageWorkbench', () => {
   });
 
   it('renders the root testid', () => {
-    render(
-      <HyphenPageWorkbench
-        page={MOCK_PAGE}
-        cases={MOCK_CASES}
-        onDecide={onDecide}
-      />,
-    );
+    render(<HyphenPageWorkbench page={MOCK_PAGE} cases={MOCK_CASES} onDecide={onDecide} />);
     expect(screen.getByTestId(HYPHEN_PAGE_WORKBENCH)).toBeInTheDocument();
   });
 
   it('renders the viewer testid (ArtifactViewer slot)', () => {
-    render(
-      <HyphenPageWorkbench
-        page={MOCK_PAGE}
-        cases={MOCK_CASES}
-        onDecide={onDecide}
-      />,
-    );
+    render(<HyphenPageWorkbench page={MOCK_PAGE} cases={MOCK_CASES} onDecide={onDecide} />);
     expect(screen.getByTestId(HYPHEN_PAGE_WORKBENCH_VIEWER)).toBeInTheDocument();
   });
 
   it('renders the decisions testid (case list container)', () => {
-    render(
-      <HyphenPageWorkbench
-        page={MOCK_PAGE}
-        cases={MOCK_CASES}
-        onDecide={onDecide}
-      />,
-    );
+    render(<HyphenPageWorkbench page={MOCK_PAGE} cases={MOCK_CASES} onDecide={onDecide} />);
     expect(screen.getByTestId(HYPHEN_PAGE_WORKBENCH_DECISIONS)).toBeInTheDocument();
   });
 
   it('page image URL is passed to ArtifactViewer (mock exposes data-src)', () => {
-    render(
-      <HyphenPageWorkbench
-        page={MOCK_PAGE}
-        cases={MOCK_CASES}
-        onDecide={onDecide}
-      />,
-    );
+    render(<HyphenPageWorkbench page={MOCK_PAGE} cases={MOCK_CASES} onDecide={onDecide} />);
     // The mocked ArtifactViewer renders a div[data-testid="artifact-viewer-mock"]
     // with data-src set to imageSrc. It is a child of the viewer container.
     const artifactMock = screen.getByTestId('artifact-viewer-mock');
@@ -134,63 +105,33 @@ describe('HyphenPageWorkbench', () => {
   });
 
   it('renders one HJDecisionCard per case (role=application)', () => {
-    render(
-      <HyphenPageWorkbench
-        page={MOCK_PAGE}
-        cases={MOCK_CASES}
-        onDecide={onDecide}
-      />,
-    );
+    render(<HyphenPageWorkbench page={MOCK_PAGE} cases={MOCK_CASES} onDecide={onDecide} />);
     const cards = screen.getAllByRole('application');
     expect(cards).toHaveLength(2);
   });
 
   it('EmptyCases: decisions container present, no cards', () => {
-    render(
-      <HyphenPageWorkbench
-        page={MOCK_PAGE}
-        cases={[]}
-        onDecide={onDecide}
-      />,
-    );
+    render(<HyphenPageWorkbench page={MOCK_PAGE} cases={[]} onDecide={onDecide} />);
     expect(screen.getByTestId(HYPHEN_PAGE_WORKBENCH_DECISIONS)).toBeInTheDocument();
     expect(screen.queryAllByRole('application')).toHaveLength(0);
   });
 
   it('onDecide fires with caseId + accept when Accept clicked on undecided case', () => {
-    render(
-      <HyphenPageWorkbench
-        page={MOCK_PAGE}
-        cases={MOCK_CASES}
-        onDecide={onDecide}
-      />,
-    );
+    render(<HyphenPageWorkbench page={MOCK_PAGE} cases={MOCK_CASES} onDecide={onDecide} />);
     const acceptBtns = screen.getAllByTestId('hj-decision-card-accept');
     fireEvent.click(acceptBtns[0]!);
     expect(onDecide).toHaveBeenCalledWith('case-1', 'accept');
   });
 
   it('onDecide fires with caseId + keep when Keep clicked', () => {
-    render(
-      <HyphenPageWorkbench
-        page={MOCK_PAGE}
-        cases={MOCK_CASES}
-        onDecide={onDecide}
-      />,
-    );
+    render(<HyphenPageWorkbench page={MOCK_PAGE} cases={MOCK_CASES} onDecide={onDecide} />);
     const keepBtns = screen.getAllByTestId('hj-decision-card-keep');
     fireEvent.click(keepBtns[0]!);
     expect(onDecide).toHaveBeenCalledWith('case-1', 'keep');
   });
 
   it('onDecide fires with caseId + flag when Flag clicked', () => {
-    render(
-      <HyphenPageWorkbench
-        page={MOCK_PAGE}
-        cases={MOCK_CASES}
-        onDecide={onDecide}
-      />,
-    );
+    render(<HyphenPageWorkbench page={MOCK_PAGE} cases={MOCK_CASES} onDecide={onDecide} />);
     const flagBtns = screen.getAllByTestId('hj-decision-card-flag');
     fireEvent.click(flagBtns[0]!);
     expect(onDecide).toHaveBeenCalledWith('case-1', 'flag');
@@ -203,13 +144,7 @@ describe('HyphenPageWorkbench', () => {
       joinProposal: 'validate',
       status: 'auto-joined',
     };
-    render(
-      <HyphenPageWorkbench
-        page={MOCK_PAGE}
-        cases={[joinedCase]}
-        onDecide={onDecide}
-      />,
-    );
+    render(<HyphenPageWorkbench page={MOCK_PAGE} cases={[joinedCase]} onDecide={onDecide} />);
     // For joined cases, the Accept action emits 'validate' (human confirmation of auto-join)
     const acceptBtns = screen.getAllByTestId('hj-decision-card-accept');
     fireEvent.click(acceptBtns[0]!);
@@ -217,13 +152,7 @@ describe('HyphenPageWorkbench', () => {
   });
 
   it('second card Accept fires onDecide with correct caseId', () => {
-    render(
-      <HyphenPageWorkbench
-        page={MOCK_PAGE}
-        cases={MOCK_CASES}
-        onDecide={onDecide}
-      />,
-    );
+    render(<HyphenPageWorkbench page={MOCK_PAGE} cases={MOCK_CASES} onDecide={onDecide} />);
     const acceptBtns = screen.getAllByTestId('hj-decision-card-accept');
     fireEvent.click(acceptBtns[1]!);
     expect(onDecide).toHaveBeenCalledWith('case-2', 'accept');

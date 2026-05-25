@@ -64,9 +64,9 @@ describe('CropOverview — flag distribution legend', () => {
     renderOverview();
     const dist = screen.getByTestId(CROP_OVERVIEW_DISTRIBUTION);
     expect(dist).toHaveTextContent('12'); // overCrop
-    expect(dist).toHaveTextContent('8');  // underCrop
-    expect(dist).toHaveTextContent('3');  // deskewFail
-    expect(dist).toHaveTextContent('5');  // edgeNoise
+    expect(dist).toHaveTextContent('8'); // underCrop
+    expect(dist).toHaveTextContent('3'); // deskewFail
+    expect(dist).toHaveTextContent('5'); // edgeNoise
   });
 
   it('renders human-readable flag labels', () => {
@@ -105,9 +105,7 @@ describe('CropOverview — stacked bar proportions', () => {
   it('segments carry aria-valuenow matching their count', () => {
     renderOverview();
     const segments = document.querySelectorAll('.crop-overview__bar-segment');
-    const counts = Array.from(segments).map((el) =>
-      Number(el.getAttribute('aria-valuenow')),
-    );
+    const counts = Array.from(segments).map((el) => Number(el.getAttribute('aria-valuenow')));
     expect(counts).toEqual([12, 8, 3, 5]);
   });
 
@@ -169,7 +167,13 @@ describe('CropOverview — recent activity', () => {
 
   it('does not render actor element when actor is absent', () => {
     renderOverview({
-      recentActivity: [{ id: 'no-actor', timestamp: new Date(NOW_MS - 60000).toISOString(), message: 'Something happened' }],
+      recentActivity: [
+        {
+          id: 'no-actor',
+          timestamp: new Date(NOW_MS - 60000).toISOString(),
+          message: 'Something happened',
+        },
+      ],
     });
     const entry = screen.getByTestId(cropOverviewActivityTestId('no-actor'));
     // actor div only appears when actor is set; "Something happened" is present

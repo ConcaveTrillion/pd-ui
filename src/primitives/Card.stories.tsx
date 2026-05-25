@@ -15,7 +15,9 @@ export const Default: Story = {
     children: (
       <div style={{ padding: 'var(--space-3)' }}>
         <h3 style={{ margin: 0, color: 'var(--ink-1)' }}>Card Title</h3>
-        <p style={{ marginTop: 'var(--space-2)', color: 'var(--ink-2)', fontSize: 'var(--text-sm)' }}>
+        <p
+          style={{ marginTop: 'var(--space-2)', color: 'var(--ink-2)', fontSize: 'var(--text-sm)' }}
+        >
           Card content goes here.
         </p>
       </div>

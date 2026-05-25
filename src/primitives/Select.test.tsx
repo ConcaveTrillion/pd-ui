@@ -1,12 +1,6 @@
 import { describe, it, expect, beforeAll } from 'vitest';
 import { render, screen } from '@testing-library/react';
-import {
-  Select,
-  SelectTrigger,
-  SelectContent,
-  SelectItem,
-  SelectValue,
-} from './Select.js';
+import { Select, SelectTrigger, SelectContent, SelectItem, SelectValue } from './Select.js';
 
 // jsdom does not implement several pointer/scroll APIs; patch them so Radix Select does not crash
 beforeAll(() => {

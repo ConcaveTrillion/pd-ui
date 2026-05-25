@@ -13,10 +13,7 @@ export interface KanbanItemDef {
 }
 
 /** Emitted by onMove. */
-export interface KanbanMoveEvent<
-  TColumnId extends string,
-  TItemId extends string,
-> {
+export interface KanbanMoveEvent<TColumnId extends string, TItemId extends string> {
   itemIds: TItemId[];
   fromColumnId: TColumnId | null;
   toColumnId: TColumnId;
@@ -42,10 +39,7 @@ export interface KanbanChipRenderProps<TItem extends KanbanItemDef> {
   isPending: boolean;
 }
 
-export interface KanbanBoardProps<
-  TColumn extends KanbanColumnDef,
-  TItem extends KanbanItemDef,
-> {
+export interface KanbanBoardProps<TColumn extends KanbanColumnDef, TItem extends KanbanItemDef> {
   columns: TColumn[];
   items: Map<TColumn['id'], TItem[]>;
   onMove: (event: KanbanMoveEvent<TColumn['id'], TItem['id']>) => void;
@@ -56,10 +50,7 @@ export interface KanbanBoardProps<
   className?: string;
 }
 
-export interface KanbanColumnProps<
-  TColumn extends KanbanColumnDef,
-  TItem extends KanbanItemDef,
-> {
+export interface KanbanColumnProps<TColumn extends KanbanColumnDef, TItem extends KanbanItemDef> {
   column: TColumn;
   items: TItem[];
   renderHeader: (props: KanbanColumnHeaderProps<TColumn>) => React.ReactNode;

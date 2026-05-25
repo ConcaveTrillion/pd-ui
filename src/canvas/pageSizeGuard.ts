@@ -23,17 +23,15 @@
  */
 
 /** Maximum allowed dimension (pixels) for either axis of a Konva stage. */
-export const PAGE_DIMENSION_MAX = 8192
+export const PAGE_DIMENSION_MAX = 8192;
 
 /** Fallback dimensions (1×1) used when clamping receives entirely invalid input. */
-const FALLBACK_DIMENSION = 1
+const FALLBACK_DIMENSION = 1;
 
 // ── Public API ────────────────────────────────────────────────────────────────
 
 /** Discriminated-union result from `validatePageDimensions`. */
-export type PageDimensionValidationResult =
-  | { valid: true }
-  | { valid: false; reason: string }
+export type PageDimensionValidationResult = { valid: true } | { valid: false; reason: string };
 
 /**
  * Returns `true` when both `width` and `height` are:
@@ -49,7 +47,7 @@ export function isPageDimensionsValid(width: number, height: number): boolean {
     height > 0 &&
     width <= PAGE_DIMENSION_MAX &&
     height <= PAGE_DIMENSION_MAX
-  )
+  );
 }
 
 /**
@@ -61,10 +59,13 @@ export function validatePageDimensions(
   height: number,
 ): PageDimensionValidationResult {
   if (!Number.isFinite(width) || !Number.isFinite(height)) {
-    return { valid: false, reason: `Page dimensions must be finite numbers (got ${width}×${height})` }
+    return {
+      valid: false,
+      reason: `Page dimensions must be finite numbers (got ${width}×${height})`,
+    };
   }
   if (width <= 0 || height <= 0) {
-    return { valid: false, reason: `Page dimensions must be positive (got ${width}×${height})` }
+    return { valid: false, reason: `Page dimensions must be positive (got ${width}×${height})` };
   }
   if (width > PAGE_DIMENSION_MAX || height > PAGE_DIMENSION_MAX) {
     return {
@@ -73,9 +74,9 @@ export function validatePageDimensions(
         `Page dimensions exceed the ${PAGE_DIMENSION_MAX}px per-axis render cap ` +
         `(got ${width}×${height}). ` +
         `Larger values risk freezing or blanking the canvas.`,
-    }
+    };
   }
-  return { valid: true }
+  return { valid: true };
 }
 
 /**
@@ -95,14 +96,10 @@ export function clampPageDimensions(
 ): { width: number; height: number } {
   // Infinity is finite-safe-clamped to PAGE_DIMENSION_MAX; NaN/-Infinity/≤0 → fallback.
   const safeWidth =
-    Number.isNaN(width) || width <= 0
-      ? FALLBACK_DIMENSION
-      : Math.min(width, PAGE_DIMENSION_MAX)
+    Number.isNaN(width) || width <= 0 ? FALLBACK_DIMENSION : Math.min(width, PAGE_DIMENSION_MAX);
 
   const safeHeight =
-    Number.isNaN(height) || height <= 0
-      ? FALLBACK_DIMENSION
-      : Math.min(height, PAGE_DIMENSION_MAX)
+    Number.isNaN(height) || height <= 0 ? FALLBACK_DIMENSION : Math.min(height, PAGE_DIMENSION_MAX);
 
-  return { width: safeWidth, height: safeHeight }
+  return { width: safeWidth, height: safeHeight };
 }

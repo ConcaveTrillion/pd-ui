@@ -61,8 +61,7 @@ export type ReorderScansBannerProps = DetectedProps | CleanProps;
  */
 export function ReorderScansBanner(props: ReorderScansBannerProps): React.ReactElement {
   const testId =
-    (props['data-testid'] !== undefined ? props['data-testid'] : undefined) ??
-    REORDER_SCANS_BANNER;
+    (props['data-testid'] !== undefined ? props['data-testid'] : undefined) ?? REORDER_SCANS_BANNER;
 
   if (props.state === 'clean') {
     return (
@@ -70,9 +69,7 @@ export function ReorderScansBanner(props: ReorderScansBannerProps): React.ReactE
         tone="success"
         headline="Scans look in order"
         subtext="Filename sequence matches OCR'd page numbers. No swaps needed."
-        leadingSlot={
-          <Icon name="checkCircle" size={22} aria-hidden="true" />
-        }
+        leadingSlot={<Icon name="checkCircle" size={22} aria-hidden="true" />}
         actions={
           <Button
             variant="ghost"
@@ -107,7 +104,9 @@ export function ReorderScansBanner(props: ReorderScansBannerProps): React.ReactE
         className="reorder-scans-banner__sort-select"
         value={sortBy}
         data-testid={REORDER_SCANS_BANNER_SORT}
-        onChange={(e) => { onSort(e.target.value as ReorderSortBy); }}
+        onChange={(e) => {
+          onSort(e.target.value as ReorderSortBy);
+        }}
       >
         <option value="confidence">Confidence</option>
         <option value="position">Position</option>
@@ -118,12 +117,7 @@ export function ReorderScansBanner(props: ReorderScansBannerProps): React.ReactE
   const actions = (
     <>
       {sortSelect}
-      <Button
-        variant="ghost"
-        size="md"
-        data-testid={REORDER_SCANS_BANNER_SKIP}
-        onClick={onSkip}
-      >
+      <Button variant="ghost" size="md" data-testid={REORDER_SCANS_BANNER_SKIP} onClick={onSkip}>
         Skip stage
       </Button>
       <Button

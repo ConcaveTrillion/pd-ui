@@ -13,10 +13,7 @@ import * as React from 'react';
 import { Segmented } from '../../primitives/index.js';
 import { LineBlockCard } from './LineBlockCard.js';
 import { LineBlockRow } from './LineBlockRow.js';
-import {
-  OCR_TEXT_PANEL,
-  OCR_TEXT_PANEL_VIEW_TOGGLE,
-} from '../../testids/index.js';
+import { OCR_TEXT_PANEL, OCR_TEXT_PANEL_VIEW_TOGGLE } from '../../testids/index.js';
 
 // ── Public types ──────────────────────────────────────────────────────────────
 
@@ -71,10 +68,7 @@ const VIEW_OPTIONS = [
  *     onWordEdit={(id) => openWordEditor(id)}
  *   />
  */
-export const OcrTextPanel = React.forwardRef<
-  HTMLElement,
-  OcrTextPanelProps
->(function OcrTextPanel(
+export const OcrTextPanel = React.forwardRef<HTMLElement, OcrTextPanelProps>(function OcrTextPanel(
   {
     lines,
     viewMode = 'cards',
@@ -114,18 +108,16 @@ export const OcrTextPanel = React.forwardRef<
           flexShrink: 0,
         }}
       >
-        <span
-          style={{ fontSize: 13, fontWeight: 600, color: 'var(--ink-1)' }}
-        >
-          {title}
-        </span>
+        <span style={{ fontSize: 13, fontWeight: 600, color: 'var(--ink-1)' }}>{title}</span>
 
         {onViewModeChange != null && (
           <span data-testid={OCR_TEXT_PANEL_VIEW_TOGGLE}>
             <Segmented
               options={VIEW_OPTIONS}
               value={viewMode}
-              onChange={(v) => { onViewModeChange(v as OcrViewMode); }}
+              onChange={(v) => {
+                onViewModeChange(v as OcrViewMode);
+              }}
               size="sm"
             />
           </span>

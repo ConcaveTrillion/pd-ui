@@ -32,11 +32,7 @@ function Wrapper({
   children: React.ReactNode;
   ctx?: SettingsModalContextValue;
 }) {
-  return (
-    <SettingsModalContext.Provider value={ctx}>
-      {children}
-    </SettingsModalContext.Provider>
-  );
+  return <SettingsModalContext.Provider value={ctx}>{children}</SettingsModalContext.Provider>;
 }
 
 // ─── Tests ────────────────────────────────────────────────────────────────────

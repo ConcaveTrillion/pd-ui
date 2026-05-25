@@ -9,10 +9,10 @@
  * Internal sub-component; not independently exported.
  */
 
-import type { ReactNode } from 'react'
+import type { ReactNode } from 'react';
 
 export interface PaperRenderProps {
-  children: ReactNode
+  children: ReactNode;
 }
 
 /**
@@ -46,7 +46,7 @@ export function PaperRender({ children }: PaperRenderProps) {
         {children}
       </div>
     </div>
-  )
+  );
 }
 
-PaperRender.displayName = 'PaperRender'
+PaperRender.displayName = 'PaperRender';

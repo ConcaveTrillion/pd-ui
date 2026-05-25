@@ -90,10 +90,7 @@ export const BulkActionBar = React.forwardRef<HTMLDivElement, BulkActionBarProps
 
         {/* Center: stage-specific action slot */}
         {actions != null ? (
-          <div
-            className="bulk-action-bar__actions"
-            data-testid="bulk-action-bar-actions"
-          >
+          <div className="bulk-action-bar__actions" data-testid="bulk-action-bar-actions">
             {actions}
           </div>
         ) : null}
@@ -102,8 +99,7 @@ export const BulkActionBar = React.forwardRef<HTMLDivElement, BulkActionBarProps
         <div className="bulk-action-bar__end">
           <span className="bulk-action-bar__hint">
             <KeyCap keys="Shift" />
-            +<KeyCap keys="click" /> to range-select &middot;{' '}
-            <KeyCap keys="esc" /> to clear
+            +<KeyCap keys="click" /> to range-select &middot; <KeyCap keys="esc" /> to clear
           </span>
           <Button
             variant="ghost"

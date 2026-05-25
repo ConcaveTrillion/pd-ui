@@ -31,14 +31,14 @@ describe('Segmented', () => {
   it('active item has aria-checked=true', () => {
     render(<Segmented options={opts} defaultValue="b" />);
     const radios = screen.getAllByRole('radio');
-    const beta = radios.find(r => r.textContent === 'Beta');
+    const beta = radios.find((r) => r.textContent === 'Beta');
     expect(beta?.getAttribute('aria-checked')).toBe('true');
   });
 
   it('inactive items have aria-checked=false', () => {
     render(<Segmented options={opts} defaultValue="b" />);
     const radios = screen.getAllByRole('radio');
-    const alpha = radios.find(r => r.textContent === 'Alpha');
+    const alpha = radios.find((r) => r.textContent === 'Alpha');
     expect(alpha?.getAttribute('aria-checked')).toBe('false');
   });
 
@@ -53,21 +53,19 @@ describe('Segmented', () => {
   it('controlled: value prop drives selection', async () => {
     const user = userEvent.setup();
     const onChange = vi.fn();
-    const { rerender } = render(
-      <Segmented options={opts} value="a" onChange={onChange} />,
-    );
+    const { rerender } = render(<Segmented options={opts} value="a" onChange={onChange} />);
     // Even after click, value stays until parent re-renders
     await user.click(screen.getByText('Beta'));
     expect(onChange).toHaveBeenCalledWith('b');
     // Still shows a as selected (controlled)
     const radios = screen.getAllByRole('radio');
-    const alpha = radios.find(r => r.textContent === 'Alpha');
+    const alpha = radios.find((r) => r.textContent === 'Alpha');
     expect(alpha?.getAttribute('aria-checked')).toBe('true');
 
     // After rerender with new value, b is selected
     rerender(<Segmented options={opts} value="b" onChange={onChange} />);
     const radios2 = screen.getAllByRole('radio');
-    const beta2 = radios2.find(r => r.textContent === 'Beta');
+    const beta2 = radios2.find((r) => r.textContent === 'Beta');
     expect(beta2?.getAttribute('aria-checked')).toBe('true');
   });
 
@@ -106,29 +104,25 @@ describe('Segmented', () => {
 
   it('applies .segmented--full class when full=true', () => {
     render(<Segmented options={opts} defaultValue="a" full />);
-    expect(
-      screen.getByRole('radiogroup').classList.contains('segmented--full'),
-    ).toBe(true);
+    expect(screen.getByRole('radiogroup').classList.contains('segmented--full')).toBe(true);
   });
 
   it('applies size class', () => {
     render(<Segmented options={opts} defaultValue="a" size="sm" />);
-    expect(
-      screen.getByRole('radiogroup').classList.contains('segmented--sm'),
-    ).toBe(true);
+    expect(screen.getByRole('radiogroup').classList.contains('segmented--sm')).toBe(true);
   });
 
   it('selected item has tabIndex=0 (roving focus)', () => {
     render(<Segmented options={opts} defaultValue="b" />);
     const radios = screen.getAllByRole('radio');
-    const beta = radios.find(r => r.textContent === 'Beta');
+    const beta = radios.find((r) => r.textContent === 'Beta');
     expect(beta?.getAttribute('tabindex')).toBe('0');
   });
 
   it('non-selected items have tabIndex=-1 (roving focus)', () => {
     render(<Segmented options={opts} defaultValue="b" />);
     const radios = screen.getAllByRole('radio');
-    const nonSelected = radios.filter(r => r.textContent !== 'Beta');
+    const nonSelected = radios.filter((r) => r.textContent !== 'Beta');
     for (const r of nonSelected) {
       expect(r.getAttribute('tabindex')).toBe('-1');
     }
@@ -139,15 +133,15 @@ describe('Segmented', () => {
     render(<Segmented options={opts} defaultValue="a" />);
     const radios = screen.getAllByRole('radio');
     // Initially Alpha is selected (tabIndex=0)
-    const alpha = radios.find(r => r.textContent === 'Alpha');
+    const alpha = radios.find((r) => r.textContent === 'Alpha');
     expect(alpha?.getAttribute('tabindex')).toBe('0');
     // Click Beta
     await user.click(screen.getByText('Beta'));
     // Now Beta has tabIndex=0
     const radios2 = screen.getAllByRole('radio');
-    const beta2 = radios2.find(r => r.textContent === 'Beta');
+    const beta2 = radios2.find((r) => r.textContent === 'Beta');
     expect(beta2?.getAttribute('tabindex')).toBe('0');
-    const alpha2 = radios2.find(r => r.textContent === 'Alpha');
+    const alpha2 = radios2.find((r) => r.textContent === 'Alpha');
     expect(alpha2?.getAttribute('tabindex')).toBe('-1');
   });
 

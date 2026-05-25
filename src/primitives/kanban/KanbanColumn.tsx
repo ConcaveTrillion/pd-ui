@@ -1,33 +1,17 @@
 import * as React from 'react';
 import { useDroppable } from '@dnd-kit/core';
-import {
-  SortableContext,
-  verticalListSortingStrategy,
-} from '@dnd-kit/sortable';
+import { SortableContext, verticalListSortingStrategy } from '@dnd-kit/sortable';
 import { useVirtualizer } from '@tanstack/react-virtual';
 import { cn } from '../cn.js';
 import { PageChip } from './PageChip.js';
-import type {
-  KanbanColumnDef,
-  KanbanColumnProps,
-  KanbanItemDef,
-} from './types.js';
+import type { KanbanColumnDef, KanbanColumnProps, KanbanItemDef } from './types.js';
 
 const DEFAULT_ROW_HEIGHT = 40;
 
-function KanbanColumnInner<
-  TColumn extends KanbanColumnDef,
-  TItem extends KanbanItemDef,
->(props: KanbanColumnProps<TColumn, TItem>): React.ReactElement {
-  const {
-    column,
-    items,
-    renderHeader,
-    renderChip,
-    selectedIds,
-    onSelect,
-    className,
-  } = props;
+function KanbanColumnInner<TColumn extends KanbanColumnDef, TItem extends KanbanItemDef>(
+  props: KanbanColumnProps<TColumn, TItem>,
+): React.ReactElement {
+  const { column, items, renderHeader, renderChip, selectedIds, onSelect, className } = props;
   const testid = props['data-testid'];
 
   const scrollRef = React.useRef<HTMLDivElement>(null);

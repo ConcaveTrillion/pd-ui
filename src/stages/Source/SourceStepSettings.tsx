@@ -127,16 +127,10 @@ export function SourceStepSettings({
   const selectValue = settings.preset ?? '';
 
   return (
-    <section
-      className="source-step-settings"
-      data-testid={testid}
-    >
+    <section className="source-step-settings" data-testid={testid}>
       {/* ── Preset row ─────────────────────────────────────────────────────── */}
       <div className="source-step-settings__row source-step-settings__row--preset">
-        <label
-          className="source-step-settings__label"
-          htmlFor="source-step-settings-preset"
-        >
+        <label className="source-step-settings__label" htmlFor="source-step-settings-preset">
           Preset
         </label>
         <div className="source-step-settings__preset-controls">
@@ -191,12 +185,7 @@ export function SourceStepSettings({
             >
               Save
             </Button>
-            <Button
-              variant="ghost"
-              size="sm"
-              type="button"
-              onClick={handleCancelSave}
-            >
+            <Button variant="ghost" size="sm" type="button" onClick={handleCancelSave}>
               Cancel
             </Button>
           </div>
@@ -205,9 +194,7 @@ export function SourceStepSettings({
 
       {/* ── Thumbnail quality ───────────────────────────────────────────────── */}
       <fieldset className="source-step-settings__row source-step-settings__fieldset">
-        <legend className="source-step-settings__label">
-          Thumbnail quality
-        </legend>
+        <legend className="source-step-settings__label">Thumbnail quality</legend>
         <div className="source-step-settings__radio-group">
           {QUALITY_OPTIONS.map(({ value, label }) => (
             <label
@@ -231,10 +218,7 @@ export function SourceStepSettings({
 
       {/* ── Concurrent workers ──────────────────────────────────────────────── */}
       <div className="source-step-settings__row">
-        <label
-          className="source-step-settings__label"
-          htmlFor="source-step-settings-workers"
-        >
+        <label className="source-step-settings__label" htmlFor="source-step-settings-workers">
           Concurrent workers
         </label>
         <div className="source-step-settings__slider-row">

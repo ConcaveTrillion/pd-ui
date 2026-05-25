@@ -8,32 +8,32 @@
  * Each bbox is normalized [x, y, w, h] relative to page dimensions.
  */
 
-import { Rect } from 'react-konva'
-import type { CoordContext } from '../../canvas/types.js'
+import { Rect } from 'react-konva';
+import type { CoordContext } from '../../canvas/types.js';
 
 export interface IllustBbox {
-  id: string
+  id: string;
   /** Normalized [x, y, w, h] relative to image dimensions. */
-  bbox: [number, number, number, number]
-  label?: string
+  bbox: [number, number, number, number];
+  label?: string;
 }
 
 export interface IllustOverlayProps {
   /** Coordinate context from SlotRenderProps. */
-  coords: CoordContext
+  coords: CoordContext;
   /** Illustration bboxes to highlight. */
-  illustBboxes: IllustBbox[]
+  illustBboxes: IllustBbox[];
 }
 
 export function IllustOverlay({ coords, illustBboxes }: IllustOverlayProps) {
   return (
     <>
       {illustBboxes.map((ill) => {
-        const [nx, ny, nw, nh] = ill.bbox
-        const x = nx * coords.pageWidth
-        const y = ny * coords.pageHeight
-        const w = nw * coords.pageWidth
-        const h = nh * coords.pageHeight
+        const [nx, ny, nw, nh] = ill.bbox;
+        const x = nx * coords.pageWidth;
+        const y = ny * coords.pageHeight;
+        const w = nw * coords.pageWidth;
+        const h = nh * coords.pageHeight;
         return (
           <Rect
             key={ill.id}
@@ -49,10 +49,10 @@ export function IllustOverlay({ coords, illustBboxes }: IllustOverlayProps) {
             listening={false}
             perfectDrawEnabled={false}
           />
-        )
+        );
       })}
     </>
-  )
+  );
 }
 
-IllustOverlay.displayName = 'IllustOverlay'
+IllustOverlay.displayName = 'IllustOverlay';

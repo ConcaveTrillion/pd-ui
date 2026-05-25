@@ -16,21 +16,21 @@
  * pointer events on the Konva stage.
  */
 
-import { memo } from 'react'
-import { Rect } from 'react-konva'
-import type { WordSlotProps, CanvasWord } from '../types'
-import { bboxToRect } from '../types'
+import { memo } from 'react';
+import { Rect } from 'react-konva';
+import type { WordSlotProps, CanvasWord } from '../types';
+import { bboxToRect } from '../types';
 
 interface WordHitLayerProps extends WordSlotProps {
   /** Called when the pointer enters the word's bounding box. */
-  onHover?: (word: CanvasWord | null) => void
+  onHover?: (word: CanvasWord | null) => void;
   /** Called when the user clicks the word. */
-  onClick?: (word: CanvasWord) => void
+  onClick?: (word: CanvasWord) => void;
 }
 
 function WordHitLayerInner({ word, onHover, onClick }: WordHitLayerProps) {
-  const rect = bboxToRect(word.bounding_box)
-  if (!rect) return null
+  const rect = bboxToRect(word.bounding_box);
+  if (!rect) return null;
 
   return (
     <Rect
@@ -46,8 +46,8 @@ function WordHitLayerInner({ word, onHover, onClick }: WordHitLayerProps) {
       onClick={() => onClick?.(word)}
       perfectDrawEnabled={false}
     />
-  )
+  );
 }
 
-export const WordHitLayer = memo(WordHitLayerInner)
-WordHitLayer.displayName = 'WordHitLayer'
+export const WordHitLayer = memo(WordHitLayerInner);
+WordHitLayer.displayName = 'WordHitLayer';

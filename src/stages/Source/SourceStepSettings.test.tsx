@@ -43,11 +43,7 @@ describe('SourceStepSettings', () => {
   it('fires onChange with updated preset when preset select changes', () => {
     const onChange = vi.fn();
     render(
-      <SourceStepSettings
-        settings={DEFAULT_SETTINGS}
-        onChange={onChange}
-        presets={PRESETS}
-      />,
+      <SourceStepSettings settings={DEFAULT_SETTINGS} onChange={onChange} presets={PRESETS} />,
     );
     const select = screen.getByRole('combobox');
     fireEvent.change(select, { target: { value: 'fast' } });
@@ -62,11 +58,7 @@ describe('SourceStepSettings', () => {
     const onChange = vi.fn();
     const settingsWithPreset: SourceSettings = { ...DEFAULT_SETTINGS, preset: 'fast' };
     render(
-      <SourceStepSettings
-        settings={settingsWithPreset}
-        onChange={onChange}
-        presets={PRESETS}
-      />,
+      <SourceStepSettings settings={settingsWithPreset} onChange={onChange} presets={PRESETS} />,
     );
     const select = screen.getByRole('combobox');
     fireEvent.change(select, { target: { value: '' } });
@@ -77,13 +69,7 @@ describe('SourceStepSettings', () => {
 
   it('fires onChange with updated thumbQuality when radio changes', () => {
     const onChange = vi.fn();
-    render(
-      <SourceStepSettings
-        settings={DEFAULT_SETTINGS}
-        onChange={onChange}
-        presets={[]}
-      />,
-    );
+    render(<SourceStepSettings settings={DEFAULT_SETTINGS} onChange={onChange} presets={[]} />);
     const highRadio = screen.getByRole('radio', { name: 'High' });
     fireEvent.click(highRadio);
     expect(onChange).toHaveBeenCalledWith({
@@ -110,13 +96,7 @@ describe('SourceStepSettings', () => {
 
   it('fires onChange with updated workers when slider changes', () => {
     const onChange = vi.fn();
-    render(
-      <SourceStepSettings
-        settings={DEFAULT_SETTINGS}
-        onChange={onChange}
-        presets={[]}
-      />,
-    );
+    render(<SourceStepSettings settings={DEFAULT_SETTINGS} onChange={onChange} presets={[]} />);
     const slider = screen.getByRole('slider');
     fireEvent.change(slider, { target: { value: '7' } });
     expect(onChange).toHaveBeenCalledWith({ ...DEFAULT_SETTINGS, workers: 7 });
@@ -137,13 +117,7 @@ describe('SourceStepSettings', () => {
 
   it('fires onChange with updated autoConfirm when toggle changes', () => {
     const onChange = vi.fn();
-    render(
-      <SourceStepSettings
-        settings={DEFAULT_SETTINGS}
-        onChange={onChange}
-        presets={[]}
-      />,
-    );
+    render(<SourceStepSettings settings={DEFAULT_SETTINGS} onChange={onChange} presets={[]} />);
     // The Radix Switch renders a button role
     const switchEl = screen.getByRole('switch');
     fireEvent.click(switchEl);
@@ -154,11 +128,7 @@ describe('SourceStepSettings', () => {
 
   it('does not render Save-as-preset button when onSavePreset not provided', () => {
     render(
-      <SourceStepSettings
-        settings={DEFAULT_SETTINGS}
-        onChange={() => undefined}
-        presets={[]}
-      />,
+      <SourceStepSettings settings={DEFAULT_SETTINGS} onChange={() => undefined} presets={[]} />,
     );
     expect(screen.queryByText('Save as preset…')).toBeNull();
   });
@@ -261,11 +231,7 @@ describe('SourceStepSettings', () => {
 
   it('does not render Re-generate button when onRegenerate not provided', () => {
     render(
-      <SourceStepSettings
-        settings={DEFAULT_SETTINGS}
-        onChange={() => undefined}
-        presets={[]}
-      />,
+      <SourceStepSettings settings={DEFAULT_SETTINGS} onChange={() => undefined} presets={[]} />,
     );
     expect(screen.queryByText('Re-generate')).toBeNull();
   });
@@ -307,8 +273,6 @@ describe('SourceStepSettings', () => {
         data-testid="my-source-settings"
       />,
     );
-    expect(
-      container.querySelector('[data-testid="my-source-settings"]'),
-    ).not.toBeNull();
+    expect(container.querySelector('[data-testid="my-source-settings"]')).not.toBeNull();
   });
 });

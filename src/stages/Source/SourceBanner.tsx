@@ -83,13 +83,7 @@ const BULK_ACTION_LABEL: Record<SourceBulkAction, string> = {
   remove: 'Remove',
 };
 
-const BULK_ACTIONS_NON_DANGER: SourceBulkAction[] = [
-  'page',
-  'cover',
-  'back',
-  'blank',
-  'duplicate',
-];
+const BULK_ACTIONS_NON_DANGER: SourceBulkAction[] = ['page', 'cover', 'back', 'blank', 'duplicate'];
 
 // ── Component ─────────────────────────────────────────────────────────────────
 
@@ -104,105 +98,103 @@ const BULK_ACTIONS_NON_DANGER: SourceBulkAction[] = [
  *
  * CSS hooks: `data-state` on the root `<section>` for per-state theming.
  */
-export const SourceBanner = React.forwardRef<HTMLElement, SourceBannerProps>(
-  function SourceBanner(
-    {
-      state,
-      progress,
-      currentPage,
-      totalPages,
-      selectedCount,
-      onBulkAction,
-      onGenerate,
-      onRegenerate,
-      'data-testid': testId = SOURCE_BANNER,
-    },
-    ref,
-  ) {
-    return (
-      <section
-        ref={ref}
-        className="source-banner"
-        data-state={state}
-        data-testid={testId}
-        aria-label="Source stage banner"
-      >
-        {state === 'idle' ? (
-          <div className="source-banner__idle">
-            <span className="source-banner__idle-label">
-              Source pages
-            </span>
-            <div className="source-banner__idle-actions">
-              <Button
-                variant="primary"
-                size="sm"
-                data-testid={SOURCE_BANNER_GENERATE}
-                {...(onGenerate != null ? { onClick: onGenerate } : {})}
-              >
-                Generate
-              </Button>
-              {onRegenerate != null ? (
-                <Button
-                  variant="ghost"
-                  size="sm"
-                  data-testid={SOURCE_BANNER_REGENERATE}
-                  onClick={onRegenerate}
-                >
-                  Re-generate
-                </Button>
-              ) : null}
-            </div>
-          </div>
-        ) : state === 'generating' ? (
-          <div className="source-banner__generating">
-            <div className="source-banner__progress-track" role="progressbar" aria-valuenow={progress != null ? Math.round(Math.max(0, Math.min(1, progress)) * 100) : 0} aria-valuemin={0} aria-valuemax={100}>
-              <div
-                className="source-banner__progress-fill"
-                style={{ width: `${Math.round(Math.max(0, Math.min(1, progress ?? 0)) * 100)}%` }}
-              />
-            </div>
-            <span className="source-banner__page-counter">
-              {currentPage != null && totalPages != null
-                ? `${currentPage} of ${totalPages}`
-                : null}
-            </span>
-          </div>
-        ) : (
-          // state === 'selection'
-          <div className="source-banner__selection">
-            <span className="source-banner__selection-count">
-              {selectedCount != null ? `${selectedCount} selected` : '0 selected'}
-            </span>
-            <div className="source-banner__bulk-actions">
-              {BULK_ACTIONS_NON_DANGER.map((action) => (
-                <Button
-                  key={action}
-                  variant="ghost"
-                  size="sm"
-                  data-testid={sourceBulkActionTestId(action)}
-                  {...(onBulkAction != null
-                    ? { onClick: () => onBulkAction(action) }
-                    : {})}
-                >
-                  {BULK_ACTION_LABEL[action]}
-                </Button>
-              ))}
-              <Button
-                variant="danger"
-                size="sm"
-                data-testid={sourceBulkActionTestId('remove')}
-                {...(onBulkAction != null
-                  ? { onClick: () => onBulkAction('remove') }
-                  : {})}
-              >
-                {BULK_ACTION_LABEL.remove}
-              </Button>
-            </div>
-          </div>
-        )}
-      </section>
-    );
+export const SourceBanner = React.forwardRef<HTMLElement, SourceBannerProps>(function SourceBanner(
+  {
+    state,
+    progress,
+    currentPage,
+    totalPages,
+    selectedCount,
+    onBulkAction,
+    onGenerate,
+    onRegenerate,
+    'data-testid': testId = SOURCE_BANNER,
   },
-);
+  ref,
+) {
+  return (
+    <section
+      ref={ref}
+      className="source-banner"
+      data-state={state}
+      data-testid={testId}
+      aria-label="Source stage banner"
+    >
+      {state === 'idle' ? (
+        <div className="source-banner__idle">
+          <span className="source-banner__idle-label">Source pages</span>
+          <div className="source-banner__idle-actions">
+            <Button
+              variant="primary"
+              size="sm"
+              data-testid={SOURCE_BANNER_GENERATE}
+              {...(onGenerate != null ? { onClick: onGenerate } : {})}
+            >
+              Generate
+            </Button>
+            {onRegenerate != null ? (
+              <Button
+                variant="ghost"
+                size="sm"
+                data-testid={SOURCE_BANNER_REGENERATE}
+                onClick={onRegenerate}
+              >
+                Re-generate
+              </Button>
+            ) : null}
+          </div>
+        </div>
+      ) : state === 'generating' ? (
+        <div className="source-banner__generating">
+          <div
+            className="source-banner__progress-track"
+            role="progressbar"
+            aria-valuenow={
+              progress != null ? Math.round(Math.max(0, Math.min(1, progress)) * 100) : 0
+            }
+            aria-valuemin={0}
+            aria-valuemax={100}
+          >
+            <div
+              className="source-banner__progress-fill"
+              style={{ width: `${Math.round(Math.max(0, Math.min(1, progress ?? 0)) * 100)}%` }}
+            />
+          </div>
+          <span className="source-banner__page-counter">
+            {currentPage != null && totalPages != null ? `${currentPage} of ${totalPages}` : null}
+          </span>
+        </div>
+      ) : (
+        // state === 'selection'
+        <div className="source-banner__selection">
+          <span className="source-banner__selection-count">
+            {selectedCount != null ? `${selectedCount} selected` : '0 selected'}
+          </span>
+          <div className="source-banner__bulk-actions">
+            {BULK_ACTIONS_NON_DANGER.map((action) => (
+              <Button
+                key={action}
+                variant="ghost"
+                size="sm"
+                data-testid={sourceBulkActionTestId(action)}
+                {...(onBulkAction != null ? { onClick: () => onBulkAction(action) } : {})}
+              >
+                {BULK_ACTION_LABEL[action]}
+              </Button>
+            ))}
+            <Button
+              variant="danger"
+              size="sm"
+              data-testid={sourceBulkActionTestId('remove')}
+              {...(onBulkAction != null ? { onClick: () => onBulkAction('remove') } : {})}
+            >
+              {BULK_ACTION_LABEL.remove}
+            </Button>
+          </div>
+        </div>
+      )}
+    </section>
+  );
+});
 
 SourceBanner.displayName = 'SourceBanner';

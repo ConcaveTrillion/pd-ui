@@ -44,9 +44,7 @@ describe('ModeCard — rendering', () => {
       screen.getByText('Linear luminance — fastest, suitable for clean text scans.'),
     ).toBeInTheDocument();
     expect(
-      screen.getByText(
-        'Tonal compression — preserves detail in halftones and illustrations.',
-      ),
+      screen.getByText('Tonal compression — preserves detail in halftones and illustrations.'),
     ).toBeInTheDocument();
   });
 
@@ -67,10 +65,7 @@ describe('ModeCard — rendering', () => {
 describe('ModeCard — aria-checked', () => {
   it('sets aria-checked=true on the selected Standard card', () => {
     renderModeCard({ selectedMode: 'standard' });
-    expect(screen.getByTestId(modeCardTestId('standard'))).toHaveAttribute(
-      'aria-checked',
-      'true',
-    );
+    expect(screen.getByTestId(modeCardTestId('standard'))).toHaveAttribute('aria-checked', 'true');
     expect(screen.getByTestId(modeCardTestId('perceptual'))).toHaveAttribute(
       'aria-checked',
       'false',
@@ -83,10 +78,7 @@ describe('ModeCard — aria-checked', () => {
       'aria-checked',
       'true',
     );
-    expect(screen.getByTestId(modeCardTestId('standard'))).toHaveAttribute(
-      'aria-checked',
-      'false',
-    );
+    expect(screen.getByTestId(modeCardTestId('standard'))).toHaveAttribute('aria-checked', 'false');
   });
 
   it('role=radiogroup is present on outer wrapper', () => {

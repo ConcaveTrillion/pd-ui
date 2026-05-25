@@ -114,11 +114,7 @@ const RailItem: React.FC<RailItemProps> = ({ step, index, isCurrent, isPast, onC
           .join(' ')}
         aria-hidden="true"
       >
-        {isPast ? (
-          <Check size={11} strokeWidth={3} />
-        ) : (
-          <span>{index + 1}</span>
-        )}
+        {isPast ? <Check size={11} strokeWidth={3} /> : <span>{index + 1}</span>}
       </div>
 
       {/* Step label */}
@@ -149,11 +145,7 @@ export const ModalC: React.FC<ModalCProps> = ({
         aria-describedby="modal-c-desc"
       >
         {/* ── Left rail ─────────────────────────────────────────────────── */}
-        <nav
-          data-testid={UPLOAD_MODAL_C_RAIL}
-          className="modal-c__rail"
-          aria-label="Upload steps"
-        >
+        <nav data-testid={UPLOAD_MODAL_C_RAIL} className="modal-c__rail" aria-label="Upload steps">
           <div className="modal-c__rail-heading" aria-hidden="true">
             New project
           </div>
@@ -165,7 +157,9 @@ export const ModalC: React.FC<ModalCProps> = ({
               index={i}
               isCurrent={s === step}
               isPast={i < currentIndex}
-              onClick={() => { onStepChange(s); }}
+              onClick={() => {
+                onStepChange(s);
+              }}
             />
           ))}
         </nav>
@@ -174,15 +168,9 @@ export const ModalC: React.FC<ModalCProps> = ({
         <div className="modal-c__content">
           {/* Header */}
           <DialogHeader className="modal-c__content-header">
-            <DialogTitle className="modal-c__content-title">
-              {STEP_LABELS[step]}
-            </DialogTitle>
+            <DialogTitle className="modal-c__content-title">{STEP_LABELS[step]}</DialogTitle>
             <DialogClose asChild>
-              <button
-                type="button"
-                aria-label="Close"
-                className="modal-c__close"
-              >
+              <button type="button" aria-label="Close" className="modal-c__close">
                 ✕
               </button>
             </DialogClose>
@@ -194,9 +182,7 @@ export const ModalC: React.FC<ModalCProps> = ({
           </p>
 
           {/* Step body — parent-supplied slot */}
-          <div className="modal-c__content-body">
-            {stepContent[step]}
-          </div>
+          <div className="modal-c__content-body">{stepContent[step]}</div>
         </div>
       </DialogContent>
     </Dialog>

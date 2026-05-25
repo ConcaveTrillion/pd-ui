@@ -26,41 +26,29 @@ function makeSettings(overrides?: Partial<HyphenSettings>): HyphenSettings {
 
 describe('HyphenStepSettings — root and testids', () => {
   it('renders root with default testid', () => {
-    render(
-      <HyphenStepSettings settings={makeSettings()} onChange={vi.fn()} />,
-    );
+    render(<HyphenStepSettings settings={makeSettings()} onChange={vi.fn()} />);
     expect(screen.getByTestId(HYPHEN_STEP_SETTINGS)).toBeInTheDocument();
   });
 
   it('forwards custom data-testid to root element', () => {
     render(
-      <HyphenStepSettings
-        settings={makeSettings()}
-        onChange={vi.fn()}
-        data-testid="custom-id"
-      />,
+      <HyphenStepSettings settings={makeSettings()} onChange={vi.fn()} data-testid="custom-id" />,
     );
     expect(screen.getByTestId('custom-id')).toBeInTheDocument();
   });
 
   it('renders cache-size input with correct testid', () => {
-    render(
-      <HyphenStepSettings settings={makeSettings()} onChange={vi.fn()} />,
-    );
+    render(<HyphenStepSettings settings={makeSettings()} onChange={vi.fn()} />);
     expect(screen.getByTestId(HYPHEN_STEP_SETTINGS_CACHE_SIZE)).toBeInTheDocument();
   });
 
   it('renders cache-ttl input with correct testid', () => {
-    render(
-      <HyphenStepSettings settings={makeSettings()} onChange={vi.fn()} />,
-    );
+    render(<HyphenStepSettings settings={makeSettings()} onChange={vi.fn()} />);
     expect(screen.getByTestId(HYPHEN_STEP_SETTINGS_CACHE_TTL)).toBeInTheDocument();
   });
 
   it('renders auto-flag-threshold input with correct testid', () => {
-    render(
-      <HyphenStepSettings settings={makeSettings()} onChange={vi.fn()} />,
-    );
+    render(<HyphenStepSettings settings={makeSettings()} onChange={vi.fn()} />);
     expect(screen.getByTestId(HYPHEN_STEP_SETTINGS_AUTO_FLAG_THRESHOLD)).toBeInTheDocument();
   });
 });
@@ -69,9 +57,7 @@ describe('HyphenStepSettings — root and testids', () => {
 
 describe('HyphenStepSettings — rule library section', () => {
   it('renders "Rule library" heading', () => {
-    render(
-      <HyphenStepSettings settings={makeSettings()} onChange={vi.fn()} />,
-    );
+    render(<HyphenStepSettings settings={makeSettings()} onChange={vi.fn()} />);
     expect(screen.getByText('Rule library')).toBeInTheDocument();
   });
 
@@ -162,7 +148,7 @@ describe('HyphenStepSettings — rule library section', () => {
     const r2 = next.rules.find((r) => r.id === 'r2');
     const r3 = next.rules.find((r) => r.id === 'r3');
     expect(r2?.enabled).toBe(false); // unchanged
-    expect(r3?.enabled).toBe(true);  // unchanged
+    expect(r3?.enabled).toBe(true); // unchanged
   });
 });
 
@@ -170,9 +156,7 @@ describe('HyphenStepSettings — rule library section', () => {
 
 describe('HyphenStepSettings — n-gram cache section', () => {
   it('renders "N-gram cache" heading', () => {
-    render(
-      <HyphenStepSettings settings={makeSettings()} onChange={vi.fn()} />,
-    );
+    render(<HyphenStepSettings settings={makeSettings()} onChange={vi.fn()} />);
     // Use getAllByText because the sub-description also contains "n-gram cache"
     expect(screen.getAllByText(/n-gram cache/i).length).toBeGreaterThan(0);
   });
@@ -249,9 +233,7 @@ describe('HyphenStepSettings — n-gram cache section', () => {
 
 describe('HyphenStepSettings — auto-flag thresholds section', () => {
   it('renders "Auto-flag thresholds" heading', () => {
-    render(
-      <HyphenStepSettings settings={makeSettings()} onChange={vi.fn()} />,
-    );
+    render(<HyphenStepSettings settings={makeSettings()} onChange={vi.fn()} />);
     expect(screen.getAllByText(/auto-flag thresholds/i).length).toBeGreaterThan(0);
   });
 

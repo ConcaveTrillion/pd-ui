@@ -1,10 +1,7 @@
 import * as React from 'react';
 import { Sparkles } from '../../icons/lucide.js';
 import { Button } from '../../primitives/Button.js';
-import {
-  AUTO_DETECT_BANNER,
-  AUTO_DETECT_BANNER_REDETECT,
-} from '../../testids/index.js';
+import { AUTO_DETECT_BANNER, AUTO_DETECT_BANNER_REDETECT } from '../../testids/index.js';
 
 /**
  * Grayscale conversion mode.
@@ -43,66 +40,63 @@ export interface AutoDetectBannerProps {
  *
  * Layout: two-column grid — left: icon + text block; right: time + button.
  */
-export const AutoDetectBanner = React.forwardRef<
-  HTMLElement,
-  AutoDetectBannerProps
->(function AutoDetectBanner(
-  {
-    mode,
-    profile,
-    estimatedSecondsPerPage,
-    onRedetect,
-    'data-testid': testId = AUTO_DETECT_BANNER,
-  },
-  ref,
-) {
-  return (
-    <aside
-      ref={ref}
-      className="auto-detect-banner"
-      data-testid={testId}
-      aria-label="Auto-detect results banner"
-    >
-      {/* ── Left: icon + copy ─────────────────────────────────────────── */}
-      <div className="auto-detect-banner__left">
-        <div className="auto-detect-banner__icon" aria-hidden>
-          <Sparkles size={15} />
-        </div>
-        <div className="auto-detect-banner__copy">
-          <div className="auto-detect-banner__headline">
-            <span className="auto-detect-banner__headline-text">
-              Auto-detected: <strong>{mode}</strong>
-            </span>
-            {profile != null ? (
-              <span
-                className="auto-detect-banner__profile-chip"
-                data-testid="auto-detect-banner-profile"
-              >
-                {profile}
+export const AutoDetectBanner = React.forwardRef<HTMLElement, AutoDetectBannerProps>(
+  function AutoDetectBanner(
+    {
+      mode,
+      profile,
+      estimatedSecondsPerPage,
+      onRedetect,
+      'data-testid': testId = AUTO_DETECT_BANNER,
+    },
+    ref,
+  ) {
+    return (
+      <aside
+        ref={ref}
+        className="auto-detect-banner"
+        data-testid={testId}
+        aria-label="Auto-detect results banner"
+      >
+        {/* ── Left: icon + copy ─────────────────────────────────────────── */}
+        <div className="auto-detect-banner__left">
+          <div className="auto-detect-banner__icon" aria-hidden>
+            <Sparkles size={15} />
+          </div>
+          <div className="auto-detect-banner__copy">
+            <div className="auto-detect-banner__headline">
+              <span className="auto-detect-banner__headline-text">
+                Auto-detected: <strong>{mode}</strong>
               </span>
-            ) : null}
-          </div>
-          <div className="auto-detect-banner__subtext">
-            ~{estimatedSecondsPerPage}s/page
+              {profile != null ? (
+                <span
+                  className="auto-detect-banner__profile-chip"
+                  data-testid="auto-detect-banner-profile"
+                >
+                  {profile}
+                </span>
+              ) : null}
+            </div>
+            <div className="auto-detect-banner__subtext">~{estimatedSecondsPerPage}s/page</div>
           </div>
         </div>
-      </div>
 
-      {/* ── Right: re-detect button ───────────────────────────────────── */}
-      {onRedetect != null ? (
-        <div className="auto-detect-banner__actions">
-          <Button
-            variant="ghost"
-            size="sm"
-            data-testid={AUTO_DETECT_BANNER_REDETECT}
-            onClick={onRedetect}
-          >
-            Re-detect
-          </Button>
-        </div>
-      ) : null}
-    </aside>
-  );
-});
+        {/* ── Right: re-detect button ───────────────────────────────────── */}
+        {onRedetect != null ? (
+          <div className="auto-detect-banner__actions">
+            <Button
+              variant="ghost"
+              size="sm"
+              data-testid={AUTO_DETECT_BANNER_REDETECT}
+              onClick={onRedetect}
+            >
+              Re-detect
+            </Button>
+          </div>
+        ) : null}
+      </aside>
+    );
+  },
+);
 
 AutoDetectBanner.displayName = 'AutoDetectBanner';

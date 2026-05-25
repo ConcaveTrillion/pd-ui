@@ -28,7 +28,11 @@ const OPTIONS: ViewOption[] = [
  * Icon rendering is deferred to CSS `::before` content on `.view-toggle__option-icon`
  * so no icon import is needed inside this primitive.
  */
-export function ViewToggle({ mode = 'list', onChange, className }: ViewToggleProps): React.ReactElement {
+export function ViewToggle({
+  mode = 'list',
+  onChange,
+  className,
+}: ViewToggleProps): React.ReactElement {
   return (
     <div className={cn('view-toggle', className)} role="group" aria-label="View mode">
       {OPTIONS.map((opt) => {
@@ -45,7 +49,10 @@ export function ViewToggle({ mode = 'list', onChange, className }: ViewTogglePro
             aria-pressed={active}
             onClick={() => onChange(opt.id)}
           >
-            <span className={cn('view-toggle__option-icon', `view-toggle__option-icon--${opt.id}`)} aria-hidden="true" />
+            <span
+              className={cn('view-toggle__option-icon', `view-toggle__option-icon--${opt.id}`)}
+              aria-hidden="true"
+            />
             {opt.label}
           </button>
         );

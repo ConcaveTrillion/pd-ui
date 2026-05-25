@@ -35,8 +35,8 @@
 import * as React from 'react';
 import { Icon } from '../icons/Icon.js';
 import type { IconName } from '../icons/Icon.js';
-import { ProjectInfoBand } from "./PipelineTemplate.js";
-import type { PipelineProject as ProjectData } from "./PipelineTemplate.js";
+import { ProjectInfoBand } from './PipelineTemplate.js';
+import type { PipelineProject as ProjectData } from './PipelineTemplate.js';
 import {
   PROJECT_SETTINGS_TEMPLATE,
   PROJECT_SETTINGS_NAV,
@@ -68,14 +68,14 @@ interface NavItem {
 
 /** Default 8-item project-settings nav definition (matches design source). */
 const NAV_ITEMS: readonly NavItem[] = [
-  { id: 'general',  name: 'General',           icon: 'wrench'    },
-  { id: 'bib',      name: 'Bibliographic',      icon: 'fileText'  },
-  { id: 'pgdp',     name: 'PGDP submission',    icon: 'package'   },
-  { id: 'format',   name: 'Format & content',   icon: 'file'      },
-  { id: 'defaults', name: 'Stage defaults',     icon: 'sparkles'  },
-  { id: 'members',  name: 'Members',            icon: 'image'     },
-  { id: 'storage',  name: 'Storage & cleanup',  icon: 'hardDrive' },
-  { id: 'danger',   name: 'Danger zone',        icon: 'trash',    danger: true },
+  { id: 'general', name: 'General', icon: 'wrench' },
+  { id: 'bib', name: 'Bibliographic', icon: 'fileText' },
+  { id: 'pgdp', name: 'PGDP submission', icon: 'package' },
+  { id: 'format', name: 'Format & content', icon: 'file' },
+  { id: 'defaults', name: 'Stage defaults', icon: 'sparkles' },
+  { id: 'members', name: 'Members', icon: 'image' },
+  { id: 'storage', name: 'Storage & cleanup', icon: 'hardDrive' },
+  { id: 'danger', name: 'Danger zone', icon: 'trash', danger: true },
 ] as const;
 
 // ---------------------------------------------------------------------------
@@ -90,7 +90,8 @@ function SettingsContentPlaceholder() {
         minHeight: 320,
         border: '1px dashed var(--border-2)',
         borderRadius: 10,
-        background: 'repeating-linear-gradient(135deg, transparent 0 14px, color-mix(in oklab, var(--border-1) 35%, transparent) 14px 15px)',
+        background:
+          'repeating-linear-gradient(135deg, transparent 0 14px, color-mix(in oklab, var(--border-1) 35%, transparent) 14px 15px)',
         display: 'grid',
         placeItems: 'center',
         color: 'var(--ink-3)',
@@ -234,7 +235,7 @@ export function ProjectSettingsTemplate({
             Project settings
           </div>
 
-          {NAV_ITEMS.map(item => {
+          {NAV_ITEMS.map((item) => {
             const active = item.id === currentGroup;
             return (
               <button
@@ -247,14 +248,8 @@ export function ProjectSettingsTemplate({
                   padding: '7px 10px',
                   borderRadius: 6,
                   background: active ? 'var(--bg-raised)' : 'transparent',
-                  borderLeft: active
-                    ? '2px solid var(--accent)'
-                    : '2px solid transparent',
-                  color: item.danger
-                    ? 'var(--mismatch)'
-                    : active
-                    ? 'var(--ink-1)'
-                    : 'var(--ink-2)',
+                  borderLeft: active ? '2px solid var(--accent)' : '2px solid transparent',
+                  color: item.danger ? 'var(--mismatch)' : active ? 'var(--ink-1)' : 'var(--ink-2)',
                   fontSize: 12.5,
                   fontWeight: active ? 600 : 500,
                   display: 'flex',
@@ -265,7 +260,10 @@ export function ProjectSettingsTemplate({
                   boxSizing: 'border-box',
                 }}
               >
-                <span style={{ display: 'flex', alignItems: 'center', flexShrink: 0 }} aria-hidden="true">
+                <span
+                  style={{ display: 'flex', alignItems: 'center', flexShrink: 0 }}
+                  aria-hidden="true"
+                >
                   <Icon name={item.icon} size={13} />
                 </span>
                 {item.name}

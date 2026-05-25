@@ -98,9 +98,7 @@ export const WithCpuFallback: Story = {
 export const Interactive: Story = {
   name: 'Interactive',
   render: function InteractiveStory() {
-    const [inheritance, setInheritance] = React.useState<
-      'clean' | 'modified' | 'preset'
-    >('clean');
+    const [inheritance, setInheritance] = React.useState<'clean' | 'modified' | 'preset'>('clean');
     const [mode, setMode] = React.useState<'standard' | 'perceptual'>('standard');
     const [params, setParams] = React.useState<GrayscaleParams>(DEFAULT_PARAMS);
     const [cpuFallback, setCpuFallback] = React.useState(false);
@@ -133,13 +131,17 @@ export const Interactive: Story = {
             <input
               type="checkbox"
               checked={cpuFallback}
-              onChange={(e) => { setCpuFallback(e.target.checked); }}
-            />
-            {' '}CPU fallback
+              onChange={(e) => {
+                setCpuFallback(e.target.checked);
+              }}
+            />{' '}
+            CPU fallback
           </label>
           <button
             type="button"
-            onClick={() => { setInheritance('preset'); }}
+            onClick={() => {
+              setInheritance('preset');
+            }}
             style={{ fontSize: 11 }}
           >
             Set Preset

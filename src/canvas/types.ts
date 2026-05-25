@@ -18,14 +18,14 @@
  * which includes pd-book-tools `Word` instances — no explicit casting needed.
  */
 
-import type { ReactNode } from 'react'
+import type { ReactNode } from 'react';
 
 // ── Geometry types ────────────────────────────────────────────────────────────
 
 /** A point in page-space pixels. */
 export interface PagePoint {
-  x: number
-  y: number
+  x: number;
+  y: number;
 }
 
 /**
@@ -33,8 +33,8 @@ export interface PagePoint {
  * Structurally matches `Word.bounding_box` from pd-book-tools.
  */
 export interface PageBBox {
-  top_left: PagePoint
-  bottom_right: PagePoint
+  top_left: PagePoint;
+  bottom_right: PagePoint;
 }
 
 /**
@@ -42,10 +42,10 @@ export interface PageBBox {
  * Canvas slot fills receive rects already projected into stage space.
  */
 export interface CanvasRect {
-  x: number
-  y: number
-  width: number
-  height: number
+  x: number;
+  y: number;
+  width: number;
+  height: number;
 }
 
 /**
@@ -60,14 +60,14 @@ export interface CanvasRect {
  * corrupt OCR data never crashes the canvas.
  */
 export function isValidBBox(bb: unknown): bb is PageBBox {
-  if (bb === null || bb === undefined || typeof bb !== 'object') return false
-  const b = bb as Record<string, unknown>
-  const tl = b['top_left']
-  const br = b['bottom_right']
-  if (tl === null || tl === undefined || typeof tl !== 'object') return false
-  if (br === null || br === undefined || typeof br !== 'object') return false
-  const tlObj = tl as Record<string, unknown>
-  const brObj = br as Record<string, unknown>
+  if (bb === null || bb === undefined || typeof bb !== 'object') return false;
+  const b = bb as Record<string, unknown>;
+  const tl = b['top_left'];
+  const br = b['bottom_right'];
+  if (tl === null || tl === undefined || typeof tl !== 'object') return false;
+  if (br === null || br === undefined || typeof br !== 'object') return false;
+  const tlObj = tl as Record<string, unknown>;
+  const brObj = br as Record<string, unknown>;
   return (
     typeof tlObj['x'] === 'number' &&
     isFinite(tlObj['x']) &&
@@ -77,7 +77,7 @@ export function isValidBBox(bb: unknown): bb is PageBBox {
     isFinite(brObj['x']) &&
     typeof brObj['y'] === 'number' &&
     isFinite(brObj['y'])
-  )
+  );
 }
 
 /**
@@ -86,13 +86,13 @@ export function isValidBBox(bb: unknown): bb is PageBBox {
  * (missing corners, NaN/Infinity coordinates).
  */
 export function bboxToRect(bb: PageBBox | null | undefined): CanvasRect | null {
-  if (!isValidBBox(bb)) return null
+  if (!isValidBBox(bb)) return null;
   return {
     x: bb.top_left.x,
     y: bb.top_left.y,
     width: bb.bottom_right.x - bb.top_left.x,
     height: bb.bottom_right.y - bb.top_left.y,
-  }
+  };
 }
 
 // ── Minimal canvas-facing structural interfaces ───────────────────────────────
@@ -106,12 +106,12 @@ export function bboxToRect(bb: PageBBox | null | undefined): CanvasRect | null {
  * Matches `WordLike` from `@concavetrillion/pd-ui/types` structurally.
  */
 export interface CanvasWord {
-  bounding_box: PageBBox
-  text: string
-  ocr_confidence?: number | null
-  review?: unknown
-  word_labels?: string[]
-  text_style_labels?: string[]
+  bounding_box: PageBBox;
+  text: string;
+  ocr_confidence?: number | null;
+  review?: unknown;
+  word_labels?: string[];
+  text_style_labels?: string[];
 }
 
 /**
@@ -119,13 +119,13 @@ export interface CanvasWord {
  * Matches `PageLike` from `@concavetrillion/pd-ui/types` structurally.
  */
 export interface CanvasPage {
-  width: number
-  height: number
-  page_index?: number
-  name?: string | null
-  image_path?: string | null
-  items?: unknown[]
-  review?: unknown
+  width: number;
+  height: number;
+  page_index?: number;
+  name?: string | null;
+  image_path?: string | null;
+  items?: unknown[];
+  review?: unknown;
 }
 
 // ── Context types ─────────────────────────────────────────────────────────────
@@ -136,48 +136,48 @@ export interface CanvasPage {
  */
 export interface CoordContext {
   /** Effective scale factor applied to the Konva Stage (1.0 = natural size). */
-  scale: number
+  scale: number;
   /** Stage width in CSS pixels (= page width * scale). */
-  stageWidth: number
+  stageWidth: number;
   /** Stage height in CSS pixels (= page height * scale). */
-  stageHeight: number
+  stageHeight: number;
   /** Original unscaled page width (pixels). */
-  pageWidth: number
+  pageWidth: number;
   /** Original unscaled page height (pixels). */
-  pageHeight: number
+  pageHeight: number;
 }
 
 /**
  * Selection state.  `ids` is a Set of stable word IDs derived via `getWordId`.
  */
 export interface SelectionState {
-  ids: ReadonlySet<string>
+  ids: ReadonlySet<string>;
 }
 
 /**
  * Viewport pan/zoom state managed by the canvas internally.
  */
 export interface ViewportState {
-  scale: number
-  pan: { x: number; y: number }
+  scale: number;
+  pan: { x: number; y: number };
 }
 
 // ── Slot types ────────────────────────────────────────────────────────────────
 
 /** Props provided to every layer slot fill. */
 export type SlotRenderProps = {
-  coords: CoordContext
-  selection: SelectionState
-  hover: CanvasWord | null
-  zoom: number
-  pan: { x: number; y: number }
-}
+  coords: CoordContext;
+  selection: SelectionState;
+  hover: CanvasWord | null;
+  zoom: number;
+  pan: { x: number; y: number };
+};
 
 /** Props provided to the per-word overlay slot fill. */
 export type WordSlotProps = SlotRenderProps & {
-  word: CanvasWord
-  isSelected: boolean
-}
+  word: CanvasWord;
+  isSelected: boolean;
+};
 
 /**
  * Props for `<PageImageCanvas>`.
@@ -195,31 +195,31 @@ export type CanvasProps<
   TPage extends CanvasPage = CanvasPage,
 > = {
   /** Image URL to render on the background layer. */
-  src: string
+  src: string;
   /** Page model; width/height drives the stage dimensions. */
-  page: TPage
+  page: TPage;
   /** Words to render on the overlay layer. */
-  words: TWord[]
+  words: TWord[];
   /**
    * Optional controlled selection state.
    * When undefined the canvas manages its own internal selection.
    */
-  selection?: SelectionState
+  selection?: SelectionState;
   /**
    * Called when the user changes the selection.
    * Only fires when `selection` is provided (controlled mode).
    */
-  onSelectionChange?: (s: SelectionState) => void
+  onSelectionChange?: (s: SelectionState) => void;
   /**
    * Derive a stable string ID for a word.  Defaults to serialising the
    * bounding_box top_left coords.  Apps with server-assigned IDs should pass
    * an identity function instead.
    */
-  getWordId?: (word: TWord) => string
+  getWordId?: (word: TWord) => string;
   /** Initial zoom level. 0 = fit-to-container (default). */
-  initialZoom?: number
+  initialZoom?: number;
   /** Fit the canvas to its container on first mount. Default: true. */
-  fitOnMount?: boolean
+  fitOnMount?: boolean;
 
   /**
    * Called with the Konva Image node once the background image has loaded and
@@ -236,7 +236,7 @@ export type CanvasProps<
    * />
    * ```
    */
-  onImageNodeReady?: (node: import('konva/lib/shapes/Image').Image | null) => void
+  onImageNodeReady?: (node: import('konva/lib/shapes/Image').Image | null) => void;
 
   /**
    * When `true`, the selection layer is rendered with `listening={true}` so
@@ -248,7 +248,7 @@ export type CanvasProps<
    * receive click/hover events (e.g. word-select hit rects) — this removes
    * the need for a separate DOM hit-test overlay.
    */
-  selectionLayerListening?: boolean
+  selectionLayerListening?: boolean;
 
   /**
    * Called when the pointer is pressed on the Konva Stage surface.
@@ -259,30 +259,39 @@ export type CanvasProps<
    * interaction modes (rebox, add-word, erase) — it replaces the
    * `image-event-overlay` div pattern used in pd-ocr-labeler-spa.
    */
-  onStagePointerDown?: (e: import('konva/lib/Node').KonvaEventObject<MouseEvent>, ctx: CoordContext) => void
+  onStagePointerDown?: (
+    e: import('konva/lib/Node').KonvaEventObject<MouseEvent>,
+    ctx: CoordContext,
+  ) => void;
 
   /**
    * Called when the pointer moves over the Konva Stage surface while pressed
    * or hovering. Receives the raw Konva event and the current `CoordContext`.
    */
-  onStagePointerMove?: (e: import('konva/lib/Node').KonvaEventObject<MouseEvent>, ctx: CoordContext) => void
+  onStagePointerMove?: (
+    e: import('konva/lib/Node').KonvaEventObject<MouseEvent>,
+    ctx: CoordContext,
+  ) => void;
 
   /**
    * Called when the pointer is released on the Konva Stage surface.
    * Receives the raw Konva event and the current `CoordContext`.
    */
-  onStagePointerUp?: (e: import('konva/lib/Node').KonvaEventObject<MouseEvent>, ctx: CoordContext) => void
+  onStagePointerUp?: (
+    e: import('konva/lib/Node').KonvaEventObject<MouseEvent>,
+    ctx: CoordContext,
+  ) => void;
 
   children?: {
     /** Rendered below the word overlay, above the image. */
-    underlay?: (p: SlotRenderProps) => ReactNode
+    underlay?: (p: SlotRenderProps) => ReactNode;
     /** Per-word slot — rendered once per word on the overlay layer. */
-    overlay?: (p: WordSlotProps) => ReactNode
+    overlay?: (p: WordSlotProps) => ReactNode;
     /** Selection visualisation layer. */
-    selection?: (p: SlotRenderProps) => ReactNode
+    selection?: (p: SlotRenderProps) => ReactNode;
     /** Tool / interaction layer (drag handles, etc.). */
-    tool?: (p: SlotRenderProps) => ReactNode
+    tool?: (p: SlotRenderProps) => ReactNode;
     /** HUD / floating UI layer (zoom pill, bulk-action strip). */
-    hud?: (p: SlotRenderProps) => ReactNode
-  }
-}
+    hud?: (p: SlotRenderProps) => ReactNode;
+  };
+};

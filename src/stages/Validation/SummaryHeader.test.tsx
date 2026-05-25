@@ -4,10 +4,7 @@ import userEvent from '@testing-library/user-event';
 import { describe, it, expect, vi } from 'vitest';
 import { SummaryHeader } from './SummaryHeader.js';
 import type { ValidationCounts } from './SummaryHeader.js';
-import {
-  VALIDATION_SUMMARY_HEADER,
-  VALIDATION_SUMMARY_HEADER_CTA,
-} from '../../testids/index.js';
+import { VALIDATION_SUMMARY_HEADER, VALIDATION_SUMMARY_HEADER_CTA } from '../../testids/index.js';
 
 // ── helpers ───────────────────────────────────────────────────────────────────
 
@@ -25,10 +22,7 @@ describe('SummaryHeader — pass state', () => {
 
   it('uses success Banner tone (data-tone=success)', () => {
     render(<SummaryHeader state="pass" counts={passCounts} />);
-    expect(screen.getByTestId(VALIDATION_SUMMARY_HEADER)).toHaveAttribute(
-      'data-tone',
-      'success',
-    );
+    expect(screen.getByTestId(VALIDATION_SUMMARY_HEADER)).toHaveAttribute('data-tone', 'success');
   });
 
   it('renders the pass headline', () => {
@@ -43,39 +37,25 @@ describe('SummaryHeader — pass state', () => {
   });
 
   it('renders Download CTA when onDownload is provided', () => {
-    render(
-      <SummaryHeader state="pass" counts={passCounts} onDownload={vi.fn()} />,
-    );
-    expect(screen.getByTestId(VALIDATION_SUMMARY_HEADER_CTA)).toHaveTextContent(
-      'Download',
-    );
+    render(<SummaryHeader state="pass" counts={passCounts} onDownload={vi.fn()} />);
+    expect(screen.getByTestId(VALIDATION_SUMMARY_HEADER_CTA)).toHaveTextContent('Download');
   });
 
   it('does not render CTA when onDownload is omitted', () => {
     render(<SummaryHeader state="pass" counts={passCounts} />);
-    expect(
-      screen.queryByTestId(VALIDATION_SUMMARY_HEADER_CTA),
-    ).not.toBeInTheDocument();
+    expect(screen.queryByTestId(VALIDATION_SUMMARY_HEADER_CTA)).not.toBeInTheDocument();
   });
 
   it('calls onDownload when Download is clicked', async () => {
     const user = userEvent.setup();
     const onDownload = vi.fn();
-    render(
-      <SummaryHeader state="pass" counts={passCounts} onDownload={onDownload} />,
-    );
+    render(<SummaryHeader state="pass" counts={passCounts} onDownload={onDownload} />);
     await user.click(screen.getByTestId(VALIDATION_SUMMARY_HEADER_CTA));
     expect(onDownload).toHaveBeenCalledTimes(1);
   });
 
   it('does not render Fix All CTA even if onFixAll is provided', () => {
-    render(
-      <SummaryHeader
-        state="pass"
-        counts={passCounts}
-        onFixAll={vi.fn()}
-      />,
-    );
+    render(<SummaryHeader state="pass" counts={passCounts} onFixAll={vi.fn()} />);
     const cta = screen.queryByTestId(VALIDATION_SUMMARY_HEADER_CTA);
     // Either no CTA or CTA is Download, never Fix All
     if (cta != null) {
@@ -94,10 +74,7 @@ describe('SummaryHeader — warn state', () => {
 
   it('uses warning Banner tone (data-tone=warning)', () => {
     render(<SummaryHeader state="warn" counts={warnCounts} />);
-    expect(screen.getByTestId(VALIDATION_SUMMARY_HEADER)).toHaveAttribute(
-      'data-tone',
-      'warning',
-    );
+    expect(screen.getByTestId(VALIDATION_SUMMARY_HEADER)).toHaveAttribute('data-tone', 'warning');
   });
 
   it('renders the warn headline', () => {
@@ -111,27 +88,19 @@ describe('SummaryHeader — warn state', () => {
   });
 
   it('renders Fix All CTA when onFixAll is provided', () => {
-    render(
-      <SummaryHeader state="warn" counts={warnCounts} onFixAll={vi.fn()} />,
-    );
-    expect(screen.getByTestId(VALIDATION_SUMMARY_HEADER_CTA)).toHaveTextContent(
-      'Fix All',
-    );
+    render(<SummaryHeader state="warn" counts={warnCounts} onFixAll={vi.fn()} />);
+    expect(screen.getByTestId(VALIDATION_SUMMARY_HEADER_CTA)).toHaveTextContent('Fix All');
   });
 
   it('does not render CTA when onFixAll is omitted', () => {
     render(<SummaryHeader state="warn" counts={warnCounts} />);
-    expect(
-      screen.queryByTestId(VALIDATION_SUMMARY_HEADER_CTA),
-    ).not.toBeInTheDocument();
+    expect(screen.queryByTestId(VALIDATION_SUMMARY_HEADER_CTA)).not.toBeInTheDocument();
   });
 
   it('calls onFixAll when Fix All is clicked', async () => {
     const user = userEvent.setup();
     const onFixAll = vi.fn();
-    render(
-      <SummaryHeader state="warn" counts={warnCounts} onFixAll={onFixAll} />,
-    );
+    render(<SummaryHeader state="warn" counts={warnCounts} onFixAll={onFixAll} />);
     await user.click(screen.getByTestId(VALIDATION_SUMMARY_HEADER_CTA));
     expect(onFixAll).toHaveBeenCalledTimes(1);
   });
@@ -147,10 +116,7 @@ describe('SummaryHeader — error state', () => {
 
   it('uses danger Banner tone (data-tone=danger)', () => {
     render(<SummaryHeader state="error" counts={errorCounts} />);
-    expect(screen.getByTestId(VALIDATION_SUMMARY_HEADER)).toHaveAttribute(
-      'data-tone',
-      'danger',
-    );
+    expect(screen.getByTestId(VALIDATION_SUMMARY_HEADER)).toHaveAttribute('data-tone', 'danger');
   });
 
   it('renders the error headline', () => {
@@ -164,27 +130,19 @@ describe('SummaryHeader — error state', () => {
   });
 
   it('renders Fix All CTA when onFixAll is provided', () => {
-    render(
-      <SummaryHeader state="error" counts={errorCounts} onFixAll={vi.fn()} />,
-    );
-    expect(screen.getByTestId(VALIDATION_SUMMARY_HEADER_CTA)).toHaveTextContent(
-      'Fix All',
-    );
+    render(<SummaryHeader state="error" counts={errorCounts} onFixAll={vi.fn()} />);
+    expect(screen.getByTestId(VALIDATION_SUMMARY_HEADER_CTA)).toHaveTextContent('Fix All');
   });
 
   it('does not render CTA when onFixAll is omitted', () => {
     render(<SummaryHeader state="error" counts={errorCounts} />);
-    expect(
-      screen.queryByTestId(VALIDATION_SUMMARY_HEADER_CTA),
-    ).not.toBeInTheDocument();
+    expect(screen.queryByTestId(VALIDATION_SUMMARY_HEADER_CTA)).not.toBeInTheDocument();
   });
 
   it('calls onFixAll when Fix All is clicked', async () => {
     const user = userEvent.setup();
     const onFixAll = vi.fn();
-    render(
-      <SummaryHeader state="error" counts={errorCounts} onFixAll={onFixAll} />,
-    );
+    render(<SummaryHeader state="error" counts={errorCounts} onFixAll={onFixAll} />);
     await user.click(screen.getByTestId(VALIDATION_SUMMARY_HEADER_CTA));
     expect(onFixAll).toHaveBeenCalledTimes(1);
   });
@@ -240,13 +198,9 @@ describe('SummaryHeader — data-testid forwarding', () => {
   });
 
   it('forwards custom data-testid', () => {
-    render(
-      <SummaryHeader state="pass" counts={passCounts} data-testid="my-header" />,
-    );
+    render(<SummaryHeader state="pass" counts={passCounts} data-testid="my-header" />);
     expect(screen.getByTestId('my-header')).toBeInTheDocument();
-    expect(
-      screen.queryByTestId(VALIDATION_SUMMARY_HEADER),
-    ).not.toBeInTheDocument();
+    expect(screen.queryByTestId(VALIDATION_SUMMARY_HEADER)).not.toBeInTheDocument();
   });
 });
 

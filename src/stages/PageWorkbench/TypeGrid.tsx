@@ -60,13 +60,19 @@ export function TypeGrid({ types, selectedType, onSelect }: TypeGridProps): Reac
         return (
           <button
             key={t.value}
-            ref={(el) => { cellRefs.current[idx] = el; }}
+            ref={(el) => {
+              cellRefs.current[idx] = el;
+            }}
             type="button"
             className={`type-grid__cell${isSelected ? ' type-grid__cell--selected' : ''}`}
             aria-pressed={isSelected}
             tabIndex={isSelected || (selectedType == null && idx === 0) ? 0 : -1}
-            onClick={() => { onSelect(t.value); }}
-            onKeyDown={(e) => { handleKeyDown(e, idx); }}
+            onClick={() => {
+              onSelect(t.value);
+            }}
+            onKeyDown={(e) => {
+              handleKeyDown(e, idx);
+            }}
             data-testid={blockTypePickerOptionTestId(t.value)}
             title={t.description}
           >

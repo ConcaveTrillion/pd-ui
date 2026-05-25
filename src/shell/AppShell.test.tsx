@@ -13,7 +13,8 @@ import type { AppShellProps } from './types.js';
 
 function noopPrefsConfig(): AppShellProps['uiPrefsConfig'] {
   return {
-    load: () => Promise.resolve({ theme: 'dark' as const, density: 'normal' as const, fontScale: 1.0 }),
+    load: () =>
+      Promise.resolve({ theme: 'dark' as const, density: 'normal' as const, fontScale: 1.0 }),
     persistCommon: () => Promise.resolve(),
     persistApp: () => Promise.resolve(),
   };
@@ -69,36 +70,24 @@ describe('AppShell — grid skeleton (#158)', () => {
 
   it('renders custom header content when header prop is provided', () => {
     render(
-      <AppShell
-        {...minimalProps({ header: <div data-testid="custom-header">custom</div> })}
-      />,
+      <AppShell {...minimalProps({ header: <div data-testid="custom-header">custom</div> })} />,
     );
     expect(screen.getByTestId('custom-header')).toBeTruthy();
   });
 
   it('renders rail slot when provided', () => {
-    render(
-      <AppShell
-        {...minimalProps({ rail: <div data-testid="slot-rail">rail</div> })}
-      />,
-    );
+    render(<AppShell {...minimalProps({ rail: <div data-testid="slot-rail">rail</div> })} />);
     expect(screen.getByTestId('slot-rail')).toBeTruthy();
   });
 
   it('renders drawer slot when provided', () => {
-    render(
-      <AppShell
-        {...minimalProps({ drawer: <div data-testid="slot-drawer">drawer</div> })}
-      />,
-    );
+    render(<AppShell {...minimalProps({ drawer: <div data-testid="slot-drawer">drawer</div> })} />);
     expect(screen.getByTestId('slot-drawer')).toBeTruthy();
   });
 
   it('renders rightPanel slot when provided', () => {
     render(
-      <AppShell
-        {...minimalProps({ rightPanel: <div data-testid="slot-rightPanel">rp</div> })}
-      />,
+      <AppShell {...minimalProps({ rightPanel: <div data-testid="slot-rightPanel">rp</div> })} />,
     );
     expect(screen.getByTestId('slot-rightPanel')).toBeTruthy();
   });

@@ -131,7 +131,7 @@ export const LightTheme: Story = {
     backgrounds: { default: 'light' },
   },
   decorators: [
-    Story => (
+    (Story) => (
       <div data-theme="light">
         <Story />
       </div>

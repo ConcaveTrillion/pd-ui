@@ -92,7 +92,13 @@ describe('ColorField (#17)', () => {
 
   it('forwards className to the root element', () => {
     const { container } = render(
-      <ColorField id="accent" label="Accent" value="#ff6600" onChange={vi.fn()} className="custom-class" />,
+      <ColorField
+        id="accent"
+        label="Accent"
+        value="#ff6600"
+        onChange={vi.fn()}
+        className="custom-class"
+      />,
     );
     expect(container.firstChild).toHaveClass('custom-class');
   });

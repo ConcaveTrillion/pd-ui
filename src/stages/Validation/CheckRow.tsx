@@ -2,10 +2,7 @@ import * as React from 'react';
 import { CheckIcon } from '../../primitives/CheckIcon.js';
 import { PageChip } from '../../primitives/PageChip.js';
 import { Icon } from '../../icons/Icon.js';
-import {
-  VALIDATION_CHECK_ROW,
-  validationCheckRowTestId,
-} from '../../testids/index.js';
+import { VALIDATION_CHECK_ROW, validationCheckRowTestId } from '../../testids/index.js';
 
 // ─── Public types ─────────────────────────────────────────────────────────────
 
@@ -111,16 +108,10 @@ export function CheckRow({
               flexWrap: 'wrap',
             }}
           >
-            <span
-              style={{ fontSize: 13, fontWeight: 600, color: 'var(--ink-1)' }}
-            >
-              {name}
-            </span>
+            <span style={{ fontSize: 13, fontWeight: 600, color: 'var(--ink-1)' }}>{name}</span>
             {/* Collapsed page chips */}
             {!expanded && collapsedChips.length > 0 && (
-              <div
-                style={{ display: 'flex', gap: 4, flexWrap: 'wrap', alignItems: 'center' }}
-              >
+              <div style={{ display: 'flex', gap: 4, flexWrap: 'wrap', alignItems: 'center' }}>
                 {collapsedChips.map((page) => (
                   <PageChip key={page.id} prefix={page.prefix} />
                 ))}

@@ -159,13 +159,7 @@ describe('Thumbnail', () => {
   });
 
   it('uses onClickLabel as button aria-label', () => {
-    render(
-      <Thumbnail
-        imageUrl="/img.jpg"
-        onClick={() => undefined}
-        onClickLabel="Open page 17"
-      />,
-    );
+    render(<Thumbnail imageUrl="/img.jpg" onClick={() => undefined} onClickLabel="Open page 17" />);
     expect(screen.getByRole('button', { name: 'Open page 17' })).toBeTruthy();
   });
 
@@ -193,9 +187,7 @@ describe('Thumbnail', () => {
   });
 
   it('forwards data-testid to article', () => {
-    const { container } = render(
-      <Thumbnail imageUrl="/img.jpg" data-testid="thumb-7" />,
-    );
+    const { container } = render(<Thumbnail imageUrl="/img.jpg" data-testid="thumb-7" />);
     expect(container.querySelector('[data-testid="thumb-7"]')).toBeTruthy();
   });
 

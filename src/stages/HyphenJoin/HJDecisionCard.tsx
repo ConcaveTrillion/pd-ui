@@ -182,18 +182,12 @@ export const HJDecisionCard = React.forwardRef<HTMLDivElement, HJDecisionCardPro
           >
             original
           </span>
-          <span
-            className="mono"
-            style={{ fontSize: 16, fontWeight: 600, color: 'var(--ink-1)' }}
-          >
+          <span className="mono" style={{ fontSize: 16, fontWeight: 600, color: 'var(--ink-1)' }}>
             {decisionCase.originalText}
           </span>
         </div>
 
-        <div
-          aria-hidden="true"
-          style={{ color: 'var(--ink-4)', fontSize: 14 }}
-        >
+        <div aria-hidden="true" style={{ color: 'var(--ink-4)', fontSize: 14 }}>
           →
         </div>
 
@@ -209,18 +203,13 @@ export const HJDecisionCard = React.forwardRef<HTMLDivElement, HJDecisionCardPro
           >
             proposal
           </span>
-          <span
-            className="mono"
-            style={{ fontSize: 16, fontWeight: 600, color: 'var(--ink-1)' }}
-          >
+          <span className="mono" style={{ fontSize: 16, fontWeight: 600, color: 'var(--ink-1)' }}>
             {decisionCase.joinProposal}
           </span>
         </div>
 
         {/* ── Status pill ──────────────────────────────────────────────── */}
-        {decisionCase.status !== undefined && (
-          <HJStatusPill status={decisionCase.status} />
-        )}
+        {decisionCase.status !== undefined && <HJStatusPill status={decisionCase.status} />}
 
         {/* ── Ngrams sparkline ─────────────────────────────────────────── */}
         {decisionCase.ngrams !== undefined && decisionCase.ngrams.length >= 2 && (
@@ -243,12 +232,7 @@ export const HJDecisionCard = React.forwardRef<HTMLDivElement, HJDecisionCardPro
         )}
         {/* Render testid placeholder even for single-point arrays so testid is still findable */}
         {decisionCase.ngrams !== undefined && decisionCase.ngrams.length === 1 && (
-          <svg
-            width={0}
-            height={0}
-            aria-hidden="true"
-            data-testid={HJ_DECISION_CARD_SPARKLINE}
-          />
+          <svg width={0} height={0} aria-hidden="true" data-testid={HJ_DECISION_CARD_SPARKLINE} />
         )}
 
         <span style={{ flex: 1 }} />

@@ -68,11 +68,17 @@ function InteractiveStory() {
       )}
       <p style={{ color: 'var(--color-text-secondary)', margin: 0 }}>
         {count} items selected —{' '}
-        <button onClick={() => setCount(c => c + 1)} style={{ all: 'unset', cursor: 'pointer', textDecoration: 'underline' }}>
+        <button
+          onClick={() => setCount((c) => c + 1)}
+          style={{ all: 'unset', cursor: 'pointer', textDecoration: 'underline' }}
+        >
           +1
         </button>
         {' / '}
-        <button onClick={() => setCount(c => Math.max(0, c - 1))} style={{ all: 'unset', cursor: 'pointer', textDecoration: 'underline' }}>
+        <button
+          onClick={() => setCount((c) => Math.max(0, c - 1))}
+          style={{ all: 'unset', cursor: 'pointer', textDecoration: 'underline' }}
+        >
           -1
         </button>
       </p>

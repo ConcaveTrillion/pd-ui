@@ -10,9 +10,7 @@ describe('TableFooter', () => {
   });
 
   it('renders with table-footer class', () => {
-    const { container } = render(
-      <TableFooter page={1} totalPages={3} onPageChange={() => {}} />,
-    );
+    const { container } = render(<TableFooter page={1} totalPages={3} onPageChange={() => {}} />);
     expect(container.querySelector('.table-footer')).toBeTruthy();
   });
 
@@ -43,9 +41,7 @@ describe('TableFooter', () => {
   });
 
   it('shows total rows when provided', () => {
-    render(
-      <TableFooter page={1} totalPages={5} onPageChange={() => {}} totalRows={128} />,
-    );
+    render(<TableFooter page={1} totalPages={5} onPageChange={() => {}} totalRows={128} />);
     expect(screen.getByText(/128/)).toBeTruthy();
   });
 

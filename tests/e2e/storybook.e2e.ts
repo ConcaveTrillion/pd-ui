@@ -34,7 +34,8 @@ import { test, expect, type Page } from '@playwright/test';
 /** Wait for `__STORYBOOK_PREVIEW__` to be defined (the preview JS has loaded). */
 async function waitForPreviewReady(page: Page, timeout = 10_000): Promise<void> {
   await page.waitForFunction(
-    () => typeof (window as { __STORYBOOK_PREVIEW__?: unknown }).__STORYBOOK_PREVIEW__ !== 'undefined',
+    () =>
+      typeof (window as { __STORYBOOK_PREVIEW__?: unknown }).__STORYBOOK_PREVIEW__ !== 'undefined',
     { timeout },
   );
 }
@@ -57,19 +58,20 @@ async function loadStory(page: Page, storyId: string): Promise<void> {
 
   // Trigger the story render via the preview channel.
   await page.evaluate((id) => {
-    const preview = (window as {
-      __STORYBOOK_PREVIEW__?: {
-        channel?: { emit: (event: string, payload: unknown) => void };
-      };
-    }).__STORYBOOK_PREVIEW__;
+    const preview = (
+      window as {
+        __STORYBOOK_PREVIEW__?: {
+          channel?: { emit: (event: string, payload: unknown) => void };
+        };
+      }
+    ).__STORYBOOK_PREVIEW__;
     preview?.channel?.emit('setCurrentStory', { storyId: id, viewMode: 'story' });
   }, storyId);
 
   // Wait until the body has `sb-show-main` (story has rendered).
-  await page.waitForFunction(
-    () => document.body.classList.contains('sb-show-main'),
-    { timeout: 15_000 },
-  );
+  await page.waitForFunction(() => document.body.classList.contains('sb-show-main'), {
+    timeout: 15_000,
+  });
 }
 
 /**
@@ -120,7 +122,7 @@ test.describe('Storybook static build', () => {
     const response = await page.goto('/index.json');
     expect(response?.status()).toBe(200);
 
-    const json = await response?.json() as { entries?: Record<string, unknown> };
+    const json = (await response?.json()) as { entries?: Record<string, unknown> };
     const ids = Object.keys(json.entries ?? {});
 
     // Storybook slugifies the story title and story name.
@@ -165,9 +167,7 @@ test.describe('SettingsSlot', () => {
     expect(errors).toHaveLength(0);
   });
 
-  test('font-scale slider is interactive and does not close popover mid-drag', async ({
-    page,
-  }) => {
+  test('font-scale slider is interactive and does not close popover mid-drag', async ({ page }) => {
     const errors = collectErrors(page);
     await loadStory(page, 'shell-settingsslot--default');
 

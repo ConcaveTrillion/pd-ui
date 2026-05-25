@@ -12,16 +12,11 @@ import {
 import { sortableKeyboardCoordinates } from '@dnd-kit/sortable';
 import { cn } from '../cn.js';
 import { KanbanColumn } from './KanbanColumn.js';
-import type {
-  KanbanBoardProps,
-  KanbanColumnDef,
-  KanbanItemDef,
-} from './types.js';
+import type { KanbanBoardProps, KanbanColumnDef, KanbanItemDef } from './types.js';
 
-function KanbanBoardInner<
-  TColumn extends KanbanColumnDef,
-  TItem extends KanbanItemDef,
->(props: KanbanBoardProps<TColumn, TItem>): React.ReactElement {
+function KanbanBoardInner<TColumn extends KanbanColumnDef, TItem extends KanbanItemDef>(
+  props: KanbanBoardProps<TColumn, TItem>,
+): React.ReactElement {
   const {
     columns,
     items,
@@ -53,10 +48,7 @@ function KanbanBoardInner<
     return idx;
   }, [items]);
 
-  const columnIds = React.useMemo(
-    () => new Set(columns.map((c) => c.id)),
-    [columns],
-  );
+  const columnIds = React.useMemo(() => new Set(columns.map((c) => c.id)), [columns]);
 
   const handleDragStart = React.useCallback((event: DragStartEvent) => {
     setActiveId(String(event.active.id));
@@ -73,11 +65,9 @@ function KanbanBoardInner<
       if (!dragged) return;
 
       const overId = String(over.id);
-      const toColumnId = (
-        columnIds.has(overId)
-          ? overId
-          : itemIndex.get(overId)?.columnId
-      ) as TColumn['id'] | undefined;
+      const toColumnId = (columnIds.has(overId) ? overId : itemIndex.get(overId)?.columnId) as
+        | TColumn['id']
+        | undefined;
       if (toColumnId === undefined) return;
 
       const fromColumnId = dragged.columnId as TColumn['id'];
@@ -85,13 +75,9 @@ function KanbanBoardInner<
 
       /* Move the whole multi-select batch when the dragged chip is part of
          the current selection; otherwise just the dragged chip. */
-      const batch =
-        selectedIds && selectedIds.has(draggedId)
-          ? [...selectedIds]
-          : [draggedId];
+      const batch = selectedIds && selectedIds.has(draggedId) ? [...selectedIds] : [draggedId];
 
-      const activatorIsKeyboard =
-        event.activatorEvent instanceof KeyboardEvent;
+      const activatorIsKeyboard = event.activatorEvent instanceof KeyboardEvent;
 
       onMove({
         itemIds: batch,
@@ -104,10 +90,7 @@ function KanbanBoardInner<
   );
 
   const activeItem = activeId ? itemIndex.get(activeId) : undefined;
-  const activeCount =
-    activeId && selectedIds && selectedIds.has(activeId)
-      ? selectedIds.size
-      : 1;
+  const activeCount = activeId && selectedIds && selectedIds.has(activeId) ? selectedIds.size : 1;
 
   return (
     <DndContext

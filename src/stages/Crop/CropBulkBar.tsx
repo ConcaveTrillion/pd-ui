@@ -35,67 +35,58 @@ export interface CropBulkBarProps {
  *
  * Spec §6.2 line 276.
  */
-export const CropBulkBar = React.forwardRef<HTMLDivElement, CropBulkBarProps>(
-  function CropBulkBar(
-    {
-      selectedCount,
-      flagSummary,
-      onAction,
-      onClear,
-      variant = 'dock',
-      'data-testid': testId,
-    },
-    ref,
-  ) {
-    const actions = (
-      <>
-        <Button
-          variant="ghost"
-          size="sm"
-          onClick={() => onAction('redeskew')}
-          data-testid="crop-bulk-bar-action-redeskew"
-        >
-          Re-deskew
-        </Button>
-        <Button
-          variant="ghost"
-          size="sm"
-          onClick={() => onAction('rerunCrop')}
-          data-testid="crop-bulk-bar-action-rerunCrop"
-        >
-          Re-run crop ({selectedCount})
-        </Button>
-        <Button
-          variant="primary"
-          size="sm"
-          onClick={() => onAction('acceptAsIs')}
-          data-testid="crop-bulk-bar-action-acceptAsIs"
-        >
-          Accept as-is
-        </Button>
-        <Button
-          variant="ghost"
-          size="sm"
-          onClick={() => onAction('restoreDefault')}
-          data-testid="crop-bulk-bar-action-restoreDefault"
-        >
-          Restore default
-        </Button>
-      </>
-    );
+export const CropBulkBar = React.forwardRef<HTMLDivElement, CropBulkBarProps>(function CropBulkBar(
+  { selectedCount, flagSummary, onAction, onClear, variant = 'dock', 'data-testid': testId },
+  ref,
+) {
+  const actions = (
+    <>
+      <Button
+        variant="ghost"
+        size="sm"
+        onClick={() => onAction('redeskew')}
+        data-testid="crop-bulk-bar-action-redeskew"
+      >
+        Re-deskew
+      </Button>
+      <Button
+        variant="ghost"
+        size="sm"
+        onClick={() => onAction('rerunCrop')}
+        data-testid="crop-bulk-bar-action-rerunCrop"
+      >
+        Re-run crop ({selectedCount})
+      </Button>
+      <Button
+        variant="primary"
+        size="sm"
+        onClick={() => onAction('acceptAsIs')}
+        data-testid="crop-bulk-bar-action-acceptAsIs"
+      >
+        Accept as-is
+      </Button>
+      <Button
+        variant="ghost"
+        size="sm"
+        onClick={() => onAction('restoreDefault')}
+        data-testid="crop-bulk-bar-action-restoreDefault"
+      >
+        Restore default
+      </Button>
+    </>
+  );
 
-    return (
-      <BulkActionBar
-        ref={ref}
-        count={selectedCount}
-        {...(flagSummary != null ? { flagSummary } : {})}
-        actions={actions}
-        {...(onClear != null ? { onClear } : {})}
-        variant={variant}
-        data-testid={testId ?? 'crop-bulk-bar'}
-      />
-    );
-  },
-);
+  return (
+    <BulkActionBar
+      ref={ref}
+      count={selectedCount}
+      {...(flagSummary != null ? { flagSummary } : {})}
+      actions={actions}
+      {...(onClear != null ? { onClear } : {})}
+      variant={variant}
+      data-testid={testId ?? 'crop-bulk-bar'}
+    />
+  );
+});
 
 CropBulkBar.displayName = 'CropBulkBar';

@@ -260,10 +260,7 @@ export type {
 } from './templates/index.js';
 
 export { ProjectSettingsTemplate } from './templates/index.js';
-export type {
-  ProjectSettingsTemplateProps,
-  ProjectSettingsGroup,
-} from './templates/index.js';
+export type { ProjectSettingsTemplateProps, ProjectSettingsGroup } from './templates/index.js';
 
 export { StageJumpPopover } from './templates/index.js';
 export type { StageJumpPopoverProps } from './templates/index.js';
@@ -280,7 +277,13 @@ export type {
   IllustBbox,
   WordBbox,
 } from './stages/PageWorkbench/index.js';
-export { SplitOverlay, SplitHandle, IllustOverlay, WordBboxOverlay, RotateHandle } from './stages/PageWorkbench/index.js';
+export {
+  SplitOverlay,
+  SplitHandle,
+  IllustOverlay,
+  WordBboxOverlay,
+  RotateHandle,
+} from './stages/PageWorkbench/index.js';
 export type {
   SplitOverlayProps,
   SplitHandleProps,
@@ -304,7 +307,11 @@ export { PWHeader } from './stages/PageWorkbench/index.js';
 export type { PWHeaderProps } from './stages/PageWorkbench/index.js';
 // HierarchyTreePanel (Phase 2 M2)
 export { HierarchyTreePanel } from './stages/PageWorkbench/index.js';
-export type { HierarchyTreePanelProps, TreeNode, TreeNodeType } from './stages/PageWorkbench/index.js';
+export type {
+  HierarchyTreePanelProps,
+  TreeNode,
+  TreeNodeType,
+} from './stages/PageWorkbench/index.js';
 // BlockTypePickerPanel (Phase 2 M2)
 export { BlockTypePickerPanel } from './stages/PageWorkbench/index.js';
 export type { BlockTypePickerPanelProps, BlockTypeOption } from './stages/PageWorkbench/index.js';

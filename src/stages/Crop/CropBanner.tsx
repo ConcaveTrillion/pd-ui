@@ -52,10 +52,7 @@ function ProgressBar({ value }: { value: number }): React.ReactElement {
       aria-valuemax={100}
       aria-label="Crop progress"
     >
-      <div
-        className="crop-banner__progress-fill"
-        style={{ width: `${pct}%` }}
-      />
+      <div className="crop-banner__progress-fill" style={{ width: `${pct}%` }} />
     </div>
   );
 }
@@ -81,12 +78,7 @@ export function CropBanner({
 }: CropBannerProps): React.ReactElement {
   const rerunButton =
     onRerun != null ? (
-      <Button
-        variant="ghost"
-        size="sm"
-        data-testid={CROP_BANNER_RERUN}
-        onClick={onRerun}
-      >
+      <Button variant="ghost" size="sm" data-testid={CROP_BANNER_RERUN} onClick={onRerun}>
         Re-run
       </Button>
     ) : null;
@@ -105,8 +97,7 @@ export function CropBanner({
   }
 
   if (state === 'review') {
-    const summary =
-      flagCounts != null ? buildFlagSummary(flagCounts) : 'Flags detected.';
+    const summary = flagCounts != null ? buildFlagSummary(flagCounts) : 'Flags detected.';
     return (
       <Banner
         tone="warning"
