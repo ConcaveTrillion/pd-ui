@@ -560,6 +560,20 @@ export const SCANNO_NAV_GROUP = 'scanno-nav-group' as const;
 /** Per-instance testid helper for NavGroup (e.g. `scannoNavGroupTestId('punctuation')`). */
 export const scannoNavGroupTestId = (id: string) => `scanno-nav-group-${id}` as const;
 
+// ─── Stages / Scannos / InlineMarkPopover (Phase 2 M7) ───────────────────────
+
+/** Root content element of the InlineMarkPopover (inline token action popover). */
+export const SCANNO_INLINE_MARK_POPOVER = 'scanno-inline-mark-popover' as const;
+
+/** Accept action button inside InlineMarkPopover. */
+export const SCANNO_INLINE_MARK_POPOVER_ACCEPT = 'scanno-inline-mark-popover-accept' as const;
+
+/** Dismiss action button inside InlineMarkPopover. */
+export const SCANNO_INLINE_MARK_POPOVER_DISMISS = 'scanno-inline-mark-popover-dismiss' as const;
+
+/** Promote action button inside InlineMarkPopover. */
+export const SCANNO_INLINE_MARK_POPOVER_PROMOTE = 'scanno-inline-mark-popover-promote' as const;
+
 // ─── Stages / PageReorder / ReorderScansBanner (Phase 2 M8) ──────────────────
 
 export const REORDER_SCANS_BANNER = 'reorder-scans-banner' as const;
