@@ -13,3 +13,7 @@ export type { HJDecisionCardProps, HJDecisionCase } from './HJDecisionCard.js';
 // ─── HyphenOverview ───────────────────────────────────────────────────────────
 export { HyphenOverview } from './HyphenOverview.js';
 export type { HyphenOverviewProps, HyphenOverviewStats } from './HyphenOverview.js';
+
+// ─── HyphenMismatch ───────────────────────────────────────────────────────────
+export { HyphenMismatch } from './HyphenMismatch.js';
+export type { HyphenMismatchProps, HyphenMismatchItem, HyphenDecision } from './HyphenMismatch.js';
