@@ -49,11 +49,44 @@ export interface CanvasRect {
 }
 
 /**
+ * Return `true` when a bounding_box is structurally valid for canvas use.
+ *
+ * A bbox is invalid when any of the following are true:
+ *   - `bb` is null / undefined
+ *   - `top_left` or `bottom_right` is missing
+ *   - Any coordinate (`x`, `y`) is not a finite number (NaN, Infinity, etc.)
+ *
+ * Invalid words are silently skipped during render and hit-testing so that
+ * corrupt OCR data never crashes the canvas.
+ */
+export function isValidBBox(bb: unknown): bb is PageBBox {
+  if (bb === null || bb === undefined || typeof bb !== 'object') return false
+  const b = bb as Record<string, unknown>
+  const tl = b['top_left']
+  const br = b['bottom_right']
+  if (tl === null || tl === undefined || typeof tl !== 'object') return false
+  if (br === null || br === undefined || typeof br !== 'object') return false
+  const tlObj = tl as Record<string, unknown>
+  const brObj = br as Record<string, unknown>
+  return (
+    typeof tlObj['x'] === 'number' &&
+    isFinite(tlObj['x']) &&
+    typeof tlObj['y'] === 'number' &&
+    isFinite(tlObj['y']) &&
+    typeof brObj['x'] === 'number' &&
+    isFinite(brObj['x']) &&
+    typeof brObj['y'] === 'number' &&
+    isFinite(brObj['y'])
+  )
+}
+
+/**
  * Convert a `bounding_box` (top_left / bottom_right) to a `CanvasRect`.
- * Returns `null` when the bounding_box is absent or null.
+ * Returns `null` when the bounding_box is absent, null, or structurally invalid
+ * (missing corners, NaN/Infinity coordinates).
  */
 export function bboxToRect(bb: PageBBox | null | undefined): CanvasRect | null {
-  if (!bb) return null
+  if (!isValidBBox(bb)) return null
   return {
     x: bb.top_left.x,
     y: bb.top_left.y,
