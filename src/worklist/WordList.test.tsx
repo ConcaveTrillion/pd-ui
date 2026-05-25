@@ -204,3 +204,54 @@ describe('<WordList> 200-item list', () => {
     expect(screen.getByText('word-199')).toBeDefined()
   })
 })
+
+// ── filter / out-of-range index clamping (issue #39) ─────────────────────────
+
+describe('<WordList> filter-clamping (issue #39)', () => {
+  it('does not fire onSelect on Enter when controlled selectedIndex is out-of-range after filter narrows list', () => {
+    const onSelect = vi.fn()
+    // Start with 3 words and selectedIndex=2 (valid), then narrow to 1 item
+    const { rerender } = render(
+      <WordList items={THREE_WORDS} selectedIndex={2} onSelect={onSelect} />,
+    )
+    // Narrow list to 1 item — selectedIndex=2 is now out of range
+    rerender(<WordList items={[THREE_WORDS[0]!]} selectedIndex={2} onSelect={onSelect} />)
+    const list = screen.getByRole('listbox')
+    // Enter must NOT call onSelect with an out-of-range index
+    fireEvent.keyDown(list, { key: 'Enter' })
+    expect(onSelect).not.toHaveBeenCalled()
+  })
+
+  it('clamps internal index when items shrink in uncontrolled mode', () => {
+    const onSelect = vi.fn()
+    // Uncontrolled: user navigates to index 2, then list shrinks to 1 item
+    const { rerender } = render(
+      <WordList items={THREE_WORDS} onSelect={onSelect} />,
+    )
+    const list = screen.getByRole('listbox')
+    // Navigate to last item (index 2) via ArrowDown twice
+    fireEvent.keyDown(list, { key: 'ArrowDown' }) // 0
+    fireEvent.keyDown(list, { key: 'ArrowDown' }) // 1
+    fireEvent.keyDown(list, { key: 'ArrowDown' }) // 2
+    onSelect.mockClear()
+
+    // Narrow list to 1 item — internal index 2 is now out of range
+    rerender(<WordList items={[THREE_WORDS[0]!]} onSelect={onSelect} />)
+
+    // Enter should call onSelect with a clamped valid index (0) or not call at all —
+    // either is acceptable; what must NOT happen is calling with index >= items.length
+    fireEvent.keyDown(list, { key: 'Enter' })
+    if (onSelect.mock.calls.length > 0) {
+      const firstCall = onSelect.mock.calls[0] as [number]
+      expect(firstCall[0]).toBeLessThan(1) // items.length is 1, so valid range is [0, 0]
+    }
+  })
+
+  it('does not fire onSelect on Enter when filtered list is empty', () => {
+    const onSelect = vi.fn()
+    render(<WordList items={[]} selectedIndex={0} onSelect={onSelect} />)
+    const list = screen.getByRole('listbox')
+    fireEvent.keyDown(list, { key: 'Enter' })
+    expect(onSelect).not.toHaveBeenCalled()
+  })
+})
