@@ -92,6 +92,9 @@ const WHITELIST: ReadonlySet<string> = new Set([
   'stages/PageWorkbench/LineBlockRow.tsx',
   // LayerToggle is an internal sub-component of LabelerCanvas — covered by LabelerCanvas.stories.tsx
   'stages/PageWorkbench/LayerToggle.tsx',
+
+  // PageThumb is an internal sub-component of SwapRow — covered by SwapRow.stories.tsx
+  'stages/PageReorder/PageThumb.tsx',
 ]);
 
 // ── Helpers ──────────────────────────────────────────────────────────────────
