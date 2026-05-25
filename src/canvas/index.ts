@@ -24,6 +24,10 @@ export { useCanvasCoords } from './hooks/useCanvasCoords'
 export { useViewport } from './hooks/useViewport'
 export { useCanvasSelection } from './hooks/useCanvasSelection'
 
+// Page-size guard (issue #29)
+export { PAGE_DIMENSION_MAX, isPageDimensionsValid, validatePageDimensions, clampPageDimensions } from './pageSizeGuard'
+export type { PageDimensionValidationResult } from './pageSizeGuard'
+
 // Types
 export type {
   CanvasProps,

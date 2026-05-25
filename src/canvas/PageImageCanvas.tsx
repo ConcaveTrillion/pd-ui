@@ -20,6 +20,7 @@ import type Konva from 'konva'
 import { CanvasInternalContext } from './context'
 import type { CanvasProps, CanvasWord, CoordContext, SelectionState, ViewportState } from './types'
 import { isValidBBox } from './types'
+import { isPageDimensionsValid } from './pageSizeGuard'
 
 // ── Helpers ───────────────────────────────────────────────────────────────────
 
@@ -113,6 +114,17 @@ export function PageImageCanvas<
       setZoom(0) // 0 → fit
     }
   }, [fitOnMount])
+
+  // ── Page dimension validation (issue #29) ─────────────────────────────────
+  // Validate before any dimension arithmetic.  Invalid metadata renders a
+  // visible fallback rather than allocating a huge/broken Konva canvas.
+  // NOTE: this guard is computed as a memo (not a hook condition) so that the
+  // hook call order above is unconditional — React rules-of-hooks require all
+  // hooks to execute on every render regardless of page validity.
+  const pageDimensionsValid = useMemo(
+    () => isPageDimensionsValid(page.width, page.height),
+    [page.width, page.height],
+  )
 
   const fitScale = useMemo(() => {
     const { w, h } = containerSize
@@ -211,6 +223,33 @@ export function PageImageCanvas<
   // The jsx-a11y rule is disabled because role="img" + tabIndex is the correct
   // pattern here: the element renders an image but also accepts keyboard focus
   // for interaction mode hotkeys. This matches the pd-ocr-labeler-spa pattern.
+
+  // Invalid page dimensions: render a safe fallback instead of a Konva stage.
+  // Dimensions may be invalid when OCR/page metadata is corrupt or out of range.
+  if (!pageDimensionsValid) {
+    return (
+      <div
+        ref={wrapperRef}
+        data-testid="canvas-invalid-page"
+        role="img"
+        aria-label="Page cannot be rendered: invalid dimensions"
+        style={{
+          width: '100%',
+          height: '100%',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          color: 'var(--color-text-muted, #888)',
+          fontSize: '0.875rem',
+          outline: 'none',
+          userSelect: 'none',
+        }}
+      >
+        Page cannot be rendered: invalid dimensions ({page.width}&times;{page.height})
+      </div>
+    )
+  }
+
   /* eslint-disable jsx-a11y/no-noninteractive-tabindex */
   return (
     <CanvasInternalContext.Provider value={ctxValue}>
