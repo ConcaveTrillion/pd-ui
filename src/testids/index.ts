@@ -403,3 +403,11 @@ export const SOURCE_PAGE_WORKBENCH_NEXT = 'spw-next' as const;
  */
 export const sourcePageWorkbenchRoleTestId = (role: string) =>
   `spw-role-${role}` as const;
+
+// ─── AutoDetectBanner (Phase 2 M4 — Grayscale stage) ─────────────────────────
+
+/** Root aside for the Grayscale stage auto-detect rationale banner. */
+export const AUTO_DETECT_BANNER = 'auto-detect-banner' as const;
+
+/** "Re-detect" button inside the AutoDetectBanner. */
+export const AUTO_DETECT_BANNER_REDETECT = 'auto-detect-banner-redetect' as const;

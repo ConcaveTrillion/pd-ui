@@ -362,5 +362,12 @@ export type {
   ThumbQuality,
 } from './stages/Source/index.js';
 
+// ─── Stages / Grayscale ───────────────────────────────────────────────────────
+export { AutoDetectBanner } from './stages/Grayscale/index.js';
+export type {
+  AutoDetectBannerProps,
+  GrayscaleMode,
+} from './stages/Grayscale/index.js';
+
 // ─── Types ────────────────────────────────────────────────────────────────────
 export * from './types/index.js';

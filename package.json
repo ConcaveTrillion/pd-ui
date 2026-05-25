@@ -74,6 +74,10 @@
       "import": "./dist/stages/Source/index.js",
       "types": "./dist/stages/Source/index.d.ts"
     },
+    "./stages/Grayscale": {
+      "import": "./dist/stages/Grayscale/index.js",
+      "types": "./dist/stages/Grayscale/index.d.ts"
+    },
     "./theme/tokens.css": "./theme/tokens.css",
     "./theme/primitives.css": "./theme/primitives.css"
   },
