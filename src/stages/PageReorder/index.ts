@@ -10,8 +10,10 @@ export type { AfterApplyStripProps } from './AfterApplyStrip.js';
 export { ReorderScansBanner } from './ReorderScansBanner.js';
 export type { ReorderScansBannerProps, ReorderSortBy } from './ReorderScansBanner.js';
 
+// ─── PageThumb ────────────────────────────────────────────────────────────────
+export { PageThumb } from './PageThumb.js';
+export type { PageThumbProps, PageRef } from './PageThumb.js';
+
 // ─── SwapRow ──────────────────────────────────────────────────────────────────
-// PageThumb is internal to SwapRow — not exported from the stage barrel.
 export { SwapRow } from './SwapRow.js';
 export type { SwapRowProps, SwapData, SwapConfidence, SwapState } from './SwapRow.js';
-export type { PageRef } from './PageThumb.js';
