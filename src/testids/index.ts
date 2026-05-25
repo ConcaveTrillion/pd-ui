@@ -526,7 +526,6 @@ export const scannoNavGroupTestId = (id: string) => `scanno-nav-group-${id}` as 
 export const REORDER_AFTER_APPLY_STRIP = 'reorder-after-apply-strip' as const;
 export const REORDER_AFTER_APPLY_STRIP_UNDO = 'reorder-after-apply-strip-undo' as const;
 
-<<<<<<< HEAD
 // ─── Stages / Validation / CheckRow (Phase 2 M9) ─────────────────────────────
 
 /** Root element of a CheckRow (collapsible validation check). */
