@@ -90,6 +90,10 @@
       "import": "./dist/stages/Validation/index.js",
       "types": "./dist/stages/Validation/index.d.ts"
     },
+    "./stages/QualityFlags": {
+      "import": "./dist/stages/QualityFlags/index.js",
+      "types": "./dist/stages/QualityFlags/index.d.ts"
+    },
     "./theme/tokens.css": "./theme/tokens.css",
     "./theme/primitives.css": "./theme/primitives.css"
   },

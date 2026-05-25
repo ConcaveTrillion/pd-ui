@@ -27,6 +27,7 @@ export default defineConfig({
         'stages/Crop/index': resolve(__dirname, 'src/stages/Crop/index.ts'),
         'stages/HyphenJoin/index': resolve(__dirname, 'src/stages/HyphenJoin/index.ts'),
         'stages/Validation/index': resolve(__dirname, 'src/stages/Validation/index.ts'),
+        'stages/QualityFlags/index': resolve(__dirname, 'src/stages/QualityFlags/index.ts'),
       },
       formats: ['es'],
     },

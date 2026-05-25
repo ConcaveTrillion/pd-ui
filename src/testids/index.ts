@@ -506,3 +506,10 @@ export const VALIDATION_SUMMARY_HEADER_CTA = 'validation-summary-header-cta' as 
 
 export const VALIDATION_PANEL_TOOLBAR = 'validation-panel-toolbar' as const;
 export const VALIDATION_PANEL_TOOLBAR_REVALIDATE = 'validation-panel-toolbar-revalidate' as const;
+
+// ─── QualityFlags ─────────────────────────────────────────────────────────────
+
+export const QUALITY_PAGE_ROW = 'quality-page-row' as const;
+export const qualityPageRowTestId = (id: string) => `quality-page-row-${id}` as const;
+export const qualityPageRowScoreTestId = (pageId: string, key: string) =>
+  `quality-page-row-score-${pageId}-${key}` as const;
