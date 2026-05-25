@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { cn } from './cn.js';
+import { useFieldContext } from './FieldContext.js';
 
 export type InputSize = 'sm' | 'md' | 'lg';
 
@@ -29,8 +30,18 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(function Inp
   { className, size, suffix, autoFocusRing, ...props },
   ref,
 ) {
+  const { errorId, hasError } = useFieldContext();
   const sizeClass = size === 'md' ? undefined : size;
   const focusRingClass = autoFocusRing ? 'input-focus-ring' : undefined;
+
+  // Merge field-level a11y attributes — caller-supplied props take precedence.
+  const fieldA11y: React.InputHTMLAttributes<HTMLInputElement> = {};
+  if (errorId !== undefined && !('aria-describedby' in props)) {
+    fieldA11y['aria-describedby'] = errorId;
+  }
+  if (hasError && !('aria-invalid' in props)) {
+    fieldA11y['aria-invalid'] = true;
+  }
 
   if (suffix !== undefined) {
     // Composite mode: wrapper div + input + suffix span.
@@ -41,6 +52,7 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(function Inp
         <input
           ref={ref}
           className={cn('input input-inner', sizeClass, className)}
+          {...fieldA11y}
           {...props}
         />
         <span className="input-suffix">{suffix}</span>
@@ -53,6 +65,7 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(function Inp
     <input
       ref={ref}
       className={cn('input', sizeClass, focusRingClass, className)}
+      {...fieldA11y}
       {...props}
     />
   );

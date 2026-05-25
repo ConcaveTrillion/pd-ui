@@ -29,6 +29,8 @@ const EXPECTED_COMPONENTS = [
   'Progress',
   // Field helpers
   'Field',
+  'FieldContext',
+  'useFieldContext',
   'FieldRow',
   // Radix
   'Dialog',

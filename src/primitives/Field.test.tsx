@@ -4,6 +4,7 @@ import { createRef } from 'react';
 import { Field } from './Field.js';
 import { FieldRow } from './FieldRow.js';
 import { Input } from './Input.js';
+import { Textarea } from './Textarea.js';
 
 describe('Field', () => {
   it('renders a div with .field class', () => {
@@ -43,6 +44,26 @@ describe('Field', () => {
     expect(error.classList.contains('field-error')).toBe(true);
   });
 
+  it('gives the error span a stable id derived from htmlFor', () => {
+    render(
+      <Field label="Age" htmlFor="age" error="Age is required" data-testid="f">
+        <Input id="age" data-testid="inp" />
+      </Field>,
+    );
+    const errorSpan = screen.getByRole('alert');
+    expect(errorSpan.id).toBe('age-error');
+  });
+
+  it('uses an explicit errorId prop when provided', () => {
+    render(
+      <Field label="Age" htmlFor="age" error="Age is required" errorId="custom-err" data-testid="f">
+        <Input id="age" data-testid="inp" />
+      </Field>,
+    );
+    const errorSpan = screen.getByRole('alert');
+    expect(errorSpan.id).toBe('custom-err');
+  });
+
   it('does NOT render error slot when error prop is not set', () => {
     render(<Field label="Name" htmlFor="name" data-testid="f" />);
     expect(screen.queryByRole('alert')).toBeNull();
@@ -71,6 +92,127 @@ describe('Field', () => {
     const el = screen.getByTestId('f');
     expect(el.classList.contains('field')).toBe(true);
     expect(el.classList.contains('extra')).toBe(true);
+  });
+});
+
+describe('Field + Input a11y association (#48)', () => {
+  it('sets aria-describedby on Input to the error span id when Field has an error', () => {
+    render(
+      <Field htmlFor="email" error="Email is required">
+        <Input id="email" data-testid="inp" />
+      </Field>,
+    );
+    const input = screen.getByTestId('inp');
+    const errorSpan = screen.getByRole('alert');
+    expect(errorSpan.id).toBe('email-error');
+    expect(input.getAttribute('aria-describedby')).toBe('email-error');
+  });
+
+  it('sets aria-invalid="true" on Input when Field has an error', () => {
+    render(
+      <Field htmlFor="email" error="Email is required">
+        <Input id="email" data-testid="inp" />
+      </Field>,
+    );
+    const input = screen.getByTestId('inp');
+    expect(input.getAttribute('aria-invalid')).toBe('true');
+  });
+
+  it('does NOT set aria-describedby or aria-invalid on Input when Field has no error', () => {
+    render(
+      <Field htmlFor="email">
+        <Input id="email" data-testid="inp" />
+      </Field>,
+    );
+    const input = screen.getByTestId('inp');
+    expect(input.getAttribute('aria-describedby')).toBeNull();
+    expect(input.getAttribute('aria-invalid')).toBeNull();
+  });
+
+  it('does NOT set aria-describedby or aria-invalid when Field error is empty string', () => {
+    render(
+      <Field htmlFor="email" error="">
+        <Input id="email" data-testid="inp" />
+      </Field>,
+    );
+    const input = screen.getByTestId('inp');
+    expect(input.getAttribute('aria-describedby')).toBeNull();
+    expect(input.getAttribute('aria-invalid')).toBeNull();
+  });
+
+  it('caller-supplied aria-describedby on Input takes precedence over Field wiring', () => {
+    render(
+      <Field htmlFor="email" error="Email is required">
+        <Input id="email" data-testid="inp" aria-describedby="my-own-desc" />
+      </Field>,
+    );
+    const input = screen.getByTestId('inp');
+    expect(input.getAttribute('aria-describedby')).toBe('my-own-desc');
+  });
+
+  it('caller-supplied aria-invalid on Input takes precedence over Field wiring', () => {
+    render(
+      <Field htmlFor="email" error="Email is required">
+        <Input id="email" data-testid="inp" aria-invalid={false} />
+      </Field>,
+    );
+    const input = screen.getByTestId('inp');
+    expect(input.getAttribute('aria-invalid')).toBe('false');
+  });
+
+  it('uses explicit errorId on Field for aria-describedby', () => {
+    render(
+      <Field htmlFor="email" error="Email is required" errorId="custom-error-id">
+        <Input id="email" data-testid="inp" />
+      </Field>,
+    );
+    const input = screen.getByTestId('inp');
+    expect(input.getAttribute('aria-describedby')).toBe('custom-error-id');
+  });
+});
+
+describe('Field + Textarea a11y association (#48)', () => {
+  it('sets aria-describedby on Textarea to the error span id when Field has an error', () => {
+    render(
+      <Field htmlFor="notes" error="Notes are required">
+        <Textarea id="notes" data-testid="ta" />
+      </Field>,
+    );
+    const ta = screen.getByTestId('ta');
+    const errorSpan = screen.getByRole('alert');
+    expect(errorSpan.id).toBe('notes-error');
+    expect(ta.getAttribute('aria-describedby')).toBe('notes-error');
+  });
+
+  it('sets aria-invalid="true" on Textarea when Field has an error', () => {
+    render(
+      <Field htmlFor="notes" error="Notes are required">
+        <Textarea id="notes" data-testid="ta" />
+      </Field>,
+    );
+    const ta = screen.getByTestId('ta');
+    expect(ta.getAttribute('aria-invalid')).toBe('true');
+  });
+
+  it('does NOT set aria-describedby or aria-invalid on Textarea when Field has no error', () => {
+    render(
+      <Field htmlFor="notes">
+        <Textarea id="notes" data-testid="ta" />
+      </Field>,
+    );
+    const ta = screen.getByTestId('ta');
+    expect(ta.getAttribute('aria-describedby')).toBeNull();
+    expect(ta.getAttribute('aria-invalid')).toBeNull();
+  });
+
+  it('caller-supplied aria-describedby on Textarea takes precedence over Field wiring', () => {
+    render(
+      <Field htmlFor="notes" error="Notes are required">
+        <Textarea id="notes" data-testid="ta" aria-describedby="my-desc" />
+      </Field>,
+    );
+    const ta = screen.getByTestId('ta');
+    expect(ta.getAttribute('aria-describedby')).toBe('my-desc');
   });
 });
 
