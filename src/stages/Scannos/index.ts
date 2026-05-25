@@ -17,3 +17,7 @@ export type { NavGroupProps } from './NavGroup.js';
 // ─── InlineMarkPopover ────────────────────────────────────────────────────────
 export { InlineMarkPopover } from './InlineMarkPopover.js';
 export type { InlineMarkPopoverProps, InlineMarkToken, InlineMarkSource } from './InlineMarkPopover.js';
+
+// ─── RuleDetail ───────────────────────────────────────────────────────────────
+export { RuleDetail } from './RuleDetail.js';
+export type { RuleDetailProps, RuleDetailRule, RuleDetailConflict } from './RuleDetail.js';

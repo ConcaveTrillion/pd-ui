@@ -709,3 +709,14 @@ export const UPLOAD_MODAL_C_RAIL = 'upload-modal-c-rail' as const;
  */
 export const uploadModalCStepTestId = (step: string) =>
   `upload-modal-c-step-${step}` as const;
+
+// ─── Stages / Scannos — RuleDetail (Phase 2 M7) ──────────────────────────────
+
+/** Root container of the Scannos RuleDetail right-pane panel. */
+export const SCANNO_RULE_DETAIL = 'scanno-rule-detail' as const;
+
+/** ToggleBadge for the auto-apply toggle inside RuleDetail. */
+export const SCANNO_RULE_DETAIL_AUTO_APPLY = 'scanno-rule-detail-auto-apply' as const;
+
+/** Conflicts warning Banner inside RuleDetail — only present when conflicts non-empty. */
+export const SCANNO_RULE_DETAIL_CONFLICTS = 'scanno-rule-detail-conflicts' as const;
