@@ -524,6 +524,18 @@ export const HJ_DECISION_CARD_SPARKLINE = 'hj-decision-card-sparkline' as const;
 /** Root section for the HyphenJoin overview panel. */
 export const HYPHEN_OVERVIEW = 'hyphen-overview' as const;
 
+// ─── HyphenUndecided (Phase 2 M6 — HyphenJoin stage) ────────────────────────
+
+/** Root element of the HyphenUndecided queue sidebar + focused detail block. */
+export const HYPHEN_UNDECIDED = 'hyphen-undecided' as const;
+
+/**
+ * Build a testid for a specific undecided queue sidebar item: `hyphen-undecided-item-{id}`.
+ * Playwright drivers use these to click individual sidebar rows.
+ */
+export const hyphenUndecidedItemTestId = (id: string) =>
+  `hyphen-undecided-item-${id}` as const;
+
 // ─── Stages / Validation (Phase 2 M9) ────────────────────────────────────────
 
 /** Root Banner element of the Validation SummaryHeader. */
