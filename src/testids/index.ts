@@ -490,3 +490,8 @@ export const cropOverviewActivityTestId = (id: string) => `crop-overview-activit
 export const CROP_STEP_SETTINGS = 'crop-step-settings' as const;
 export const CROP_STEP_SETTINGS_RERUN = 'crop-step-settings-rerun' as const;
 export const cropStrategyTestId = (s: string) => `crop-strategy-${s}` as const;
+
+// ─── HJStatusPill (Phase 2 M6 — HyphenJoin stage) ────────────────────────────
+
+/** Status pill for a hyphen-join decision row. */
+export const HJ_STATUS_PILL = 'hj-status-pill' as const;
