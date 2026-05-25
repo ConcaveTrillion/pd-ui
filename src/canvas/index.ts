@@ -14,6 +14,9 @@
 // Component
 export { PageImageCanvas } from './PageImageCanvas'
 
+// Throttle utility (issue #35)
+export { makeRafThrottle } from './rafThrottle'
+
 // Slot helpers
 export { BBoxLayer } from './layers/BBoxLayer'
 export { WordHitLayer } from './layers/WordHitLayer'
