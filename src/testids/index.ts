@@ -542,6 +542,16 @@ export const qualityPageRowTestId = (id: string) => `quality-page-row-${id}` as 
 export const qualityPageRowScoreTestId = (pageId: string, key: string) =>
   `quality-page-row-score-${pageId}-${key}` as const;
 
+/** Default testid for QualityFlags PageThumb root element. */
+export const QUALITY_PAGE_THUMB = 'quality-page-thumb' as const;
+
+/**
+ * Build a testid for a specific QualityFlags PageThumb: `quality-page-thumb-{pageId}`.
+ * Playwright drivers use this to target individual page thumbnails.
+ */
+export const qualityPageThumbTestId = (pageId: string) =>
+  `quality-page-thumb-${pageId}` as const;
+
 export const SCANNO_TOKEN = 'scanno-token' as const;
 
 // ─── Stages / PageReorder (Phase 2 M8) ───────────────────────────────────────
