@@ -15,7 +15,7 @@
  *   1  — diff exists (in --check mode) or guard blocked the run
  */
 
-import { execSync } from 'child_process'
+import { execFileSync } from 'child_process'
 import { readFileSync, writeFileSync, existsSync } from 'fs'
 import { resolve, dirname, basename } from 'path'
 import { fileURLToPath } from 'url'
@@ -44,8 +44,9 @@ if (!existsSync(docsDesignSystemDir)) {
 if (!isForce && !isDryRun && !isCheck) {
   let gitStatus = ''
   try {
-    gitStatus = execSync(
-      `git status --porcelain ${docsDesignSystemDir}`,
+    gitStatus = execFileSync(
+      'git',
+      ['status', '--porcelain', docsDesignSystemDir],
       { encoding: 'utf-8', cwd: resolve(pdUiRoot, '..') }
     ).trim()
   } catch {
