@@ -503,3 +503,6 @@ export const VALIDATION_SUMMARY_HEADER = 'validation-summary-header' as const;
 
 /** Primary CTA button inside the Validation SummaryHeader (Download or Fix All). */
 export const VALIDATION_SUMMARY_HEADER_CTA = 'validation-summary-header-cta' as const;
+
+export const VALIDATION_PANEL_TOOLBAR = 'validation-panel-toolbar' as const;
+export const VALIDATION_PANEL_TOOLBAR_REVALIDATE = 'validation-panel-toolbar-revalidate' as const;

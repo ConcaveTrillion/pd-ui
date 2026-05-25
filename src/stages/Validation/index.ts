@@ -9,3 +9,7 @@ export type {
   ValidationState,
   ValidationCounts,
 } from './SummaryHeader.js';
+
+// ─── PanelToolbar ─────────────────────────────────────────────────────────────
+export { PanelToolbar } from './PanelToolbar.js';
+export type { PanelToolbarProps } from './PanelToolbar.js';
