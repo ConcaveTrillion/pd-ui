@@ -20,10 +20,7 @@ export type {
   SourceDensity,
   SourceFilterCounts,
 } from './FileToolbar.js';
- *   - ThumbCard — per-page thumbnail card
- *   - Types: ThumbCardProps, SourcePage, SourcePageRole, SourcePageStatus, ThumbDensity
- */
-
+// ─── ThumbCard (Phase 2 M3) ───────────────────────────────────────────────────
 export { ThumbCard } from './ThumbCard.js';
 export type {
   ThumbCardProps,

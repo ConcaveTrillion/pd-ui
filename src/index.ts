@@ -318,11 +318,6 @@ export type {
   LayerVisibility,
 } from './stages/PageWorkbench/index.js';
 
-// ─── Stages / Source ──────────────────────────────────────────────────────────
-// BulkBar (Phase 2 M3)
-export { BulkBar } from './stages/Source/index.js';
-export type { BulkBarProps, BulkAction } from './stages/Source/index.js';
-
 // ─── Phase 2 M2 atom promotions ───────────────────────────────────────────────
 export { BackendChip } from './primitives/index.js';
 export type { BackendChipProps, BackendValue } from './primitives/index.js';
@@ -330,26 +325,28 @@ export type { BackendChipProps, BackendValue } from './primitives/index.js';
 export { PageChip } from './primitives/index.js';
 export type { PageChipProps } from './primitives/index.js';
 
-// ─── Stages / Source ─────────────────────────────────────────────────────────
-export { SourceBanner } from './stages/Source/index.js';
+// ─── Stages / Source (Phase 2 M3) ────────────────────────────────────────────
+export {
+  SourceBanner,
+  FileToolbar,
+  ThumbCard,
+  BulkBar,
+} from './stages/Source/index.js';
 export type {
   SourceBannerProps,
   SourceBannerState,
   SourceBulkAction,
-// ─── Stages / Source (Phase 2 M3) ────────────────────────────────────────────
-export { FileToolbar } from './stages/Source/index.js';
-export type {
   FileToolbarProps,
   SourceFilter,
   SourceDensity,
   SourceFilterCounts,
-export { ThumbCard } from './stages/Source/index.js';
-export type {
   ThumbCardProps,
   SourcePage,
   SourcePageRole,
   SourcePageStatus,
   ThumbDensity,
+  BulkBarProps,
+  BulkAction,
 } from './stages/Source/index.js';
 
 // ─── Types ────────────────────────────────────────────────────────────────────
