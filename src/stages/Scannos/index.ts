@@ -2,6 +2,10 @@
  * Scannos stage barrel (Phase 2 M7).
  */
 
+// ─── CandidateDetail ──────────────────────────────────────────────────────────
+export { CandidateDetail } from './CandidateDetail.js';
+export type { CandidateDetailProps, ScannoCandidateItem, ScannoContext } from './CandidateDetail.js';
+
 // ─── ScannoToken ──────────────────────────────────────────────────────────────
 export { ScannoToken } from './ScannoToken.js';
 export type { ScannoTokenProps, ScannoSource } from './ScannoToken.js';

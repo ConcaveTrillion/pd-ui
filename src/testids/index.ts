@@ -626,6 +626,21 @@ export const SCANNO_NAV_GROUP = 'scanno-nav-group' as const;
 /** Per-instance testid helper for NavGroup (e.g. `scannoNavGroupTestId('punctuation')`). */
 export const scannoNavGroupTestId = (id: string) => `scanno-nav-group-${id}` as const;
 
+// ─── Stages / Scannos / CandidateDetail (Phase 2 M7) ────────────────────────
+
+/** Root element of the Scannos CandidateDetail right-pane panel. */
+export const SCANNO_CANDIDATE_DETAIL = 'scanno-candidate-detail' as const;
+
+/** Promote action button inside CandidateDetail. */
+export const SCANNO_CANDIDATE_DETAIL_PROMOTE = 'scanno-candidate-detail-promote' as const;
+
+/** Dismiss action button inside CandidateDetail. */
+export const SCANNO_CANDIDATE_DETAIL_DISMISS = 'scanno-candidate-detail-dismiss' as const;
+
+/** Editable suggested-replacement input inside CandidateDetail. */
+export const SCANNO_CANDIDATE_DETAIL_SUGGESTED_INPUT =
+  'scanno-candidate-detail-suggested-input' as const;
+
 // ─── Stages / Scannos / InlineMarkPopover (Phase 2 M7) ───────────────────────
 
 /** Root content element of the InlineMarkPopover (inline token action popover). */
