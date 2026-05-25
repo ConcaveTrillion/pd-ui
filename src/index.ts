@@ -331,6 +331,7 @@ export {
   FileToolbar,
   ThumbCard,
   BulkBar,
+  InsertDialog,
 } from './stages/Source/index.js';
 export type {
   SourceBannerProps,
@@ -347,6 +348,11 @@ export type {
   ThumbDensity,
   BulkBarProps,
   BulkAction,
+  InsertDialogProps,
+  InsertPosition,
+  InsertKind,
+  InsertAnchorOption,
+  InsertSubmission,
 } from './stages/Source/index.js';
 
 // ─── Types ────────────────────────────────────────────────────────────────────

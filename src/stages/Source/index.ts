@@ -31,3 +31,12 @@ export type {
 } from './ThumbCard.js';
 export { BulkBar } from './BulkBar.js';
 export type { BulkBarProps, BulkAction } from './BulkBar.js';
+// ─── InsertDialog (Phase 2 M3) ────────────────────────────────────────────────
+export { InsertDialog } from './InsertDialog.js';
+export type {
+  InsertDialogProps,
+  InsertPosition,
+  InsertKind,
+  InsertAnchorOption,
+  InsertSubmission,
+} from './InsertDialog.js';

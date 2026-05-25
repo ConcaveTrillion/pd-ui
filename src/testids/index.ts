@@ -320,3 +320,36 @@ export const BULK_BAR_CLEAR = 'bulk-bar-clear' as const;
  * Actions: 'page' | 'cover' | 'back' | 'blank' | 'duplicate' | 'remove'.
  */
 export const bulkBarActionTestId = (action: string) => `bulk-bar-action-${action}` as const;
+// ─── InsertDialog (Phase 2 M3 — Source stage) ────────────────────────────────
+
+/** Outer dialog content wrapper for the insert-page modal. */
+export const INSERT_DIALOG = 'insert-dialog' as const;
+
+/** Note textarea inside InsertDialog. */
+export const INSERT_DIALOG_NOTE = 'insert-dialog-note' as const;
+
+/** Live character counter span inside InsertDialog. */
+export const INSERT_DIALOG_NOTE_COUNTER = 'insert-dialog-note-counter' as const;
+
+/** Hidden file input inside the replacement-image dropzone. */
+export const INSERT_DIALOG_FILE = 'insert-dialog-file' as const;
+
+/** Insert/submit button in the InsertDialog footer. */
+export const INSERT_DIALOG_SUBMIT = 'insert-dialog-submit' as const;
+
+/** Cancel button in the InsertDialog footer. */
+export const INSERT_DIALOG_CANCEL = 'insert-dialog-cancel' as const;
+
+/**
+ * Build a testid for the position segmented wrapper: `insert-dialog-position-{p}`.
+ * p is one of 'before' | 'after'.
+ */
+export const insertDialogPositionTestId = (p: string) =>
+  `insert-dialog-position-${p}` as const;
+
+/**
+ * Build a testid for a kind card button: `insert-dialog-kind-{k}`.
+ * k is one of 'missing' | 'blank' | 'errata' | 'manual'.
+ */
+export const insertDialogKindTestId = (k: string) =>
+  `insert-dialog-kind-${k}` as const;
