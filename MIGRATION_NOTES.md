@@ -608,8 +608,15 @@ New subpath: `@concavetrillion/pd-ui/stages/Source`.
 | `ThumbCard` | `6f70690` | Per-page card with thumbnail + status dot + role select. |
 | `BulkBar` | `14a765f` | Sticky bottom bulk-action bar (CSS-only sticky positioning). |
 
-Remaining M3 Source (3 of 7): `InsertDialog`, `SourcePageWorkbench`,
-`SourceStepSettings`.
+### M3 Source — batch 2 (M3 complete, 2026-05-25)
+
+| Export | Commit | Description |
+|---|---|---|
+| `InsertDialog` | `aa2494f` | Modal for inserting a missing/blank/errata/manual page (position + anchor + kind cards + 280-char note + file dropzone). |
+| `SourcePageWorkbench` | `c7e3754` | Per-page detail view composing `ArtifactViewer`. Renders afterImageUrl via `overlayMode='view'`; true before/after split is a follow-on. |
+| `SourceStepSettings` | `ee0d270` | Generation settings panel (preset + save-as + thumb quality + workers slider + auto-confirm + re-generate). Inline save-preset form (no `prompt()`). |
+
+**M3 Source complete: 7 exports.** Unblocks pd-prep-for-pgdp S01 slice.
 
 ---
 
