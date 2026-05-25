@@ -9,3 +9,4 @@ allowBuilds:
 
 overrides:
   esbuild: ">=0.25.12"
+  uuid: ">=11.1.1"
