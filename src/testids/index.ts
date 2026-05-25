@@ -490,3 +490,7 @@ export const cropOverviewActivityTestId = (id: string) => `crop-overview-activit
 export const CROP_STEP_SETTINGS = 'crop-step-settings' as const;
 export const CROP_STEP_SETTINGS_RERUN = 'crop-step-settings-rerun' as const;
 export const cropStrategyTestId = (s: string) => `crop-strategy-${s}` as const;
+
+// ─── Stages / Validation (Phase 2 M9) ────────────────────────────────────────
+export const VALIDATION_PANEL_TOOLBAR = 'validation-panel-toolbar' as const;
+export const VALIDATION_PANEL_TOOLBAR_REVALIDATE = 'validation-panel-toolbar-revalidate' as const;
