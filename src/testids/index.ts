@@ -524,6 +524,21 @@ export const HJ_DECISION_CARD_SPARKLINE = 'hj-decision-card-sparkline' as const;
 /** Root section for the HyphenJoin overview panel. */
 export const HYPHEN_OVERVIEW = 'hyphen-overview' as const;
 
+// ─── HyphenStepSettings (Phase 2 M6 — HyphenJoin stage) ──────────────────────
+
+/** Root div of the HyphenStepSettings panel. */
+export const HYPHEN_STEP_SETTINGS = 'hyphen-step-settings' as const;
+
+/** N-gram cache size (MB) numeric input. */
+export const HYPHEN_STEP_SETTINGS_CACHE_SIZE = 'hyphen-step-settings-cache-size' as const;
+
+/** N-gram cache TTL (minutes) numeric input. */
+export const HYPHEN_STEP_SETTINGS_CACHE_TTL = 'hyphen-step-settings-cache-ttl' as const;
+
+/** Auto-join confidence threshold numeric input. */
+export const HYPHEN_STEP_SETTINGS_AUTO_FLAG_THRESHOLD =
+  'hyphen-step-settings-auto-flag-threshold' as const;
+
 // ─── Stages / Validation (Phase 2 M9) ────────────────────────────────────────
 
 /** Root Banner element of the Validation SummaryHeader. */
