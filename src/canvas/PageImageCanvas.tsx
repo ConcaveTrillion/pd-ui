@@ -21,6 +21,7 @@ import { CanvasInternalContext } from './context'
 import type { CanvasProps, CanvasWord, CoordContext, SelectionState, ViewportState } from './types'
 import { isValidBBox } from './types'
 import { isPageDimensionsValid } from './pageSizeGuard'
+import { makeRafThrottle } from './rafThrottle'
 
 // ── Helpers ───────────────────────────────────────────────────────────────────
 
@@ -36,18 +37,6 @@ function defaultGetWordId(word: CanvasWord): string {
   const bb = word.bounding_box
   if (!isValidBBox(bb)) return `invalid-bbox:${word.text}`
   return `${bb.top_left.x},${bb.top_left.y}`
-}
-
-/** rAF-throttled callback scheduler (perf: mousemove at 60 Hz → 1 state update). */
-function rAFSchedule(fn: () => void): void {
-  let pending = false
-  if (!pending) {
-    pending = true
-    requestAnimationFrame(() => {
-      pending = false
-      fn()
-    })
-  }
 }
 
 // ── Component ─────────────────────────────────────────────────────────────────
@@ -228,6 +217,8 @@ export function PageImageCanvas<
   // ── Drag (marquee select) ──────────────────────────────────────────────────
   const dragStartRef = useRef<{ x: number; y: number } | null>(null)
   const [dragRect, setDragRect] = useState<{ x: number; y: number; width: number; height: number } | null>(null)
+  // Stable throttle instance — persists across renders so pending flag works correctly.
+  const dragThrottleRef = useRef(makeRafThrottle())
 
   const stageWidth = page.width * effectiveScale
   const stageHeight = page.height * effectiveScale
@@ -303,7 +294,10 @@ export function PageImageCanvas<
               const s = effectiveScale || 1
               const cur = { x: pos.x / s, y: pos.y / s }
               const start = dragStartRef.current
-              rAFSchedule(() => {
+              // Use the stable throttle ref so pending persists across event calls.
+              // Passing the latest computed rect as `fn` ensures the rAF always
+              // commits the most recent position, not a stale closure capture.
+              dragThrottleRef.current(() => {
                 setDragRect({
                   x: Math.min(cur.x, start.x),
                   y: Math.min(cur.y, start.y),
