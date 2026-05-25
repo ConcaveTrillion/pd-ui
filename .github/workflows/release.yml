@@ -3,12 +3,11 @@ name: release
 # Triggered by an annotated tag push (`v*`).
 #
 # Steps:
-#   1. Install deps + build library (vite build).
-#   2. Pack the npm tarball (pnpm pack → dist/*.tgz).
-#   3. Attest build provenance via Sigstore.
-#   4. Publish a GitHub Release and attach the .tgz as an asset.
-#   5. Dispatch pd-npm-publish to ConcaveTrillion/pd-index-npm so the
-#      static npm registry picks up the new version immediately.
+#   1. build job  — install deps + build library + pack tarball.
+#      Runs with contents:read only and persist-credentials:false so the
+#      write-scoped GITHUB_TOKEN is NOT available to pnpm install / build.
+#   2. publish job — attests provenance, publishes GitHub Release, and
+#      dispatches pd-npm-publish.  Only this job holds write permissions.
 #
 # Consumers install via:
 #   @concavetrillion:registry=https://concavetrillion.github.io/pd-index-npm/
@@ -18,22 +17,26 @@ on:
   push:
     tags: ["v*"]
 
-permissions:
-  contents: read
+# Default: no permissions.  Each job grants only what it needs.
+permissions: {}
 
 env:
   FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: "true"
 
 jobs:
-  release:
-    name: build + publish GitHub Release
+  # ─── Job 1: build ────────────────────────────────────────────────────────────
+  # Minimal permissions.  persist-credentials:false ensures the GITHUB_TOKEN
+  # is NOT stored in the git credential helper, so pnpm install and the Vite
+  # build cannot read it even if a dependency lifecycle script is compromised.
+  build:
+    name: build + pack tarball
     runs-on: ubuntu-latest
     permissions:
-      contents: write
-      id-token: write
-      attestations: write
+      contents: read
     steps:
       - uses: actions/checkout@v6
+        with:
+          persist-credentials: false
 
       - uses: pnpm/action-setup@v4
         with:
@@ -54,6 +57,36 @@ jobs:
         run: pnpm pack --pack-destination dist/
 
       - name: List built artifacts
+        run: ls -la dist/
+
+      - name: Upload tarball artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: release-tarball
+          path: dist/*.tgz
+          if-no-files-found: error
+          retention-days: 1
+
+  # ─── Job 2: publish ───────────────────────────────────────────────────────────
+  # Write-scoped permissions are isolated here.  No install or build steps run
+  # under elevated credentials — only attestation, release creation, and the
+  # pd-index-npm dispatch.
+  publish:
+    name: attest + publish GitHub Release
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      id-token: write
+      attestations: write
+    steps:
+      - name: Download tarball artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: release-tarball
+          path: dist/
+
+      - name: List downloaded artifacts
         run: ls -la dist/
 
       - name: Attest build provenance
