@@ -528,3 +528,11 @@ export const VALIDATION_CHECK_ROW = 'validation-check-row' as const;
 /** Returns a stable testid for a specific check row by its id. */
 export const validationCheckRowTestId = (id: string) =>
   `validation-check-row-${id}` as const;
+
+// ─── Stages / Scannos / NavGroup (Phase 2 M7) ────────────────────────────────
+
+/** Root element of the Scannos NavGroup (side-nav category group). */
+export const SCANNO_NAV_GROUP = 'scanno-nav-group' as const;
+
+/** Per-instance testid helper for NavGroup (e.g. `scannoNavGroupTestId('punctuation')`). */
+export const scannoNavGroupTestId = (id: string) => `scanno-nav-group-${id}` as const;
