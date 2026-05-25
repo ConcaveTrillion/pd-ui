@@ -496,6 +496,29 @@ export const cropStrategyTestId = (s: string) => `crop-strategy-${s}` as const;
 /** Status pill for a hyphen-join decision row. */
 export const HJ_STATUS_PILL = 'hj-status-pill' as const;
 
+// ─── HJDecisionCard (Phase 2 M6 — HyphenJoin stage) ─────────────────────────
+
+/** Root element of the HJDecisionCard case detail block. */
+export const HJ_DECISION_CARD = 'hj-decision-card' as const;
+
+/** Accept-join action button inside HJDecisionCard (keyboard: Y). */
+export const HJ_DECISION_CARD_ACCEPT = 'hj-decision-card-accept' as const;
+
+/** Keep-hyphen action button inside HJDecisionCard (keyboard: N). */
+export const HJ_DECISION_CARD_KEEP = 'hj-decision-card-keep' as const;
+
+/** Flag-for-post-book action button inside HJDecisionCard (keyboard: F). */
+export const HJ_DECISION_CARD_FLAG = 'hj-decision-card-flag' as const;
+
+/** Navigate to next case button inside HJDecisionCard (keyboard: J). */
+export const HJ_DECISION_CARD_NEXT = 'hj-decision-card-next' as const;
+
+/** Navigate to previous case button inside HJDecisionCard (keyboard: K). */
+export const HJ_DECISION_CARD_PREV = 'hj-decision-card-prev' as const;
+
+/** Ngrams sparkline SVG inside HJDecisionCard (absent when ngrams undefined). */
+export const HJ_DECISION_CARD_SPARKLINE = 'hj-decision-card-sparkline' as const;
+
 // ─── Stages / Validation (Phase 2 M9) ────────────────────────────────────────
 
 /** Root Banner element of the Validation SummaryHeader. */
