@@ -338,6 +338,13 @@ export type {
   SourceFilter,
   SourceDensity,
   SourceFilterCounts,
+export { ThumbCard } from './stages/Source/index.js';
+export type {
+  ThumbCardProps,
+  SourcePage,
+  SourcePageRole,
+  SourcePageStatus,
+  ThumbDensity,
 } from './stages/Source/index.js';
 
 // ─── Types ────────────────────────────────────────────────────────────────────

@@ -294,3 +294,16 @@ export const fileToolbarFilterTestId = (filter: string) =>
  */
 export const fileToolbarDensityTestId = (d: string) =>
   `file-toolbar-density-${d}` as const;
+// ─── ThumbCard (Phase 2 M3 — Source stage) ───────────────────────────────────
+
+/** Default testid for the ThumbCard article element. */
+export const THUMB_CARD = 'thumb-card' as const;
+
+/**
+ * Build a testid for a specific ThumbCard: `thumb-card-{id}`.
+ * Playwright drivers use this to target individual page cards.
+ */
+export const thumbCardTestId = (id: string) => `thumb-card-${id}` as const;
+
+/** Testid for the role-change select inside a ThumbCard. */
+export const THUMB_CARD_ROLE_SELECT = 'thumb-card-role-select' as const;
