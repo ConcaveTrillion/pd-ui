@@ -519,3 +519,12 @@ export const SCANNO_TOKEN = 'scanno-token' as const;
 // ─── Stages / PageReorder (Phase 2 M8) ───────────────────────────────────────
 export const REORDER_AFTER_APPLY_STRIP = 'reorder-after-apply-strip' as const;
 export const REORDER_AFTER_APPLY_STRIP_UNDO = 'reorder-after-apply-strip-undo' as const;
+
+// ─── Stages / Validation / CheckRow (Phase 2 M9) ─────────────────────────────
+
+/** Root element of a CheckRow (collapsible validation check). */
+export const VALIDATION_CHECK_ROW = 'validation-check-row' as const;
+
+/** Returns a stable testid for a specific check row by its id. */
+export const validationCheckRowTestId = (id: string) =>
+  `validation-check-row-${id}` as const;
