@@ -519,3 +519,18 @@ export const SCANNO_TOKEN = 'scanno-token' as const;
 // ─── Stages / PageReorder (Phase 2 M8) ───────────────────────────────────────
 export const REORDER_AFTER_APPLY_STRIP = 'reorder-after-apply-strip' as const;
 export const REORDER_AFTER_APPLY_STRIP_UNDO = 'reorder-after-apply-strip-undo' as const;
+
+// ReorderScansBanner
+export const REORDER_SCANS_BANNER = 'reorder-scans-banner' as const;
+export const REORDER_SCANS_BANNER_SKIP = 'reorder-scans-banner-skip' as const;
+export const REORDER_SCANS_BANNER_AUTO_APPLY = 'reorder-scans-banner-auto-apply' as const;
+export const REORDER_SCANS_BANNER_REDETECT = 'reorder-scans-banner-redetect' as const;
+export const REORDER_SCANS_BANNER_SORT = 'reorder-scans-banner-sort' as const;
+
+// ─── Stages / Scannos / NavGroup (Phase 2 M7) ────────────────────────────────
+
+/** Root element of the Scannos NavGroup (side-nav category group). */
+export const SCANNO_NAV_GROUP = 'scanno-nav-group' as const;
+
+/** Per-instance testid helper for NavGroup (e.g. `scannoNavGroupTestId('punctuation')`). */
+export const scannoNavGroupTestId = (id: string) => `scanno-nav-group-${id}` as const;
