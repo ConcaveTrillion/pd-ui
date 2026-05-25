@@ -272,3 +272,25 @@ export const labelerLayerToggleTestId = (key: string) =>
  * Playwright drivers use this to click individual block rects.
  */
 export const labelerBlockTestId = (id: string) => `labeler-block-${id}` as const;
+
+// ─── FileToolbar (Phase 2 M3 — Source stage) ─────────────────────────────────
+
+/** Outer wrapper of the FileToolbar filter/density/insert toolbar. */
+export const FILE_TOOLBAR = 'file-toolbar' as const;
+
+/** Insert page CTA button inside FileToolbar. */
+export const FILE_TOOLBAR_INSERT = 'file-toolbar-insert' as const;
+
+/**
+ * Build a testid for a specific filter chip: `file-toolbar-filter-{filter}`.
+ * Filter is one of 'all' | 'marked' | 'skipped' | 'unmarked' | 'inserts'.
+ */
+export const fileToolbarFilterTestId = (filter: string) =>
+  `file-toolbar-filter-${filter}` as const;
+
+/**
+ * Build a testid for a specific density segment: `file-toolbar-density-{d}`.
+ * d is one of 's' | 'm' | 'l'.
+ */
+export const fileToolbarDensityTestId = (d: string) =>
+  `file-toolbar-density-${d}` as const;

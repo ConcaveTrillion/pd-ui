@@ -331,6 +331,13 @@ export type {
   SourceBannerProps,
   SourceBannerState,
   SourceBulkAction,
+// ─── Stages / Source (Phase 2 M3) ────────────────────────────────────────────
+export { FileToolbar } from './stages/Source/index.js';
+export type {
+  FileToolbarProps,
+  SourceFilter,
+  SourceDensity,
+  SourceFilterCounts,
 } from './stages/Source/index.js';
 
 // ─── Types ────────────────────────────────────────────────────────────────────
