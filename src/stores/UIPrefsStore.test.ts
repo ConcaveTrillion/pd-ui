@@ -124,3 +124,101 @@ describe('createUIPrefsStore (#164)', () => {
     expect(store.getState().prefs.theme).toBe('dark');
   });
 });
+
+// ─── Hydration-race tests (issue #37) ─────────────────────────────────────────
+
+describe('createUIPrefsStore — hydration race (#37)', () => {
+  /**
+   * Helper: create a store with a controllable load() that resolves
+   * only when `resolve()` is called.
+   */
+  function makeDeferred(serverPrefs: Partial<UIPrefs> = {}) {
+    let resolve!: (value: UIPrefs) => void;
+    const promise = new Promise<UIPrefs>((res) => { resolve = res; });
+    const config: UIPrefsConfig = {
+      load: vi.fn(() => promise),
+      persistCommon: vi.fn(() => Promise.resolve()),
+      persistApp: vi.fn(() => Promise.resolve()),
+    };
+    const serverValues: UIPrefs = {
+      theme: 'dark',
+      density: 'normal',
+      fontScale: 1.0,
+      ...serverPrefs,
+    };
+    return { config, store: createUIPrefsStore(config), resolve: () => resolve(serverValues) };
+  }
+
+  it('load-then-edit: server value applied, then edit sticks', async () => {
+    const { store, resolve } = makeDeferred({ theme: 'light' });
+    // Load resolves first
+    resolve();
+    await new Promise((r) => setTimeout(r, 0));
+    expect(store.getState().prefs.theme).toBe('light');
+    // Now user edits
+    store.getState().setTheme('dark');
+    expect(store.getState().prefs.theme).toBe('dark');
+    expect(store.getState().loading).toBe(false);
+  });
+
+  it('edit-then-load (late): user edit wins over server value', async () => {
+    const { store, resolve } = makeDeferred({ theme: 'light' });
+    // User edits before load resolves
+    store.getState().setTheme('dark');
+    expect(store.getState().prefs.theme).toBe('dark');
+    // Load arrives late — must NOT clobber the edit
+    resolve();
+    await new Promise((r) => setTimeout(r, 0));
+    expect(store.getState().prefs.theme).toBe('dark');
+    expect(store.getState().loading).toBe(false);
+  });
+
+  it('edit-then-load: unedited keys are updated from server', async () => {
+    const { store, resolve } = makeDeferred({ theme: 'light', density: 'compact' });
+    // User edits only theme before load resolves
+    store.getState().setTheme('dark');
+    // Load arrives with density: 'compact' — that should be applied
+    resolve();
+    await new Promise((r) => setTimeout(r, 0));
+    // theme was edited by user — keep user's value
+    expect(store.getState().prefs.theme).toBe('dark');
+    // density was NOT edited — server value should apply
+    expect(store.getState().prefs.density).toBe('compact');
+  });
+
+  it('multiple edits before load: all edited keys survive', async () => {
+    const { store, resolve } = makeDeferred({ theme: 'light', density: 'compact', fontScale: 1.2 });
+    store.getState().setTheme('dark');
+    store.getState().setDensity('comfortable');
+    // fontScale not edited
+    resolve();
+    await new Promise((r) => setTimeout(r, 0));
+    expect(store.getState().prefs.theme).toBe('dark');
+    expect(store.getState().prefs.density).toBe('comfortable');
+    // fontScale not edited — server value wins
+    expect(store.getState().prefs.fontScale).toBe(1.2);
+  });
+
+  it('reset path: after hydration, setTheme always wins', async () => {
+    const { store, resolve } = makeDeferred({ theme: 'light' });
+    resolve();
+    await new Promise((r) => setTimeout(r, 0));
+    expect(store.getState().prefs.theme).toBe('light');
+    // Set to dark, then set back to light — final value should always be what the setter says
+    store.getState().setTheme('dark');
+    expect(store.getState().prefs.theme).toBe('dark');
+    store.getState().setTheme('light');
+    expect(store.getState().prefs.theme).toBe('light');
+  });
+
+  it('setAppPref edit before load: app pref survives hydration', async () => {
+    const { store, resolve } = makeDeferred({ theme: 'light' });
+    store.getState().setAppPref('zoom', 2);
+    resolve();
+    await new Promise((r) => setTimeout(r, 0));
+    // app prefs edited — keep user value
+    expect(store.getState().prefs.app?.['zoom']).toBe(2);
+    // theme was not edited before load — server value applies
+    expect(store.getState().prefs.theme).toBe('light');
+  });
+});

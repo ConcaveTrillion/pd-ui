@@ -86,12 +86,52 @@ export interface UIPrefsStoreState {
 }
 
 export function createUIPrefsStore(config: UIPrefsConfig) {
+  // Track which top-level pref keys the user has explicitly set while a load
+  // is in-flight. Keys here will not be overwritten when the async load resolves.
+  // This prevents a late-arriving server response from clobbering local edits.
+  //
+  // We use a module-scoped (per-store-instance) Set that is closed over by the
+  // store initialiser. The load() .then() callback checks this set before
+  // merging; setters always add their key to the set immediately.
+  const _editedKeys = new Set<string>();
+
   const store = createStore<UIPrefsStoreState>()((set, get) => {
     // Bootstrap: load prefs async after creation.
-    config.load().then((prefs) => {
-      set({ prefs, loading: false });
+    config.load().then((serverPrefs) => {
+      // Merge: apply server values only for keys the user has NOT edited.
+      // If _editedKeys is empty (no edits during load) this is equivalent to
+      // a wholesale replace. If any keys were edited, preserve those.
+      if (_editedKeys.size === 0) {
+        // Fast path: no local edits — apply server prefs wholesale.
+        set({ prefs: serverPrefs, loading: false });
+      } else {
+        // Selective merge: user edits win; server fills everything else.
+        // Under exactOptionalPropertyTypes, we cannot assign `T | undefined`
+        // to an optional field directly. Each optional field is handled
+        // with explicit presence checks so TypeScript can narrow correctly.
+        const current = get().prefs;
+
+        const theme     = _editedKeys.has('theme')     ? current.theme     : serverPrefs.theme;
+        const density   = _editedKeys.has('density')   ? current.density   : serverPrefs.density;
+        const fontScale = _editedKeys.has('fontScale') ? current.fontScale : serverPrefs.fontScale;
+
+        const lcSrc   = _editedKeys.has('layerColors')  ? current : serverPrefs;
+        const scSrc   = _editedKeys.has('statusColors') ? current : serverPrefs;
+        const acSrc   = _editedKeys.has('accentColor')  ? current : serverPrefs;
+        const aiSrc   = _editedKeys.has('accentInkColor') ? current : serverPrefs;
+        const appSrc  = _editedKeys.has('app')          ? current : serverPrefs;
+
+        const merged: UIPrefs = { theme, density, fontScale };
+        if (lcSrc.layerColors !== undefined)   merged.layerColors   = lcSrc.layerColors;
+        if (scSrc.statusColors !== undefined)  merged.statusColors  = scSrc.statusColors;
+        if (acSrc.accentColor !== undefined)   merged.accentColor   = acSrc.accentColor;
+        if (aiSrc.accentInkColor !== undefined) merged.accentInkColor = aiSrc.accentInkColor;
+        if (appSrc.app !== undefined)          merged.app           = appSrc.app;
+
+        set({ prefs: merged, loading: false });
+      }
     }).catch(() => {
-      // Load failure is non-fatal: keep defaults.
+      // Load failure is non-fatal: keep defaults (or any edits already applied).
       set({ loading: false });
     });
 
@@ -100,18 +140,21 @@ export function createUIPrefsStore(config: UIPrefsConfig) {
       loading: true,
 
       setTheme: (theme) => {
+        _editedKeys.add('theme');
         const prefs = { ...get().prefs, theme };
         set({ prefs });
         void config.persistCommon(commonPrefs(prefs));
       },
 
       setDensity: (density) => {
+        _editedKeys.add('density');
         const prefs = { ...get().prefs, density };
         set({ prefs });
         void config.persistCommon(commonPrefs(prefs));
       },
 
       setFontScale: (scale) => {
+        _editedKeys.add('fontScale');
         const fontScale = Math.min(1.4, Math.max(0.8, scale));
         const prefs = { ...get().prefs, fontScale };
         set({ prefs });
@@ -119,6 +162,7 @@ export function createUIPrefsStore(config: UIPrefsConfig) {
       },
 
       setAppPref: (key, value) => {
+        _editedKeys.add('app');
         const prev = get().prefs.app ?? {};
         const app = { ...prev, [key]: value };
         const prefs = { ...get().prefs, app };
@@ -127,6 +171,7 @@ export function createUIPrefsStore(config: UIPrefsConfig) {
       },
 
       setLayerColor: (layer, color) => {
+        _editedKeys.add('layerColors');
         const prev = get().prefs.layerColors ?? {};
         const layerColors: UIPrefs['layerColors'] = { ...prev };
         if (color !== undefined) {
@@ -140,6 +185,7 @@ export function createUIPrefsStore(config: UIPrefsConfig) {
       },
 
       setStatusColor: (status, color) => {
+        _editedKeys.add('statusColors');
         const prev = get().prefs.statusColors ?? {};
         const statusColors: UIPrefs['statusColors'] = { ...prev };
         if (color !== undefined) {
@@ -153,6 +199,7 @@ export function createUIPrefsStore(config: UIPrefsConfig) {
       },
 
       setAccentColor: (color) => {
+        _editedKeys.add('accentColor');
         const prefs: UIPrefs = { ...get().prefs };
         if (color !== undefined) {
           prefs.accentColor = color;
@@ -164,6 +211,7 @@ export function createUIPrefsStore(config: UIPrefsConfig) {
       },
 
       setAccentInkColor: (color) => {
+        _editedKeys.add('accentInkColor');
         const prefs: UIPrefs = { ...get().prefs };
         if (color !== undefined) {
           prefs.accentInkColor = color;
