@@ -524,7 +524,6 @@ export const HJ_DECISION_CARD_SPARKLINE = 'hj-decision-card-sparkline' as const;
 /** Root section for the HyphenJoin overview panel. */
 export const HYPHEN_OVERVIEW = 'hyphen-overview' as const;
 
-<<<<<<< HEAD
 // ─── HyphenUndecided (Phase 2 M6 — HyphenJoin stage) ────────────────────────
 
 /** Root element of the HyphenUndecided queue sidebar + focused detail block. */
