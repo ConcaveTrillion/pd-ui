@@ -490,3 +490,11 @@ export const cropOverviewActivityTestId = (id: string) => `crop-overview-activit
 export const CROP_STEP_SETTINGS = 'crop-step-settings' as const;
 export const CROP_STEP_SETTINGS_RERUN = 'crop-step-settings-rerun' as const;
 export const cropStrategyTestId = (s: string) => `crop-strategy-${s}` as const;
+
+// ─── Stages / Validation (Phase 2 M9) ────────────────────────────────────────
+
+/** Root Banner element of the Validation SummaryHeader. */
+export const VALIDATION_SUMMARY_HEADER = 'validation-summary-header' as const;
+
+/** Primary CTA button inside the Validation SummaryHeader (Download or Fix All). */
+export const VALIDATION_SUMMARY_HEADER_CTA = 'validation-summary-header-cta' as const;

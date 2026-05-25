@@ -82,6 +82,10 @@
       "import": "./dist/stages/Crop/index.js",
       "types": "./dist/stages/Crop/index.d.ts"
     },
+    "./stages/Validation": {
+      "import": "./dist/stages/Validation/index.js",
+      "types": "./dist/stages/Validation/index.d.ts"
+    },
     "./theme/tokens.css": "./theme/tokens.css",
     "./theme/primitives.css": "./theme/primitives.css"
   },
