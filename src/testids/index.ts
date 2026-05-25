@@ -620,6 +620,20 @@ export const REORDER_SCANS_BANNER_AUTO_APPLY = 'reorder-scans-banner-auto-apply'
 export const REORDER_SCANS_BANNER_REDETECT = 'reorder-scans-banner-redetect' as const;
 export const REORDER_SCANS_BANNER_SORT = 'reorder-scans-banner-sort' as const;
 
+// ─── Stages / Projects / ProjectsEmpty (Phase 2 M11) ────────────────────────
+
+/** Root container of the ProjectsEmpty hero. */
+export const PROJECTS_EMPTY = 'projects-empty' as const;
+
+/** Primary CTA button inside ProjectsEmpty (e.g. "Create new project"). */
+export const PROJECTS_EMPTY_PRIMARY_CTA = 'projects-empty-primary-cta' as const;
+
+/**
+ * Secondary CTA button inside ProjectsEmpty (e.g. "Paste source URL").
+ * Only rendered when `secondaryAction` prop is provided.
+ */
+export const PROJECTS_EMPTY_SECONDARY_CTA = 'projects-empty-secondary-cta' as const;
+
 // ─── Stages / Projects / PipelineMini (Phase 2 M11) ──────────────────────────
 
 /** Root element of the Projects PipelineMini progress strip. */
