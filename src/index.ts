@@ -318,6 +318,11 @@ export type {
   LayerVisibility,
 } from './stages/PageWorkbench/index.js';
 
+// ─── Stages / Source ──────────────────────────────────────────────────────────
+// BulkBar (Phase 2 M3)
+export { BulkBar } from './stages/Source/index.js';
+export type { BulkBarProps, BulkAction } from './stages/Source/index.js';
+
 // ─── Phase 2 M2 atom promotions ───────────────────────────────────────────────
 export { BackendChip } from './primitives/index.js';
 export type { BackendChipProps, BackendValue } from './primitives/index.js';

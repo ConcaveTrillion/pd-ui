@@ -307,3 +307,16 @@ export const thumbCardTestId = (id: string) => `thumb-card-${id}` as const;
 
 /** Testid for the role-change select inside a ThumbCard. */
 export const THUMB_CARD_ROLE_SELECT = 'thumb-card-role-select' as const;
+// ─── BulkBar (Phase 2 M3 — Source stage) ─────────────────────────────────────
+
+/** Outer wrapper of the Source-stage sticky bulk action bar. */
+export const BULK_BAR = 'bulk-bar' as const;
+
+/** Clear-selection button inside the BulkBar. */
+export const BULK_BAR_CLEAR = 'bulk-bar-clear' as const;
+
+/**
+ * Build a testid for a specific bulk action button: `bulk-bar-action-{action}`.
+ * Actions: 'page' | 'cover' | 'back' | 'blank' | 'duplicate' | 'remove'.
+ */
+export const bulkBarActionTestId = (action: string) => `bulk-bar-action-${action}` as const;

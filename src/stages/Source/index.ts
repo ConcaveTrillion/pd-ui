@@ -32,3 +32,5 @@ export type {
   SourcePageStatus,
   ThumbDensity,
 } from './ThumbCard.js';
+export { BulkBar } from './BulkBar.js';
+export type { BulkBarProps, BulkAction } from './BulkBar.js';
