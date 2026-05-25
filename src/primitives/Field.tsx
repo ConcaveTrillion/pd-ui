@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { cn } from './cn.js';
+import { FieldContext } from './FieldContext.js';
 
 export interface FieldProps extends React.HTMLAttributes<HTMLDivElement> {
   /** The label text for the field */
@@ -8,24 +9,48 @@ export interface FieldProps extends React.HTMLAttributes<HTMLDivElement> {
   htmlFor?: string;
   /** Error message — renders the error slot when set */
   error?: string;
+  /**
+   * Explicit id for the error span. When omitted, Field auto-generates
+   * `${htmlFor}-error` (requires `htmlFor` to be set).
+   * Provide this when using a Radix Select or another component where the
+   * trigger id differs from the logical field id.
+   */
+  errorId?: string;
 }
 
 export const Field = React.forwardRef<HTMLDivElement, FieldProps>(function Field(
-  { className, label, htmlFor, error, children, ...props },
+  { className, label, htmlFor, error, errorId: errorIdProp, children, ...props },
   ref,
 ) {
+  const hasError = error !== undefined && error !== '';
+
+  // Derive a stable error id: prefer explicit prop, fall back to `${htmlFor}-error`.
+  const resolvedErrorId: string | undefined =
+    errorIdProp ?? (htmlFor !== undefined ? `${htmlFor}-error` : undefined);
+
+  const contextValue = React.useMemo(
+    () => ({ errorId: hasError ? resolvedErrorId : undefined, hasError }),
+    [hasError, resolvedErrorId],
+  );
+
   return (
-    <div ref={ref} className={cn('field', className)} {...props}>
-      {label !== undefined && (
-        <label htmlFor={htmlFor}>{label}</label>
-      )}
-      {children}
-      {error !== undefined && error !== '' && (
-        <span className="field-error" role="alert">
-          {error}
-        </span>
-      )}
-    </div>
+    <FieldContext.Provider value={contextValue}>
+      <div ref={ref} className={cn('field', className)} {...props}>
+        {label !== undefined && (
+          <label htmlFor={htmlFor}>{label}</label>
+        )}
+        {children}
+        {hasError && (
+          <span
+            id={resolvedErrorId}
+            className="field-error"
+            role="alert"
+          >
+            {error}
+          </span>
+        )}
+      </div>
+    </FieldContext.Provider>
   );
 });
 

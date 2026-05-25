@@ -134,6 +134,9 @@ export {
 export { Field } from './Field.js';
 export type { FieldProps } from './Field.js';
 
+export { FieldContext, useFieldContext } from './FieldContext.js';
+export type { FieldContextValue } from './FieldContext.js';
+
 export { FieldRow } from './FieldRow.js';
 export type { FieldRowProps } from './FieldRow.js';
 
