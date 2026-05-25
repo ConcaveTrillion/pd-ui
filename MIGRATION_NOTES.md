@@ -618,6 +618,27 @@ New subpath: `@concavetrillion/pd-ui/stages/Source`.
 
 **M3 Source complete: 7 exports.** Unblocks pd-prep-for-pgdp S01 slice.
 
+### M4 Grayscale (2026-05-25)
+
+New subpath: `@concavetrillion/pd-ui/stages/Grayscale`.
+
+| Export | Commit | Description |
+|---|---|---|
+| `AutoDetectBanner` | `721dab9` | Detected-mode rationale banner + re-detect button. |
+| `ModeCard` | `485d628` | Standard/Perceptual radio cards with exact/fuzzy estimate badges. |
+| `AdvancedParams` | `485d628` | Sampler radius + gamma + output range accordion with per-field reset. |
+| `GrayscaleOverview` | `485d628` | 4 stat tiles (processed/flagged/avg/total) + optional mode-breakdown summary. |
+| `GrayThumb` | `485d628` | Compact per-page thumbnail card with time estimate overlay. |
+| `PageViewer` | `485d628` | Before/Split/After viewer composing `ArtifactViewer` + 13-page thumb scroller. |
+| `StageControlsLeft` | `485d628` | Composes M2 `StageControlsPanel` + M4 `ModeCard` + M4 `AdvancedParams` in the `controlsSlot`. |
+
+**M4 Grayscale complete: 7 exports.** Unblocks pd-prep-for-pgdp S02 slice.
+
+Build strategy note: shipped via 7 parallel worktree agents, then
+consolidated via the "pull component files + write barrels manually"
+pattern (see `feedback_sed_strip_multiline_exports.md` agent memory)
+— avoids cherry-pick conflict marker mishaps on shared barrel files.
+
 ---
 
 ## 12. Conscious omissions

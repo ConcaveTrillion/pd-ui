@@ -256,13 +256,13 @@ All 43 net-new components. "Design source" references are
 | Component | Design source | Description |
 |---|---|---|
 | `BackendChip` | `final/grayscale/grayscale.jsx:43-63` | GPU/CPU indicator chip. Reused in Grayscale and Page Workbench. Promote to `src/primitives/` — see §6.5. Props: `backend`, `fallback`. **Shipped 2026-05-24 · 1cfc595** (M2 atom promotion). |
-| `AutoDetectBanner` | `:70-112` | Rationale banner: detected mode + estimated time + re-detect button. Props: `mode`, `profile`, `estimatedSecondsPerPage`, `onRedetect`. |
-| `ModeCard` | `:119-209` | Two-up mode chooser (Standard/Perceptual): checkmark + time estimate badge (exact/fuzzy tone). Props: `selectedMode`, `onModeChange`, `estimates`. |
-| `AdvancedParams` | `:215-296` | 3-slider accordion (Sampler radius / Gamma 1–3 / Output range), each with numeric input + reset. Props: `params`, `onChange`. |
-| `GrayscaleOverview` | `:351-419` | Stat tiles + summary cards tab. Props: `stats`. |
-| `GrayThumb` | `:425-462` | Per-page thumbnail with time estimate overlay. Props: `page`, `estimatedSeconds`. |
-| `PageViewer` | `:888-1013` | Split before/after viewer (Before/Split/After segmented) with 13-page thumbnail scroller + re-run button. Composes `ArtifactViewer`. Props: `page`, `mode`, `onModeChange`, `onRerun`. |
-| `StageControlsLeft` | `:673-823` | Per-page left-drawer control panel: inheritance banner (clean/modified/preset) + CPU-fallback warning + mode chooser + advanced params + sticky footer (Revert / "Save as default"). See §6.5 for promotion note. Props: `inheritance`, `params`, `onChange`, `onRevert`, `onSave`. |
+| `AutoDetectBanner` | `:70-112` | Rationale banner: detected mode + estimated time + re-detect button. Props: `mode`, `profile`, `estimatedSecondsPerPage`, `onRedetect`. **Shipped 2026-05-25 · 721dab9** (created `./stages/Grayscale` subpath; aside + Sparkles icon). |
+| `ModeCard` | `:119-209` | Two-up mode chooser (Standard/Perceptual): checkmark + time estimate badge (exact/fuzzy tone). Props: `selectedMode`, `onModeChange`, `estimates`. **Shipped 2026-05-25 · 485d628** (`role="radiogroup"` + 2 `role="radio"` cards; Badge tone for estimates). |
+| `AdvancedParams` | `:215-296` | 3-slider accordion (Sampler radius / Gamma 1–3 / Output range), each with numeric input + reset. Props: `params`, `onChange`. **Shipped 2026-05-25 · 485d628** (Accordion-wrapped; per-field reset to GRAYSCALE_PARAMS_DEFAULT; output row is 2 number inputs). |
+| `GrayscaleOverview` | `:351-419` | Stat tiles + summary cards tab. Props: `stats`. **Shipped 2026-05-25 · 485d628** (4 StatTile primitives + optional mode breakdown cards). |
+| `GrayThumb` | `:425-462` | Per-page thumbnail with time estimate overlay. Props: `page`, `estimatedSeconds`. **Shipped 2026-05-25 · 485d628** (interactive prop renders button only when onClick also provided). |
+| `PageViewer` | `:888-1013` | Split before/after viewer (Before/Split/After segmented) with 13-page thumbnail scroller + re-run button. Composes `ArtifactViewer`. Props: `page`, `mode`, `onModeChange`, `onRerun`. **Shipped 2026-05-25 · 485d628** (before/after → overlayMode='view'; split → overlayMode='split' with splitX=0.5; thumb scroller uses role="group"). |
+| `StageControlsLeft` | `:673-823` | Per-page left-drawer control panel: inheritance banner (clean/modified/preset) + CPU-fallback warning + mode chooser + advanced params + sticky footer (Revert / "Save as default"). See §6.5 for promotion note. Props: `inheritance`, `params`, `onChange`, `onRevert`, `onSave`. **Shipped 2026-05-25 · 485d628** (composes M2 StageControlsPanel + ModeCard + AdvancedParams in `controlsSlot`). |
 
 #### Stage: Crop (`src/stages/Crop/`)
 
