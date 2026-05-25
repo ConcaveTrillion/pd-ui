@@ -56,6 +56,14 @@ export interface UIPrefsStoreState {
   prefs: UIPrefs;
   /** True while the initial load() call is in-flight. */
   loading: boolean;
+  /**
+   * The last persist error, or null when no unacknowledged error exists.
+   * Set whenever persistCommon or persistApp rejects; cleared on the next
+   * successful persist or by calling clearPersistError() explicitly.
+   *
+   * Added in issue #38 to surface failures that were previously swallowed.
+   */
+  persistError: unknown;
 
   /** Update theme and persist common prefs. */
   setTheme: (theme: UIPrefs['theme']) => void;
@@ -83,6 +91,9 @@ export interface UIPrefsStoreState {
   getStatusColor: (status: 'exact' | 'fuzzy' | 'mismatch' | 'ocr' | 'gt') => string;
   /** Returns the accent fg/bg colors (override or token fallback). */
   getAccentColor: () => { fg: string; bg: string };
+
+  /** Clear the last persist error (e.g., after displaying it to the user). */
+  clearPersistError: () => void;
 }
 
 export function createUIPrefsStore(config: UIPrefsConfig) {
@@ -135,22 +146,42 @@ export function createUIPrefsStore(config: UIPrefsConfig) {
       set({ loading: false });
     });
 
+    /**
+     * Shared persist-error handler for all setter operations.
+     * Catches both sync throws and async rejections, then:
+     *   1. Stores the error in `persistError` state.
+     *   2. Calls config.onPersistError if provided.
+     * Clears `persistError` to null on success.
+     */
+    function handlePersist(promise: Promise<void>): void {
+      promise.then(() => {
+        // Clear any previous error on success.
+        if (get().persistError !== null) {
+          set({ persistError: null });
+        }
+      }).catch((err: unknown) => {
+        set({ persistError: err });
+        config.onPersistError?.(err);
+      });
+    }
+
     return {
       prefs: { theme: 'dark', density: 'normal', fontScale: 1.0 },
       loading: true,
+      persistError: null,
 
       setTheme: (theme) => {
         _editedKeys.add('theme');
         const prefs = { ...get().prefs, theme };
         set({ prefs });
-        void config.persistCommon(commonPrefs(prefs));
+        handlePersist(config.persistCommon(commonPrefs(prefs)));
       },
 
       setDensity: (density) => {
         _editedKeys.add('density');
         const prefs = { ...get().prefs, density };
         set({ prefs });
-        void config.persistCommon(commonPrefs(prefs));
+        handlePersist(config.persistCommon(commonPrefs(prefs)));
       },
 
       setFontScale: (scale) => {
@@ -158,7 +189,7 @@ export function createUIPrefsStore(config: UIPrefsConfig) {
         const fontScale = Math.min(1.4, Math.max(0.8, scale));
         const prefs = { ...get().prefs, fontScale };
         set({ prefs });
-        void config.persistCommon(commonPrefs(prefs));
+        handlePersist(config.persistCommon(commonPrefs(prefs)));
       },
 
       setAppPref: (key, value) => {
@@ -167,7 +198,7 @@ export function createUIPrefsStore(config: UIPrefsConfig) {
         const app = { ...prev, [key]: value };
         const prefs = { ...get().prefs, app };
         set({ prefs });
-        void config.persistApp(app);
+        handlePersist(config.persistApp(app));
       },
 
       setLayerColor: (layer, color) => {
@@ -181,7 +212,7 @@ export function createUIPrefsStore(config: UIPrefsConfig) {
         }
         const prefs = { ...get().prefs, layerColors };
         set({ prefs });
-        void config.persistCommon(commonPrefs(prefs));
+        handlePersist(config.persistCommon(commonPrefs(prefs)));
       },
 
       setStatusColor: (status, color) => {
@@ -195,7 +226,7 @@ export function createUIPrefsStore(config: UIPrefsConfig) {
         }
         const prefs = { ...get().prefs, statusColors };
         set({ prefs });
-        void config.persistCommon(commonPrefs(prefs));
+        handlePersist(config.persistCommon(commonPrefs(prefs)));
       },
 
       setAccentColor: (color) => {
@@ -207,7 +238,7 @@ export function createUIPrefsStore(config: UIPrefsConfig) {
           delete prefs.accentColor;
         }
         set({ prefs });
-        void config.persistCommon(commonPrefs(prefs));
+        handlePersist(config.persistCommon(commonPrefs(prefs)));
       },
 
       setAccentInkColor: (color) => {
@@ -219,7 +250,7 @@ export function createUIPrefsStore(config: UIPrefsConfig) {
           delete prefs.accentInkColor;
         }
         set({ prefs });
-        void config.persistCommon(commonPrefs(prefs));
+        handlePersist(config.persistCommon(commonPrefs(prefs)));
       },
 
       getLayerColor: (layer) => {
@@ -238,6 +269,10 @@ export function createUIPrefsStore(config: UIPrefsConfig) {
           fg: prefs.accentColor ?? 'var(--accent)',
           bg: prefs.accentInkColor ?? 'var(--accent-ink)',
         };
+      },
+
+      clearPersistError: () => {
+        set({ persistError: null });
       },
     };
   });

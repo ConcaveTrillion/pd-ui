@@ -58,6 +58,19 @@ export interface UIPrefsConfig {
   persistCommon: (prefs: Omit<UIPrefs, 'app'>) => Promise<void>;
   /** Called when app-specific prefs change. */
   persistApp: (appPrefs: Record<string, unknown>) => Promise<void>;
+  /**
+   * Optional error hook called whenever a persist operation fails (quota
+   * exceeded, network 5xx, etc.). Receives the thrown error.
+   *
+   * The store also surfaces the last error as `persistError` state so that
+   * React components can read it via `useUIPrefs().persistError`. The error
+   * is cleared on the next successful persist or when `clearPersistError()`
+   * is called explicitly.
+   *
+   * If not provided, errors are still stored in `persistError` state; they
+   * are never silently dropped (#38).
+   */
+  onPersistError?: (error: unknown) => void;
 }
 
 // ─── NavItem ──────────────────────────────────────────────────────────────────
