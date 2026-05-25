@@ -546,11 +546,17 @@ export const scannoNavGroupTestId = (id: string) => `scanno-nav-group-${id}` as 
 
 // ─── Stages / PageReorder / ReorderScansBanner (Phase 2 M8) ──────────────────
 
-=======
-// ReorderScansBanner
->>>>>>> phase2/projects-pipeline-mini
 export const REORDER_SCANS_BANNER = 'reorder-scans-banner' as const;
 export const REORDER_SCANS_BANNER_SKIP = 'reorder-scans-banner-skip' as const;
 export const REORDER_SCANS_BANNER_AUTO_APPLY = 'reorder-scans-banner-auto-apply' as const;
 export const REORDER_SCANS_BANNER_REDETECT = 'reorder-scans-banner-redetect' as const;
 export const REORDER_SCANS_BANNER_SORT = 'reorder-scans-banner-sort' as const;
+
+// ─── Stages / Projects / PipelineMini (Phase 2 M11) ──────────────────────────
+
+/** Root element of the Projects PipelineMini progress strip. */
+export const PROJECTS_PIPELINE_MINI = 'projects-pipeline-mini' as const;
+
+/** Per-stage dot testid: `projects-pipeline-mini-dot-${stageId}`. */
+export const projectsPipelineMiniDotTestId = (stageId: string) =>
+  `projects-pipeline-mini-dot-${stageId}` as const;
