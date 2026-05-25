@@ -23,8 +23,8 @@ import {
 function renderOpen(
   overrides: Partial<React.ComponentProps<typeof ModalB>> = {},
 ) {
-  const onOpenChange = vi.fn<[boolean], void>();
-  const onFiles = vi.fn<[FileList | File[]], void>();
+  const onOpenChange = vi.fn<(arg: boolean) => void>();
+  const onFiles = vi.fn<(files: FileList | File[]) => void>();
 
   render(
     <ModalB

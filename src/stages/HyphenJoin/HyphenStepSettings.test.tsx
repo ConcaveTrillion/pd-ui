@@ -111,7 +111,7 @@ describe('HyphenStepSettings — rule library section', () => {
   });
 
   it('toggling a rule fires onChange with enabled flipped', () => {
-    const onChange = vi.fn<[HyphenSettings], void>();
+    const onChange = vi.fn<(arg: HyphenSettings) => void>();
     const settings = makeSettings({
       rules: [
         { id: 'r1', label: 'Always-join beginnings', enabled: true },
@@ -129,7 +129,7 @@ describe('HyphenStepSettings — rule library section', () => {
   });
 
   it('toggling a disabled rule fires onChange with enabled flipped to true', () => {
-    const onChange = vi.fn<[HyphenSettings], void>();
+    const onChange = vi.fn<(arg: HyphenSettings) => void>();
     const settings = makeSettings({
       rules: [
         { id: 'r1', label: 'Always-join beginnings', enabled: true },
@@ -146,7 +146,7 @@ describe('HyphenStepSettings — rule library section', () => {
   });
 
   it('toggling one rule preserves other rules unchanged', () => {
-    const onChange = vi.fn<[HyphenSettings], void>();
+    const onChange = vi.fn<(arg: HyphenSettings) => void>();
     const settings = makeSettings({
       rules: [
         { id: 'r1', label: 'Always-join beginnings', enabled: true },
@@ -200,7 +200,7 @@ describe('HyphenStepSettings — n-gram cache section', () => {
   });
 
   it('changing cache-size fires onChange with new sizeMB', () => {
-    const onChange = vi.fn<[HyphenSettings], void>();
+    const onChange = vi.fn<(arg: HyphenSettings) => void>();
     const settings = makeSettings({ ngramCache: { sizeMB: 32, ttlMinutes: 120 } });
     render(<HyphenStepSettings settings={settings} onChange={onChange} />);
 
@@ -214,7 +214,7 @@ describe('HyphenStepSettings — n-gram cache section', () => {
   });
 
   it('changing cache-ttl fires onChange with new ttlMinutes', () => {
-    const onChange = vi.fn<[HyphenSettings], void>();
+    const onChange = vi.fn<(arg: HyphenSettings) => void>();
     const settings = makeSettings({ ngramCache: { sizeMB: 32, ttlMinutes: 120 } });
     render(<HyphenStepSettings settings={settings} onChange={onChange} />);
 
@@ -227,7 +227,7 @@ describe('HyphenStepSettings — n-gram cache section', () => {
   });
 
   it('cache field changes preserve other settings sections', () => {
-    const onChange = vi.fn<[HyphenSettings], void>();
+    const onChange = vi.fn<(arg: HyphenSettings) => void>();
     const settings = makeSettings({
       rules: [{ id: 'r1', label: 'Always-join beginnings', enabled: true }],
       ngramCache: { sizeMB: 32, ttlMinutes: 120 },
@@ -267,7 +267,7 @@ describe('HyphenStepSettings — auto-flag thresholds section', () => {
   });
 
   it('changing auto-flag-threshold fires onChange with new value', () => {
-    const onChange = vi.fn<[HyphenSettings], void>();
+    const onChange = vi.fn<(arg: HyphenSettings) => void>();
     const settings = makeSettings({ thresholds: { autoFlagBelow: 0.8 } });
     render(<HyphenStepSettings settings={settings} onChange={onChange} />);
 
@@ -280,7 +280,7 @@ describe('HyphenStepSettings — auto-flag thresholds section', () => {
   });
 
   it('threshold change preserves ngramCache and rules', () => {
-    const onChange = vi.fn<[HyphenSettings], void>();
+    const onChange = vi.fn<(arg: HyphenSettings) => void>();
     const settings = makeSettings({
       rules: [{ id: 'r1', label: 'Always-join beginnings', enabled: true }],
       ngramCache: { sizeMB: 32, ttlMinutes: 120 },
