@@ -30,6 +30,7 @@ export default defineConfig({
         'stages/QualityFlags/index': resolve(__dirname, 'src/stages/QualityFlags/index.ts'),
         'stages/Scannos/index': resolve(__dirname, 'src/stages/Scannos/index.ts'),
         'stages/PageReorder/index': resolve(__dirname, 'src/stages/PageReorder/index.ts'),
+        'stages/Upload/index': resolve(__dirname, 'src/stages/Upload/index.ts'),
       },
       formats: ['es'],
     },

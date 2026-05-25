@@ -84,6 +84,9 @@ export const PROJECTS_TAB_STRIP = 'projects-tab-strip' as const;
 export const PROJECTS_TAB_BODY = 'projects-tab-body' as const;
 export const PROJECTS_EMPTY_HERO = 'projects-empty-hero' as const;
 export const PROJECTS_CONTROLS = 'projects-controls' as const;
+export const PROJECTS_PIPELINE_MINI = 'projects-pipeline-mini' as const;
+export const projectsPipelineMiniDotTestId = (stageId: string) =>
+  `projects-pipeline-mini-dot-${stageId}` as const;
 
 // ─── ConfigureHeader (#344 batch 3) ──────────────────────────────────────────
 
@@ -582,3 +585,14 @@ export const PROJECTS_PIPELINE_MINI = 'projects-pipeline-mini' as const;
 /** Per-stage dot testid: `projects-pipeline-mini-dot-${stageId}`. */
 export const projectsPipelineMiniDotTestId = (stageId: string) =>
   `projects-pipeline-mini-dot-${stageId}` as const;
+
+// ─── Stages / Upload — ModalB (Phase 2 M12) ──────────────────────────────────
+
+/** Root dialog content of ModalB (compact drop-target upload modal). */
+export const UPLOAD_MODAL_B = 'upload-modal-b' as const;
+
+/** Drop zone div inside ModalB — role="button", aria-label="Upload images". */
+export const UPLOAD_MODAL_B_DROP_ZONE = 'upload-modal-b-drop-zone' as const;
+
+/** Hidden file input inside ModalB (fallback for keyboard / click). */
+export const UPLOAD_MODAL_B_FILE_INPUT = 'upload-modal-b-file-input' as const;
