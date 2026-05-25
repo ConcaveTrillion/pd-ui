@@ -537,11 +537,33 @@ export const qualityPageRowTestId = (id: string) => `quality-page-row-${id}` as 
 export const qualityPageRowScoreTestId = (pageId: string, key: string) =>
   `quality-page-row-score-${pageId}-${key}` as const;
 
+/** Default testid for QualityFlags PageThumb root element. */
+export const QUALITY_PAGE_THUMB = 'quality-page-thumb' as const;
+
+/**
+ * Build a testid for a specific QualityFlags PageThumb: `quality-page-thumb-{pageId}`.
+ * Playwright drivers use this to target individual page thumbnails.
+ */
+export const qualityPageThumbTestId = (pageId: string) =>
+  `quality-page-thumb-${pageId}` as const;
+
 export const SCANNO_TOKEN = 'scanno-token' as const;
 
 // ─── Stages / PageReorder (Phase 2 M8) ───────────────────────────────────────
 export const REORDER_AFTER_APPLY_STRIP = 'reorder-after-apply-strip' as const;
 export const REORDER_AFTER_APPLY_STRIP_UNDO = 'reorder-after-apply-strip-undo' as const;
+
+// ─── Stages / Validation / DownloadFooter (Phase 2 M9) ───────────────────────
+
+/** Root element of the Validation DownloadFooter contextual CTA footer. */
+export const VALIDATION_DOWNLOAD_FOOTER = 'validation-download-footer' as const;
+
+/** Download / Download anyway button inside DownloadFooter. */
+export const VALIDATION_DOWNLOAD_FOOTER_DOWNLOAD =
+  'validation-download-footer-download' as const;
+
+/** Fix & rebuild / Fix all (N) button inside DownloadFooter. */
+export const VALIDATION_DOWNLOAD_FOOTER_FIX = 'validation-download-footer-fix' as const;
 
 // ─── Stages / Validation / CheckRow (Phase 2 M9) ─────────────────────────────
 
