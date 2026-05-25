@@ -628,3 +628,19 @@ export const UPLOAD_MODAL_B_DROP_ZONE = 'upload-modal-b-drop-zone' as const;
 
 /** Hidden file input inside ModalB (fallback for keyboard / click). */
 export const UPLOAD_MODAL_B_FILE_INPUT = 'upload-modal-b-file-input' as const;
+
+// ─── Stages / Upload — ModalC (Phase 2 M12) ──────────────────────────────────
+
+/** Root dialog content of ModalC (desktop 4-step right-side sheet). */
+export const UPLOAD_MODAL_C = 'upload-modal-c' as const;
+
+/** Left rail nav wrapper inside ModalC. */
+export const UPLOAD_MODAL_C_RAIL = 'upload-modal-c-rail' as const;
+
+/**
+ * Build a testid for a specific step rail item: `upload-modal-c-step-${step}`.
+ * step is one of 'name' | 'source' | 'review' | 'upload'.
+ * Playwright drivers use these to click individual rail items.
+ */
+export const uploadModalCStepTestId = (step: string) =>
+  `upload-modal-c-step-${step}` as const;
