@@ -44,9 +44,10 @@ export default defineConfig({
   },
 
   webServer: {
-    // Use `npx serve` to serve the pre-built Storybook static site.
+    // Use `sirv-cli` (declared devDependency) to serve the pre-built Storybook
+    // static site. Invoked via `pnpm exec sirv` so no runtime download occurs.
     // Port 6007 avoids conflicts with the Storybook dev server (6006).
-    command: `npx serve ${STORYBOOK_DIR} --listen ${PORT} --no-port-switching --no-clipboard`,
+    command: `pnpm exec sirv ${STORYBOOK_DIR} --port ${PORT} --single`,
     url: `http://localhost:${PORT}`,
     reuseExistingServer: !process.env['CI'],
     timeout: 30_000,
