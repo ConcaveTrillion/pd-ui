@@ -29,10 +29,31 @@ export const NoCount: Story = {
 export const AllKinds: Story = {
   render: () => (
     <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6, maxWidth: 600 }}>
-      {(['blurry', 'skew', 'dark', 'sparse', 'cropped', 'asymmetric', 'loose',
-        'under', 'over', 'halftone', 'mixed', 'residual', 'baseline',
-        'overflow', 'blank', 'misaligned', 'low-conf', 'no-text',
-        'garbled', 'mixed-lang', 'errored'] as const).map((kind) => (
+      {(
+        [
+          'blurry',
+          'skew',
+          'dark',
+          'sparse',
+          'cropped',
+          'asymmetric',
+          'loose',
+          'under',
+          'over',
+          'halftone',
+          'mixed',
+          'residual',
+          'baseline',
+          'overflow',
+          'blank',
+          'misaligned',
+          'low-conf',
+          'no-text',
+          'garbled',
+          'mixed-lang',
+          'errored',
+        ] as const
+      ).map((kind) => (
         <FlagChip key={kind} kind={kind} count={Math.floor(Math.random() * 30) + 1} />
       ))}
     </div>

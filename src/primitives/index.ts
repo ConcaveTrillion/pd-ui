@@ -81,12 +81,7 @@ export {
 
 export { Popover, PopoverTrigger, PopoverAnchor, PopoverContent } from './Popover.js';
 
-export {
-  Tooltip,
-  TooltipTrigger,
-  TooltipContent,
-  TooltipProvider,
-} from './Tooltip.js';
+export { Tooltip, TooltipTrigger, TooltipContent, TooltipProvider } from './Tooltip.js';
 
 export {
   DropdownMenu,
@@ -123,12 +118,7 @@ export { Tabs, TabsList, TabsTrigger, TabsContent } from './Tabs.js';
 
 export { ToggleGroup, ToggleGroupItem } from './ToggleGroup.js';
 
-export {
-  Accordion,
-  AccordionItem,
-  AccordionTrigger,
-  AccordionContent,
-} from './Accordion.js';
+export { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from './Accordion.js';
 
 // Form helpers
 export { Field } from './Field.js';

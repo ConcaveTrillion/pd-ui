@@ -51,7 +51,7 @@ export function createApiUIPrefsConfig(url = '/api/ui-prefs'): UIPrefsConfig {
       try {
         const res = await fetch(url);
         if (!res.ok) return { ...DEFAULT_PREFS };
-        const data = await res.json() as UIPrefs;
+        const data = (await res.json()) as UIPrefs;
         return data;
       } catch {
         return { ...DEFAULT_PREFS };

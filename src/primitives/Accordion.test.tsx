@@ -52,7 +52,7 @@ describe('Accordion', () => {
     // Radix Accordion items render with data-orientation attribute
     const items = document.querySelectorAll('.acc');
     expect(items.length).toBeGreaterThan(0);
-    items.forEach(item => {
+    items.forEach((item) => {
       expect(item.classList.contains('acc')).toBe(true);
     });
   });

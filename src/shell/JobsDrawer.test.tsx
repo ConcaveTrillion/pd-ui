@@ -40,20 +40,12 @@ describe('JobsDrawer (#354)', () => {
   // ─── dismissed mode ──────────────────────────────────────────────────────────
 
   it('renders nothing when mode=dismissed, no jobs, no toasts', () => {
-    const { container } = render(
-      <JobsDrawer activeJobs={[]} toasts={[]} mode="dismissed" />,
-    );
+    const { container } = render(<JobsDrawer activeJobs={[]} toasts={[]} mode="dismissed" />);
     expect(container.firstChild).toBeNull();
   });
 
   it('still renders toasts even when mode=dismissed', () => {
-    render(
-      <JobsDrawer
-        activeJobs={[]}
-        toasts={[makeToast()]}
-        mode="dismissed"
-      />,
-    );
+    render(<JobsDrawer activeJobs={[]} toasts={[makeToast()]} mode="dismissed" />);
     expect(screen.getByTestId('jobs-drawer-toast')).toBeTruthy();
   });
 
@@ -128,12 +120,7 @@ describe('JobsDrawer (#354)', () => {
   });
 
   it('shows mini progress bar for single running job in collapsed mode', () => {
-    render(
-      <JobsDrawer
-        activeJobs={[makeJob({ status: 'running', pct: 55 })]}
-        mode="collapsed"
-      />,
-    );
+    render(<JobsDrawer activeJobs={[makeJob({ status: 'running', pct: 55 })]} mode="collapsed" />);
     expect(screen.getByTestId('jobs-drawer-collapsed-progress')).toBeTruthy();
   });
 
@@ -183,16 +170,12 @@ describe('JobsDrawer (#354)', () => {
   });
 
   it('renders toast Open button', () => {
-    render(
-      <JobsDrawer activeJobs={[]} toasts={[makeToast()]} mode="expanded" />,
-    );
+    render(<JobsDrawer activeJobs={[]} toasts={[makeToast()]} mode="expanded" />);
     expect(screen.getByRole('button', { name: /^open$/i })).toBeTruthy();
   });
 
   it('renders toast Dismiss button', () => {
-    render(
-      <JobsDrawer activeJobs={[]} toasts={[makeToast()]} mode="expanded" />,
-    );
+    render(<JobsDrawer activeJobs={[]} toasts={[makeToast()]} mode="expanded" />);
     expect(screen.getByRole('button', { name: /dismiss/i })).toBeTruthy();
   });
 
@@ -230,52 +213,28 @@ describe('JobsDrawer (#354)', () => {
 
   it('calls onToggleMode when Collapse button clicked', () => {
     const onToggleMode = vi.fn();
-    render(
-      <JobsDrawer
-        activeJobs={[makeJob()]}
-        mode="expanded"
-        onToggleMode={onToggleMode}
-      />,
-    );
+    render(<JobsDrawer activeJobs={[makeJob()]} mode="expanded" onToggleMode={onToggleMode} />);
     fireEvent.click(screen.getByRole('button', { name: /collapse/i }));
     expect(onToggleMode).toHaveBeenCalledTimes(1);
   });
 
   it('calls onToggleMode when Expand button clicked', () => {
     const onToggleMode = vi.fn();
-    render(
-      <JobsDrawer
-        activeJobs={[makeJob()]}
-        mode="collapsed"
-        onToggleMode={onToggleMode}
-      />,
-    );
+    render(<JobsDrawer activeJobs={[makeJob()]} mode="collapsed" onToggleMode={onToggleMode} />);
     fireEvent.click(screen.getByRole('button', { name: /expand/i }));
     expect(onToggleMode).toHaveBeenCalledTimes(1);
   });
 
   it('calls onDismiss when Dismiss drawer button clicked', () => {
     const onDismiss = vi.fn();
-    render(
-      <JobsDrawer
-        activeJobs={[makeJob()]}
-        mode="expanded"
-        onDismiss={onDismiss}
-      />,
-    );
+    render(<JobsDrawer activeJobs={[makeJob()]} mode="expanded" onDismiss={onDismiss} />);
     fireEvent.click(screen.getByRole('button', { name: /dismiss drawer/i }));
     expect(onDismiss).toHaveBeenCalledTimes(1);
   });
 
   it('calls onViewAll when "View all jobs" footer clicked', () => {
     const onViewAll = vi.fn();
-    render(
-      <JobsDrawer
-        activeJobs={[makeJob()]}
-        mode="expanded"
-        onViewAll={onViewAll}
-      />,
-    );
+    render(<JobsDrawer activeJobs={[makeJob()]} mode="expanded" onViewAll={onViewAll} />);
     fireEvent.click(screen.getByText('View all jobs'));
     expect(onViewAll).toHaveBeenCalledTimes(1);
   });

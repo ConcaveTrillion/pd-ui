@@ -110,9 +110,7 @@ describe('SourcePageWorkbench', () => {
 
   it('rotation indicator does not render when rotationDeg omitted', () => {
     render(<SourcePageWorkbench {...BASE_PROPS} />);
-    expect(
-      screen.queryByTestId(`${SOURCE_PAGE_WORKBENCH}-rotation`),
-    ).not.toBeInTheDocument();
+    expect(screen.queryByTestId(`${SOURCE_PAGE_WORKBENCH}-rotation`)).not.toBeInTheDocument();
   });
 
   it('tone hint shows when provided', () => {
@@ -123,9 +121,7 @@ describe('SourcePageWorkbench', () => {
 
   it('tone hint is absent when not provided', () => {
     render(<SourcePageWorkbench {...BASE_PROPS} />);
-    expect(
-      screen.queryByTestId(`${SOURCE_PAGE_WORKBENCH}-tone-hint`),
-    ).not.toBeInTheDocument();
+    expect(screen.queryByTestId(`${SOURCE_PAGE_WORKBENCH}-tone-hint`)).not.toBeInTheDocument();
   });
 
   it('role segmented change fires onRoleChange', () => {
@@ -133,10 +129,9 @@ describe('SourcePageWorkbench', () => {
     render(<SourcePageWorkbench {...BASE_PROPS} onRoleChange={onRoleChange} />);
     // Find the 'Blank' segment button inside the role segment wrapper
     const roleWrapper = screen.getByTestId(`${SOURCE_PAGE_WORKBENCH}-role-segment`);
-    const blankBtn = roleWrapper.querySelector('[data-value="blank"]') ??
-      Array.from(roleWrapper.querySelectorAll('button')).find(
-        (b) => b.textContent === 'Blank',
-      );
+    const blankBtn =
+      roleWrapper.querySelector('[data-value="blank"]') ??
+      Array.from(roleWrapper.querySelectorAll('button')).find((b) => b.textContent === 'Blank');
     if (!blankBtn) throw new Error('Blank segment button not found');
     fireEvent.click(blankBtn);
     expect(onRoleChange).toHaveBeenCalledWith('blank');

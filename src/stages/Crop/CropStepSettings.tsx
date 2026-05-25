@@ -123,7 +123,9 @@ export function CropStepSettings({
       <fieldset className="crop-step-settings__fieldset">
         <legend className="crop-step-settings__legend">
           <span className="crop-step-settings__field-label">Auto-crop strategy</span>
-          <span className="crop-step-settings__field-sub">How the worker picks the bbox per page</span>
+          <span className="crop-step-settings__field-sub">
+            How the worker picks the bbox per page
+          </span>
         </legend>
         <div className="crop-step-settings__strategy-grid">
           {STRATEGY_OPTIONS.map((opt) => {
@@ -141,7 +143,9 @@ export function CropStepSettings({
                   name="crop-strategy"
                   value={opt.value}
                   checked={active}
-                  onChange={() => { handleStrategy(opt.value); }}
+                  onChange={() => {
+                    handleStrategy(opt.value);
+                  }}
                   data-testid={`crop-strategy-${opt.value}`}
                   aria-label={opt.label}
                   className="crop-step-settings__radio"

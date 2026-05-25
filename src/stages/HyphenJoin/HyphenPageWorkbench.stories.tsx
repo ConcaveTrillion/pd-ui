@@ -68,8 +68,7 @@ export const Default: Story = {
   args: {
     page: PAGE,
     cases: [CASES_MULTI[0]!, CASES_MULTI[1]!],
-    onDecide: (caseId, decision) =>
-      console.log('onDecide', caseId, decision),
+    onDecide: (caseId, decision) => console.log('onDecide', caseId, decision),
   },
 };
 
@@ -80,8 +79,7 @@ export const MultipleCases: Story = {
   args: {
     page: PAGE,
     cases: CASES_MULTI,
-    onDecide: (caseId, decision) =>
-      console.log('onDecide', caseId, decision),
+    onDecide: (caseId, decision) => console.log('onDecide', caseId, decision),
   },
 };
 
@@ -92,7 +90,6 @@ export const EmptyCases: Story = {
   args: {
     page: PAGE,
     cases: [],
-    onDecide: (caseId, decision) =>
-      console.log('onDecide', caseId, decision),
+    onDecide: (caseId, decision) => console.log('onDecide', caseId, decision),
   },
 };

@@ -164,8 +164,14 @@ describe('ModalC', () => {
 
   it('steps before the current step do not have aria-current', () => {
     renderOpen({ step: 'review' });
-    expect(screen.getByTestId(uploadModalCStepTestId('name'))).not.toHaveAttribute('aria-current', 'step');
-    expect(screen.getByTestId(uploadModalCStepTestId('source'))).not.toHaveAttribute('aria-current', 'step');
+    expect(screen.getByTestId(uploadModalCStepTestId('name'))).not.toHaveAttribute(
+      'aria-current',
+      'step',
+    );
+    expect(screen.getByTestId(uploadModalCStepTestId('source'))).not.toHaveAttribute(
+      'aria-current',
+      'step',
+    );
   });
 
   it('renders 4 rail items', () => {

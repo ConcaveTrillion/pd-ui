@@ -20,7 +20,10 @@ const BASE_STATS: GrayscaleStats = {
   totalSeconds: 185.6,
 };
 
-function renderOverview(stats: GrayscaleStats = BASE_STATS, extra: Partial<React.ComponentProps<typeof GrayscaleOverview>> = {}) {
+function renderOverview(
+  stats: GrayscaleStats = BASE_STATS,
+  extra: Partial<React.ComponentProps<typeof GrayscaleOverview>> = {},
+) {
   return render(<GrayscaleOverview stats={stats} {...extra} />);
 }
 

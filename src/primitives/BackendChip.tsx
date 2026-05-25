@@ -36,26 +36,27 @@ const BASE_LABEL: Record<BackendValue, string> = {
  * Composes on top of `Badge` so that all tone tokens and dot rendering come
  * from the existing design-system primitive rather than duplicating styles.
  */
-export const BackendChip = React.forwardRef<HTMLSpanElement, BackendChipProps>(
-  function BackendChip({ backend, fallback, ...props }, ref) {
-    const tone = TONE_MAP[backend];
-    const isFallback = fallback === true && backend === 'cpu';
-    const label = isFallback ? `${BASE_LABEL[backend]} ↓` : BASE_LABEL[backend];
+export const BackendChip = React.forwardRef<HTMLSpanElement, BackendChipProps>(function BackendChip(
+  { backend, fallback, ...props },
+  ref,
+) {
+  const tone = TONE_MAP[backend];
+  const isFallback = fallback === true && backend === 'cpu';
+  const label = isFallback ? `${BASE_LABEL[backend]} ↓` : BASE_LABEL[backend];
 
-    return (
-      <Badge
-        ref={ref}
-        tone={tone}
-        dot
-        mono
-        data-backend={backend}
-        data-fallback={isFallback ? 'true' : undefined}
-        {...props}
-      >
-        {label}
-      </Badge>
-    );
-  },
-);
+  return (
+    <Badge
+      ref={ref}
+      tone={tone}
+      dot
+      mono
+      data-backend={backend}
+      data-fallback={isFallback ? 'true' : undefined}
+      {...props}
+    >
+      {label}
+    </Badge>
+  );
+});
 
 BackendChip.displayName = 'BackendChip';

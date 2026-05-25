@@ -12,14 +12,12 @@ const SelectTrigger = React.forwardRef<
   React.ComponentRef<typeof SelectPrimitive.Trigger>,
   React.ComponentPropsWithoutRef<typeof SelectPrimitive.Trigger>
 >(({ className, children, ...props }, ref) => (
-  <SelectPrimitive.Trigger
-    ref={ref}
-    className={cn('select-trigger', className)}
-    {...props}
-  >
+  <SelectPrimitive.Trigger ref={ref} className={cn('select-trigger', className)} {...props}>
     {children}
     <SelectPrimitive.Icon asChild>
-      <span className="select-icon" aria-hidden>&#8964;</span>
+      <span className="select-icon" aria-hidden>
+        &#8964;
+      </span>
     </SelectPrimitive.Icon>
   </SelectPrimitive.Trigger>
 ));
@@ -65,9 +63,7 @@ const SelectContent = React.forwardRef<
       {...props}
     >
       <SelectScrollUpButton />
-      <SelectPrimitive.Viewport className="select-viewport">
-        {children}
-      </SelectPrimitive.Viewport>
+      <SelectPrimitive.Viewport className="select-viewport">{children}</SelectPrimitive.Viewport>
       <SelectScrollDownButton />
     </SelectPrimitive.Content>
   </SelectPrimitive.Portal>
@@ -78,11 +74,7 @@ const SelectLabel = React.forwardRef<
   React.ComponentRef<typeof SelectPrimitive.Label>,
   React.ComponentPropsWithoutRef<typeof SelectPrimitive.Label>
 >(({ className, ...props }, ref) => (
-  <SelectPrimitive.Label
-    ref={ref}
-    className={cn('select-label', className)}
-    {...props}
-  />
+  <SelectPrimitive.Label ref={ref} className={cn('select-label', className)} {...props} />
 ));
 SelectLabel.displayName = SelectPrimitive.Label.displayName;
 
@@ -90,11 +82,7 @@ const SelectItem = React.forwardRef<
   React.ComponentRef<typeof SelectPrimitive.Item>,
   React.ComponentPropsWithoutRef<typeof SelectPrimitive.Item>
 >(({ className, children, ...props }, ref) => (
-  <SelectPrimitive.Item
-    ref={ref}
-    className={cn('select-item', className)}
-    {...props}
-  >
+  <SelectPrimitive.Item ref={ref} className={cn('select-item', className)} {...props}>
     <SelectPrimitive.ItemText>{children}</SelectPrimitive.ItemText>
     <SelectPrimitive.ItemIndicator className="select-item-indicator">
       <span aria-hidden>&#10003;</span>
@@ -107,11 +95,7 @@ const SelectSeparator = React.forwardRef<
   React.ComponentRef<typeof SelectPrimitive.Separator>,
   React.ComponentPropsWithoutRef<typeof SelectPrimitive.Separator>
 >(({ className, ...props }, ref) => (
-  <SelectPrimitive.Separator
-    ref={ref}
-    className={cn('dropdown-separator', className)}
-    {...props}
-  />
+  <SelectPrimitive.Separator ref={ref} className={cn('dropdown-separator', className)} {...props} />
 ));
 SelectSeparator.displayName = SelectPrimitive.Separator.displayName;
 

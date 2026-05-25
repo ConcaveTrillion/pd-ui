@@ -44,10 +44,7 @@ export interface AdvancedParamsProps {
 // ─── AdvancedParams ───────────────────────────────────────────────────────────
 
 export const AdvancedParams = React.forwardRef<HTMLDivElement, AdvancedParamsProps>(
-  function AdvancedParams(
-    { params, onChange, defaultOpen = false, 'data-testid': testId },
-    ref,
-  ) {
+  function AdvancedParams({ params, onChange, defaultOpen = false, 'data-testid': testId }, ref) {
     const handleSamplerRadiusChange = (value: number) => {
       const clamped = Math.max(1, Math.min(32, Math.round(value)));
       onChange({ ...params, samplerRadius: clamped });
@@ -72,15 +69,9 @@ export const AdvancedParams = React.forwardRef<HTMLDivElement, AdvancedParamsPro
 
     return (
       <div ref={ref} data-testid={testId}>
-        <Accordion
-          type="single"
-          collapsible
-          {...(defaultOpen ? { defaultValue: 'advanced' } : {})}
-        >
+        <Accordion type="single" collapsible {...(defaultOpen ? { defaultValue: 'advanced' } : {})}>
           <AccordionItem value="advanced">
-            <AccordionTrigger>
-              Advanced · perceptual params
-            </AccordionTrigger>
+            <AccordionTrigger>Advanced · perceptual params</AccordionTrigger>
             <AccordionContent>
               <div className="adv-params-grid">
                 {/* ── Sampler radius ── */}
@@ -159,9 +150,7 @@ export const AdvancedParams = React.forwardRef<HTMLDivElement, AdvancedParamsPro
                       variant="ghost"
                       size="sm"
                       data-testid="advanced-params-reset-gamma"
-                      onClick={() =>
-                        onChange({ ...params, gamma: GRAYSCALE_PARAMS_DEFAULT.gamma })
-                      }
+                      onClick={() => onChange({ ...params, gamma: GRAYSCALE_PARAMS_DEFAULT.gamma })}
                     >
                       Reset
                     </Button>
@@ -173,7 +162,8 @@ export const AdvancedParams = React.forwardRef<HTMLDivElement, AdvancedParamsPro
                   <div className="adv-params-label-group">
                     <span className="adv-params-label">Output range</span>
                     <span className="adv-params-sub">
-                      Linear stretch applied after sampling. Compress the tails for cleaner thresholding.
+                      Linear stretch applied after sampling. Compress the tails for cleaner
+                      thresholding.
                     </span>
                   </div>
                   <div className="adv-params-controls">
@@ -188,7 +178,9 @@ export const AdvancedParams = React.forwardRef<HTMLDivElement, AdvancedParamsPro
                       className="adv-params-number"
                       aria-label="Output range minimum"
                     />
-                    <span className="adv-params-range-sep" aria-hidden>–</span>
+                    <span className="adv-params-range-sep" aria-hidden>
+                      –
+                    </span>
                     <input
                       type="number"
                       min={1}

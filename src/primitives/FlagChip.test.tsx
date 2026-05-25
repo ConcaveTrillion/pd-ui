@@ -36,9 +36,10 @@ describe('FlagChip', () => {
   it('calls onClick when clicked', () => {
     const onClick = vi.fn();
     render(<FlagChip kind="blurry" onClick={onClick} />);
-    screen.getByText('blurry').closest('.flag-chip')?.dispatchEvent(
-      new MouseEvent('click', { bubbles: true }),
-    );
+    screen
+      .getByText('blurry')
+      .closest('.flag-chip')
+      ?.dispatchEvent(new MouseEvent('click', { bubbles: true }));
     expect(onClick).toHaveBeenCalledTimes(1);
   });
 

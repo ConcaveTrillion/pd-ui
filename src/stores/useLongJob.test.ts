@@ -19,14 +19,14 @@ describe('useLongJob (#166)', () => {
   });
 
   it('polls and returns done status', async () => {
-    const pollFn = vi.fn(() => Promise.resolve({
-      status: 'done' as const,
-      progress: 1.0,
-      events: [{ type: 'complete', ts: 1000 }],
-    }));
-    const { result } = renderHook(() =>
-      useLongJob('job-1', { pollFn, pollIntervalMs: 100 }),
+    const pollFn = vi.fn(() =>
+      Promise.resolve({
+        status: 'done' as const,
+        progress: 1.0,
+        events: [{ type: 'complete', ts: 1000 }],
+      }),
     );
+    const { result } = renderHook(() => useLongJob('job-1', { pollFn, pollIntervalMs: 100 }));
     await act(async () => {
       await new Promise((r) => setTimeout(r, 50));
     });
@@ -37,9 +37,7 @@ describe('useLongJob (#166)', () => {
 
   it('sets error when pollFn throws', async () => {
     const pollFn = vi.fn(() => Promise.reject(new Error('fail')));
-    const { result } = renderHook(() =>
-      useLongJob('job-1', { pollFn }),
-    );
+    const { result } = renderHook(() => useLongJob('job-1', { pollFn }));
     await act(async () => {
       await new Promise((r) => setTimeout(r, 50));
     });
@@ -66,11 +64,13 @@ describe('useLongJob (#166)', () => {
 
 describe('useLongJob stale-state fixes (#36)', () => {
   it('resets to idle when jobId clears (null) mid-poll', async () => {
-    const pollFn = vi.fn(() => Promise.resolve({
-      status: 'running' as const,
-      progress: 0.4,
-      events: [{ type: 'progress', ts: 1000 }],
-    }));
+    const pollFn = vi.fn(() =>
+      Promise.resolve({
+        status: 'running' as const,
+        progress: 0.4,
+        events: [{ type: 'progress', ts: 1000 }],
+      }),
+    );
     let jobId: string | null = 'job-1';
     const { result, rerender } = renderHook(() =>
       useLongJob(jobId, { pollFn, pollIntervalMs: 5000 }),
@@ -94,17 +94,17 @@ describe('useLongJob stale-state fixes (#36)', () => {
   });
 
   it('resets to idle when pollFn is removed', async () => {
-    const pollFn = vi.fn(() => Promise.resolve({
-      status: 'running' as const,
-      progress: 0.6,
-    }));
+    const pollFn = vi.fn(() =>
+      Promise.resolve({
+        status: 'running' as const,
+        progress: 0.6,
+      }),
+    );
     let options: { pollFn?: typeof pollFn; pollIntervalMs: number } = {
       pollFn,
       pollIntervalMs: 5000,
     };
-    const { result, rerender } = renderHook(() =>
-      useLongJob('job-1', options),
-    );
+    const { result, rerender } = renderHook(() => useLongJob('job-1', options));
     await act(async () => {
       await new Promise((r) => setTimeout(r, 50));
     });
@@ -129,7 +129,10 @@ describe('useLongJob stale-state fixes (#36)', () => {
         return Promise.resolve({
           status: 'running' as const,
           progress: 0.8,
-          events: [{ type: 'step', ts: 1 }, { type: 'step', ts: 2 }],
+          events: [
+            { type: 'step', ts: 1 },
+            { type: 'step', ts: 2 },
+          ],
         });
       }
       // New job starts fresh.

@@ -145,7 +145,9 @@ function LayerColorRow({
       id={`appearance-color-layer-${layer}`}
       label={label}
       value={value}
-      onChange={(v) => { setLayerColor(layer, v); }}
+      onChange={(v) => {
+        setLayerColor(layer, v);
+      }}
       defaultValue={defaultToken}
       inputTestId={`settings-appearance-color-${layer}`}
       resetTestId={`settings-appearance-color-${layer}-reset`}
@@ -169,7 +171,9 @@ function StatusColorRow({
       id={`appearance-color-status-${status}`}
       label={label}
       value={value}
-      onChange={(v) => { setStatusColor(status, v); }}
+      onChange={(v) => {
+        setStatusColor(status, v);
+      }}
       defaultValue={defaultToken}
       inputTestId={`settings-appearance-color-${status}`}
       resetTestId={`settings-appearance-color-${status}-reset`}
@@ -220,14 +224,18 @@ export function AppearancePanel() {
         >
           <SegButton
             active={theme === 'dark'}
-            onClick={() => { setTheme('dark'); }}
+            onClick={() => {
+              setTheme('dark');
+            }}
             data-testid="settings-appearance-theme-dark"
           >
             Dark
           </SegButton>
           <SegButton
             active={theme === 'light'}
-            onClick={() => { setTheme('light'); }}
+            onClick={() => {
+              setTheme('light');
+            }}
             data-testid="settings-appearance-theme-light"
           >
             Light
@@ -250,21 +258,27 @@ export function AppearancePanel() {
         >
           <SegButton
             active={density === 'compact'}
-            onClick={() => { setDensity('compact'); }}
+            onClick={() => {
+              setDensity('compact');
+            }}
             data-testid="settings-appearance-density-compact"
           >
             Compact
           </SegButton>
           <SegButton
             active={density === 'normal'}
-            onClick={() => { setDensity('normal'); }}
+            onClick={() => {
+              setDensity('normal');
+            }}
             data-testid="settings-appearance-density-normal"
           >
             Normal
           </SegButton>
           <SegButton
             active={density === 'comfortable'}
-            onClick={() => { setDensity('comfortable'); }}
+            onClick={() => {
+              setDensity('comfortable');
+            }}
             data-testid="settings-appearance-density-comfortable"
           >
             Comfortable
@@ -280,7 +294,9 @@ export function AppearancePanel() {
           max={FONT_SCALE_MAX}
           step={FONT_SCALE_STEP}
           value={fontScale}
-          onChange={(e) => { setFontScale(parseFloat(e.target.value)); }}
+          onChange={(e) => {
+            setFontScale(parseFloat(e.target.value));
+          }}
           aria-label={`Font scale ${pct(fontScale)}`}
           data-testid="settings-appearance-font-scale-slider"
           style={{
@@ -296,7 +312,9 @@ export function AppearancePanel() {
         id="appearance-color-accent"
         label="Accent"
         value={accentValue}
-        onChange={(v) => { setAccentColor(v); }}
+        onChange={(v) => {
+          setAccentColor(v);
+        }}
         {...(accentIsToken ? { defaultValue: accentValue } : {})}
         inputTestId="settings-appearance-color-accent"
         resetTestId="settings-appearance-color-accent-reset"
@@ -305,7 +323,9 @@ export function AppearancePanel() {
         id="appearance-color-accent-ink"
         label="Accent Ink"
         value={accentInkValue}
-        onChange={(v) => { setAccentInkColor(v); }}
+        onChange={(v) => {
+          setAccentInkColor(v);
+        }}
         {...(accentInkIsToken ? { defaultValue: accentInkValue } : {})}
         inputTestId="settings-appearance-color-accent-ink"
         resetTestId="settings-appearance-color-accent-ink-reset"

@@ -35,7 +35,13 @@ type Story = StoryObj<typeof AppHeader>;
 
 const SAMPLE_JOBS = [
   { id: '1', title: 'OCR run', phase: 'OCR — page 12 of 40', pct: 31, project: 'belloc-survivals' },
-  { id: '2', title: 'Ingest', phase: 'Ingest — copying pages', pct: 68, project: 'doyle-adventure' },
+  {
+    id: '2',
+    title: 'Ingest',
+    phase: 'Ingest — copying pages',
+    pct: 68,
+    project: 'doyle-adventure',
+  },
 ];
 
 /** Default idle state — no active jobs, no unread notifications. */

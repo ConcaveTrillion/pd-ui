@@ -7,44 +7,44 @@
  * Phase 2 M2 — spec §6.2 line 344.
  */
 
-import React, { useCallback, useRef, useState } from 'react'
-import { HIERARCHY_TREE_PANEL } from '../../testids/index.js'
-import { TreeRow } from './TreeRow.js'
+import React, { useCallback, useRef, useState } from 'react';
+import { HIERARCHY_TREE_PANEL } from '../../testids/index.js';
+import { TreeRow } from './TreeRow.js';
 
 // ---------------------------------------------------------------------------
 // Types (public — exported)
 // ---------------------------------------------------------------------------
 
-export type TreeNodeType = 'block' | 'paragraph' | 'line' | 'word'
+export type TreeNodeType = 'block' | 'paragraph' | 'line' | 'word';
 
 export interface TreeNode {
-  id: string
-  type: TreeNodeType
-  label: string
-  children?: ReadonlyArray<TreeNode>
+  id: string;
+  type: TreeNodeType;
+  label: string;
+  children?: ReadonlyArray<TreeNode>;
 }
 
 export interface HierarchyTreePanelProps {
   /** The tree nodes to render. */
-  tree: ReadonlyArray<TreeNode>
+  tree: ReadonlyArray<TreeNode>;
 
   /** The currently-selected node id. */
-  selectedId?: string
+  selectedId?: string;
 
   /** Called when the user clicks a node row. */
-  onSelect?: (id: string) => void
+  onSelect?: (id: string) => void;
 
   /** Called when the user changes the type of a node. */
-  onTypeChange?: (id: string, nextType: TreeNodeType) => void
+  onTypeChange?: (id: string, nextType: TreeNodeType) => void;
 
   /**
    * Ids that should be expanded on first render (uncontrolled).
    * By default all nodes with children are expanded.
    */
-  defaultExpandedIds?: ReadonlyArray<string>
+  defaultExpandedIds?: ReadonlyArray<string>;
 
   /** Forwarded to the outer `<nav>` element. */
-  'data-testid'?: string
+  'data-testid'?: string;
 }
 
 // ---------------------------------------------------------------------------
@@ -53,14 +53,14 @@ export interface HierarchyTreePanelProps {
 
 /** Collect all node ids that have children (used for "expand all" default). */
 function collectExpandable(nodes: ReadonlyArray<TreeNode>): string[] {
-  const ids: string[] = []
+  const ids: string[] = [];
   for (const node of nodes) {
     if ((node.children?.length ?? 0) > 0) {
-      ids.push(node.id)
-      ids.push(...collectExpandable(node.children!))
+      ids.push(node.id);
+      ids.push(...collectExpandable(node.children!));
     }
   }
-  return ids
+  return ids;
 }
 
 // ---------------------------------------------------------------------------
@@ -93,41 +93,36 @@ export function HierarchyTreePanel({
   // Determine initial expanded set.
   // Compute once at mount; subsequent prop changes do not re-seed the state
   // (uncontrolled pattern — mirroring standard React uncontrolled inputs).
-  const initialExpandedRef = useRef<ReadonlySet<string> | null>(null)
+  const initialExpandedRef = useRef<ReadonlySet<string> | null>(null);
   if (initialExpandedRef.current === null) {
     initialExpandedRef.current =
       defaultExpandedIds !== undefined
         ? new Set(defaultExpandedIds)
-        : new Set(collectExpandable(tree))
+        : new Set(collectExpandable(tree));
   }
 
-  const [expanded, setExpanded] = useState<ReadonlySet<string>>(
-    initialExpandedRef.current,
-  )
+  const [expanded, setExpanded] = useState<ReadonlySet<string>>(initialExpandedRef.current);
 
   const handleToggle = useCallback((id: string) => {
     setExpanded((prev) => {
-      const next = new Set(prev)
+      const next = new Set(prev);
       if (next.has(id)) {
-        next.delete(id)
+        next.delete(id);
       } else {
-        next.add(id)
+        next.add(id);
       }
-      return next
-    })
-  }, [])
+      return next;
+    });
+  }, []);
 
-  const outerTestId = testId ?? HIERARCHY_TREE_PANEL
+  const outerTestId = testId ?? HIERARCHY_TREE_PANEL;
 
   // Recursive render helper.
-  function renderNodes(
-    nodes: ReadonlyArray<TreeNode>,
-    depth: number,
-  ): React.ReactElement[] {
-    const rows: React.ReactElement[] = []
+  function renderNodes(nodes: ReadonlyArray<TreeNode>, depth: number): React.ReactElement[] {
+    const rows: React.ReactElement[] = [];
     for (const node of nodes) {
-      const isExpanded = expanded.has(node.id)
-      const hasChildren = (node.children?.length ?? 0) > 0
+      const isExpanded = expanded.has(node.id);
+      const hasChildren = (node.children?.length ?? 0) > 0;
 
       rows.push(
         <TreeRow
@@ -135,22 +130,32 @@ export function HierarchyTreePanel({
           node={node}
           depth={depth}
           expanded={isExpanded}
-          onToggle={() => { handleToggle(node.id) }}
+          onToggle={() => {
+            handleToggle(node.id);
+          }}
           selected={selectedId === node.id}
           {...(onSelect != null
-            ? { onSelect: () => { onSelect(node.id) } }
+            ? {
+                onSelect: () => {
+                  onSelect(node.id);
+                },
+              }
             : {})}
           {...(onTypeChange != null
-            ? { onTypeChange: (nextType: TreeNodeType) => { onTypeChange(node.id, nextType) } }
+            ? {
+                onTypeChange: (nextType: TreeNodeType) => {
+                  onTypeChange(node.id, nextType);
+                },
+              }
             : {})}
         />,
-      )
+      );
 
       if (hasChildren && isExpanded) {
-        rows.push(...renderNodes(node.children!, depth + 1))
+        rows.push(...renderNodes(node.children!, depth + 1));
       }
     }
-    return rows
+    return rows;
   }
 
   return (
@@ -166,5 +171,5 @@ export function HierarchyTreePanel({
         renderNodes(tree, 0)
       )}
     </div>
-  )
+  );
 }

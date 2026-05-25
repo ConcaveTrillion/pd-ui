@@ -12,9 +12,9 @@
  * react-konva is mocked (jsdom cannot run canvas renderer).
  */
 
-import { describe, it, expect, vi } from 'vitest'
-import { render, screen, fireEvent } from '@testing-library/react'
-import React from 'react'
+import { describe, it, expect, vi } from 'vitest';
+import { render, screen, fireEvent } from '@testing-library/react';
+import React from 'react';
 
 vi.mock('react-konva', () => ({
   Stage: ({
@@ -23,10 +23,10 @@ vi.mock('react-konva', () => ({
     height,
     'data-testid': tid,
   }: {
-    children?: React.ReactNode
-    width?: number
-    height?: number
-    'data-testid'?: string
+    children?: React.ReactNode;
+    width?: number;
+    height?: number;
+    'data-testid'?: string;
   }) => (
     <div data-testid={tid ?? 'konva-stage'} data-width={width} data-height={height}>
       {children}
@@ -44,13 +44,13 @@ vi.mock('react-konva', () => ({
     width,
     height,
   }: {
-    'data-testid'?: string
-    role?: string
-    onClick?: () => void
-    x?: number
-    y?: number
-    width?: number
-    height?: number
+    'data-testid'?: string;
+    role?: string;
+    onClick?: () => void;
+    x?: number;
+    y?: number;
+    width?: number;
+    height?: number;
   }) => {
     /* eslint-disable jsx-a11y/click-events-have-key-events */
     return (
@@ -63,7 +63,7 @@ vi.mock('react-konva', () => ({
         data-height={height}
         onClick={onClick}
       />
-    )
+    );
     /* eslint-enable jsx-a11y/click-events-have-key-events */
   },
   Line: ({ 'data-testid': tid }: { 'data-testid'?: string }) => (
@@ -72,95 +72,75 @@ vi.mock('react-konva', () => ({
   Circle: ({ 'data-testid': tid }: { 'data-testid'?: string }) => (
     <div data-testid={tid ?? 'konva-circle'} />
   ),
-}))
+}));
 
-import { ArtifactViewer } from './ArtifactViewer.js'
+import { ArtifactViewer } from './ArtifactViewer.js';
 
 const MIN_PROPS = {
   imageSrc: 'mock.png',
   pageWidth: 2400,
   pageHeight: 3200,
-}
+};
 
 const WORD_BBOXES = [
   { id: 'w1', bbox: [0.1, 0.1, 0.05, 0.02] as [number, number, number, number], confidence: 0.95 },
   { id: 'w2', bbox: [0.2, 0.2, 0.07, 0.02] as [number, number, number, number], confidence: 0.8 },
-]
+];
 
 const ILLUST_BBOXES = [
-  { id: 'ill1', bbox: [0.2, 0.3, 0.5, 0.4] as [number, number, number, number], label: 'illustration' },
-]
+  {
+    id: 'ill1',
+    bbox: [0.2, 0.3, 0.5, 0.4] as [number, number, number, number],
+    label: 'illustration',
+  },
+];
 
 describe('ArtifactViewer', () => {
   it('renders without crash on minimal props', () => {
-    const { container } = render(<ArtifactViewer {...MIN_PROPS} />)
-    expect(container.firstChild).toBeTruthy()
+    const { container } = render(<ArtifactViewer {...MIN_PROPS} />);
+    expect(container.firstChild).toBeTruthy();
     // ArtifactPlate renders
-    expect(screen.getByTestId('artifact-plate')).toBeInTheDocument()
+    expect(screen.getByTestId('artifact-plate')).toBeInTheDocument();
     // PaperRender renders
-    expect(screen.getByTestId('paper-render')).toBeInTheDocument()
-  })
+    expect(screen.getByTestId('paper-render')).toBeInTheDocument();
+  });
 
   it('renders image-viewport testid (PageImageCanvas)', () => {
-    render(<ArtifactViewer {...MIN_PROPS} />)
-    expect(screen.getByTestId('image-viewport')).toBeInTheDocument()
-  })
+    render(<ArtifactViewer {...MIN_PROPS} />);
+    expect(screen.getByTestId('image-viewport')).toBeInTheDocument();
+  });
 
   it('overlayMode view — no overlay shapes', () => {
-    render(<ArtifactViewer {...MIN_PROPS} overlayMode="view" />)
+    render(<ArtifactViewer {...MIN_PROPS} overlayMode="view" />);
     // No split handle, no word bboxes, no rotate handle
-    expect(screen.queryByTestId('artifact-split-handle')).not.toBeInTheDocument()
-    expect(screen.queryByTestId('artifact-rotate-handle')).not.toBeInTheDocument()
-  })
+    expect(screen.queryByTestId('artifact-split-handle')).not.toBeInTheDocument();
+    expect(screen.queryByTestId('artifact-rotate-handle')).not.toBeInTheDocument();
+  });
 
   it('overlayMode split — shows separator sidecar', () => {
-    render(
-      <ArtifactViewer
-        {...MIN_PROPS}
-        overlayMode="split"
-        splitProposal={{ splitX: 0.5 }}
-      />,
-    )
-    expect(screen.getByRole('separator')).toBeInTheDocument()
-    expect(screen.getByTestId('artifact-split-handle')).toBeInTheDocument()
-  })
+    render(<ArtifactViewer {...MIN_PROPS} overlayMode="split" splitProposal={{ splitX: 0.5 }} />);
+    expect(screen.getByRole('separator')).toBeInTheDocument();
+    expect(screen.getByTestId('artifact-split-handle')).toBeInTheDocument();
+  });
 
   it('overlayMode illust — shows illust bbox rects', () => {
-    render(
-      <ArtifactViewer
-        {...MIN_PROPS}
-        overlayMode="illust"
-        illustBboxes={ILLUST_BBOXES}
-      />,
-    )
-    expect(screen.getByTestId('illust-bbox-ill1')).toBeInTheDocument()
-  })
+    render(<ArtifactViewer {...MIN_PROPS} overlayMode="illust" illustBboxes={ILLUST_BBOXES} />);
+    expect(screen.getByTestId('illust-bbox-ill1')).toBeInTheDocument();
+  });
 
   it('overlayMode words — shows word-bbox-{id} testids', () => {
-    render(
-      <ArtifactViewer
-        {...MIN_PROPS}
-        overlayMode="words"
-        wordBboxes={WORD_BBOXES}
-      />,
-    )
-    expect(screen.getByTestId('word-bbox-w1')).toBeInTheDocument()
-    expect(screen.getByTestId('word-bbox-w2')).toBeInTheDocument()
-  })
+    render(<ArtifactViewer {...MIN_PROPS} overlayMode="words" wordBboxes={WORD_BBOXES} />);
+    expect(screen.getByTestId('word-bbox-w1')).toBeInTheDocument();
+    expect(screen.getByTestId('word-bbox-w2')).toBeInTheDocument();
+  });
 
   it('overlayMode rotate — shows rotation handle', () => {
-    render(
-      <ArtifactViewer
-        {...MIN_PROPS}
-        overlayMode="rotate"
-        rotationDeg={15}
-      />,
-    )
-    expect(screen.getByTestId('artifact-rotate-handle')).toBeInTheDocument()
-  })
+    render(<ArtifactViewer {...MIN_PROPS} overlayMode="rotate" rotationDeg={15} />);
+    expect(screen.getByTestId('artifact-rotate-handle')).toBeInTheDocument();
+  });
 
   it('onWordClick fires with correct id when word bbox clicked', () => {
-    const handleWordClick = vi.fn()
+    const handleWordClick = vi.fn();
     render(
       <ArtifactViewer
         {...MIN_PROPS}
@@ -168,31 +148,31 @@ describe('ArtifactViewer', () => {
         wordBboxes={WORD_BBOXES}
         onWordClick={handleWordClick}
       />,
-    )
-    const w1 = screen.getByTestId('word-bbox-w1')
-    fireEvent.click(w1)
-    expect(handleWordClick).toHaveBeenCalledWith('w1')
-    expect(handleWordClick).toHaveBeenCalledTimes(1)
-  })
+    );
+    const w1 = screen.getByTestId('word-bbox-w1');
+    fireEvent.click(w1);
+    expect(handleWordClick).toHaveBeenCalledWith('w1');
+    expect(handleWordClick).toHaveBeenCalledTimes(1);
+  });
 
   it('onSplitXChange wires through splitProposal', () => {
-    const handleChange = vi.fn()
+    const handleChange = vi.fn();
     render(
       <ArtifactViewer
         {...MIN_PROPS}
         overlayMode="split"
         splitProposal={{ splitX: 0.4, onSplitXChange: handleChange }}
       />,
-    )
+    );
     // SplitHandle sidecar is present
-    expect(screen.getByRole('separator')).toBeInTheDocument()
+    expect(screen.getByRole('separator')).toBeInTheDocument();
     // The Konva SplitOverlay is rendered in the tool slot (Konva Rect mock)
     // We can verify the split Konva Rect is somewhere in the tree
     // (the exact drag-event test is covered in integration tests)
-  })
+  });
 
   it('onRotationChange prop does not throw when provided', () => {
-    const handleChange = vi.fn()
+    const handleChange = vi.fn();
     expect(() =>
       render(
         <ArtifactViewer
@@ -202,9 +182,9 @@ describe('ArtifactViewer', () => {
           onRotationChange={handleChange}
         />,
       ),
-    ).not.toThrow()
-    expect(screen.getByTestId('artifact-rotate-handle')).toBeInTheDocument()
-  })
+    ).not.toThrow();
+    expect(screen.getByTestId('artifact-rotate-handle')).toBeInTheDocument();
+  });
 
   it('extraLayersSlot renders inside the canvas area', () => {
     render(
@@ -212,23 +192,23 @@ describe('ArtifactViewer', () => {
         {...MIN_PROPS}
         extraLayersSlot={<div data-testid="extra-slot-content">extra</div>}
       />,
-    )
-    expect(screen.getByTestId('extra-slot-content')).toBeInTheDocument()
-  })
+    );
+    expect(screen.getByTestId('extra-slot-content')).toBeInTheDocument();
+  });
 
   it('defaults to overlayMode=view when not provided', () => {
-    render(<ArtifactViewer {...MIN_PROPS} />)
-    expect(screen.queryByRole('separator')).not.toBeInTheDocument()
-    expect(screen.queryByTestId('artifact-rotate-handle')).not.toBeInTheDocument()
-  })
+    render(<ArtifactViewer {...MIN_PROPS} />);
+    expect(screen.queryByRole('separator')).not.toBeInTheDocument();
+    expect(screen.queryByTestId('artifact-rotate-handle')).not.toBeInTheDocument();
+  });
 
   it('does not render split overlay when overlayMode is not split', () => {
-    render(<ArtifactViewer {...MIN_PROPS} overlayMode="words" wordBboxes={WORD_BBOXES} />)
-    expect(screen.queryByRole('separator')).not.toBeInTheDocument()
-  })
+    render(<ArtifactViewer {...MIN_PROPS} overlayMode="words" wordBboxes={WORD_BBOXES} />);
+    expect(screen.queryByRole('separator')).not.toBeInTheDocument();
+  });
 
   it('does not render word bboxes when overlayMode is not words', () => {
-    render(<ArtifactViewer {...MIN_PROPS} overlayMode="view" wordBboxes={WORD_BBOXES} />)
-    expect(screen.queryByTestId('word-bbox-w1')).not.toBeInTheDocument()
-  })
-})
+    render(<ArtifactViewer {...MIN_PROPS} overlayMode="view" wordBboxes={WORD_BBOXES} />);
+    expect(screen.queryByTestId('word-bbox-w1')).not.toBeInTheDocument();
+  });
+});

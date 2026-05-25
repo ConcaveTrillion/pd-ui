@@ -32,7 +32,13 @@ const NameContent = () => (
     <div>
       <label
         htmlFor="project-name"
-        style={{ display: 'block', fontSize: 12.5, fontWeight: 500, color: 'var(--ink-2)', marginBottom: 6 }}
+        style={{
+          display: 'block',
+          fontSize: 12.5,
+          fontWeight: 500,
+          color: 'var(--ink-2)',
+          marginBottom: 6,
+        }}
       >
         Project name
       </label>
@@ -54,8 +60,8 @@ const NameContent = () => (
       />
     </div>
     <p style={{ fontSize: 12, color: 'var(--ink-3)', margin: 0, lineHeight: 1.6 }}>
-      Choose a short, unique slug for this project. It will be used as the
-      folder name and project identifier throughout the pipeline.
+      Choose a short, unique slug for this project. It will be used as the folder name and project
+      identifier throughout the pipeline.
     </p>
   </div>
 );
@@ -63,11 +69,11 @@ const NameContent = () => (
 const SourceContent = () => (
   <div style={{ padding: '24px', display: 'flex', flexDirection: 'column', gap: 16 }}>
     <p style={{ margin: 0, fontSize: 12.5, color: 'var(--ink-2)', lineHeight: 1.6 }}>
-      Choose a source for this project. You can upload a ZIP archive, a folder
-      of images, or provide an Internet Archive URL.
+      Choose a source for this project. You can upload a ZIP archive, a folder of images, or provide
+      an Internet Archive URL.
     </p>
     <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
-      {['Zip archive', 'Folder of images', 'Internet Archive URL'].map(label => (
+      {['Zip archive', 'Folder of images', 'Internet Archive URL'].map((label) => (
         <div
           key={label}
           style={{
@@ -105,10 +111,26 @@ const ReviewContent = () => (
             background: 'var(--bg-surface)',
           }}
         >
-          <div style={{ fontSize: 10.5, fontWeight: 600, letterSpacing: '0.06em', textTransform: 'uppercase', color: 'var(--ink-4)' }}>
+          <div
+            style={{
+              fontSize: 10.5,
+              fontWeight: 600,
+              letterSpacing: '0.06em',
+              textTransform: 'uppercase',
+              color: 'var(--ink-4)',
+            }}
+          >
             {label}
           </div>
-          <div style={{ marginTop: 6, fontSize: 22, fontWeight: 600, fontFamily: 'var(--mono-font)', color: 'var(--ink-1)' }}>
+          <div
+            style={{
+              marginTop: 6,
+              fontSize: 22,
+              fontWeight: 600,
+              fontFamily: 'var(--mono-font)',
+              color: 'var(--ink-1)',
+            }}
+          >
             {value}
           </div>
           <div style={{ marginTop: 2, fontSize: 11, color: 'var(--ink-3)' }}>{sub}</div>
@@ -123,26 +145,52 @@ const ReviewContent = () => (
 
 const UploadContent = () => (
   <div style={{ padding: '24px', display: 'flex', flexDirection: 'column', gap: 14 }}>
-    <div style={{
-      borderRadius: 10, border: '1px solid var(--border-1)',
-      background: 'var(--bg-page)', padding: '18px 18px 22px',
-      display: 'flex', flexDirection: 'column', gap: 14,
-    }}>
+    <div
+      style={{
+        borderRadius: 10,
+        border: '1px solid var(--border-1)',
+        background: 'var(--bg-page)',
+        padding: '18px 18px 22px',
+        display: 'flex',
+        flexDirection: 'column',
+        gap: 14,
+      }}
+    >
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-          <span style={{ width: 8, height: 8, borderRadius: 99, background: 'var(--ocr, var(--accent))' }} />
+          <span
+            style={{
+              width: 8,
+              height: 8,
+              borderRadius: 99,
+              background: 'var(--ocr, var(--accent))',
+            }}
+          />
           <span style={{ fontSize: 13, fontWeight: 600 }}>Transferring…</span>
         </div>
         <span style={{ fontSize: 13, fontWeight: 600, fontFamily: 'var(--mono-font)' }}>71%</span>
       </div>
-      <div style={{
-        height: 6, borderRadius: 99,
-        background: 'var(--bg-raised)',
-        overflow: 'hidden',
-      }}>
-        <div style={{ height: '100%', width: '71%', background: 'var(--accent)', borderRadius: 99 }} />
+      <div
+        style={{
+          height: 6,
+          borderRadius: 99,
+          background: 'var(--bg-raised)',
+          overflow: 'hidden',
+        }}
+      >
+        <div
+          style={{ height: '100%', width: '71%', background: 'var(--accent)', borderRadius: 99 }}
+        />
       </div>
-      <div style={{ fontSize: 11, color: 'var(--ink-3)', display: 'flex', justifyContent: 'space-between', fontFamily: 'var(--mono-font)' }}>
+      <div
+        style={{
+          fontSize: 11,
+          color: 'var(--ink-3)',
+          display: 'flex',
+          justifyContent: 'space-between',
+          fontFamily: 'var(--mono-font)',
+        }}
+      >
         <span>1.49 GB / 2.10 GB</span>
         <span>12.4 MB/s · 49s remaining</span>
       </div>
@@ -171,7 +219,9 @@ const InteractiveSheet = ({ initialStep }: { initialStep: UploadStep }) => {
       {!open && (
         <button
           type="button"
-          onClick={() => { setOpen(true); }}
+          onClick={() => {
+            setOpen(true);
+          }}
           style={{
             position: 'absolute',
             top: '50%',

@@ -85,7 +85,8 @@ describe('primitives barrel — every expected export is a function/component', 
       const exported = (primitives as Record<string, unknown>)[name];
       expect(exported, `${name} not found in primitives barrel`).toBeDefined();
       // React.forwardRef returns an object (ExoticComponent), plain components are functions
-      const isComponent = typeof exported === 'function' || (typeof exported === 'object' && exported !== null);
+      const isComponent =
+        typeof exported === 'function' || (typeof exported === 'object' && exported !== null);
       expect(isComponent, `${name} should be a function or React component object`).toBe(true);
     });
   }

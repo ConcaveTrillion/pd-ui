@@ -36,16 +36,10 @@ export const Field = React.forwardRef<HTMLDivElement, FieldProps>(function Field
   return (
     <FieldContext.Provider value={contextValue}>
       <div ref={ref} className={cn('field', className)} {...props}>
-        {label !== undefined && (
-          <label htmlFor={htmlFor}>{label}</label>
-        )}
+        {label !== undefined && <label htmlFor={htmlFor}>{label}</label>}
         {children}
         {hasError && (
-          <span
-            id={resolvedErrorId}
-            className="field-error"
-            role="alert"
-          >
+          <span id={resolvedErrorId} className="field-error" role="alert">
             {error}
           </span>
         )}

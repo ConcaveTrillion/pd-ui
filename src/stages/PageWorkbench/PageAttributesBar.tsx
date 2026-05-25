@@ -77,9 +77,7 @@ export function PageAttributesBar({
       >
         <Icon name={collapsed ? 'chevR' : 'chevD'} size={14} />
         {collapsed && (
-          <span className="page-attributes-bar__count">
-            Attributes ({attrs.length})
-          </span>
+          <span className="page-attributes-bar__count">Attributes ({attrs.length})</span>
         )}
       </button>
 
@@ -105,24 +103,21 @@ export function PageAttributesBar({
                 onClick={
                   isReadOnly
                     ? undefined
-                    : () =>
-                        setOpenChipId((prev) =>
-                          prev === attr.id ? null : attr.id,
-                        )
+                    : () => setOpenChipId((prev) => (prev === attr.id ? null : attr.id))
                 }
               >
-                <span className="page-attributes-bar__chip-label">
-                  {attr.label}
-                </span>
+                <span className="page-attributes-bar__chip-label">{attr.label}</span>
                 <span className="page-attributes-bar__chip-sep">:</span>
-                <span className="page-attributes-bar__chip-value">
-                  {attr.value}
-                </span>
+                <span className="page-attributes-bar__chip-value">{attr.value}</span>
               </button>
             );
 
             if (isReadOnly) {
-              return <li key={attr.id} className="page-attributes-bar__item">{chip}</li>;
+              return (
+                <li key={attr.id} className="page-attributes-bar__item">
+                  {chip}
+                </li>
+              );
             }
 
             return (

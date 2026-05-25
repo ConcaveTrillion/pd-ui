@@ -31,22 +31,22 @@ import type { PageAttribute } from './PageAttributesBar.js';
 const ATTRS: PageAttribute[] = [
   { id: 'skew', label: 'Skew', value: '2.5' },
   { id: 'dpi', label: 'DPI', value: '300', editor: 'number' },
-  { id: 'lang', label: 'Lang', value: 'en', editor: 'select', options: [
-    { value: 'en', label: 'English' },
-    { value: 'fr', label: 'French' },
-  ]},
+  {
+    id: 'lang',
+    label: 'Lang',
+    value: 'en',
+    editor: 'select',
+    options: [
+      { value: 'en', label: 'English' },
+      { value: 'fr', label: 'French' },
+    ],
+  },
   { id: 'source', label: 'Source', value: 'scan', readOnly: true },
 ];
 
 function setup(props?: Partial<React.ComponentProps<typeof PageAttributesBar>>) {
   const onChange = vi.fn();
-  const utils = render(
-    <PageAttributesBar
-      attrs={ATTRS}
-      onChange={onChange}
-      {...props}
-    />,
-  );
+  const utils = render(<PageAttributesBar attrs={ATTRS} onChange={onChange} {...props} />);
   return { onChange, ...utils };
 }
 
@@ -67,19 +67,13 @@ describe('PageAttributesBar', () => {
 
   it('applies data-testid to outer wrapper', () => {
     const { container } = render(
-      <PageAttributesBar
-        attrs={[]}
-        onChange={vi.fn()}
-        data-testid="custom-bar"
-      />,
+      <PageAttributesBar attrs={[]} onChange={vi.fn()} data-testid="custom-bar" />,
     );
     expect(container.querySelector('[data-testid="custom-bar"]')).toBeTruthy();
   });
 
   it('uses default data-testid page-attributes-bar', () => {
-    const { container } = render(
-      <PageAttributesBar attrs={[]} onChange={vi.fn()} />,
-    );
+    const { container } = render(<PageAttributesBar attrs={[]} onChange={vi.fn()} />);
     expect(container.querySelector('[data-testid="page-attributes-bar"]')).toBeTruthy();
   });
 

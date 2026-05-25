@@ -7,10 +7,7 @@
  */
 import { describe, it, expect, vi } from 'vitest';
 import { render, screen, fireEvent } from '@testing-library/react';
-import {
-  ProjectsDrawer,
-  type ProjectsDrawerProject,
-} from './ProjectsDrawer.js';
+import { ProjectsDrawer, type ProjectsDrawerProject } from './ProjectsDrawer.js';
 
 // ─── sample data ──────────────────────────────────────────────────────────────
 
@@ -66,23 +63,13 @@ const ARCHIVED_PROJECT: ProjectsDrawerProject = {
 // ─── render helper ────────────────────────────────────────────────────────────
 
 function renderEmpty() {
-  return render(
-    <ProjectsDrawer
-      projects={[]}
-      selectedId={null}
-      onSelect={vi.fn()}
-    />,
-  );
+  return render(<ProjectsDrawer projects={[]} selectedId={null} onSelect={vi.fn()} />);
 }
 
 function renderPopulated(selectedId = 'austen-emma-vol2') {
   const onSelect = vi.fn();
   const utils = render(
-    <ProjectsDrawer
-      projects={ACTIVE_PROJECTS}
-      selectedId={selectedId}
-      onSelect={onSelect}
-    />,
+    <ProjectsDrawer projects={ACTIVE_PROJECTS} selectedId={selectedId} onSelect={onSelect} />,
   );
   return { ...utils, onSelect };
 }
@@ -153,11 +140,7 @@ describe('ProjectsDrawer — project selection', () => {
 
   it('does not crash when selectedId does not match any project', () => {
     const { container } = render(
-      <ProjectsDrawer
-        projects={ACTIVE_PROJECTS}
-        selectedId="does-not-exist"
-        onSelect={vi.fn()}
-      />,
+      <ProjectsDrawer projects={ACTIVE_PROJECTS} selectedId="does-not-exist" onSelect={vi.fn()} />,
     );
     expect(container.querySelector('[data-testid="projects-drawer"]')).toBeTruthy();
     expect(document.querySelectorAll('[data-selected="true"]').length).toBe(0);
@@ -165,11 +148,7 @@ describe('ProjectsDrawer — project selection', () => {
 
   it('does not crash when selectedId is null', () => {
     const { container } = render(
-      <ProjectsDrawer
-        projects={ACTIVE_PROJECTS}
-        selectedId={null}
-        onSelect={vi.fn()}
-      />,
+      <ProjectsDrawer projects={ACTIVE_PROJECTS} selectedId={null} onSelect={vi.fn()} />,
     );
     expect(container.querySelector('[data-testid="projects-drawer"]')).toBeTruthy();
     expect(document.querySelectorAll('[data-selected="true"]').length).toBe(0);

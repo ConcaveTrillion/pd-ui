@@ -13,11 +13,7 @@
  *   - No direct lucide-react imports.
  */
 import * as React from 'react';
-import {
-  Popover,
-  PopoverTrigger,
-  PopoverContent,
-} from '../primitives/Popover.js';
+import { Popover, PopoverTrigger, PopoverContent } from '../primitives/Popover.js';
 import { Badge } from '../primitives/Badge.js';
 import { Button } from '../primitives/Button.js';
 import { cn } from '../primitives/cn.js';
@@ -89,13 +85,8 @@ export function StageJumpPopover({
   return (
     <div className={cn('stage-jump-popover', className)}>
       <Popover open={open} onOpenChange={setOpen}>
-        <PopoverTrigger asChild>
-          {triggerNode}
-        </PopoverTrigger>
-        <PopoverContent
-          align="start"
-          className="stage-jump-popover__content"
-        >
+        <PopoverTrigger asChild>{triggerNode}</PopoverTrigger>
+        <PopoverContent align="start" className="stage-jump-popover__content">
           <div className="stage-jump-popover__list" role="menu">
             {grouped.map(({ group, stages: groupStages }) => (
               <div key={group} className="stage-jump-popover__group">

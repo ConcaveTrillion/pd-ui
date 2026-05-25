@@ -19,32 +19,27 @@ export interface PageHeaderProps extends React.HTMLAttributes<HTMLDivElement> {
  *
  * Design source: docs/templates/design_handoff_pd_ui/design-system/ui-base.jsx
  */
-export const PageHeader = React.forwardRef<HTMLDivElement, PageHeaderProps>(
-  function PageHeader({ className, title, sub, action, ...props }, ref) {
-    return (
-      <div ref={ref} className={cn('page-header', className)} {...props}>
-        <div className="page-header__heading">
-          <h1 className="page-header__title">{title}</h1>
-          {sub != null ? (
-            <p
-              className="page-header__sub"
-              data-testid="page-header-sub"
-            >
-              {sub}
-            </p>
-          ) : null}
-        </div>
-        {action != null ? (
-          <div
-            className="page-header__action"
-            data-testid="page-header-action"
-          >
-            {action}
-          </div>
+export const PageHeader = React.forwardRef<HTMLDivElement, PageHeaderProps>(function PageHeader(
+  { className, title, sub, action, ...props },
+  ref,
+) {
+  return (
+    <div ref={ref} className={cn('page-header', className)} {...props}>
+      <div className="page-header__heading">
+        <h1 className="page-header__title">{title}</h1>
+        {sub != null ? (
+          <p className="page-header__sub" data-testid="page-header-sub">
+            {sub}
+          </p>
         ) : null}
       </div>
-    );
-  },
-);
+      {action != null ? (
+        <div className="page-header__action" data-testid="page-header-action">
+          {action}
+        </div>
+      ) : null}
+    </div>
+  );
+});
 
 PageHeader.displayName = 'PageHeader';

@@ -139,12 +139,7 @@ export function DownloadFooter({
       <div style={{ flex: 1, fontSize: 12.5, color: 'var(--ink-2)' }}>
         Download disabled until errors resolved.
       </div>
-      <Button
-        variant="ghost"
-        size="lg"
-        disabled
-        data-testid={VALIDATION_DOWNLOAD_FOOTER_DOWNLOAD}
-      >
+      <Button variant="ghost" size="lg" disabled data-testid={VALIDATION_DOWNLOAD_FOOTER_DOWNLOAD}>
         Download
       </Button>
       <Button

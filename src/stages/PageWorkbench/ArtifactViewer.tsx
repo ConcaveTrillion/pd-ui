@@ -18,66 +18,66 @@
  * independently exported for consumers that need custom shells.
  */
 
-import React from 'react'
-import type { ReactNode } from 'react'
-import { PageImageCanvas } from '../../canvas/PageImageCanvas.js'
-import type { CanvasWord } from '../../canvas/types.js'
-import { ArtifactPlate } from './ArtifactPlate.js'
-import { PaperRender } from './PaperRender.js'
-import { SplitHandle, SplitOverlay } from './SplitOverlay.js'
-import { IllustOverlay } from './IllustOverlay.js'
-import type { IllustBbox } from './IllustOverlay.js'
-import { WordBboxOverlay } from './WordBboxOverlay.js'
-import type { WordBbox } from './WordBboxOverlay.js'
-import { RotateHandle } from './RotateHandle.js'
+import React from 'react';
+import type { ReactNode } from 'react';
+import { PageImageCanvas } from '../../canvas/PageImageCanvas.js';
+import type { CanvasWord } from '../../canvas/types.js';
+import { ArtifactPlate } from './ArtifactPlate.js';
+import { PaperRender } from './PaperRender.js';
+import { SplitHandle, SplitOverlay } from './SplitOverlay.js';
+import { IllustOverlay } from './IllustOverlay.js';
+import type { IllustBbox } from './IllustOverlay.js';
+import { WordBboxOverlay } from './WordBboxOverlay.js';
+import type { WordBbox } from './WordBboxOverlay.js';
+import { RotateHandle } from './RotateHandle.js';
 
 // ── Public types ──────────────────────────────────────────────────────────────
 
 // Re-export overlay types as the canonical public types for ArtifactViewerProps
-export type { IllustBbox } from './IllustOverlay.js'
-export type { WordBbox } from './WordBboxOverlay.js'
+export type { IllustBbox } from './IllustOverlay.js';
+export type { WordBbox } from './WordBboxOverlay.js';
 
 export type OverlayMode =
-  | 'view'     // no overlay
-  | 'split'    // before/after draggable split
-  | 'illust'   // illustration bbox highlight
-  | 'rotate'   // rotation handle
-  | 'words'    // word-level bbox overlay
+  | 'view' // no overlay
+  | 'split' // before/after draggable split
+  | 'illust' // illustration bbox highlight
+  | 'rotate' // rotation handle
+  | 'words'; // word-level bbox overlay
 
 export interface SplitProposal {
   /** Normalized x position of the split line (0–1). */
-  splitX: number
-  onSplitXChange?: (x: number) => void
+  splitX: number;
+  onSplitXChange?: (x: number) => void;
 }
 
 export interface ArtifactViewerProps {
   /** Source URL for the page image. */
-  imageSrc: string
+  imageSrc: string;
   /** Page geometry (original pixel dimensions, used to compute scale). */
-  pageWidth: number
-  pageHeight: number
+  pageWidth: number;
+  pageHeight: number;
   /** Active overlay mode. Defaults to 'view'. */
-  overlayMode?: OverlayMode
+  overlayMode?: OverlayMode;
   /** Data for SplitOverlay (required when overlayMode='split'). */
-  splitProposal?: SplitProposal
+  splitProposal?: SplitProposal;
   /** Data for IllustOverlay (required when overlayMode='illust'). */
-  illustBboxes?: IllustBbox[]
+  illustBboxes?: IllustBbox[];
   /** Data for WordBboxOverlay (required when overlayMode='words'). */
-  wordBboxes?: WordBbox[]
+  wordBboxes?: WordBbox[];
   /** Called when a word bbox is clicked (overlayMode='words'). */
-  onWordClick?: (id: string) => void
+  onWordClick?: (id: string) => void;
   /** Rotation angle in degrees (overlayMode='rotate'). */
-  rotationDeg?: number
-  onRotationChange?: (deg: number) => void
+  rotationDeg?: number;
+  onRotationChange?: (deg: number) => void;
   /** CSS class applied to the outer ArtifactPlate wrapper. */
-  className?: string
+  className?: string;
   /** Slot for additional Konva layers (advanced — use sparingly). */
-  extraLayersSlot?: ReactNode
+  extraLayersSlot?: ReactNode;
 }
 
 // ── Empty stubs to satisfy PageImageCanvas required props ─────────────────────
 
-const EMPTY_WORDS: CanvasWord[] = []
+const EMPTY_WORDS: CanvasWord[] = [];
 
 // ── Component ─────────────────────────────────────────────────────────────────
 
@@ -99,20 +99,18 @@ export function ArtifactViewer({
   className,
   extraLayersSlot,
 }: ArtifactViewerProps) {
-  const page = { width: pageWidth, height: pageHeight }
+  const page = { width: pageWidth, height: pageHeight };
 
   // WordBboxOverlay uses the `selection` slot so clicks are routable.
   // We need selectionLayerListening=true when in 'words' mode.
-  const selectionLayerListening = overlayMode === 'words'
+  const selectionLayerListening = overlayMode === 'words';
 
   // Build PageImageCanvas slot children using conditional spread to satisfy
   // exactOptionalPropertyTypes (undefined cannot be assigned to optional fn props).
   const canvasSlots: NonNullable<React.ComponentProps<typeof PageImageCanvas>['children']> = {
     ...(overlayMode === 'illust' && illustBboxes !== undefined
       ? {
-          underlay: (p) => (
-            <IllustOverlay coords={p.coords} illustBboxes={illustBboxes} />
-          ),
+          underlay: (p) => <IllustOverlay coords={p.coords} illustBboxes={illustBboxes} />,
         }
       : {}),
     ...(overlayMode === 'words' && wordBboxes !== undefined
@@ -149,17 +147,14 @@ export function ArtifactViewer({
             ),
           }
         : {}),
-  }
+  };
 
   return (
     <ArtifactPlate {...(className !== undefined ? { className } : {})}>
       <PaperRender>
         {/* DOM sidecar for split handle role="separator" */}
         {overlayMode === 'split' && splitProposal !== undefined && (
-          <SplitHandle
-            splitX={splitProposal.splitX}
-            containerWidth={pageWidth}
-          />
+          <SplitHandle splitX={splitProposal.splitX} containerWidth={pageWidth} />
         )}
         <PageImageCanvas
           src={imageSrc}
@@ -173,8 +168,7 @@ export function ArtifactViewer({
         {extraLayersSlot}
       </PaperRender>
     </ArtifactPlate>
-  )
+  );
 }
 
-ArtifactViewer.displayName = 'ArtifactViewer'
-
+ArtifactViewer.displayName = 'ArtifactViewer';

@@ -3,16 +3,11 @@ import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { describe, it, expect, vi } from 'vitest';
 import { AutoDetectBanner } from './AutoDetectBanner.js';
-import {
-  AUTO_DETECT_BANNER,
-  AUTO_DETECT_BANNER_REDETECT,
-} from '../../testids/index.js';
+import { AUTO_DETECT_BANNER, AUTO_DETECT_BANNER_REDETECT } from '../../testids/index.js';
 
 // ── helpers ───────────────────────────────────────────────────────────────────
 
-function renderBanner(
-  props: Partial<React.ComponentProps<typeof AutoDetectBanner>> = {},
-) {
+function renderBanner(props: Partial<React.ComponentProps<typeof AutoDetectBanner>> = {}) {
   const defaults: React.ComponentProps<typeof AutoDetectBanner> = {
     mode: 'standard',
     estimatedSecondsPerPage: 2,
@@ -51,9 +46,7 @@ describe('AutoDetectBanner — mode rendering', () => {
 describe('AutoDetectBanner — profile chip', () => {
   it('does not render chip when profile is omitted', () => {
     renderBanner({ mode: 'standard' });
-    expect(
-      screen.queryByTestId('auto-detect-banner-profile'),
-    ).not.toBeInTheDocument();
+    expect(screen.queryByTestId('auto-detect-banner-profile')).not.toBeInTheDocument();
   });
 
   it('renders chip with profile text when profile is provided', () => {
@@ -65,16 +58,12 @@ describe('AutoDetectBanner — profile chip', () => {
 
   it('renders chip with "art-heavy" profile', () => {
     renderBanner({ mode: 'perceptual', profile: 'art-heavy' });
-    expect(screen.getByTestId('auto-detect-banner-profile')).toHaveTextContent(
-      'art-heavy',
-    );
+    expect(screen.getByTestId('auto-detect-banner-profile')).toHaveTextContent('art-heavy');
   });
 
   it('renders chip with "mixed" profile', () => {
     renderBanner({ mode: 'standard', profile: 'mixed' });
-    expect(screen.getByTestId('auto-detect-banner-profile')).toHaveTextContent(
-      'mixed',
-    );
+    expect(screen.getByTestId('auto-detect-banner-profile')).toHaveTextContent('mixed');
   });
 });
 
@@ -102,17 +91,13 @@ describe('AutoDetectBanner — estimated time', () => {
 describe('AutoDetectBanner — onRedetect', () => {
   it('does not render Re-detect button when onRedetect is omitted', () => {
     renderBanner();
-    expect(
-      screen.queryByTestId(AUTO_DETECT_BANNER_REDETECT),
-    ).not.toBeInTheDocument();
+    expect(screen.queryByTestId(AUTO_DETECT_BANNER_REDETECT)).not.toBeInTheDocument();
   });
 
   it('renders Re-detect button when onRedetect is provided', () => {
     renderBanner({ onRedetect: vi.fn() });
     expect(screen.getByTestId(AUTO_DETECT_BANNER_REDETECT)).toBeInTheDocument();
-    expect(screen.getByTestId(AUTO_DETECT_BANNER_REDETECT)).toHaveTextContent(
-      'Re-detect',
-    );
+    expect(screen.getByTestId(AUTO_DETECT_BANNER_REDETECT)).toHaveTextContent('Re-detect');
   });
 
   it('calls onRedetect when Re-detect is clicked', async () => {

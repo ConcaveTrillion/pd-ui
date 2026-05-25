@@ -11,9 +11,9 @@
  * react-konva is mocked because jsdom can't run the canvas renderer.
  */
 
-import { describe, it, expect, vi } from 'vitest'
-import { render } from '@testing-library/react'
-import React from 'react'
+import { describe, it, expect, vi } from 'vitest';
+import { render } from '@testing-library/react';
+import React from 'react';
 
 // Mock react-konva before any canvas imports
 vi.mock('react-konva', () => ({
@@ -22,9 +22,9 @@ vi.mock('react-konva', () => ({
     width,
     height,
   }: {
-    children?: React.ReactNode
-    width?: number
-    height?: number
+    children?: React.ReactNode;
+    width?: number;
+    height?: number;
   }) => (
     <div data-testid="konva-stage" data-width={width} data-height={height}>
       {children}
@@ -32,12 +32,12 @@ vi.mock('react-konva', () => ({
   ),
   Layer: ({ children }: { children?: React.ReactNode }) => <>{children}</>,
   Rect: () => <div data-testid="konva-rect" />,
-}))
+}));
 
-import { PageImageCanvas } from '../../src/canvas/PageImageCanvas'
-import { useCanvasCoords } from '../../src/canvas/hooks/useCanvasCoords'
-import { useViewport } from '../../src/canvas/hooks/useViewport'
-import { useCanvasSelection } from '../../src/canvas/hooks/useCanvasSelection'
+import { PageImageCanvas } from '../../src/canvas/PageImageCanvas';
+import { useCanvasCoords } from '../../src/canvas/hooks/useCanvasCoords';
+import { useViewport } from '../../src/canvas/hooks/useViewport';
+import { useCanvasSelection } from '../../src/canvas/hooks/useCanvasSelection';
 
 // ── Fixtures ──────────────────────────────────────────────────────────────────
 
@@ -52,109 +52,117 @@ const mockWord = {
   review: null,
   word_labels: [],
   text_style_labels: [],
-}
+};
 
-const mockPage = { width: 400, height: 600, page_index: 0, name: 'page-1', image_path: '/img.png', items: [], review: null }
+const mockPage = {
+  width: 400,
+  height: 600,
+  page_index: 0,
+  name: 'page-1',
+  image_path: '/img.png',
+  items: [],
+  review: null,
+};
 
 // ── useCanvasCoords ───────────────────────────────────────────────────────────
 
 describe('useCanvasCoords', () => {
   it('returns CoordContext shape when inside PageImageCanvas', () => {
-    let result: ReturnType<typeof useCanvasCoords> | undefined
+    let result: ReturnType<typeof useCanvasCoords> | undefined;
 
     function Consumer() {
-      result = useCanvasCoords()
-      return null
+      result = useCanvasCoords();
+      return null;
     }
 
     render(
       <PageImageCanvas src="/test.png" page={mockPage} words={[mockWord]}>
         {{ hud: () => <Consumer /> }}
-      </PageImageCanvas>
-    )
+      </PageImageCanvas>,
+    );
 
-    expect(result).toBeDefined()
-    expect(typeof result?.scale).toBe('number')
-    expect(typeof result?.stageWidth).toBe('number')
-    expect(typeof result?.stageHeight).toBe('number')
-    expect(typeof result?.pageWidth).toBe('number')
-    expect(typeof result?.pageHeight).toBe('number')
-    expect(result?.pageWidth).toBe(400)
-    expect(result?.pageHeight).toBe(600)
-  })
+    expect(result).toBeDefined();
+    expect(typeof result?.scale).toBe('number');
+    expect(typeof result?.stageWidth).toBe('number');
+    expect(typeof result?.stageHeight).toBe('number');
+    expect(typeof result?.pageWidth).toBe('number');
+    expect(typeof result?.pageHeight).toBe('number');
+    expect(result?.pageWidth).toBe(400);
+    expect(result?.pageHeight).toBe(600);
+  });
 
   it('throws descriptive error when called outside PageImageCanvas', () => {
     function Consumer() {
-      useCanvasCoords()
-      return null
+      useCanvasCoords();
+      return null;
     }
-    expect(() => render(<Consumer />)).toThrow(/useCanvasCoords/)
-    expect(() => render(<Consumer />)).toThrow(/PageImageCanvas/)
-  })
-})
+    expect(() => render(<Consumer />)).toThrow(/useCanvasCoords/);
+    expect(() => render(<Consumer />)).toThrow(/PageImageCanvas/);
+  });
+});
 
 // ── useViewport ───────────────────────────────────────────────────────────────
 
 describe('useViewport', () => {
   it('returns ViewportState shape when inside PageImageCanvas', () => {
-    let result: ReturnType<typeof useViewport> | undefined
+    let result: ReturnType<typeof useViewport> | undefined;
 
     function Consumer() {
-      result = useViewport()
-      return null
+      result = useViewport();
+      return null;
     }
 
     render(
       <PageImageCanvas src="/test.png" page={mockPage} words={[mockWord]}>
         {{ hud: () => <Consumer /> }}
-      </PageImageCanvas>
-    )
+      </PageImageCanvas>,
+    );
 
-    expect(result).toBeDefined()
-    expect(typeof result?.scale).toBe('number')
-    expect(typeof result?.pan).toBe('object')
-    expect(typeof result?.pan.x).toBe('number')
-    expect(typeof result?.pan.y).toBe('number')
-  })
+    expect(result).toBeDefined();
+    expect(typeof result?.scale).toBe('number');
+    expect(typeof result?.pan).toBe('object');
+    expect(typeof result?.pan.x).toBe('number');
+    expect(typeof result?.pan.y).toBe('number');
+  });
 
   it('throws descriptive error when called outside PageImageCanvas', () => {
     function Consumer() {
-      useViewport()
-      return null
+      useViewport();
+      return null;
     }
-    expect(() => render(<Consumer />)).toThrow(/useViewport/)
-    expect(() => render(<Consumer />)).toThrow(/PageImageCanvas/)
-  })
-})
+    expect(() => render(<Consumer />)).toThrow(/useViewport/);
+    expect(() => render(<Consumer />)).toThrow(/PageImageCanvas/);
+  });
+});
 
 // ── useCanvasSelection ────────────────────────────────────────────────────────
 
 describe('useCanvasSelection', () => {
   it('returns SelectionState + setSelection when inside PageImageCanvas', () => {
-    let result: ReturnType<typeof useCanvasSelection> | undefined
+    let result: ReturnType<typeof useCanvasSelection> | undefined;
 
     function Consumer() {
-      result = useCanvasSelection()
-      return null
+      result = useCanvasSelection();
+      return null;
     }
 
     render(
       <PageImageCanvas src="/test.png" page={mockPage} words={[mockWord]}>
         {{ hud: () => <Consumer /> }}
-      </PageImageCanvas>
-    )
+      </PageImageCanvas>,
+    );
 
-    expect(result).toBeDefined()
-    expect(result?.selection.ids).toBeInstanceOf(Set)
-    expect(typeof result?.setSelection).toBe('function')
-  })
+    expect(result).toBeDefined();
+    expect(result?.selection.ids).toBeInstanceOf(Set);
+    expect(typeof result?.setSelection).toBe('function');
+  });
 
   it('throws descriptive error when called outside PageImageCanvas', () => {
     function Consumer() {
-      useCanvasSelection()
-      return null
+      useCanvasSelection();
+      return null;
     }
-    expect(() => render(<Consumer />)).toThrow(/useCanvasSelection/)
-    expect(() => render(<Consumer />)).toThrow(/PageImageCanvas/)
-  })
-})
+    expect(() => render(<Consumer />)).toThrow(/useCanvasSelection/);
+    expect(() => render(<Consumer />)).toThrow(/PageImageCanvas/);
+  });
+});

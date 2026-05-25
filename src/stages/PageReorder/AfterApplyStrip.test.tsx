@@ -3,10 +3,7 @@ import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { describe, it, expect, vi } from 'vitest';
 import { AfterApplyStrip } from './AfterApplyStrip.js';
-import {
-  REORDER_AFTER_APPLY_STRIP,
-  REORDER_AFTER_APPLY_STRIP_UNDO,
-} from '../../testids/index.js';
+import { REORDER_AFTER_APPLY_STRIP, REORDER_AFTER_APPLY_STRIP_UNDO } from '../../testids/index.js';
 
 // ── count rendering ────────────────────────────────────────────────────────────
 
@@ -77,13 +74,7 @@ describe('AfterApplyStrip — testid forwarding', () => {
   });
 
   it('forwards a custom data-testid to the root element', () => {
-    render(
-      <AfterApplyStrip
-        acceptedCount={1}
-        skippedCount={0}
-        data-testid="custom-strip"
-      />,
-    );
+    render(<AfterApplyStrip acceptedCount={1} skippedCount={0} data-testid="custom-strip" />);
     expect(screen.getByTestId('custom-strip')).toBeInTheDocument();
     expect(screen.queryByTestId(REORDER_AFTER_APPLY_STRIP)).not.toBeInTheDocument();
   });

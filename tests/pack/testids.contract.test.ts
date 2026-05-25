@@ -14,15 +14,15 @@
  *
  * Run sequence: `pnpm build && pnpm test tests/pack/testids.contract.test.ts`
  */
-import { describe, it, expect } from 'vitest'
-import { readFileSync, existsSync } from 'fs'
-import { resolve, dirname } from 'path'
-import { fileURLToPath } from 'url'
+import { describe, it, expect } from 'vitest';
+import { readFileSync, existsSync } from 'fs';
+import { resolve, dirname } from 'path';
+import { fileURLToPath } from 'url';
 
-const __dirname = dirname(fileURLToPath(import.meta.url))
-const DIST = resolve(__dirname, '../../dist')
-const JS_PATH = resolve(DIST, 'testids.js')
-const DTS_PATH = resolve(DIST, 'testids.d.ts')
+const __dirname = dirname(fileURLToPath(import.meta.url));
+const DIST = resolve(__dirname, '../../dist');
+const JS_PATH = resolve(DIST, 'testids.js');
+const DTS_PATH = resolve(DIST, 'testids.d.ts');
 
 // ---------------------------------------------------------------------------
 // Representative sample — one export from each major section of index.ts.
@@ -77,51 +77,60 @@ const REQUIRED_EXPORTS: ReadonlyArray<string> = [
   'SCANNO_CANDIDATE_DETAIL',
   // PageReorder
   'REORDER_SCANS_BANNER',
-] as const
+] as const;
 
 describe('dist/testids.js — built artifact content (pd-ui#28)', () => {
   it('dist/testids.js exists (run pnpm build first)', () => {
-    expect(existsSync(JS_PATH), 'dist/testids.js missing — run pnpm build').toBe(true)
-  })
+    expect(existsSync(JS_PATH), 'dist/testids.js missing — run pnpm build').toBe(true);
+  });
 
   it('dist/testids.js is non-trivially non-empty (> 500 bytes)', () => {
-    if (!existsSync(JS_PATH)) return
-    const content = readFileSync(JS_PATH, 'utf-8')
-    expect(content.length, 'dist/testids.js is suspiciously small — likely an empty re-export').toBeGreaterThan(500)
-  })
+    if (!existsSync(JS_PATH)) return;
+    const content = readFileSync(JS_PATH, 'utf-8');
+    expect(
+      content.length,
+      'dist/testids.js is suspiciously small — likely an empty re-export',
+    ).toBeGreaterThan(500);
+  });
 
   it('dist/testids.js contains string literal "app-shell" (spot-check APP_SHELL value)', () => {
-    if (!existsSync(JS_PATH)) return
-    const content = readFileSync(JS_PATH, 'utf-8')
-    expect(content).toContain('app-shell')
-  })
+    if (!existsSync(JS_PATH)) return;
+    const content = readFileSync(JS_PATH, 'utf-8');
+    expect(content).toContain('app-shell');
+  });
 
   it('dist/testids.js contains many string literal assignments (not just an empty barrel)', () => {
-    if (!existsSync(JS_PATH)) return
-    const content = readFileSync(JS_PATH, 'utf-8')
+    if (!existsSync(JS_PATH)) return;
+    const content = readFileSync(JS_PATH, 'utf-8');
     // Vite bundles all assignments into a single minified `const a = "...", b = "...", ...` line.
     // Count string literals that look like testid values (kebab-case strings).
-    const stringLiteralCount = (content.match(/"[a-z][a-z0-9-]+"/g) ?? []).length
-    expect(stringLiteralCount, 'dist/testids.js has fewer than 50 testid string literals — likely empty').toBeGreaterThan(50)
-  })
-})
+    const stringLiteralCount = (content.match(/"[a-z][a-z0-9-]+"/g) ?? []).length;
+    expect(
+      stringLiteralCount,
+      'dist/testids.js has fewer than 50 testid string literals — likely empty',
+    ).toBeGreaterThan(50);
+  });
+});
 
 describe('dist/testids.d.ts — declaration file exports (pd-ui#28)', () => {
   it('dist/testids.d.ts exists (run pnpm build first)', () => {
-    expect(existsSync(DTS_PATH), 'dist/testids.d.ts missing — run pnpm build').toBe(true)
-  })
+    expect(existsSync(DTS_PATH), 'dist/testids.d.ts missing — run pnpm build').toBe(true);
+  });
 
   it('dist/testids.d.ts is non-trivially non-empty (> 500 bytes)', () => {
-    if (!existsSync(DTS_PATH)) return
-    const content = readFileSync(DTS_PATH, 'utf-8')
-    expect(content.length, 'dist/testids.d.ts is suspiciously small — likely an empty re-export').toBeGreaterThan(500)
-  })
+    if (!existsSync(DTS_PATH)) return;
+    const content = readFileSync(DTS_PATH, 'utf-8');
+    expect(
+      content.length,
+      'dist/testids.d.ts is suspiciously small — likely an empty re-export',
+    ).toBeGreaterThan(500);
+  });
 
   for (const symbol of REQUIRED_EXPORTS) {
     it(`dist/testids.d.ts declares export '${symbol}'`, () => {
-      if (!existsSync(DTS_PATH)) return
-      const content = readFileSync(DTS_PATH, 'utf-8')
-      expect(content, `'${symbol}' must be declared in dist/testids.d.ts`).toContain(symbol)
-    })
+      if (!existsSync(DTS_PATH)) return;
+      const content = readFileSync(DTS_PATH, 'utf-8');
+      expect(content, `'${symbol}' must be declared in dist/testids.d.ts`).toContain(symbol);
+    });
   }
-})
+});

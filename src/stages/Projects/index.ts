@@ -12,10 +12,7 @@ export type {
 
 // ─── ProjectsEmpty ────────────────────────────────────────────────────────────
 export { ProjectsEmpty } from './ProjectsEmpty.js';
-export type {
-  ProjectsEmptyAction,
-  ProjectsEmptyProps,
-} from './ProjectsEmpty.js';
+export type { ProjectsEmptyAction, ProjectsEmptyProps } from './ProjectsEmpty.js';
 
 // ─── ProjectsAttributesPanel ──────────────────────────────────────────────────
 export { ProjectsAttributesPanel } from './ProjectsAttributesPanel.js';

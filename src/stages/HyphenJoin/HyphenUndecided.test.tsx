@@ -87,13 +87,7 @@ describe('HyphenUndecided', () => {
   });
 
   it('renders HJDecisionCard in detail pane for the selected case', () => {
-    render(
-      <HyphenUndecided
-        cases={[CASE_A, CASE_B]}
-        selectedId="case-1"
-        onSelect={vi.fn()}
-      />,
-    );
+    render(<HyphenUndecided cases={[CASE_A, CASE_B]} selectedId="case-1" onSelect={vi.fn()} />);
     expect(screen.getByTestId('hj-decision-card')).toBeTruthy();
     // original text visible in the card
     expect(screen.getAllByText('after-wards').length).toBeGreaterThanOrEqual(1);
@@ -123,13 +117,7 @@ describe('HyphenUndecided', () => {
   });
 
   it('renders root testid from prop override', () => {
-    render(
-      <HyphenUndecided
-        cases={[]}
-        onSelect={vi.fn()}
-        data-testid="custom-undecided"
-      />,
-    );
+    render(<HyphenUndecided cases={[]} onSelect={vi.fn()} data-testid="custom-undecided" />);
     expect(screen.getByTestId('custom-undecided')).toBeTruthy();
   });
 });

@@ -86,9 +86,8 @@ export const SelectionMany: Story = {
 // ── Interactive ───────────────────────────────────────────────────────────────
 
 export function Interactive() {
-  const [state, setState] = React.useState<
-    React.ComponentProps<typeof SourceBanner>['state']
-  >('idle');
+  const [state, setState] =
+    React.useState<React.ComponentProps<typeof SourceBanner>['state']>('idle');
   const [progress, setProgress] = React.useState(0);
   const [selectedCount, setSelectedCount] = React.useState(5);
 
@@ -123,7 +122,14 @@ export function Interactive() {
       />
       <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
         <button onClick={() => setState('idle')}>→ idle</button>
-        <button onClick={() => { setProgress(0.3); setState('generating'); }}>→ generating 30%</button>
+        <button
+          onClick={() => {
+            setProgress(0.3);
+            setState('generating');
+          }}
+        >
+          → generating 30%
+        </button>
         <button onClick={() => setState('selection')}>→ selection</button>
         <button onClick={() => setSelectedCount((n) => n + 1)}>+ selected</button>
         <button onClick={() => setSelectedCount((n) => Math.max(0, n - 1))}>- selected</button>

@@ -49,14 +49,7 @@ const ROLE_TONE: Record<SourcePageRole, BadgeTone> = {
   removed: 'mismatch',
 };
 
-const ALL_ROLES: SourcePageRole[] = [
-  'page',
-  'cover',
-  'back',
-  'blank',
-  'duplicate',
-  'removed',
-];
+const ALL_ROLES: SourcePageRole[] = ['page', 'cover', 'back', 'blank', 'duplicate', 'removed'];
 
 // ─── Component ────────────────────────────────────────────────────────────────
 
@@ -69,14 +62,7 @@ const ALL_ROLES: SourcePageRole[] = [
  * Clicking the card body fires onSelect; changing the role select fires onRoleChange.
  */
 export const ThumbCard = React.forwardRef<HTMLElement, ThumbCardProps>(function ThumbCard(
-  {
-    page,
-    density,
-    selected,
-    onSelect,
-    onRoleChange,
-    'data-testid': testId = THUMB_CARD,
-  },
+  { page, density, selected, onSelect, onRoleChange, 'data-testid': testId = THUMB_CARD },
   ref,
 ) {
   const handleBodyClick = () => {
@@ -130,11 +116,7 @@ export const ThumbCard = React.forwardRef<HTMLElement, ThumbCardProps>(function 
           className="thumb-card__image"
         />
         <span className="thumb-card__pageno">{page.pageNumber}</span>
-        <span
-          className="thumb-card__status"
-          data-status={page.status}
-          aria-label={page.status}
-        />
+        <span className="thumb-card__status" data-status={page.status} aria-label={page.status} />
       </button>
 
       <div className="thumb-card__footer">

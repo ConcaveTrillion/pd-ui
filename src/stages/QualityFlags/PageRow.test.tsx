@@ -15,10 +15,7 @@ import { describe, it, expect } from 'vitest';
 import { render, screen } from '@testing-library/react';
 import { PageRow } from './PageRow.js';
 import type { QualityPage, QualityPageFlag } from './PageRow.js';
-import {
-  QUALITY_PAGE_ROW,
-  qualityPageRowScoreTestId,
-} from '../../testids/index.js';
+import { QUALITY_PAGE_ROW, qualityPageRowScoreTestId } from '../../testids/index.js';
 
 // ─── Fixtures ─────────────────────────────────────────────────────────────────
 
@@ -117,9 +114,7 @@ describe('PageRow', () => {
       const page = makePage({ id: 'p1' });
       render(<PageRow page={page} />);
       // Should not find any score testid
-      expect(
-        document.querySelector('[data-testid^="quality-page-row-score-"]'),
-      ).toBeNull();
+      expect(document.querySelector('[data-testid^="quality-page-row-score-"]')).toBeNull();
     });
   });
 

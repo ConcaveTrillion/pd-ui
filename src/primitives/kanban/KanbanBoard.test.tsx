@@ -44,7 +44,13 @@ const columns: Col[] = [
 
 function makeItems(): Map<string, Item[]> {
   return new Map<string, Item[]>([
-    ['train', [{ id: 'p1', columnId: 'train' }, { id: 'p2', columnId: 'train' }]],
+    [
+      'train',
+      [
+        { id: 'p1', columnId: 'train' },
+        { id: 'p2', columnId: 'train' },
+      ],
+    ],
     ['val', [{ id: 'p3', columnId: 'val' }]],
     ['unassigned', []],
   ]);
@@ -176,9 +182,7 @@ describe('KanbanColumn', () => {
         />
       </DndContext>,
     );
-    expect(
-      screen.getByRole('listbox', { name: 'Validation' }),
-    ).toBeInTheDocument();
+    expect(screen.getByRole('listbox', { name: 'Validation' })).toBeInTheDocument();
   });
 });
 
@@ -186,13 +190,7 @@ describe('PageChip', () => {
   it('renders children with role=option and selection/pending classes', () => {
     const { container } = render(
       <DndContext>
-        <PageChip
-          id="p1"
-          isSelected
-          isPending
-          isDragging={false}
-          data-testid="chip-p1"
-        >
+        <PageChip id="p1" isSelected isPending isDragging={false} data-testid="chip-p1">
           <span>content</span>
         </PageChip>
       </DndContext>,
@@ -200,9 +198,7 @@ describe('PageChip', () => {
     const chip = screen.getByTestId('chip-p1');
     expect(chip).toHaveAttribute('role', 'option');
     expect(chip).toHaveTextContent('content');
-    expect(
-      container.querySelector('.kanban-chip--selected.kanban-chip--pending'),
-    ).not.toBeNull();
+    expect(container.querySelector('.kanban-chip--selected.kanban-chip--pending')).not.toBeNull();
   });
 
   it('applies kanban-chip--dragging when isDragging is true', () => {

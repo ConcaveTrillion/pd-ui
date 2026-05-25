@@ -85,11 +85,7 @@ export const StepDots = React.forwardRef<HTMLDivElement, StepDotsProps>(function
                 style={{
                   fontSize: 11.5,
                   fontWeight: isActive ? 600 : 500,
-                  color: isActive
-                    ? 'var(--ink-1)'
-                    : isDone
-                      ? 'var(--ink-2)'
-                      : 'var(--ink-3)',
+                  color: isActive ? 'var(--ink-1)' : isDone ? 'var(--ink-2)' : 'var(--ink-3)',
                 }}
               >
                 {label}

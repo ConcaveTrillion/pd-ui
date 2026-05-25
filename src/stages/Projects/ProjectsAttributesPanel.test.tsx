@@ -46,9 +46,7 @@ describe('ProjectsAttributesPanel', () => {
 
   it('attaches PROJECTS_ATTRIBUTES_PANEL testid to the root', () => {
     const { container } = render(<ProjectsAttributesPanel project={minimalProject} />);
-    expect(
-      container.querySelector(`[data-testid="${PROJECTS_ATTRIBUTES_PANEL}"]`),
-    ).not.toBeNull();
+    expect(container.querySelector(`[data-testid="${PROJECTS_ATTRIBUTES_PANEL}"]`)).not.toBeNull();
   });
 
   it('custom sections override defaults', () => {
@@ -59,9 +57,7 @@ describe('ProjectsAttributesPanel', () => {
         fields: [{ id: 'f1', label: 'Key', value: 'Value' }],
       },
     ];
-    render(
-      <ProjectsAttributesPanel project={minimalProject} sections={customSections} />,
-    );
+    render(<ProjectsAttributesPanel project={minimalProject} sections={customSections} />);
     expect(screen.getByText('Custom Section')).toBeInTheDocument();
     // Default sections should NOT appear when custom sections provided.
     expect(screen.queryByText('Bibliographic')).toBeNull();

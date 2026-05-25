@@ -73,88 +73,80 @@ export interface HyphenPageWorkbenchProps {
  * Composes `ArtifactViewer` (split mode) for the before/after page view and
  * `HJDecisionCard` for each hyphen-join case on the page.
  */
-export const HyphenPageWorkbench = React.forwardRef<
-  HTMLDivElement,
-  HyphenPageWorkbenchProps
->(function HyphenPageWorkbench(
-  {
-    page,
-    cases,
-    onDecide,
-    'data-testid': testId = HYPHEN_PAGE_WORKBENCH,
-  },
-  ref,
-) {
-  // Build split proposal when afterImageUrl is present.
-  // ArtifactViewer's split mode overlays the two images at the split line.
-  const splitProposal =
-    page.afterImageUrl !== undefined
-      ? { splitX: page.splitX ?? 0.5 }
-      : undefined;
+export const HyphenPageWorkbench = React.forwardRef<HTMLDivElement, HyphenPageWorkbenchProps>(
+  function HyphenPageWorkbench(
+    { page, cases, onDecide, 'data-testid': testId = HYPHEN_PAGE_WORKBENCH },
+    ref,
+  ) {
+    // Build split proposal when afterImageUrl is present.
+    // ArtifactViewer's split mode overlays the two images at the split line.
+    const splitProposal =
+      page.afterImageUrl !== undefined ? { splitX: page.splitX ?? 0.5 } : undefined;
 
-  const overlayMode = splitProposal !== undefined ? 'split' : 'view';
+    const overlayMode = splitProposal !== undefined ? 'split' : 'view';
 
-  return (
-    <div
-      ref={ref}
-      className="hpw"
-      data-testid={testId}
-      style={{
-        display: 'flex',
-        flexDirection: 'column',
-        minHeight: 0,
-        flex: 1,
-        gap: 12,
-      }}
-    >
-      {/* ── Top half: ArtifactViewer (before/after split) ─────────────── */}
+    return (
       <div
-        className="hpw__viewer"
-        data-testid={HYPHEN_PAGE_WORKBENCH_VIEWER}
-        style={{ flex: 1, minHeight: 0 }}
-      >
-        <ArtifactViewer
-          imageSrc={page.imageUrl}
-          pageWidth={page.pageWidth}
-          pageHeight={page.pageHeight}
-          overlayMode={overlayMode}
-          {...(splitProposal !== undefined ? { splitProposal } : {})}
-        />
-      </div>
-
-      {/* ── Bottom: scrollable HJDecisionCard list ─────────────────────── */}
-      <div
-        className="hpw__decisions"
-        data-testid={HYPHEN_PAGE_WORKBENCH_DECISIONS}
+        ref={ref}
+        className="hpw"
+        data-testid={testId}
         style={{
-          overflowY: 'auto',
           display: 'flex',
           flexDirection: 'column',
-          gap: 8,
-          flexShrink: 0,
-          maxHeight: '40%',
-          padding: '2px 0',
+          minHeight: 0,
+          flex: 1,
+          gap: 12,
         }}
       >
-        {cases.map((c) => (
-          <HJDecisionCard
-            key={c.id}
-            decisionCase={c}
-            onAccept={() => {
-              // 'auto-joined' status → user is confirming an auto-join → 'validate'
-              onDecide(c.id, c.status === 'auto-joined' ? 'validate' : 'accept');
-            }}
-            onKeep={() => {
-              onDecide(c.id, 'keep');
-            }}
-            onFlag={() => {
-              onDecide(c.id, 'flag');
-            }}
+        {/* ── Top half: ArtifactViewer (before/after split) ─────────────── */}
+        <div
+          className="hpw__viewer"
+          data-testid={HYPHEN_PAGE_WORKBENCH_VIEWER}
+          style={{ flex: 1, minHeight: 0 }}
+        >
+          <ArtifactViewer
+            imageSrc={page.imageUrl}
+            pageWidth={page.pageWidth}
+            pageHeight={page.pageHeight}
+            overlayMode={overlayMode}
+            {...(splitProposal !== undefined ? { splitProposal } : {})}
           />
-        ))}
+        </div>
+
+        {/* ── Bottom: scrollable HJDecisionCard list ─────────────────────── */}
+        <div
+          className="hpw__decisions"
+          data-testid={HYPHEN_PAGE_WORKBENCH_DECISIONS}
+          style={{
+            overflowY: 'auto',
+            display: 'flex',
+            flexDirection: 'column',
+            gap: 8,
+            flexShrink: 0,
+            maxHeight: '40%',
+            padding: '2px 0',
+          }}
+        >
+          {cases.map((c) => (
+            <HJDecisionCard
+              key={c.id}
+              decisionCase={c}
+              onAccept={() => {
+                // 'auto-joined' status → user is confirming an auto-join → 'validate'
+                onDecide(c.id, c.status === 'auto-joined' ? 'validate' : 'accept');
+              }}
+              onKeep={() => {
+                onDecide(c.id, 'keep');
+              }}
+              onFlag={() => {
+                onDecide(c.id, 'flag');
+              }}
+            />
+          ))}
+        </div>
       </div>
-    </div>
-  );
-});
+    );
+  },
+);
 
 HyphenPageWorkbench.displayName = 'HyphenPageWorkbench';

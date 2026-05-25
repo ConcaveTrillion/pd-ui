@@ -14,8 +14,8 @@
  * the memoized result across renders.
  */
 
-import { useMemo } from 'react'
-import type { WordListItem, MatchStatus } from '../types'
+import { useMemo } from 'react';
+import type { WordListItem, MatchStatus } from '../types';
 
 export interface WorklistFilterOptions {
   /**
@@ -23,17 +23,17 @@ export interface WorklistFilterOptions {
    * Pass a single string or an array of strings for multi-status filter.
    * When omitted, all statuses pass.
    */
-  matchStatus?: MatchStatus | MatchStatus[] | undefined
+  matchStatus?: MatchStatus | MatchStatus[] | undefined;
   /**
    * Case-insensitive substring match on `item.text`.
    * Empty string / omitted = no text filter.
    */
-  searchQuery?: string | undefined
+  searchQuery?: string | undefined;
   /**
    * Minimum `ocr_confidence` value (inclusive).
    * Items with `null` or `undefined` confidence are excluded when set.
    */
-  minConfidence?: number | undefined
+  minConfidence?: number | undefined;
 }
 
 /**
@@ -49,37 +49,38 @@ export function useWorklistFilter<TItem extends WordListItem>(
   options: WorklistFilterOptions,
   getMatchStatus: (item: TItem) => MatchStatus,
 ): TItem[] {
-  const { matchStatus, searchQuery, minConfidence } = options
+  const { matchStatus, searchQuery, minConfidence } = options;
 
   return useMemo(() => {
-    const statusSet: ReadonlySet<MatchStatus> | null = matchStatus == null
-      ? null
-      : new Set(Array.isArray(matchStatus) ? matchStatus : [matchStatus])
+    const statusSet: ReadonlySet<MatchStatus> | null =
+      matchStatus == null
+        ? null
+        : new Set(Array.isArray(matchStatus) ? matchStatus : [matchStatus]);
 
-    const queryLower = searchQuery ? searchQuery.toLowerCase() : null
-    const minConf = minConfidence ?? null
+    const queryLower = searchQuery ? searchQuery.toLowerCase() : null;
+    const minConf = minConfidence ?? null;
 
     // Fast path: no criteria at all
     if (statusSet === null && queryLower === null && minConf === null) {
-      return items
+      return items;
     }
 
     return items.filter((item) => {
       if (statusSet !== null) {
-        const status = getMatchStatus(item)
-        if (!statusSet.has(status)) return false
+        const status = getMatchStatus(item);
+        if (!statusSet.has(status)) return false;
       }
 
       if (queryLower !== null) {
-        if (!item.text.toLowerCase().includes(queryLower)) return false
+        if (!item.text.toLowerCase().includes(queryLower)) return false;
       }
 
       if (minConf !== null) {
-        const conf = item.ocr_confidence
-        if (conf == null || conf < minConf) return false
+        const conf = item.ocr_confidence;
+        if (conf == null || conf < minConf) return false;
       }
 
-      return true
-    })
-  }, [items, matchStatus, searchQuery, minConfidence, getMatchStatus])
+      return true;
+    });
+  }, [items, matchStatus, searchQuery, minConfidence, getMatchStatus]);
 }

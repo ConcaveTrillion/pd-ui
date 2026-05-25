@@ -81,16 +81,21 @@ export function BaseJobConfigDialog({
   const label = submitLabel ?? 'Run →';
 
   return (
-    <Dialog open={open} onOpenChange={(isOpen) => { if (!isOpen) onClose(); }}>
+    <Dialog
+      open={open}
+      onOpenChange={(isOpen) => {
+        if (!isOpen) onClose();
+      }}
+    >
       <DialogContent>
         <DialogHeader>
           <DialogTitle>{title}</DialogTitle>
-          {description !== undefined && (
-            <DialogDescription>{description}</DialogDescription>
-          )}
+          {description !== undefined && <DialogDescription>{description}</DialogDescription>}
         </DialogHeader>
         <form
-          onSubmit={(e) => { void handleSubmit(e); }}
+          onSubmit={(e) => {
+            void handleSubmit(e);
+          }}
           noValidate
           data-testid="job-config-dialog-form"
         >
@@ -103,7 +108,9 @@ export function BaseJobConfigDialog({
             <Input
               id="bjcd-name"
               value={projectName}
-              onChange={(e) => { setProjectName(e.target.value); }}
+              onChange={(e) => {
+                setProjectName(e.target.value);
+              }}
               placeholder="my-project"
             />
           </Field>
@@ -111,18 +118,15 @@ export function BaseJobConfigDialog({
             <Input
               id="bjcd-output"
               value={outputDir}
-              onChange={(e) => { setOutputDir(e.target.value); }}
+              onChange={(e) => {
+                setOutputDir(e.target.value);
+              }}
               placeholder="/home/user/output"
             />
           </Field>
           {children}
           <DialogFooter>
-            <Button
-              type="button"
-              variant="ghost"
-              onClick={onClose}
-              disabled={submitting}
-            >
+            <Button type="button" variant="ghost" onClick={onClose} disabled={submitting}>
               Cancel
             </Button>
             <Button

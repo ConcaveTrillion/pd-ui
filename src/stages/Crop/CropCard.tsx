@@ -165,18 +165,12 @@ export function CropCard({
   );
 
   const statusSlot = (
-    <span
-      className="crop-card__status"
-      data-status={page.status}
-      aria-label={page.status}
-    />
+    <span className="crop-card__status" data-status={page.status} aria-label={page.status} />
   );
 
   const bboxOverlay = page.bbox !== undefined ? <BboxOverlay bbox={page.bbox} /> : undefined;
 
-  const flagChipsNode = (
-    <FlagChips flags={page.flags} density={density} pageId={page.id} />
-  );
+  const flagChipsNode = <FlagChips flags={page.flags} density={density} pageId={page.id} />;
 
   const checkbox =
     density !== 's' && onSelect !== undefined ? (

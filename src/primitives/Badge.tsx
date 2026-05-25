@@ -58,9 +58,7 @@ export const Badge = React.forwardRef<HTMLSpanElement, BadgeProps>(function Badg
       )}
       {...props}
     >
-      {dot && !isNeutral ? (
-        <span className="badge__dot" aria-hidden="true" />
-      ) : null}
+      {dot && !isNeutral ? <span className="badge__dot" aria-hidden="true" /> : null}
       {children}
     </span>
   );

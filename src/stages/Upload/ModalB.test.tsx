@@ -20,20 +20,11 @@ import {
 
 // ─── Helpers ──────────────────────────────────────────────────────────────────
 
-function renderOpen(
-  overrides: Partial<React.ComponentProps<typeof ModalB>> = {},
-) {
+function renderOpen(overrides: Partial<React.ComponentProps<typeof ModalB>> = {}) {
   const onOpenChange = vi.fn<(arg: boolean) => void>();
   const onFiles = vi.fn<(files: FileList | File[]) => void>();
 
-  render(
-    <ModalB
-      open={true}
-      onOpenChange={onOpenChange}
-      onFiles={onFiles}
-      {...overrides}
-    />,
-  );
+  render(<ModalB open={true} onOpenChange={onOpenChange} onFiles={onFiles} {...overrides} />);
 
   return { onOpenChange, onFiles };
 }
@@ -49,13 +40,7 @@ describe('ModalB', () => {
   });
 
   it('does not render dialog content when open=false', () => {
-    render(
-      <ModalB
-        open={false}
-        onOpenChange={vi.fn()}
-        onFiles={vi.fn()}
-      />,
-    );
+    render(<ModalB open={false} onOpenChange={vi.fn()} onFiles={vi.fn()} />);
     expect(screen.queryByRole('dialog')).toBeNull();
   });
 

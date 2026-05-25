@@ -64,47 +64,47 @@ export interface PipelineProject {
 
 const DEFAULT_STAGE_TABS: Record<string, TabsBandItem[]> = {
   source: [
-    { id: 'overview',  name: 'Overview',       icon: <Icon name="package"  size={13} /> },
-    { id: 'files',     name: 'Files',          icon: <Icon name="folder"   size={13} />, count: 387 },
-    { id: 'workbench', name: 'Page workbench', icon: <Icon name="image"    size={13} /> },
-    { id: 'settings',  name: 'Stage settings', icon: <Icon name="wrench"   size={13} /> },
+    { id: 'overview', name: 'Overview', icon: <Icon name="package" size={13} /> },
+    { id: 'files', name: 'Files', icon: <Icon name="folder" size={13} />, count: 387 },
+    { id: 'workbench', name: 'Page workbench', icon: <Icon name="image" size={13} /> },
+    { id: 'settings', name: 'Stage settings', icon: <Icon name="wrench" size={13} /> },
   ],
   ocr: [
-    { id: 'overview',    name: 'Overview',       icon: <Icon name="package"   size={13} /> },
-    { id: 'pages',       name: 'Pages',          icon: <Icon name="file"      size={13} />, count: 232 },
-    { id: 'recognition', name: 'Recognition',    icon: <Icon name="sparkles"  size={13} /> },
-    { id: 'workbench',   name: 'Page workbench', icon: <Icon name="image"     size={13} /> },
-    { id: 'settings',    name: 'Stage settings', icon: <Icon name="wrench"    size={13} /> },
+    { id: 'overview', name: 'Overview', icon: <Icon name="package" size={13} /> },
+    { id: 'pages', name: 'Pages', icon: <Icon name="file" size={13} />, count: 232 },
+    { id: 'recognition', name: 'Recognition', icon: <Icon name="sparkles" size={13} /> },
+    { id: 'workbench', name: 'Page workbench', icon: <Icon name="image" size={13} /> },
+    { id: 'settings', name: 'Stage settings', icon: <Icon name="wrench" size={13} /> },
   ],
   text_review: [
-    { id: 'overview',  name: 'Overview',       icon: <Icon name="package"  size={13} /> },
-    { id: 'pages',     name: 'Pages',          icon: <Icon name="file"     size={13} />, count: 232 },
-    { id: 'queue',     name: 'Review queue',   icon: <Icon name="eye"      size={13} />, count: 31 },
-    { id: 'comments',  name: 'Comments',       icon: <Icon name="fileText" size={13} /> },
-    { id: 'workbench', name: 'Page workbench', icon: <Icon name="image"    size={13} /> },
-    { id: 'settings',  name: 'Stage settings', icon: <Icon name="wrench"   size={13} /> },
+    { id: 'overview', name: 'Overview', icon: <Icon name="package" size={13} /> },
+    { id: 'pages', name: 'Pages', icon: <Icon name="file" size={13} />, count: 232 },
+    { id: 'queue', name: 'Review queue', icon: <Icon name="eye" size={13} />, count: 31 },
+    { id: 'comments', name: 'Comments', icon: <Icon name="fileText" size={13} /> },
+    { id: 'workbench', name: 'Page workbench', icon: <Icon name="image" size={13} /> },
+    { id: 'settings', name: 'Stage settings', icon: <Icon name="wrench" size={13} /> },
   ],
   build_package: [
-    { id: 'overview',  name: 'Overview',       icon: <Icon name="package"      size={13} /> },
-    { id: 'manifest',  name: 'Manifest',       icon: <Icon name="fileText"     size={13} /> },
-    { id: 'preflight', name: 'Pre-flight',     icon: <Icon name="checkCircle"  size={13} /> },
-    { id: 'settings',  name: 'Stage settings', icon: <Icon name="wrench"       size={13} /> },
+    { id: 'overview', name: 'Overview', icon: <Icon name="package" size={13} /> },
+    { id: 'manifest', name: 'Manifest', icon: <Icon name="fileText" size={13} /> },
+    { id: 'preflight', name: 'Pre-flight', icon: <Icon name="checkCircle" size={13} /> },
+    { id: 'settings', name: 'Stage settings', icon: <Icon name="wrench" size={13} /> },
   ],
   hyphen_join: [
-    { id: 'overview',  name: 'Overview',       icon: <Icon name="package" size={13} /> },
-    { id: 'queue',     name: 'Undecided',      icon: <Icon name="eye"     size={13} />, count: 7 },
-    { id: 'joined',    name: 'Auto-joined',    icon: <Icon name="check"   size={13} />, count: 42 },
-    { id: 'mismatch',  name: 'Mismatch',       icon: <Icon name="alert"   size={13} />, count: 3 },
-    { id: 'workbench', name: 'Page workbench', icon: <Icon name="image"   size={13} /> },
-    { id: 'settings',  name: 'Stage settings', icon: <Icon name="wrench"  size={13} /> },
+    { id: 'overview', name: 'Overview', icon: <Icon name="package" size={13} /> },
+    { id: 'queue', name: 'Undecided', icon: <Icon name="eye" size={13} />, count: 7 },
+    { id: 'joined', name: 'Auto-joined', icon: <Icon name="check" size={13} />, count: 42 },
+    { id: 'mismatch', name: 'Mismatch', icon: <Icon name="alert" size={13} />, count: 3 },
+    { id: 'workbench', name: 'Page workbench', icon: <Icon name="image" size={13} /> },
+    { id: 'settings', name: 'Stage settings', icon: <Icon name="wrench" size={13} /> },
   ],
 };
 
 const DEFAULT_TABS: TabsBandItem[] = [
-  { id: 'overview',  name: 'Overview',       icon: <Icon name="package" size={13} /> },
-  { id: 'pages',     name: 'Pages',          icon: <Icon name="file"    size={13} />, count: 232 },
-  { id: 'workbench', name: 'Page workbench', icon: <Icon name="image"   size={13} /> },
-  { id: 'settings',  name: 'Stage settings', icon: <Icon name="wrench"  size={13} /> },
+  { id: 'overview', name: 'Overview', icon: <Icon name="package" size={13} /> },
+  { id: 'pages', name: 'Pages', icon: <Icon name="file" size={13} />, count: 232 },
+  { id: 'workbench', name: 'Page workbench', icon: <Icon name="image" size={13} /> },
+  { id: 'settings', name: 'Stage settings', icon: <Icon name="wrench" size={13} /> },
 ];
 
 /** Returns the canonical tab list for a given stage id. */
@@ -241,13 +241,21 @@ export function ProjectInfoBand({
           }}
         >
           <span>{project.id}</span>
-          <span style={{ color: 'var(--border-3)' }} aria-hidden>·</span>
+          <span style={{ color: 'var(--border-3)' }} aria-hidden>
+            ·
+          </span>
           <span>{project.author}</span>
-          <span style={{ color: 'var(--border-3)' }} aria-hidden>·</span>
+          <span style={{ color: 'var(--border-3)' }} aria-hidden>
+            ·
+          </span>
           <span>{project.pages} pages</span>
-          <span style={{ color: 'var(--border-3)' }} aria-hidden>·</span>
+          <span style={{ color: 'var(--border-3)' }} aria-hidden>
+            ·
+          </span>
           <span>ingested {project.ingested}</span>
-          <span style={{ color: 'var(--border-3)' }} aria-hidden>·</span>
+          <span style={{ color: 'var(--border-3)' }} aria-hidden>
+            ·
+          </span>
           <span>{project.size}</span>
         </div>
       </div>
@@ -468,7 +476,9 @@ export function PipelineTemplate({
   const defaultTabs = getTabsForStage(stage);
   const activeTab =
     currentTab ??
-    (defaultTabs.find((t) => t.id !== 'overview')?.id ?? defaultTabs[0]?.id ?? 'overview');
+    defaultTabs.find((t) => t.id !== 'overview')?.id ??
+    defaultTabs[0]?.id ??
+    'overview';
 
   // Breadcrumb trail
   const resolvedTrail: TrailItem[] = trail ?? [
@@ -544,10 +554,7 @@ export function PipelineTemplate({
             {resolvedTrail.map((item, i) => (
               <React.Fragment key={item.label}>
                 {i > 0 ? (
-                  <li
-                    aria-hidden="true"
-                    style={{ color: 'var(--ink-4)', fontSize: 12 }}
-                  >
+                  <li aria-hidden="true" style={{ color: 'var(--ink-4)', fontSize: 12 }}>
                     /
                   </li>
                 ) : null}
@@ -604,7 +611,13 @@ export function PipelineTemplate({
       {/* ── Body slot ── */}
       <div
         data-testid="pipeline-body"
-        style={{ flex: 1, minHeight: 0, overflow: 'auto', display: 'flex', flexDirection: 'column' }}
+        style={{
+          flex: 1,
+          minHeight: 0,
+          overflow: 'auto',
+          display: 'flex',
+          flexDirection: 'column',
+        }}
       >
         {children !== undefined ? children : <PipelineEmptySlot />}
       </div>

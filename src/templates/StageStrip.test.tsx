@@ -14,46 +14,28 @@ import { StageStrip, PIPELINE_STAGES } from './StageStrip.js';
 // Sample stage list (minimal for tests — consumers supply their own list)
 // ─────────────────────────────────────────────────────────────────────────────
 const SAMPLE_STAGES = [
-  { id: 'source',    short: 'source',   group: 'Source' },
-  { id: 'dewarp',    short: 'dewarp',   group: 'Source' },
-  { id: 'ocr',       short: 'ocr',      group: 'OCR' },
-  { id: 'validation',short: 'validate', group: 'Pack' },
+  { id: 'source', short: 'source', group: 'Source' },
+  { id: 'dewarp', short: 'dewarp', group: 'Source' },
+  { id: 'ocr', short: 'ocr', group: 'OCR' },
+  { id: 'validation', short: 'validate', group: 'Pack' },
 ] as const;
 
 describe('StageStrip', () => {
   // ── Rendering ──────────────────────────────────────────────────────────────
 
   it('renders with data-testid="stage-strip"', () => {
-    render(
-      <StageStrip
-        stages={[...SAMPLE_STAGES]}
-        current="source"
-        data-testid="stage-strip"
-      />,
-    );
+    render(<StageStrip stages={[...SAMPLE_STAGES]} current="source" data-testid="stage-strip" />);
     expect(screen.getByTestId('stage-strip')).toBeTruthy();
   });
 
   it('renders the current stage id', () => {
-    render(
-      <StageStrip
-        stages={[...SAMPLE_STAGES]}
-        current="ocr"
-        data-testid="strip"
-      />,
-    );
+    render(<StageStrip stages={[...SAMPLE_STAGES]} current="ocr" data-testid="strip" />);
     const strip = screen.getByTestId('strip');
     expect(strip.textContent).toContain('ocr');
   });
 
   it('renders stage counter n/total', () => {
-    render(
-      <StageStrip
-        stages={[...SAMPLE_STAGES]}
-        current="dewarp"
-        data-testid="strip"
-      />,
-    );
+    render(<StageStrip stages={[...SAMPLE_STAGES]} current="dewarp" data-testid="strip" />);
     // dewarp is index 1 → "2/4"
     const strip = screen.getByTestId('strip');
     expect(strip.textContent).toContain('2/4');
@@ -62,24 +44,13 @@ describe('StageStrip', () => {
   // ── Status variants ────────────────────────────────────────────────────────
 
   it('shows "all checks green" when flagged and dirty are both undefined', () => {
-    render(
-      <StageStrip
-        stages={[...SAMPLE_STAGES]}
-        current="source"
-        data-testid="strip"
-      />,
-    );
+    render(<StageStrip stages={[...SAMPLE_STAGES]} current="source" data-testid="strip" />);
     expect(screen.getByTestId('strip').textContent).toContain('all checks green');
   });
 
   it('shows error count when flagged is set', () => {
     render(
-      <StageStrip
-        stages={[...SAMPLE_STAGES]}
-        current="source"
-        flagged={3}
-        data-testid="strip"
-      />,
+      <StageStrip stages={[...SAMPLE_STAGES]} current="source" flagged={3} data-testid="strip" />,
     );
     expect(screen.getByTestId('strip').textContent).toContain('3');
     expect(screen.getByTestId('strip').textContent).toContain('errors');
@@ -87,12 +58,7 @@ describe('StageStrip', () => {
 
   it('shows warning count when dirty is set', () => {
     render(
-      <StageStrip
-        stages={[...SAMPLE_STAGES]}
-        current="source"
-        dirty={7}
-        data-testid="strip"
-      />,
+      <StageStrip stages={[...SAMPLE_STAGES]} current="source" dirty={7} data-testid="strip" />,
     );
     expect(screen.getByTestId('strip').textContent).toContain('7');
     expect(screen.getByTestId('strip').textContent).toContain('warnings');
@@ -116,26 +82,13 @@ describe('StageStrip', () => {
   });
 
   it('adds stage-strip--running modifier class when running=true', () => {
-    render(
-      <StageStrip
-        stages={[...SAMPLE_STAGES]}
-        current="source"
-        running
-        data-testid="strip"
-      />,
-    );
+    render(<StageStrip stages={[...SAMPLE_STAGES]} current="source" running data-testid="strip" />);
     const el = screen.getByTestId('strip');
     expect(el.classList.contains('stage-strip--running')).toBe(true);
   });
 
   it('does NOT add running modifier when running is false', () => {
-    render(
-      <StageStrip
-        stages={[...SAMPLE_STAGES]}
-        current="source"
-        data-testid="strip"
-      />,
-    );
+    render(<StageStrip stages={[...SAMPLE_STAGES]} current="source" data-testid="strip" />);
     const el = screen.getByTestId('strip');
     expect(el.classList.contains('stage-strip--running')).toBe(false);
   });
@@ -175,51 +128,27 @@ describe('StageStrip', () => {
   });
 
   it('disables Next button when flagged > 0', () => {
-    render(
-      <StageStrip
-        stages={[...SAMPLE_STAGES]}
-        current="source"
-        flagged={1}
-      />,
-    );
+    render(<StageStrip stages={[...SAMPLE_STAGES]} current="source" flagged={1} />);
     const nextBtn = screen.getByRole('button', { name: /next/i });
     expect((nextBtn as HTMLButtonElement).disabled).toBe(true);
   });
 
   it('does NOT disable Next button when flagged is 0', () => {
-    render(
-      <StageStrip
-        stages={[...SAMPLE_STAGES]}
-        current="source"
-        flagged={0}
-      />,
-    );
+    render(<StageStrip stages={[...SAMPLE_STAGES]} current="source" flagged={0} />);
     const nextBtn = screen.getByRole('button', { name: /next/i });
     expect((nextBtn as HTMLButtonElement).disabled).toBe(false);
   });
 
   it('calls onPrev when Prev button clicked', () => {
     const onPrev = vi.fn();
-    render(
-      <StageStrip
-        stages={[...SAMPLE_STAGES]}
-        current="source"
-        onPrev={onPrev}
-      />,
-    );
+    render(<StageStrip stages={[...SAMPLE_STAGES]} current="source" onPrev={onPrev} />);
     fireEvent.click(screen.getByRole('button', { name: /prev/i }));
     expect(onPrev).toHaveBeenCalledOnce();
   });
 
   it('calls onNext when Next button clicked', () => {
     const onNext = vi.fn();
-    render(
-      <StageStrip
-        stages={[...SAMPLE_STAGES]}
-        current="source"
-        onNext={onNext}
-      />,
-    );
+    render(<StageStrip stages={[...SAMPLE_STAGES]} current="source" onNext={onNext} />);
     fireEvent.click(screen.getByRole('button', { name: /next/i }));
     expect(onNext).toHaveBeenCalledOnce();
   });
@@ -251,13 +180,7 @@ describe('StageStrip', () => {
 
   it('forwards ref to the root element', () => {
     const ref = { current: null as HTMLDivElement | null };
-    render(
-      <StageStrip
-        stages={[...SAMPLE_STAGES]}
-        current="source"
-        ref={ref}
-      />,
-    );
+    render(<StageStrip stages={[...SAMPLE_STAGES]} current="source" ref={ref} />);
     expect(ref.current?.tagName).toBe('DIV');
   });
 
@@ -277,13 +200,7 @@ describe('StageStrip', () => {
   });
 
   it('does NOT add configure modifier when variant is omitted', () => {
-    render(
-      <StageStrip
-        stages={[...SAMPLE_STAGES]}
-        current="source"
-        data-testid="strip"
-      />,
-    );
+    render(<StageStrip stages={[...SAMPLE_STAGES]} current="source" data-testid="strip" />);
     const el = screen.getByTestId('strip');
     expect(el.classList.contains('stage-strip--configure')).toBe(false);
   });

@@ -36,7 +36,9 @@ export const AllValues: Story = {
     <div style={{ display: 'flex', flexDirection: 'column', gap: '12px', width: '200px' }}>
       {[1.0, 0.95, 0.8, 0.65, 0.5, 0.35, 0.1, 0.0].map((v) => (
         <div key={v} style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-          <span style={{ width: '30px', fontSize: '11px', color: 'var(--ink-3)', textAlign: 'right' }}>
+          <span
+            style={{ width: '30px', fontSize: '11px', color: 'var(--ink-3)', textAlign: 'right' }}
+          >
             {(v * 100).toFixed(0)}%
           </span>
           <ConfidenceBar confidence={v} style={{ flex: 1 }} />

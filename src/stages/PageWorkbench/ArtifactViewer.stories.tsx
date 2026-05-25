@@ -11,33 +11,33 @@
  *   7. LargeImage — 4000×5000px source dimensions (scale stress test)
  */
 
-import React, { useState } from 'react'
-import type { Meta, StoryObj } from '@storybook/react'
-import { ArtifactViewer } from './ArtifactViewer.js'
-import type { IllustBbox, WordBbox } from './ArtifactViewer.js'
+import React, { useState } from 'react';
+import type { Meta, StoryObj } from '@storybook/react';
+import { ArtifactViewer } from './ArtifactViewer.js';
+import type { IllustBbox, WordBbox } from './ArtifactViewer.js';
 
 // ── Fixtures ──────────────────────────────────────────────────────────────────
 
 // Blank white PNG (1x1) as placeholder image
 const BLANK_PNG =
-  'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8z8BQDwADhQGAWjR9awAAAABJRU5ErkJggg=='
+  'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8z8BQDwADhQGAWjR9awAAAABJRU5ErkJggg==';
 
 const WORD_BBOXES: WordBbox[] = [
   { id: 'w1', bbox: [0.11, 0.08, 0.12, 0.018], confidence: 0.98 },
   { id: 'w2', bbox: [0.25, 0.08, 0.08, 0.018], confidence: 0.95 },
-  { id: 'w3', bbox: [0.35, 0.08, 0.10, 0.018], confidence: 0.87 },
+  { id: 'w3', bbox: [0.35, 0.08, 0.1, 0.018], confidence: 0.87 },
   { id: 'w4', bbox: [0.11, 0.11, 0.15, 0.018], confidence: 0.92 },
   { id: 'w5', bbox: [0.28, 0.11, 0.09, 0.018], confidence: 0.76 },
-  { id: 'w6', bbox: [0.40, 0.11, 0.11, 0.018], confidence: 0.45 },
+  { id: 'w6', bbox: [0.4, 0.11, 0.11, 0.018], confidence: 0.45 },
   { id: 'w7', bbox: [0.11, 0.14, 0.07, 0.018], confidence: 0.99 },
-  { id: 'w8', bbox: [0.20, 0.14, 0.13, 0.018], confidence: 0.93 },
-  { id: 'w9', bbox: [0.40, 0.36, 0.09, 0.018], confidence: 0.31, selected: true },
-]
+  { id: 'w8', bbox: [0.2, 0.14, 0.13, 0.018], confidence: 0.93 },
+  { id: 'w9', bbox: [0.4, 0.36, 0.09, 0.018], confidence: 0.31, selected: true },
+];
 
 const ILLUST_BBOXES: IllustBbox[] = [
-  { id: 'ill1', bbox: [0.20, 0.24, 0.60, 0.38], label: 'plate image' },
+  { id: 'ill1', bbox: [0.2, 0.24, 0.6, 0.38], label: 'plate image' },
   { id: 'ill2', bbox: [0.55, 0.68, 0.35, 0.14], label: 'caption' },
-]
+];
 
 // ── Meta ──────────────────────────────────────────────────────────────────────
 
@@ -48,10 +48,10 @@ const meta: Meta<typeof ArtifactViewer> = {
     layout: 'padded',
   },
   tags: ['autodocs'],
-}
+};
 
-export default meta
-type Story = StoryObj<typeof ArtifactViewer>
+export default meta;
+type Story = StoryObj<typeof ArtifactViewer>;
 
 // ── Stories ───────────────────────────────────────────────────────────────────
 
@@ -72,22 +72,19 @@ export const View: Story = {
       </div>
     ),
   ],
-}
+};
 
 /**
  * 2. SplitMode — draggable vertical split line.
  * Uses a controlled splitX so the story shows a visible line.
  */
 function SplitModeStory(args: React.ComponentProps<typeof ArtifactViewer>) {
-  const [splitX, setSplitX] = useState(0.5)
+  const [splitX, setSplitX] = useState(0.5);
   return (
     <div style={{ height: 500, display: 'flex', flexDirection: 'column' }}>
-      <ArtifactViewer
-        {...args}
-        splitProposal={{ splitX, onSplitXChange: setSplitX }}
-      />
+      <ArtifactViewer {...args} splitProposal={{ splitX, onSplitXChange: setSplitX }} />
     </div>
-  )
+  );
 }
 
 export const SplitMode: Story = {
@@ -98,7 +95,7 @@ export const SplitMode: Story = {
     pageHeight: 3200,
     overlayMode: 'split',
   },
-}
+};
 
 /**
  * 3. IllustMode — two illustration bboxes highlighted.
@@ -118,7 +115,7 @@ export const IllustMode: Story = {
       </div>
     ),
   ],
-}
+};
 
 /**
  * 4. WordsMode — word-level bboxes with confidence pips.
@@ -131,7 +128,9 @@ export const WordsMode: Story = {
     pageHeight: 3200,
     overlayMode: 'words',
     wordBboxes: WORD_BBOXES,
-    onWordClick: (id: string) => { console.info('word clicked:', id) },
+    onWordClick: (id: string) => {
+      console.info('word clicked:', id);
+    },
   },
   decorators: [
     (Story) => (
@@ -140,25 +139,21 @@ export const WordsMode: Story = {
       </div>
     ),
   ],
-}
+};
 
 /**
  * 5. RotateMode — rotation handle overlay.
  */
 function RotateModeStory(args: React.ComponentProps<typeof ArtifactViewer>) {
-  const [deg, setDeg] = useState(0)
+  const [deg, setDeg] = useState(0);
   return (
     <div style={{ height: 500, display: 'flex', flexDirection: 'column' }}>
       <div style={{ marginBottom: 8, fontSize: 12, color: 'var(--ink-3)' }}>
         Rotation: {deg.toFixed(1)}&deg;
       </div>
-      <ArtifactViewer
-        {...args}
-        rotationDeg={deg}
-        onRotationChange={setDeg}
-      />
+      <ArtifactViewer {...args} rotationDeg={deg} onRotationChange={setDeg} />
     </div>
-  )
+  );
 }
 
 export const RotateMode: Story = {
@@ -170,7 +165,7 @@ export const RotateMode: Story = {
     overlayMode: 'rotate',
     rotationDeg: 0,
   },
-}
+};
 
 /**
  * 6. NarrowContainer — 320px wide (mobile-ish context).
@@ -184,12 +179,20 @@ export const NarrowContainer: Story = {
   },
   decorators: [
     (Story) => (
-      <div style={{ width: 320, height: 500, display: 'flex', flexDirection: 'column', border: '1px dashed var(--border-2)' }}>
+      <div
+        style={{
+          width: 320,
+          height: 500,
+          display: 'flex',
+          flexDirection: 'column',
+          border: '1px dashed var(--border-2)',
+        }}
+      >
         <Story />
       </div>
     ),
   ],
-}
+};
 
 /**
  * 7. LargeImage — 4000×5000px source dimensions (scale stress test).
@@ -208,4 +211,4 @@ export const LargeImage: Story = {
       </div>
     ),
   ],
-}
+};

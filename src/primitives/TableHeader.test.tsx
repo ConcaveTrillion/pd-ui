@@ -23,9 +23,7 @@ describe('TableHeader', () => {
 
   it('calls onSort when a sortable column header is clicked', () => {
     const onSort = vi.fn();
-    render(
-      <TableHeader columns={columns} onSort={onSort} />,
-    );
+    render(<TableHeader columns={columns} onSort={onSort} />);
     fireEvent.click(screen.getByText('Page'));
     expect(onSort).toHaveBeenCalledWith('page', expect.any(String));
   });
@@ -38,16 +36,12 @@ describe('TableHeader', () => {
   });
 
   it('shows ascending indicator for active sorted column (asc)', () => {
-    const { container } = render(
-      <TableHeader columns={columns} sortKey="page" sortDir="asc" />,
-    );
+    const { container } = render(<TableHeader columns={columns} sortKey="page" sortDir="asc" />);
     expect(container.querySelector('[data-sort="asc"]')).toBeTruthy();
   });
 
   it('shows descending indicator for active sorted column (desc)', () => {
-    const { container } = render(
-      <TableHeader columns={columns} sortKey="page" sortDir="desc" />,
-    );
+    const { container } = render(<TableHeader columns={columns} sortKey="page" sortDir="desc" />);
     expect(container.querySelector('[data-sort="desc"]')).toBeTruthy();
   });
 

@@ -70,12 +70,7 @@ describe('AttributesPanel', () => {
 
   it('accepts a custom actions slot for a group via sectionActions prop', () => {
     const actions = vi.fn(() => <button>Custom action</button>);
-    render(
-      <AttributesPanel
-        project={SAMPLE_PROJECT}
-        sectionActions={{ bib: actions() }}
-      />,
-    );
+    render(<AttributesPanel project={SAMPLE_PROJECT} sectionActions={{ bib: actions() }} />);
     expect(screen.getByText('Custom action')).toBeTruthy();
   });
 
@@ -89,12 +84,7 @@ describe('AttributesPanel', () => {
   });
 
   it('forwards data-testid to the root element', () => {
-    render(
-      <AttributesPanel
-        project={SAMPLE_PROJECT}
-        data-testid="ap-root"
-      />,
-    );
+    render(<AttributesPanel project={SAMPLE_PROJECT} data-testid="ap-root" />);
     expect(document.querySelector('[data-testid="ap-root"]')).toBeTruthy();
   });
 });

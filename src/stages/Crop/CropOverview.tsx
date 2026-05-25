@@ -181,10 +181,7 @@ function FlagDistribution({
                   }}
                 />
                 <span style={{ color: 'var(--ink-2)' }}>{FLAG_LABEL[entry.kind]}</span>
-                <span
-                  className="mono"
-                  style={{ fontWeight: 600, color: 'var(--ink-1)' }}
-                >
+                <span className="mono" style={{ fontWeight: 600, color: 'var(--ink-1)' }}>
                   {entry.count}
                 </span>
               </div>

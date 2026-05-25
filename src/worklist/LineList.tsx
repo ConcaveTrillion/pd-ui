@@ -8,9 +8,9 @@
  * (filtered to block_category === 'LINE', 'PARAGRAPH', etc. by the caller).
  */
 
-import * as React from 'react'
-import { VirtualizedList } from './VirtualizedList'
-import type { LineListProps, BlockListItem, BlockRowProps } from './types'
+import * as React from 'react';
+import { VirtualizedList } from './VirtualizedList';
+import type { LineListProps, BlockListItem, BlockRowProps } from './types';
 
 // ── default row renderer ──────────────────────────────────────────────────────
 
@@ -33,7 +33,7 @@ function DefaultBlockRow<TBlock extends BlockListItem>({
     >
       {item.block_category ?? 'BLOCK'}
     </div>
-  )
+  );
 }
 
 // ── <LineList> ────────────────────────────────────────────────────────────────
@@ -51,13 +51,15 @@ function LineListInner<TBlock extends BlockListItem = BlockListItem>(
 ) {
   const renderItem = React.useCallback(
     (item: TBlock, index: number, isSelected: boolean) => {
-      const rowProps: BlockRowProps<TBlock> = { item, index, isSelected }
-      return renderRow
-        ? renderRow(rowProps)
-        : <DefaultBlockRow<TBlock> item={item} index={index} isSelected={isSelected} />
+      const rowProps: BlockRowProps<TBlock> = { item, index, isSelected };
+      return renderRow ? (
+        renderRow(rowProps)
+      ) : (
+        <DefaultBlockRow<TBlock> item={item} index={index} isSelected={isSelected} />
+      );
     },
     [renderRow],
-  )
+  );
 
   return (
     <VirtualizedList<TBlock>
@@ -70,7 +72,7 @@ function LineListInner<TBlock extends BlockListItem = BlockListItem>(
       renderItem={renderItem}
       defaultAriaLabel="Line list"
     />
-  )
+  );
 }
 
 /**
@@ -81,6 +83,5 @@ export const LineList = React.forwardRef(LineListInner) as <
   TBlock extends BlockListItem = BlockListItem,
 >(
   props: LineListProps<TBlock> & { ref?: React.Ref<HTMLDivElement> },
-) => React.ReactElement | null
-
-;(LineList as { displayName?: string }).displayName = 'LineList'
+) => React.ReactElement | null;
+(LineList as { displayName?: string }).displayName = 'LineList';

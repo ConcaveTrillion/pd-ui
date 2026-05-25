@@ -13,10 +13,10 @@ export interface JobStatusPipProps extends React.HTMLAttributes<HTMLDivElement> 
 // The .pip class uses `color` to drive bg (at 10%) and border (at 33%)
 // via inline color-mix — so a single CSS variable drives all three.
 const stateToken: Record<JobState, string> = {
-  queued:    'var(--ink-3)',
-  running:   'var(--ocr)',
+  queued: 'var(--ink-3)',
+  running: 'var(--ocr)',
   succeeded: 'var(--exact)',
-  failed:    'var(--mismatch)',
+  failed: 'var(--mismatch)',
   cancelled: 'var(--fuzzy)',
 };
 

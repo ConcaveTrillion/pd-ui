@@ -59,8 +59,7 @@ export const WithConflicts: Story = {
         },
         {
           id: 'c2',
-          description:
-            'May collide with regex pattern \\bwiht\\b in project-scoped override.',
+          description: 'May collide with regex pattern \\bwiht\\b in project-scoped override.',
         },
       ],
     },

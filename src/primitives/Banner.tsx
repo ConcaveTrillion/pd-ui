@@ -68,24 +68,14 @@ export function Banner({
       aria-live={resolvedAriaLive}
       {...(dataTestId !== undefined ? { 'data-testid': dataTestId } : {})}
     >
-      {leadingSlot != null ? (
-        <span className="banner__leading">{leadingSlot}</span>
-      ) : null}
+      {leadingSlot != null ? <span className="banner__leading">{leadingSlot}</span> : null}
       <div className="banner__body">
-        {headline != null ? (
-          <div className="banner__headline">{headline}</div>
-        ) : null}
-        {subtext != null ? (
-          <div className="banner__subtext">{subtext}</div>
-        ) : null}
+        {headline != null ? <div className="banner__headline">{headline}</div> : null}
+        {subtext != null ? <div className="banner__subtext">{subtext}</div> : null}
         {children}
-        {footer != null ? (
-          <div className="banner__footer">{footer}</div>
-        ) : null}
+        {footer != null ? <div className="banner__footer">{footer}</div> : null}
       </div>
-      {actions != null ? (
-        <div className="banner__actions">{actions}</div>
-      ) : null}
+      {actions != null ? <div className="banner__actions">{actions}</div> : null}
     </section>
   );
 }

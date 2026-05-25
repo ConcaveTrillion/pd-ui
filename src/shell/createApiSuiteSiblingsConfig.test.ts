@@ -95,14 +95,16 @@ describe('createApiSuiteSiblingsConfig (#6)', () => {
   });
 
   it('accepts custom base URLs', async () => {
-    const fetchSpy = vi.spyOn(globalThis, 'fetch').mockResolvedValue(
-      new Response(JSON.stringify([]), { status: 200 }),
-    );
+    const fetchSpy = vi
+      .spyOn(globalThis, 'fetch')
+      .mockResolvedValue(new Response(JSON.stringify([]), { status: 200 }));
     const cfg = createApiSuiteSiblingsConfig({
       installedUrl: 'http://localhost:9000/api/suite/installed',
       launchUrl: 'http://localhost:9000/api/suite/launch',
     });
     await cfg.fetchInstalled();
-    expect((fetchSpy.mock.calls[0] as [string])[0]).toBe('http://localhost:9000/api/suite/installed');
+    expect((fetchSpy.mock.calls[0] as [string])[0]).toBe(
+      'http://localhost:9000/api/suite/installed',
+    );
   });
 });

@@ -87,7 +87,9 @@ export function useLongJob(jobId: string | null, options: UseLongJobOptions = {}
           setProgress(res.progress ?? null);
           setEvents(res.events ?? []);
           if (res.status !== 'done' && res.status !== 'error' && res.status !== 'cancelled') {
-            timeoutId = setTimeout(() => { void poll(); }, pollIntervalMs);
+            timeoutId = setTimeout(() => {
+              void poll();
+            }, pollIntervalMs);
           }
         }
       } catch {

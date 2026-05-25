@@ -43,9 +43,15 @@ const HeaderSlot = (
     }}
   >
     <span style={{ fontWeight: 600, color: 'var(--ink-1)' }}>pd-ui Demo App</span>
-    <Button variant="ghost" size="sm">File</Button>
-    <Button variant="ghost" size="sm">Edit</Button>
-    <Button variant="ghost" size="sm">View</Button>
+    <Button variant="ghost" size="sm">
+      File
+    </Button>
+    <Button variant="ghost" size="sm">
+      Edit
+    </Button>
+    <Button variant="ghost" size="sm">
+      View
+    </Button>
   </div>
 );
 
@@ -63,9 +69,15 @@ const RailSlot = (
       gap: '8px',
     }}
   >
-    <Button variant="ghost" size="sm" title="Layers">L</Button>
-    <Button variant="ghost" size="sm" title="Search">S</Button>
-    <Button variant="ghost" size="sm" title="Settings">G</Button>
+    <Button variant="ghost" size="sm" title="Layers">
+      L
+    </Button>
+    <Button variant="ghost" size="sm" title="Search">
+      S
+    </Button>
+    <Button variant="ghost" size="sm" title="Settings">
+      G
+    </Button>
   </div>
 );
 
@@ -79,9 +91,7 @@ const DrawerSlot = (
       padding: '16px',
     }}
   >
-    <h3 style={{ margin: '0 0 8px', color: 'var(--ink-1)', fontSize: 'var(--text-sm)' }}>
-      Pages
-    </h3>
+    <h3 style={{ margin: '0 0 8px', color: 'var(--ink-1)', fontSize: 'var(--text-sm)' }}>Pages</h3>
     {['Page 1', 'Page 2', 'Page 3'].map((p) => (
       <div
         key={p}
@@ -110,8 +120,8 @@ const MainSlot = (
   >
     <p>Main content area</p>
     <p>
-      This is the primary workspace. It receives all remaining space after
-      header, rail, drawer, and right panel are laid out.
+      This is the primary workspace. It receives all remaining space after header, rail, drawer, and
+      right panel are laid out.
     </p>
   </div>
 );
@@ -129,9 +139,7 @@ const RightPanelSlot = (
     <h3 style={{ margin: '0 0 8px', color: 'var(--ink-1)', fontSize: 'var(--text-sm)' }}>
       Properties
     </h3>
-    <p style={{ color: 'var(--ink-3)', fontSize: '12px' }}>
-      No selection
-    </p>
+    <p style={{ color: 'var(--ink-3)', fontSize: '12px' }}>No selection</p>
   </div>
 );
 
@@ -194,9 +202,7 @@ export const HostedMode: Story = {
               borderBottom: '1px solid var(--border)',
             }}
           >
-            <span style={{ fontWeight: 600, color: 'var(--ink-1)' }}>
-              pd-ui Demo App [hosted]
-            </span>
+            <span style={{ fontWeight: 600, color: 'var(--ink-1)' }}>pd-ui Demo App [hosted]</span>
           </div>
         }
         main={MainSlot}
@@ -239,7 +245,9 @@ export const BuiltInHeader: Story = {
         uiPrefsConfig={STUB_PREFS_CONFIG}
         main={
           <div style={{ padding: '24px', color: 'var(--ink-1)' }}>
-            <p>The header above is the built-in AppShellHeader (no custom <code>header</code> prop).</p>
+            <p>
+              The header above is the built-in AppShellHeader (no custom <code>header</code> prop).
+            </p>
             <p>Click the gear icon to open the settings popover.</p>
           </div>
         }

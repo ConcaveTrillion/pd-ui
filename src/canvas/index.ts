@@ -12,24 +12,29 @@
  */
 
 // Component
-export { PageImageCanvas } from './PageImageCanvas'
+export { PageImageCanvas } from './PageImageCanvas';
 
 // Throttle utility (issue #35)
-export { makeRafThrottle } from './rafThrottle'
+export { makeRafThrottle } from './rafThrottle';
 
 // Slot helpers
-export { BBoxLayer } from './layers/BBoxLayer'
-export { WordHitLayer } from './layers/WordHitLayer'
-export { MarqueeSelectLayer } from './layers/MarqueeSelectLayer'
+export { BBoxLayer } from './layers/BBoxLayer';
+export { WordHitLayer } from './layers/WordHitLayer';
+export { MarqueeSelectLayer } from './layers/MarqueeSelectLayer';
 
 // Hooks
-export { useCanvasCoords } from './hooks/useCanvasCoords'
-export { useViewport } from './hooks/useViewport'
-export { useCanvasSelection } from './hooks/useCanvasSelection'
+export { useCanvasCoords } from './hooks/useCanvasCoords';
+export { useViewport } from './hooks/useViewport';
+export { useCanvasSelection } from './hooks/useCanvasSelection';
 
 // Page-size guard (issue #29)
-export { PAGE_DIMENSION_MAX, isPageDimensionsValid, validatePageDimensions, clampPageDimensions } from './pageSizeGuard'
-export type { PageDimensionValidationResult } from './pageSizeGuard'
+export {
+  PAGE_DIMENSION_MAX,
+  isPageDimensionsValid,
+  validatePageDimensions,
+  clampPageDimensions,
+} from './pageSizeGuard';
+export type { PageDimensionValidationResult } from './pageSizeGuard';
 
 // Types
 export type {
@@ -44,5 +49,5 @@ export type {
   CanvasRect,
   PageBBox,
   PagePoint,
-} from './types'
-export { bboxToRect, isValidBBox } from './types'
+} from './types';
+export { bboxToRect, isValidBBox } from './types';

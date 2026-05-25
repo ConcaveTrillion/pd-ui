@@ -26,29 +26,29 @@
 
 // ── Components ────────────────────────────────────────────────────────────────
 
-export { WordList } from './WordList'
-export { LineList } from './LineList'
-export { PageList } from './PageList'
+export { WordList } from './WordList';
+export { LineList } from './LineList';
+export { PageList } from './PageList';
 
 // ── Status row primitives ─────────────────────────────────────────────────────
 
 // Re-export StatusPip from primitives for convenience in renderRow fills
-export { StatusPip } from '../primitives/StatusPip'
-export type { StatusPipProps, StatusPipStatus } from '../primitives/StatusPip'
+export { StatusPip } from '../primitives/StatusPip';
+export type { StatusPipProps, StatusPipStatus } from '../primitives/StatusPip';
 
-export { ConfidenceBar } from './ConfidenceBar'
-export type { ConfidenceBarProps } from './ConfidenceBar'
+export { ConfidenceBar } from './ConfidenceBar';
+export type { ConfidenceBarProps } from './ConfidenceBar';
 
-export { MatchStatusChip } from './MatchStatusChip'
-export type { MatchStatusChipProps } from './MatchStatusChip'
+export { MatchStatusChip } from './MatchStatusChip';
+export type { MatchStatusChipProps } from './MatchStatusChip';
 
 // ── Hooks ─────────────────────────────────────────────────────────────────────
 
-export { useWorklistFilter } from './hooks/useWorklistFilter'
-export type { WorklistFilterOptions } from './hooks/useWorklistFilter'
+export { useWorklistFilter } from './hooks/useWorklistFilter';
+export type { WorklistFilterOptions } from './hooks/useWorklistFilter';
 
-export { useWorklistSort } from './hooks/useWorklistSort'
-export type { WorklistSortKey } from './hooks/useWorklistSort'
+export { useWorklistSort } from './hooks/useWorklistSort';
+export type { WorklistSortKey } from './hooks/useWorklistSort';
 
 // ── Types ─────────────────────────────────────────────────────────────────────
 
@@ -63,4 +63,4 @@ export type {
   PageListItem,
   PageRowProps,
   PageListProps,
-} from './types'
+} from './types';

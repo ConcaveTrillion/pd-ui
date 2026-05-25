@@ -63,16 +63,21 @@ describe('icons barrel (src/icons/index.ts)', () => {
 
   // Bespoke re-exports
   const bespokeNames = [
-    'LayerBlock', 'LayerPara', 'LayerLine', 'LayerWord',
-    'ModeSelect', 'ModeRebox', 'ModeErase', 'ModeCharFixer',
-    'MatchStatusExact', 'MatchStatusFuzzy', 'MatchStatusMismatch',
+    'LayerBlock',
+    'LayerPara',
+    'LayerLine',
+    'LayerWord',
+    'ModeSelect',
+    'ModeRebox',
+    'ModeErase',
+    'ModeCharFixer',
+    'MatchStatusExact',
+    'MatchStatusFuzzy',
+    'MatchStatusMismatch',
   ];
 
   // Dispatcher shim (OQ-1)
-  const dispatcherNames = [
-    'Icon',
-    'ICON_NAMES',
-  ];
+  const dispatcherNames = ['Icon', 'ICON_NAMES'];
 
   it('re-exports all lucide icons', () => {
     for (const name of lucideNames) {

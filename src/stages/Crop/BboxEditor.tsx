@@ -23,11 +23,7 @@ import { ArtifactViewer } from '../PageWorkbench/ArtifactViewer.js';
 import { Segmented } from '../../primitives/Segmented.js';
 import type { SegmentedOption } from '../../primitives/Segmented.js';
 import { Button } from '../../primitives/Button.js';
-import {
-  BBOX_EDITOR,
-  BBOX_EDITOR_APPLY,
-  bboxEditorMarginTestId,
-} from '../../testids/index.js';
+import { BBOX_EDITOR, BBOX_EDITOR_APPLY, bboxEditorMarginTestId } from '../../testids/index.js';
 
 // ── Types ─────────────────────────────────────────────────────────────────────
 
@@ -81,11 +77,7 @@ const UNIT_OPTIONS: ReadonlyArray<SegmentedOption> = [
 
 // ── Delta helpers ─────────────────────────────────────────────────────────────
 
-function formatDelta(
-  margins: BboxMargins,
-  defaultMargins: BboxMargins,
-  unit: BboxUnit,
-): string {
+function formatDelta(margins: BboxMargins, defaultMargins: BboxMargins, unit: BboxUnit): string {
   const suffix = unit === 'percent' ? '%' : 'px';
   const sides: Array<[keyof BboxMargins, string]> = [
     ['top', 'top'],
@@ -140,224 +132,194 @@ const HANDLE_POSITIONS: ReadonlyArray<HandlePos> = [
  *   Left (center): ArtifactViewer with DOM overlay bbox rect + 8 handle dots.
  *   Right: margin inputs, unit toggle, delta display, scope toggle, apply button.
  */
-export const BboxEditor = React.forwardRef<HTMLDivElement, BboxEditorProps>(
-  function BboxEditor(
-    {
-      page,
-      margins,
-      onMarginsChange,
-      unit,
-      onUnitChange,
-      scope,
-      onScopeChange,
-      selectedCount,
-      flaggedCount,
-      onApply,
-      'data-testid': testId = BBOX_EDITOR,
-    },
-    ref,
-  ) {
-    // ── Scope options (built dynamically so counts appear in labels) ──────────
-    const scopeOptions: ReadonlyArray<SegmentedOption> = React.useMemo(
-      () => [
-        { value: 'thisPage', label: 'This page' },
-        {
-          value: 'selectedN',
-          label:
-            selectedCount != null ? `Selected (${selectedCount})` : 'Selected',
-        },
-        {
-          value: 'allFlagged',
-          label:
-            flaggedCount != null ? `All flagged (${flaggedCount})` : 'All flagged',
-        },
-      ],
-      [selectedCount, flaggedCount],
-    );
-
-    // ── Margin input handler ──────────────────────────────────────────────────
-    const handleMarginChange = React.useCallback(
-      (side: keyof BboxMargins, value: string) => {
-        const parsed = parseFloat(value);
-        if (isNaN(parsed)) return;
-        onMarginsChange({ ...margins, [side]: parsed });
+export const BboxEditor = React.forwardRef<HTMLDivElement, BboxEditorProps>(function BboxEditor(
+  {
+    page,
+    margins,
+    onMarginsChange,
+    unit,
+    onUnitChange,
+    scope,
+    onScopeChange,
+    selectedCount,
+    flaggedCount,
+    onApply,
+    'data-testid': testId = BBOX_EDITOR,
+  },
+  ref,
+) {
+  // ── Scope options (built dynamically so counts appear in labels) ──────────
+  const scopeOptions: ReadonlyArray<SegmentedOption> = React.useMemo(
+    () => [
+      { value: 'thisPage', label: 'This page' },
+      {
+        value: 'selectedN',
+        label: selectedCount != null ? `Selected (${selectedCount})` : 'Selected',
       },
-      [margins, onMarginsChange],
-    );
+      {
+        value: 'allFlagged',
+        label: flaggedCount != null ? `All flagged (${flaggedCount})` : 'All flagged',
+      },
+    ],
+    [selectedCount, flaggedCount],
+  );
 
-    // ── Bbox rect overlay (DOM, not Konva) ────────────────────────────────────
-    // We render an absolutely-positioned div that represents the bbox rect
-    // on top of the ArtifactViewer. In M5 the positions are approximations
-    // based on the margin values relative to page dimensions.
-    //
-    // When unit='px': margins are in pixels relative to pageWidth/pageHeight.
-    // When unit='percent': margins are % of pageWidth/pageHeight.
+  // ── Margin input handler ──────────────────────────────────────────────────
+  const handleMarginChange = React.useCallback(
+    (side: keyof BboxMargins, value: string) => {
+      const parsed = parseFloat(value);
+      if (isNaN(parsed)) return;
+      onMarginsChange({ ...margins, [side]: parsed });
+    },
+    [margins, onMarginsChange],
+  );
 
-    const { pageWidth, pageHeight } = page;
+  // ── Bbox rect overlay (DOM, not Konva) ────────────────────────────────────
+  // We render an absolutely-positioned div that represents the bbox rect
+  // on top of the ArtifactViewer. In M5 the positions are approximations
+  // based on the margin values relative to page dimensions.
+  //
+  // When unit='px': margins are in pixels relative to pageWidth/pageHeight.
+  // When unit='percent': margins are % of pageWidth/pageHeight.
 
-    const topPx =
-      unit === 'percent' ? (margins.top / 100) * pageHeight : margins.top;
-    const rightPx =
-      unit === 'percent'
-        ? (margins.right / 100) * pageWidth
-        : margins.right;
-    const bottomPx =
-      unit === 'percent'
-        ? (margins.bottom / 100) * pageHeight
-        : margins.bottom;
-    const leftPx =
-      unit === 'percent' ? (margins.left / 100) * pageWidth : margins.left;
+  const { pageWidth, pageHeight } = page;
 
-    // Fractions for CSS positioning (percent of container)
-    const topFrac = topPx / pageHeight;
-    const leftFrac = leftPx / pageWidth;
-    const widthFrac = Math.max(0, 1 - leftPx / pageWidth - rightPx / pageWidth);
-    const heightFrac = Math.max(
-      0,
-      1 - topPx / pageHeight - bottomPx / pageHeight,
-    );
+  const topPx = unit === 'percent' ? (margins.top / 100) * pageHeight : margins.top;
+  const rightPx = unit === 'percent' ? (margins.right / 100) * pageWidth : margins.right;
+  const bottomPx = unit === 'percent' ? (margins.bottom / 100) * pageHeight : margins.bottom;
+  const leftPx = unit === 'percent' ? (margins.left / 100) * pageWidth : margins.left;
 
-    // ── Delta text ────────────────────────────────────────────────────────────
-    const deltaText = formatDelta(margins, page.defaultMargins, unit);
+  // Fractions for CSS positioning (percent of container)
+  const topFrac = topPx / pageHeight;
+  const leftFrac = leftPx / pageWidth;
+  const widthFrac = Math.max(0, 1 - leftPx / pageWidth - rightPx / pageWidth);
+  const heightFrac = Math.max(0, 1 - topPx / pageHeight - bottomPx / pageHeight);
 
-    // ── Unit suffix for inputs ────────────────────────────────────────────────
-    const unitSuffix = unit === 'percent' ? '%' : 'px';
+  // ── Delta text ────────────────────────────────────────────────────────────
+  const deltaText = formatDelta(margins, page.defaultMargins, unit);
 
-    return (
-      <div
-        ref={ref}
-        className="bbox-editor"
-        data-testid={testId}
-      >
-        {/* ── Left column: ArtifactViewer + bbox overlay ── */}
-        <div className="bbox-editor__canvas-col">
-          <div className="bbox-editor__viewer-wrap">
-            <ArtifactViewer
-              imageSrc={page.imageUrl}
-              pageWidth={pageWidth}
-              pageHeight={pageHeight}
-              overlayMode="view"
-            />
-            {/* DOM bbox rect overlay (not inside Konva — M5 spec) */}
+  // ── Unit suffix for inputs ────────────────────────────────────────────────
+  const unitSuffix = unit === 'percent' ? '%' : 'px';
+
+  return (
+    <div ref={ref} className="bbox-editor" data-testid={testId}>
+      {/* ── Left column: ArtifactViewer + bbox overlay ── */}
+      <div className="bbox-editor__canvas-col">
+        <div className="bbox-editor__viewer-wrap">
+          <ArtifactViewer
+            imageSrc={page.imageUrl}
+            pageWidth={pageWidth}
+            pageHeight={pageHeight}
+            overlayMode="view"
+          />
+          {/* DOM bbox rect overlay (not inside Konva — M5 spec) */}
+          <div className="bbox-editor__overlay" aria-hidden="true">
+            {/* Bbox rect */}
             <div
-              className="bbox-editor__overlay"
-              aria-hidden="true"
+              className="bbox-editor__bbox-rect"
+              style={{
+                position: 'absolute',
+                top: `${topFrac * 100}%`,
+                left: `${leftFrac * 100}%`,
+                width: `${widthFrac * 100}%`,
+                height: `${heightFrac * 100}%`,
+              }}
             >
-              {/* Bbox rect */}
-              <div
-                className="bbox-editor__bbox-rect"
-                style={{
-                  position: 'absolute',
-                  top: `${topFrac * 100}%`,
-                  left: `${leftFrac * 100}%`,
-                  width: `${widthFrac * 100}%`,
-                  height: `${heightFrac * 100}%`,
-                }}
-              >
-                {/* 8 handle dots — visual only in M5 */}
-                {HANDLE_POSITIONS.map((pos) => (
-                  <div
-                    key={pos.key}
-                    className="bbox-editor__handle"
-                    data-handle={pos.key}
-                    style={{
-                      position: 'absolute',
-                      left: `${pos.xFrac * 100}%`,
-                      top: `${pos.yFrac * 100}%`,
-                      cursor: pos.cursor,
-                      transform: 'translate(-50%, -50%)',
-                    }}
-                    aria-hidden="true"
-                  />
-                ))}
-              </div>
+              {/* 8 handle dots — visual only in M5 */}
+              {HANDLE_POSITIONS.map((pos) => (
+                <div
+                  key={pos.key}
+                  className="bbox-editor__handle"
+                  data-handle={pos.key}
+                  style={{
+                    position: 'absolute',
+                    left: `${pos.xFrac * 100}%`,
+                    top: `${pos.yFrac * 100}%`,
+                    cursor: pos.cursor,
+                    transform: 'translate(-50%, -50%)',
+                  }}
+                  aria-hidden="true"
+                />
+              ))}
             </div>
           </div>
         </div>
+      </div>
 
-        {/* ── Right column: controls ── */}
-        <div className="bbox-editor__controls-col">
-          {/* Margin inputs */}
-          <fieldset className="bbox-editor__margins">
-            <legend className="bbox-editor__margins-legend">Margins</legend>
+      {/* ── Right column: controls ── */}
+      <div className="bbox-editor__controls-col">
+        {/* Margin inputs */}
+        <fieldset className="bbox-editor__margins">
+          <legend className="bbox-editor__margins-legend">Margins</legend>
 
-            {(
-              [
-                ['top', 'Top'],
-                ['right', 'Right'],
-                ['bottom', 'Bottom'],
-                ['left', 'Left'],
-              ] as const
-            ).map(([side, label]) => (
-              <div key={side} className="bbox-editor__margin-row">
-                <label
-                  className="bbox-editor__margin-label"
-                  htmlFor={`bbox-editor-margin-${side}`}
-                >
-                  {label}
-                </label>
-                <input
-                  id={`bbox-editor-margin-${side}`}
-                  className="bbox-editor__margin-input"
-                  type="number"
-                  value={margins[side]}
-                  onChange={(e) => {
-                    handleMarginChange(side, e.target.value);
-                  }}
-                  data-testid={bboxEditorMarginTestId(side)}
-                  aria-label={`${label} margin in ${unitSuffix}`}
-                />
-                <span className="bbox-editor__margin-suffix" aria-hidden="true">
-                  {unitSuffix}
-                </span>
-              </div>
-            ))}
-          </fieldset>
+          {(
+            [
+              ['top', 'Top'],
+              ['right', 'Right'],
+              ['bottom', 'Bottom'],
+              ['left', 'Left'],
+            ] as const
+          ).map(([side, label]) => (
+            <div key={side} className="bbox-editor__margin-row">
+              <label className="bbox-editor__margin-label" htmlFor={`bbox-editor-margin-${side}`}>
+                {label}
+              </label>
+              <input
+                id={`bbox-editor-margin-${side}`}
+                className="bbox-editor__margin-input"
+                type="number"
+                value={margins[side]}
+                onChange={(e) => {
+                  handleMarginChange(side, e.target.value);
+                }}
+                data-testid={bboxEditorMarginTestId(side)}
+                aria-label={`${label} margin in ${unitSuffix}`}
+              />
+              <span className="bbox-editor__margin-suffix" aria-hidden="true">
+                {unitSuffix}
+              </span>
+            </div>
+          ))}
+        </fieldset>
 
-          {/* Unit toggle */}
-          <div className="bbox-editor__unit-toggle">
-            <span className="bbox-editor__control-label">Unit</span>
-            <Segmented
-              options={UNIT_OPTIONS as SegmentedOption[]}
-              value={unit}
-              onChange={(val) => {
-                onUnitChange(val as BboxUnit);
-              }}
-              aria-label="Margin unit"
-            />
-          </div>
+        {/* Unit toggle */}
+        <div className="bbox-editor__unit-toggle">
+          <span className="bbox-editor__control-label">Unit</span>
+          <Segmented
+            options={UNIT_OPTIONS as SegmentedOption[]}
+            value={unit}
+            onChange={(val) => {
+              onUnitChange(val as BboxUnit);
+            }}
+            aria-label="Margin unit"
+          />
+        </div>
 
-          {/* Delta-from-default display */}
-          <div className="bbox-editor__delta" aria-live="polite">
-            <span className="bbox-editor__delta-text">{deltaText}</span>
-          </div>
+        {/* Delta-from-default display */}
+        <div className="bbox-editor__delta" aria-live="polite">
+          <span className="bbox-editor__delta-text">{deltaText}</span>
+        </div>
 
-          {/* Apply scope */}
-          <div className="bbox-editor__scope">
-            <span className="bbox-editor__control-label">Apply to</span>
-            <Segmented
-              options={scopeOptions as SegmentedOption[]}
-              value={scope}
-              onChange={(val) => {
-                onScopeChange(val as BboxScope);
-              }}
-              aria-label="Apply scope"
-            />
-          </div>
+        {/* Apply scope */}
+        <div className="bbox-editor__scope">
+          <span className="bbox-editor__control-label">Apply to</span>
+          <Segmented
+            options={scopeOptions as SegmentedOption[]}
+            value={scope}
+            onChange={(val) => {
+              onScopeChange(val as BboxScope);
+            }}
+            aria-label="Apply scope"
+          />
+        </div>
 
-          {/* Apply button */}
-          <div className="bbox-editor__apply">
-            <Button
-              variant="primary"
-              onClick={onApply}
-              data-testid={BBOX_EDITOR_APPLY}
-              full
-            >
-              Apply
-            </Button>
-          </div>
+        {/* Apply button */}
+        <div className="bbox-editor__apply">
+          <Button variant="primary" onClick={onApply} data-testid={BBOX_EDITOR_APPLY} full>
+            Apply
+          </Button>
         </div>
       </div>
-    );
-  },
-);
+    </div>
+  );
+});

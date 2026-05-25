@@ -21,7 +21,8 @@ import type { AppShellProps } from './types.js';
 
 function noopPrefsConfig(): AppShellProps['uiPrefsConfig'] {
   return {
-    load: () => Promise.resolve({ theme: 'dark' as const, density: 'normal' as const, fontScale: 1.0 }),
+    load: () =>
+      Promise.resolve({ theme: 'dark' as const, density: 'normal' as const, fontScale: 1.0 }),
     persistCommon: () => Promise.resolve(),
     persistApp: () => Promise.resolve(),
   };
@@ -121,7 +122,10 @@ describe('AppShell — deprecated props type contract (#358)', () => {
     const drawerContent: React.ReactNode = <span>content</span>;
     const rightPanelContent: React.ReactNode = <span>content</span>;
 
-    const props: AppShellProps = minimalProps({ drawer: drawerContent, rightPanel: rightPanelContent });
+    const props: AppShellProps = minimalProps({
+      drawer: drawerContent,
+      rightPanel: rightPanelContent,
+    });
 
     // At runtime, confirm the values are stored in the props object.
     expect(props.drawer).toBe(drawerContent);

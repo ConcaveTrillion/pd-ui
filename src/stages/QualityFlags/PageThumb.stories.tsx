@@ -46,9 +46,7 @@ export const MultipleFlags: Story = {
 /** Selected state — visible selection border driven by tokens. */
 export const Selected: Story = {
   args: {
-    flags: [
-      { id: 'f1', label: 'blurry', kind: 'blurry' },
-    ],
+    flags: [{ id: 'f1', label: 'blurry', kind: 'blurry' }],
     selected: true,
   },
 };

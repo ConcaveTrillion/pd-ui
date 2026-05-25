@@ -18,14 +18,22 @@ describe('Card', () => {
   });
 
   it('merges custom className', () => {
-    render(<Card className="extra" data-testid="c">x</Card>);
+    render(
+      <Card className="extra" data-testid="c">
+        x
+      </Card>,
+    );
     const el = screen.getByTestId('c');
     expect(el.classList.contains('card')).toBe(true);
     expect(el.classList.contains('extra')).toBe(true);
   });
 
   it('renders children', () => {
-    render(<Card data-testid="c"><span data-testid="child">hello</span></Card>);
+    render(
+      <Card data-testid="c">
+        <span data-testid="child">hello</span>
+      </Card>,
+    );
     expect(screen.getByTestId('child').textContent).toBe('hello');
   });
 });

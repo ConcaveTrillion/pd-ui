@@ -77,7 +77,12 @@ export function InlineMarkPopover({
   const { onAccept, onDismiss, onPromote } = optionalCallbacks;
 
   return (
-    <Popover open={open} onOpenChange={(isOpen) => { if (!isOpen) onClose(); }}>
+    <Popover
+      open={open}
+      onOpenChange={(isOpen) => {
+        if (!isOpen) onClose();
+      }}
+    >
       {/* Anchor keeps the popover attached to the inline token site. */}
       <PopoverAnchor />
       <PopoverContent
@@ -99,9 +104,7 @@ export function InlineMarkPopover({
 
         {/* ── Meta row: source badge + optional ruleId ─────────────────── */}
         <div className="inline-mark-popover__meta">
-          <Badge tone={sourceTone[token.source]}>
-            {token.source}
-          </Badge>
+          <Badge tone={sourceTone[token.source]}>{token.source}</Badge>
           {token.ruleId !== undefined ? (
             <span className="inline-mark-popover__rule-id mono">{token.ruleId}</span>
           ) : null}

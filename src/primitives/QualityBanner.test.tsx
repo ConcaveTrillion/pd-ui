@@ -35,14 +35,7 @@ describe('QualityBanner', () => {
   });
 
   it('renders flag chips for each flag entry', () => {
-    render(
-      <QualityBanner
-        title="Issues"
-        flagged={5}
-        total={100}
-        flags={DEFAULT_FLAGS}
-      />,
-    );
+    render(<QualityBanner title="Issues" flagged={5} total={100} flags={DEFAULT_FLAGS} />);
     expect(screen.getByText('blurry')).toBeTruthy();
     expect(screen.getByText('skew')).toBeTruthy();
   });
@@ -62,25 +55,14 @@ describe('QualityBanner', () => {
 
   it('applies extreme modifier when severe=true', () => {
     const { container } = render(
-      <QualityBanner
-        title="Issues"
-        flagged={80}
-        total={100}
-        flags={DEFAULT_FLAGS}
-        severe
-      />,
+      <QualityBanner title="Issues" flagged={80} total={100} flags={DEFAULT_FLAGS} severe />,
     );
     expect(container.querySelector('.quality-banner--extreme')).toBeTruthy();
   });
 
   it('applies extreme modifier when flagged ratio > 0.7', () => {
     const { container } = render(
-      <QualityBanner
-        title="Issues"
-        flagged={75}
-        total={100}
-        flags={DEFAULT_FLAGS}
-      />,
+      <QualityBanner title="Issues" flagged={75} total={100} flags={DEFAULT_FLAGS} />,
     );
     expect(container.querySelector('.quality-banner--extreme')).toBeTruthy();
   });
@@ -115,14 +97,7 @@ describe('QualityBanner', () => {
   });
 
   it('omits dismiss button when onDismiss not provided', () => {
-    render(
-      <QualityBanner
-        title="Issues"
-        flagged={5}
-        total={100}
-        flags={DEFAULT_FLAGS}
-      />,
-    );
+    render(<QualityBanner title="Issues" flagged={5} total={100} flags={DEFAULT_FLAGS} />);
     expect(screen.queryByRole('button', { name: /dismiss/i })).toBeNull();
   });
 

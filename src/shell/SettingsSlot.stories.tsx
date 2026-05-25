@@ -10,13 +10,22 @@ function WithModalCtx({ children }: { children: React.ReactNode }) {
   const [activePanel, setActivePanel] = React.useState('appearance');
 
   return (
-    <SettingsModalContext.Provider value={{
-      open,
-      activePanel,
-      openModal: () => { setOpen(true); },
-      closeModal: () => { setOpen(false); },
-      openPanel: (id) => { setActivePanel(id); setOpen(true); },
-    }}>
+    <SettingsModalContext.Provider
+      value={{
+        open,
+        activePanel,
+        openModal: () => {
+          setOpen(true);
+        },
+        closeModal: () => {
+          setOpen(false);
+        },
+        openPanel: (id) => {
+          setActivePanel(id);
+          setOpen(true);
+        },
+      }}
+    >
       <div
         style={{
           display: 'flex',
@@ -38,7 +47,11 @@ function WithModalCtx({ children }: { children: React.ReactNode }) {
 }
 
 function withModalCtx(Story: React.ComponentType) {
-  return <WithModalCtx><Story /></WithModalCtx>;
+  return (
+    <WithModalCtx>
+      <Story />
+    </WithModalCtx>
+  );
 }
 
 const meta: Meta<typeof SettingsSlot> = {

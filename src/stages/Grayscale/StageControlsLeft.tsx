@@ -31,51 +31,46 @@ export interface StageControlsLeftProps {
   'data-testid'?: string;
 }
 
-export const StageControlsLeft = React.forwardRef<
-  HTMLElement,
-  StageControlsLeftProps
->(function StageControlsLeft(
-  {
-    inheritance,
-    presetName,
-    backend: _backend, // eslint-disable-line @typescript-eslint/no-unused-vars
-    cpuFallback,
-    mode,
-    onModeChange,
-    modeEstimates,
-    params,
-    onParamsChange,
-    onRevert,
-    onSave,
-    'data-testid': testId,
-  },
-  ref,
-) {
-  const estimates = modeEstimates ?? DEFAULT_ESTIMATES;
+export const StageControlsLeft = React.forwardRef<HTMLElement, StageControlsLeftProps>(
+  function StageControlsLeft(
+    {
+      inheritance,
+      presetName,
+      backend: _backend, // eslint-disable-line @typescript-eslint/no-unused-vars
+      cpuFallback,
+      mode,
+      onModeChange,
+      modeEstimates,
+      params,
+      onParamsChange,
+      onRevert,
+      onSave,
+      'data-testid': testId,
+    },
+    ref,
+  ) {
+    const estimates = modeEstimates ?? DEFAULT_ESTIMATES;
 
-  const controls = (
-    <>
-      <ModeCard
-        selectedMode={mode}
-        onModeChange={onModeChange}
-        estimates={estimates}
+    const controls = (
+      <>
+        <ModeCard selectedMode={mode} onModeChange={onModeChange} estimates={estimates} />
+        <AdvancedParams params={params} onChange={onParamsChange} />
+      </>
+    );
+
+    return (
+      <StageControlsPanel
+        ref={ref}
+        inheritance={inheritance}
+        {...(presetName !== undefined ? { presetName } : {})}
+        {...(cpuFallback !== undefined ? { cpuFallback } : {})}
+        controlsSlot={controls}
+        {...(onRevert !== undefined ? { onRevert } : {})}
+        {...(onSave !== undefined ? { onSave } : {})}
+        {...(testId !== undefined ? { 'data-testid': testId } : {})}
       />
-      <AdvancedParams params={params} onChange={onParamsChange} />
-    </>
-  );
-
-  return (
-    <StageControlsPanel
-      ref={ref}
-      inheritance={inheritance}
-      {...(presetName !== undefined ? { presetName } : {})}
-      {...(cpuFallback !== undefined ? { cpuFallback } : {})}
-      controlsSlot={controls}
-      {...(onRevert !== undefined ? { onRevert } : {})}
-      {...(onSave !== undefined ? { onSave } : {})}
-      {...(testId !== undefined ? { 'data-testid': testId } : {})}
-    />
-  );
-});
+    );
+  },
+);
 
 StageControlsLeft.displayName = 'StageControlsLeft';

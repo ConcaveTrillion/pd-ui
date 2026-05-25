@@ -29,7 +29,12 @@ export const StatusPip = React.forwardRef<HTMLDivElement, StatusPipProps>(functi
       ref={ref}
       data-testid={`status-pip-${status}`}
       className={cn('pip', className)}
-      style={{ color: token, background: `color-mix(in srgb, ${token} 10%, transparent)`, borderColor: `color-mix(in srgb, ${token} 33%, transparent)`, ...style }}
+      style={{
+        color: token,
+        background: `color-mix(in srgb, ${token} 10%, transparent)`,
+        borderColor: `color-mix(in srgb, ${token} 33%, transparent)`,
+        ...style,
+      }}
       {...props}
     >
       <span className="dot" style={{ background: token }} />

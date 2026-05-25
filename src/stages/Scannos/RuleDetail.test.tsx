@@ -71,17 +71,16 @@ describe('RuleDetail', () => {
 
   it('hides conflicts banner when conflicts array is absent', () => {
     render(<RuleDetail rule={baseRule} onToggleAutoApply={vi.fn()} />);
-    expect(
-      screen.queryByTestId(SCANNO_RULE_DETAIL_CONFLICTS),
-    ).not.toBeInTheDocument();
+    expect(screen.queryByTestId(SCANNO_RULE_DETAIL_CONFLICTS)).not.toBeInTheDocument();
   });
 
   it('hides conflicts banner when conflicts array is empty', () => {
-    const rule = { ...baseRule, conflicts: [] as ReadonlyArray<{ id: string; description: string }> };
+    const rule = {
+      ...baseRule,
+      conflicts: [] as ReadonlyArray<{ id: string; description: string }>,
+    };
     render(<RuleDetail rule={rule} onToggleAutoApply={vi.fn()} />);
-    expect(
-      screen.queryByTestId(SCANNO_RULE_DETAIL_CONFLICTS),
-    ).not.toBeInTheDocument();
+    expect(screen.queryByTestId(SCANNO_RULE_DETAIL_CONFLICTS)).not.toBeInTheDocument();
   });
 
   it('shows conflicts banner when conflicts non-empty', () => {
@@ -96,9 +95,7 @@ describe('RuleDetail', () => {
     const banner = screen.getByTestId(SCANNO_RULE_DETAIL_CONFLICTS);
     expect(banner).toBeInTheDocument();
     expect(screen.getByText('Overlaps with teh→tehse rule')).toBeInTheDocument();
-    expect(
-      screen.getByText('Conflicts with regex pattern \\bteh\\b'),
-    ).toBeInTheDocument();
+    expect(screen.getByText('Conflicts with regex pattern \\bteh\\b')).toBeInTheDocument();
   });
 
   it('renders root with correct testid', () => {

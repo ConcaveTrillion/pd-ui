@@ -82,11 +82,7 @@ export function RuleDetail({ rule, onToggleAutoApply }: RuleDetailProps): React.
 
       {/* ── Conflicts warning ────────────────────────────────────────────── */}
       {hasConflicts ? (
-        <Banner
-          tone="warning"
-          headline="Conflict risk"
-          data-testid={SCANNO_RULE_DETAIL_CONFLICTS}
-        >
+        <Banner tone="warning" headline="Conflict risk" data-testid={SCANNO_RULE_DETAIL_CONFLICTS}>
           <ul className="rule-detail__conflicts-list">
             {(rule.conflicts ?? []).map((c) => (
               <li key={c.id} className="rule-detail__conflict-item">

@@ -43,7 +43,9 @@ describe('ConfigureTabs', () => {
   });
 
   it('renders with configure-tabs class', () => {
-    const { container } = render(<ConfigureTabs tabs={tabs} value="general" onValueChange={() => {}} />);
+    const { container } = render(
+      <ConfigureTabs tabs={tabs} value="general" onValueChange={() => {}} />,
+    );
     expect(container.querySelector('.configure-tabs')).toBeTruthy();
   });
 

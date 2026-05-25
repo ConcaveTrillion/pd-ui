@@ -85,8 +85,6 @@ export const MultipleFlags: Story = {
 export const MixedScores: Story = {
   args: {
     page: SCORED_PAGE,
-    flags: [
-      { id: 'low-conf', label: 'low-conf' },
-    ],
+    flags: [{ id: 'low-conf', label: 'low-conf' }],
   },
 };

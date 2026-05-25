@@ -63,7 +63,11 @@ export function Thumbnail({
   className,
   'data-testid': testId,
 }: ThumbnailProps): React.ReactElement {
-  const articleProps: React.HTMLAttributes<HTMLElement> & { 'data-density': ThumbnailDensity; 'data-selected'?: true; 'data-testid'?: string } = {
+  const articleProps: React.HTMLAttributes<HTMLElement> & {
+    'data-density': ThumbnailDensity;
+    'data-selected'?: true;
+    'data-testid'?: string;
+  } = {
     className: cn('thumbnail', className),
     'data-density': density,
     ...(selected ? { 'data-selected': true as const } : {}),
@@ -86,15 +90,9 @@ export function Thumbnail({
         ) : (
           <img src={imageUrl} alt={imageAlt ?? ''} className="thumbnail__image" />
         )}
-        {imageOverlay != null && (
-          <div className="thumbnail__image-overlay">{imageOverlay}</div>
-        )}
-        {pageNumber !== undefined && (
-          <span className="thumbnail__page-no">{pageNumber}</span>
-        )}
-        {statusSlot != null && (
-          <span className="thumbnail__status">{statusSlot}</span>
-        )}
+        {imageOverlay != null && <div className="thumbnail__image-overlay">{imageOverlay}</div>}
+        {pageNumber !== undefined && <span className="thumbnail__page-no">{pageNumber}</span>}
+        {statusSlot != null && <span className="thumbnail__status">{statusSlot}</span>}
         {overlayTopLeft != null && (
           <div className="thumbnail__corner thumbnail__corner--tl">{overlayTopLeft}</div>
         )}

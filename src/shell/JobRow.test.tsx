@@ -126,9 +126,7 @@ describe('JobRow (#355)', () => {
 
   it('calls onPauseResume when Pause button clicked', () => {
     const onPauseResume = vi.fn();
-    render(
-      <JobRow job={makeJob({ status: 'running' })} hovered onPauseResume={onPauseResume} />,
-    );
+    render(<JobRow job={makeJob({ status: 'running' })} hovered onPauseResume={onPauseResume} />);
     fireEvent.click(screen.getByRole('button', { name: /pause/i }));
     expect(onPauseResume).toHaveBeenCalledTimes(1);
     expect(onPauseResume).toHaveBeenCalledWith('job-1');
@@ -136,9 +134,7 @@ describe('JobRow (#355)', () => {
 
   it('calls onPauseResume when Resume button clicked', () => {
     const onPauseResume = vi.fn();
-    render(
-      <JobRow job={makeJob({ status: 'paused' })} hovered onPauseResume={onPauseResume} />,
-    );
+    render(<JobRow job={makeJob({ status: 'paused' })} hovered onPauseResume={onPauseResume} />);
     fireEvent.click(screen.getByRole('button', { name: /resume/i }));
     expect(onPauseResume).toHaveBeenCalledTimes(1);
     expect(onPauseResume).toHaveBeenCalledWith('job-1');

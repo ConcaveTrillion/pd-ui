@@ -4,10 +4,10 @@
  * Covers: Default / Empty / DeepNested / WithSelection / Compact.
  */
 
-import React, { useState } from 'react'
-import type { Meta, StoryObj } from '@storybook/react'
-import { HierarchyTreePanel } from './HierarchyTreePanel.js'
-import type { HierarchyTreePanelProps, TreeNode } from './HierarchyTreePanel.js'
+import React, { useState } from 'react';
+import type { Meta, StoryObj } from '@storybook/react';
+import { HierarchyTreePanel } from './HierarchyTreePanel.js';
+import type { HierarchyTreePanelProps, TreeNode } from './HierarchyTreePanel.js';
 
 // ---------------------------------------------------------------------------
 // Fixtures
@@ -87,7 +87,7 @@ const FULL_TREE: ReadonlyArray<TreeNode> = [
       },
     ],
   },
-]
+];
 
 const DEEP_TREE: ReadonlyArray<TreeNode> = [
   {
@@ -113,9 +113,7 @@ const DEEP_TREE: ReadonlyArray<TreeNode> = [
             id: 'd-line-2',
             type: 'line',
             label: 'Line (level 2) — sibling',
-            children: [
-              { id: 'd-word-3', type: 'word', label: 'Word (level 3)' },
-            ],
+            children: [{ id: 'd-word-3', type: 'word', label: 'Word (level 3)' }],
           },
         ],
       },
@@ -128,15 +126,13 @@ const DEEP_TREE: ReadonlyArray<TreeNode> = [
             id: 'd-line-3',
             type: 'line',
             label: 'Line (level 2)',
-            children: [
-              { id: 'd-word-4', type: 'word', label: 'Word (level 3)' },
-            ],
+            children: [{ id: 'd-word-4', type: 'word', label: 'Word (level 3)' }],
           },
         ],
       },
     ],
   },
-]
+];
 
 // ---------------------------------------------------------------------------
 // Meta
@@ -147,11 +143,11 @@ const meta: Meta<HierarchyTreePanelProps> = {
   component: HierarchyTreePanel,
   parameters: { layout: 'padded' },
   tags: ['autodocs'],
-}
+};
 
-export default meta
+export default meta;
 
-type Story = StoryObj<HierarchyTreePanelProps>
+type Story = StoryObj<HierarchyTreePanelProps>;
 
 // ---------------------------------------------------------------------------
 // Default — full tree, all expanded
@@ -164,7 +160,7 @@ export const Default: Story = {
   args: {
     tree: FULL_TREE,
   },
-}
+};
 
 // ---------------------------------------------------------------------------
 // Empty
@@ -177,7 +173,7 @@ export const Empty: Story = {
   args: {
     tree: [],
   },
-}
+};
 
 // ---------------------------------------------------------------------------
 // DeepNested
@@ -190,14 +186,14 @@ export const DeepNested: Story = {
   args: {
     tree: DEEP_TREE,
   },
-}
+};
 
 // ---------------------------------------------------------------------------
 // WithSelection
 // ---------------------------------------------------------------------------
 
 function SelectionStory(): React.ReactElement {
-  const [selectedId, setSelectedId] = useState<string | undefined>('word-2')
+  const [selectedId, setSelectedId] = useState<string | undefined>('word-2');
   return (
     <div>
       <div
@@ -216,7 +212,7 @@ function SelectionStory(): React.ReactElement {
         onSelect={setSelectedId}
       />
     </div>
-  )
+  );
 }
 
 /**
@@ -224,7 +220,7 @@ function SelectionStory(): React.ReactElement {
  */
 export const WithSelection: StoryObj = {
   render: () => <SelectionStory />,
-}
+};
 
 // ---------------------------------------------------------------------------
 // Compact — defaultExpandedIds seeds only top-level blocks
@@ -239,20 +235,20 @@ export const Compact: Story = {
     tree: FULL_TREE,
     defaultExpandedIds: ['block-1', 'block-2'],
   },
-}
+};
 
 // ---------------------------------------------------------------------------
 // WithTypeChange — interactive type selector
 // ---------------------------------------------------------------------------
 
 function TypeChangeStory(): React.ReactElement {
-  const [log, setLog] = useState<string[]>([])
+  const [log, setLog] = useState<string[]>([]);
   return (
     <div>
       <HierarchyTreePanel
         tree={FULL_TREE}
         onTypeChange={(id, nextType) => {
-          setLog((prev) => [`${id} → ${nextType}`, ...prev.slice(0, 4)])
+          setLog((prev) => [`${id} → ${nextType}`, ...prev.slice(0, 4)]);
         }}
       />
       {log.length > 0 && (
@@ -271,7 +267,7 @@ function TypeChangeStory(): React.ReactElement {
         </div>
       )}
     </div>
-  )
+  );
 }
 
 /**
@@ -279,4 +275,4 @@ function TypeChangeStory(): React.ReactElement {
  */
 export const WithTypeChange: StoryObj = {
   render: () => <TypeChangeStory />,
-}
+};

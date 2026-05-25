@@ -20,9 +20,15 @@ export const Default: Story = {
       <PageSplitView
         toolbar={
           <>
-            <Button size="sm" variant="ghost">Zoom Out</Button>
-            <Button size="sm" variant="ghost">Zoom In</Button>
-            <Button size="sm" variant="primary">Save</Button>
+            <Button size="sm" variant="ghost">
+              Zoom Out
+            </Button>
+            <Button size="sm" variant="ghost">
+              Zoom In
+            </Button>
+            <Button size="sm" variant="primary">
+              Save
+            </Button>
           </>
         }
         canvas={

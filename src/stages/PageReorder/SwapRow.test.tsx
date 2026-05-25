@@ -17,11 +17,7 @@ import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { describe, it, expect, vi } from 'vitest';
 import { SwapRow } from './SwapRow.js';
-import {
-  REORDER_SWAP_ROW,
-  REORDER_PAGE_THUMB,
-  reorderSwapRowTestId,
-} from '../../testids/index.js';
+import { REORDER_SWAP_ROW, REORDER_PAGE_THUMB, reorderSwapRowTestId } from '../../testids/index.js';
 
 // ─── Fixtures ─────────────────────────────────────────────────────────────────
 
@@ -40,28 +36,52 @@ const baseSwap = {
 describe('SwapRow — pending state', () => {
   it('renders the Skip button', () => {
     render(
-      <SwapRow swap={baseSwap} state="pending" onSkip={vi.fn()} onInspect={vi.fn()} onAccept={vi.fn()} />,
+      <SwapRow
+        swap={baseSwap}
+        state="pending"
+        onSkip={vi.fn()}
+        onInspect={vi.fn()}
+        onAccept={vi.fn()}
+      />,
     );
     expect(screen.getByRole('button', { name: /skip/i })).toBeInTheDocument();
   });
 
   it('renders the Inspect button', () => {
     render(
-      <SwapRow swap={baseSwap} state="pending" onSkip={vi.fn()} onInspect={vi.fn()} onAccept={vi.fn()} />,
+      <SwapRow
+        swap={baseSwap}
+        state="pending"
+        onSkip={vi.fn()}
+        onInspect={vi.fn()}
+        onAccept={vi.fn()}
+      />,
     );
     expect(screen.getByRole('button', { name: /inspect/i })).toBeInTheDocument();
   });
 
   it('renders the Accept button', () => {
     render(
-      <SwapRow swap={baseSwap} state="pending" onSkip={vi.fn()} onInspect={vi.fn()} onAccept={vi.fn()} />,
+      <SwapRow
+        swap={baseSwap}
+        state="pending"
+        onSkip={vi.fn()}
+        onInspect={vi.fn()}
+        onAccept={vi.fn()}
+      />,
     );
     expect(screen.getByRole('button', { name: /accept/i })).toBeInTheDocument();
   });
 
   it('does not render a static state badge when pending', () => {
     render(
-      <SwapRow swap={baseSwap} state="pending" onSkip={vi.fn()} onInspect={vi.fn()} onAccept={vi.fn()} />,
+      <SwapRow
+        swap={baseSwap}
+        state="pending"
+        onSkip={vi.fn()}
+        onInspect={vi.fn()}
+        onAccept={vi.fn()}
+      />,
     );
     expect(screen.queryByText(/^Accepted$/i)).not.toBeInTheDocument();
     expect(screen.queryByText(/^Skipped$/i)).not.toBeInTheDocument();
@@ -95,7 +115,13 @@ describe('SwapRow — callback wiring', () => {
     const user = userEvent.setup();
     const onSkip = vi.fn();
     render(
-      <SwapRow swap={baseSwap} state="pending" onSkip={onSkip} onInspect={vi.fn()} onAccept={vi.fn()} />,
+      <SwapRow
+        swap={baseSwap}
+        state="pending"
+        onSkip={onSkip}
+        onInspect={vi.fn()}
+        onAccept={vi.fn()}
+      />,
     );
     await user.click(screen.getByRole('button', { name: /skip/i }));
     expect(onSkip).toHaveBeenCalledTimes(1);
@@ -105,7 +131,13 @@ describe('SwapRow — callback wiring', () => {
     const user = userEvent.setup();
     const onInspect = vi.fn();
     render(
-      <SwapRow swap={baseSwap} state="pending" onSkip={vi.fn()} onInspect={onInspect} onAccept={vi.fn()} />,
+      <SwapRow
+        swap={baseSwap}
+        state="pending"
+        onSkip={vi.fn()}
+        onInspect={onInspect}
+        onAccept={vi.fn()}
+      />,
     );
     await user.click(screen.getByRole('button', { name: /inspect/i }));
     expect(onInspect).toHaveBeenCalledTimes(1);
@@ -115,7 +147,13 @@ describe('SwapRow — callback wiring', () => {
     const user = userEvent.setup();
     const onAccept = vi.fn();
     render(
-      <SwapRow swap={baseSwap} state="pending" onSkip={vi.fn()} onInspect={vi.fn()} onAccept={onAccept} />,
+      <SwapRow
+        swap={baseSwap}
+        state="pending"
+        onSkip={vi.fn()}
+        onInspect={vi.fn()}
+        onAccept={onAccept}
+      />,
     );
     await user.click(screen.getByRole('button', { name: /accept/i }));
     expect(onAccept).toHaveBeenCalledTimes(1);
@@ -127,14 +165,26 @@ describe('SwapRow — callback wiring', () => {
 describe('SwapRow — thumbnail page numbers', () => {
   it('renders page A number', () => {
     render(
-      <SwapRow swap={baseSwap} state="pending" onSkip={vi.fn()} onInspect={vi.fn()} onAccept={vi.fn()} />,
+      <SwapRow
+        swap={baseSwap}
+        state="pending"
+        onSkip={vi.fn()}
+        onInspect={vi.fn()}
+        onAccept={vi.fn()}
+      />,
     );
     expect(screen.getByText('5')).toBeInTheDocument();
   });
 
   it('renders page B number', () => {
     render(
-      <SwapRow swap={baseSwap} state="pending" onSkip={vi.fn()} onInspect={vi.fn()} onAccept={vi.fn()} />,
+      <SwapRow
+        swap={baseSwap}
+        state="pending"
+        onSkip={vi.fn()}
+        onInspect={vi.fn()}
+        onAccept={vi.fn()}
+      />,
     );
     expect(screen.getByText('6')).toBeInTheDocument();
   });
@@ -146,7 +196,13 @@ describe('SwapRow — thumbnail page numbers', () => {
       pageB: { id: 'page-b', number: 'back' },
     };
     render(
-      <SwapRow swap={swapWithStringNumbers} state="pending" onSkip={vi.fn()} onInspect={vi.fn()} onAccept={vi.fn()} />,
+      <SwapRow
+        swap={swapWithStringNumbers}
+        state="pending"
+        onSkip={vi.fn()}
+        onInspect={vi.fn()}
+        onAccept={vi.fn()}
+      />,
     );
     expect(screen.getByText('front')).toBeInTheDocument();
     expect(screen.getByText('back')).toBeInTheDocument();
@@ -158,7 +214,13 @@ describe('SwapRow — thumbnail page numbers', () => {
 describe('SwapRow — confidence and reasoning', () => {
   it('renders high confidence badge', () => {
     render(
-      <SwapRow swap={baseSwap} state="pending" onSkip={vi.fn()} onInspect={vi.fn()} onAccept={vi.fn()} />,
+      <SwapRow
+        swap={baseSwap}
+        state="pending"
+        onSkip={vi.fn()}
+        onInspect={vi.fn()}
+        onAccept={vi.fn()}
+      />,
     );
     expect(screen.getByText('High')).toBeInTheDocument();
   });
@@ -166,21 +228,39 @@ describe('SwapRow — confidence and reasoning', () => {
   it('renders medium confidence badge', () => {
     const medSwap = { ...baseSwap, confidence: 'medium' as const };
     render(
-      <SwapRow swap={medSwap} state="pending" onSkip={vi.fn()} onInspect={vi.fn()} onAccept={vi.fn()} />,
+      <SwapRow
+        swap={medSwap}
+        state="pending"
+        onSkip={vi.fn()}
+        onInspect={vi.fn()}
+        onAccept={vi.fn()}
+      />,
     );
     expect(screen.getByText('Medium')).toBeInTheDocument();
   });
 
   it('renders reasoning text', () => {
     render(
-      <SwapRow swap={baseSwap} state="pending" onSkip={vi.fn()} onInspect={vi.fn()} onAccept={vi.fn()} />,
+      <SwapRow
+        swap={baseSwap}
+        state="pending"
+        onSkip={vi.fn()}
+        onInspect={vi.fn()}
+        onAccept={vi.fn()}
+      />,
     );
     expect(screen.getByText('Filename order does not match OCR page numbers.')).toBeInTheDocument();
   });
 
   it('renders signals', () => {
     render(
-      <SwapRow swap={baseSwap} state="pending" onSkip={vi.fn()} onInspect={vi.fn()} onAccept={vi.fn()} />,
+      <SwapRow
+        swap={baseSwap}
+        state="pending"
+        onSkip={vi.fn()}
+        onInspect={vi.fn()}
+        onAccept={vi.fn()}
+      />,
     );
     expect(screen.getByText('filename-mismatch')).toBeInTheDocument();
     expect(screen.getByText('ocr-confidence-high')).toBeInTheDocument();
@@ -192,7 +272,13 @@ describe('SwapRow — confidence and reasoning', () => {
 describe('SwapRow — testids', () => {
   it('applies REORDER_SWAP_ROW testid to root', () => {
     render(
-      <SwapRow swap={baseSwap} state="pending" onSkip={vi.fn()} onInspect={vi.fn()} onAccept={vi.fn()} />,
+      <SwapRow
+        swap={baseSwap}
+        state="pending"
+        onSkip={vi.fn()}
+        onInspect={vi.fn()}
+        onAccept={vi.fn()}
+      />,
     );
     expect(screen.getByTestId(REORDER_SWAP_ROW)).toBeInTheDocument();
   });
@@ -213,14 +299,26 @@ describe('SwapRow — testids', () => {
 
   it('applies REORDER_PAGE_THUMB testid to the thumb pair', () => {
     render(
-      <SwapRow swap={baseSwap} state="pending" onSkip={vi.fn()} onInspect={vi.fn()} onAccept={vi.fn()} />,
+      <SwapRow
+        swap={baseSwap}
+        state="pending"
+        onSkip={vi.fn()}
+        onInspect={vi.fn()}
+        onAccept={vi.fn()}
+      />,
     );
     expect(screen.getByTestId(REORDER_PAGE_THUMB)).toBeInTheDocument();
   });
 
   it('renders swap number badge', () => {
     render(
-      <SwapRow swap={baseSwap} state="pending" onSkip={vi.fn()} onInspect={vi.fn()} onAccept={vi.fn()} />,
+      <SwapRow
+        swap={baseSwap}
+        state="pending"
+        onSkip={vi.fn()}
+        onInspect={vi.fn()}
+        onAccept={vi.fn()}
+      />,
     );
     // Number badge shows swap number (1)
     expect(screen.getByText('1')).toBeInTheDocument();

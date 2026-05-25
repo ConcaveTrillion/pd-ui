@@ -58,9 +58,8 @@ export function HyphenUndecided({
   const onDecide: HJDecisionHandlers | undefined =
     'onDecide' in rest ? (rest as { onDecide?: HJDecisionHandlers }).onDecide : undefined;
 
-  const selectedCase = selectedId !== undefined
-    ? cases.find((c) => c.id === selectedId)
-    : undefined;
+  const selectedCase =
+    selectedId !== undefined ? cases.find((c) => c.id === selectedId) : undefined;
 
   return (
     <div
@@ -131,9 +130,7 @@ export function HyphenUndecided({
                   >
                     {c.originalText}
                   </span>
-                  {c.status !== undefined && (
-                    <HJStatusPill status={c.status} />
-                  )}
+                  {c.status !== undefined && <HJStatusPill status={c.status} />}
                 </button>
               </li>
             );

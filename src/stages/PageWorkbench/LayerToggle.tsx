@@ -8,19 +8,19 @@
  * of LabelerCanvas, exercised by LabelerCanvas.stories.tsx.
  */
 
-import { Toggle } from '../../primitives/Toggle.js'
-import type { LayerVisibility } from './LabelerCanvas.js'
+import { Toggle } from '../../primitives/Toggle.js';
+import type { LayerVisibility } from './LabelerCanvas.js';
 
 interface LayerToggleProps {
-  visibility: LayerVisibility
-  onChange: (next: LayerVisibility) => void
+  visibility: LayerVisibility;
+  onChange: (next: LayerVisibility) => void;
 }
 
 const LAYERS = [
   { key: 'blocks', label: 'Blocks' },
   { key: 'words', label: 'Words' },
   { key: 'detections', label: 'Detections' },
-] as const
+] as const;
 
 export function LayerToggle({ visibility, onChange }: LayerToggleProps) {
   return (
@@ -42,14 +42,14 @@ export function LayerToggle({ visibility, onChange }: LayerToggleProps) {
           <Toggle
             checked={visibility[key]}
             onCheckedChange={(checked) => {
-              onChange({ ...visibility, [key]: checked })
+              onChange({ ...visibility, [key]: checked });
             }}
             label={label}
           />
         </span>
       ))}
     </div>
-  )
+  );
 }
 
-LayerToggle.displayName = 'LayerToggle'
+LayerToggle.displayName = 'LayerToggle';

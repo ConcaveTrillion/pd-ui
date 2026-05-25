@@ -39,9 +39,7 @@ describe('GrayThumb', () => {
 
   it('omits data-status attribute when status is undefined', () => {
     const pageNoStatus: GrayPage = { id: 'p2', pageNumber: 1, thumbnailUrl: '/t.jpg' };
-    const { container } = render(
-      <GrayThumb page={pageNoStatus} estimatedSeconds={5} />,
-    );
+    const { container } = render(<GrayThumb page={pageNoStatus} estimatedSeconds={5} />);
     const article = container.querySelector('article.gray-thumb');
     expect(article).not.toHaveAttribute('data-status');
   });
@@ -57,9 +55,7 @@ describe('GrayThumb', () => {
 
   it('fires onClick(id) when interactive=true and clicked', async () => {
     const handler = vi.fn();
-    render(
-      <GrayThumb page={PAGE} estimatedSeconds={10} onClick={handler} interactive={true} />,
-    );
+    render(<GrayThumb page={PAGE} estimatedSeconds={10} onClick={handler} interactive={true} />);
     const btn = screen.getByRole('button', { name: /process page 42/i });
     await userEvent.click(btn);
     expect(handler).toHaveBeenCalledOnce();

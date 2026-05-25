@@ -91,110 +91,105 @@ export function CropToolbar({
   onRerun,
   'data-testid': testId,
 }: CropToolbarProps): React.ReactElement {
-    const showFlagDrill = filter === 'flagged' && flagCounts !== undefined;
+  const showFlagDrill = filter === 'flagged' && flagCounts !== undefined;
 
-    const leftSlot = (
-      <div className="crop-toolbar__left-group">
-        {/* Primary filter chips */}
-        <div className="crop-toolbar__filters" role="group" aria-label="Filter crop results">
-          {ALL_FILTERS.map((f) => {
-            const isActive = filter === f;
+  const leftSlot = (
+    <div className="crop-toolbar__left-group">
+      {/* Primary filter chips */}
+      <div className="crop-toolbar__filters" role="group" aria-label="Filter crop results">
+        {ALL_FILTERS.map((f) => {
+          const isActive = filter === f;
+          return (
+            <button
+              key={f}
+              type="button"
+              className={`crop-toolbar__chip${isActive ? ' crop-toolbar__chip--active' : ''}`}
+              aria-pressed={isActive}
+              data-testid={`crop-toolbar-filter-${f}`}
+              onClick={() => {
+                onFilterChange(f);
+              }}
+            >
+              <span className="crop-toolbar__chip-label">{FILTER_LABELS[f]}</span>
+              <span className="crop-toolbar__chip-count">{counts[f]}</span>
+            </button>
+          );
+        })}
+      </div>
+
+      {/* Flag drill-down chips — only when filter='flagged' */}
+      {showFlagDrill ? (
+        <div className="crop-toolbar__flag-drills" role="group" aria-label="Filter by flag type">
+          {ALL_FLAG_KINDS.map((kind) => {
+            const isActive = activeFlagDrill === kind;
             return (
               <button
-                key={f}
+                key={kind}
                 type="button"
-                className={`crop-toolbar__chip${isActive ? ' crop-toolbar__chip--active' : ''}`}
+                className={`crop-toolbar__chip crop-toolbar__chip--flag${isActive ? ' crop-toolbar__chip--active' : ''}`}
                 aria-pressed={isActive}
-                data-testid={`crop-toolbar-filter-${f}`}
-                onClick={() => {
-                  onFilterChange(f);
-                }}
-              >
-                <span className="crop-toolbar__chip-label">{FILTER_LABELS[f]}</span>
-                <span className="crop-toolbar__chip-count">{counts[f]}</span>
-              </button>
-            );
-          })}
-        </div>
-
-        {/* Flag drill-down chips — only when filter='flagged' */}
-        {showFlagDrill ? (
-          <div className="crop-toolbar__flag-drills" role="group" aria-label="Filter by flag type">
-            {ALL_FLAG_KINDS.map((kind) => {
-              const isActive = activeFlagDrill === kind;
-              return (
-                <button
-                  key={kind}
-                  type="button"
-                  className={`crop-toolbar__chip crop-toolbar__chip--flag${isActive ? ' crop-toolbar__chip--active' : ''}`}
-                  aria-pressed={isActive}
-                  data-testid={`crop-toolbar-flag-${kind}`}
-                  onClick={() => {
-                    if (onFlagDrillChange !== undefined) {
-                      onFlagDrillChange(isActive ? null : kind);
-                    }
-                  }}
-                >
-                  <span className="crop-toolbar__chip-label">{FLAG_LABELS[kind]}</span>
-                  {flagCounts !== undefined ? (
-                    <span className="crop-toolbar__chip-count">{flagCounts[kind]}</span>
-                  ) : null}
-                </button>
-              );
-            })}
-            {activeFlagDrill !== null && activeFlagDrill !== undefined ? (
-              <button
-                type="button"
-                className="crop-toolbar__chip crop-toolbar__chip--clear"
-                data-testid="crop-toolbar-flag-clear"
+                data-testid={`crop-toolbar-flag-${kind}`}
                 onClick={() => {
                   if (onFlagDrillChange !== undefined) {
-                    onFlagDrillChange(null);
+                    onFlagDrillChange(isActive ? null : kind);
                   }
                 }}
               >
-                Clear drill
+                <span className="crop-toolbar__chip-label">{FLAG_LABELS[kind]}</span>
+                {flagCounts !== undefined ? (
+                  <span className="crop-toolbar__chip-count">{flagCounts[kind]}</span>
+                ) : null}
               </button>
-            ) : null}
-          </div>
-        ) : null}
-      </div>
-    );
+            );
+          })}
+          {activeFlagDrill !== null && activeFlagDrill !== undefined ? (
+            <button
+              type="button"
+              className="crop-toolbar__chip crop-toolbar__chip--clear"
+              data-testid="crop-toolbar-flag-clear"
+              onClick={() => {
+                if (onFlagDrillChange !== undefined) {
+                  onFlagDrillChange(null);
+                }
+              }}
+            >
+              Clear drill
+            </button>
+          ) : null}
+        </div>
+      ) : null}
+    </div>
+  );
 
-    const centerSlot = (
-      <div data-testid={`crop-toolbar-density-${density}`}>
-        <Segmented
-          options={DENSITY_OPTIONS}
-          value={density}
-          onChange={(val) => {
-            onDensityChange(val as CropDensity);
-          }}
-          size="sm"
-        />
-      </div>
-    );
-
-    const rightSlot =
-      onRerun !== undefined ? (
-        <Button
-          variant="primary"
-          size="sm"
-          onClick={onRerun}
-          data-testid="crop-toolbar-rerun"
-        >
-          Re-run
-        </Button>
-      ) : undefined;
-
-    return (
-      <StageToolbar
-        leftSlot={leftSlot}
-        centerSlot={centerSlot}
-        rightSlot={rightSlot}
-        aria-label="Crop toolbar"
-        {...(testId !== undefined ? { 'data-testid': testId } : {})}
+  const centerSlot = (
+    <div data-testid={`crop-toolbar-density-${density}`}>
+      <Segmented
+        options={DENSITY_OPTIONS}
+        value={density}
+        onChange={(val) => {
+          onDensityChange(val as CropDensity);
+        }}
+        size="sm"
       />
-    );
+    </div>
+  );
+
+  const rightSlot =
+    onRerun !== undefined ? (
+      <Button variant="primary" size="sm" onClick={onRerun} data-testid="crop-toolbar-rerun">
+        Re-run
+      </Button>
+    ) : undefined;
+
+  return (
+    <StageToolbar
+      leftSlot={leftSlot}
+      centerSlot={centerSlot}
+      rightSlot={rightSlot}
+      aria-label="Crop toolbar"
+      {...(testId !== undefined ? { 'data-testid': testId } : {})}
+    />
+  );
 }
 
 CropToolbar.displayName = 'CropToolbar';

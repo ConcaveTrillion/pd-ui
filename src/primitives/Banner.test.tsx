@@ -32,9 +32,7 @@ describe('Banner', () => {
   });
 
   it('renders footer slot when provided', () => {
-    render(
-      <Banner footer={<div data-testid="footer-content">Progress bar</div>} />,
-    );
+    render(<Banner footer={<div data-testid="footer-content">Progress bar</div>} />);
     expect(screen.getByTestId('footer-content')).toBeTruthy();
   });
 

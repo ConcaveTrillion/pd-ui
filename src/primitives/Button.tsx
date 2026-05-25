@@ -41,11 +41,15 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(function 
       {...props}
     >
       {icon != null ? (
-        <span className="btn-icon btn-icon--left" aria-hidden="true">{icon}</span>
+        <span className="btn-icon btn-icon--left" aria-hidden="true">
+          {icon}
+        </span>
       ) : null}
       {children}
       {iconRight != null ? (
-        <span className="btn-icon btn-icon--right" aria-hidden="true">{iconRight}</span>
+        <span className="btn-icon btn-icon--right" aria-hidden="true">
+          {iconRight}
+        </span>
       ) : null}
     </button>
   );

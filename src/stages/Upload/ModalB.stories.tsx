@@ -21,13 +21,7 @@ type Story = StoryObj<typeof ModalB>;
 
 export const Open: Story = {
   name: 'Open — drop zone visible',
-  render: () => (
-    <ModalB
-      open={true}
-      onOpenChange={() => undefined}
-      onFiles={() => undefined}
-    />
-  ),
+  render: () => <ModalB open={true} onOpenChange={() => undefined} onFiles={() => undefined} />,
 };
 
 // ─── Closed (interactive trigger) ────────────────────────────────────────────
@@ -37,8 +31,8 @@ const ClosedStory = () => {
   const [received, setReceived] = React.useState<string[]>([]);
 
   const handleFiles = (files: FileList | File[]) => {
-    const names = Array.from(files).map(f => f.name);
-    setReceived(prev => [...prev, ...names]);
+    const names = Array.from(files).map((f) => f.name);
+    setReceived((prev) => [...prev, ...names]);
     setOpen(false);
   };
 
@@ -75,11 +69,7 @@ const ClosedStory = () => {
         </ul>
       )}
 
-      <ModalB
-        open={open}
-        onOpenChange={setOpen}
-        onFiles={handleFiles}
-      />
+      <ModalB open={open} onOpenChange={setOpen} onFiles={handleFiles} />
     </div>
   );
 };

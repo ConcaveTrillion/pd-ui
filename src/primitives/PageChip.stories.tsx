@@ -52,12 +52,7 @@ export const GroupExample: Story = {
   render: () => (
     <div style={{ display: 'flex', gap: '6px', flexWrap: 'wrap', maxWidth: 320 }}>
       {['p001', 'p002', 'p003', 'p019', 'p020', 'p021'].map((p, i) => (
-        <PageChip
-          key={p}
-          prefix={p}
-          selected={i === 3}
-          onClick={() => undefined}
-        />
+        <PageChip key={p} prefix={p} selected={i === 3} onClick={() => undefined} />
       ))}
     </div>
   ),

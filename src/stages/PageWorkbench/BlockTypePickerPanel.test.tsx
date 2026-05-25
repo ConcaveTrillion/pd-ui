@@ -4,10 +4,7 @@ import userEvent from '@testing-library/user-event';
 import { describe, it, expect, vi } from 'vitest';
 import { BlockTypePickerPanel } from './BlockTypePickerPanel.js';
 import type { BlockTypeOption } from './BlockTypePickerPanel.js';
-import {
-  BLOCK_TYPE_PICKER_PANEL,
-  blockTypePickerOptionTestId,
-} from '../../testids/index.js';
+import { BLOCK_TYPE_PICKER_PANEL, blockTypePickerOptionTestId } from '../../testids/index.js';
 
 // ── Fixtures ──────────────────────────────────────────────────────────────────
 
@@ -24,9 +21,7 @@ const ICON_TYPES: BlockTypeOption[] = [
 
 // ── Helpers ───────────────────────────────────────────────────────────────────
 
-function renderPanel(
-  overrides: Partial<React.ComponentProps<typeof BlockTypePickerPanel>> = {},
-) {
+function renderPanel(overrides: Partial<React.ComponentProps<typeof BlockTypePickerPanel>> = {}) {
   const onSelect = vi.fn();
   const defaults: React.ComponentProps<typeof BlockTypePickerPanel> = {
     types: BASIC_TYPES,

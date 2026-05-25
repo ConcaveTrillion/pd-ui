@@ -22,11 +22,7 @@ export interface ConfPipProps {
  */
 export function ConfPip({ confidence }: ConfPipProps): React.ReactElement {
   const tone =
-    confidence >= 0.9
-      ? 'var(--exact)'
-      : confidence >= 0.7
-        ? 'var(--fuzzy)'
-        : 'var(--mismatch)';
+    confidence >= 0.9 ? 'var(--exact)' : confidence >= 0.7 ? 'var(--fuzzy)' : 'var(--mismatch)';
 
   const sym = confidence >= 0.9 ? '✓' : confidence >= 0.7 ? '↻' : '✗';
 
@@ -48,9 +44,7 @@ export function ConfPip({ confidence }: ConfPipProps): React.ReactElement {
       }}
     >
       <span style={{ color: tone }}>{sym}</span>
-      <span style={{ fontVariantNumeric: 'tabular-nums' }}>
-        {confidence.toFixed(2)}
-      </span>
+      <span style={{ fontVariantNumeric: 'tabular-nums' }}>{confidence.toFixed(2)}</span>
     </span>
   );
 }

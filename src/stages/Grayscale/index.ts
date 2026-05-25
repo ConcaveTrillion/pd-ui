@@ -6,18 +6,11 @@
 
 // ─── AutoDetectBanner ─────────────────────────────────────────────────────────
 export { AutoDetectBanner } from './AutoDetectBanner.js';
-export type {
-  AutoDetectBannerProps,
-  GrayscaleMode,
-} from './AutoDetectBanner.js';
+export type { AutoDetectBannerProps, GrayscaleMode } from './AutoDetectBanner.js';
 
 // ─── ModeCard ─────────────────────────────────────────────────────────────────
 export { ModeCard } from './ModeCard.js';
-export type {
-  ModeCardProps,
-  ModeEstimate,
-  EstimateTone,
-} from './ModeCard.js';
+export type { ModeCardProps, ModeEstimate, EstimateTone } from './ModeCard.js';
 
 // ─── AdvancedParams ───────────────────────────────────────────────────────────
 export { AdvancedParams, GRAYSCALE_PARAMS_DEFAULT } from './AdvancedParams.js';

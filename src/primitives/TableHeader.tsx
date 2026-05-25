@@ -46,8 +46,7 @@ export function TableHeader({
 }: TableHeaderProps): React.ReactElement {
   function handleCellClick(col: TableColumnDef): void {
     if (!col.sortable || onSort == null) return;
-    const next: SortDir =
-      sortKey === col.id && sortDir === 'asc' ? 'desc' : 'asc';
+    const next: SortDir = sortKey === col.id && sortDir === 'asc' ? 'desc' : 'asc';
     onSort(col.id, next);
   }
 

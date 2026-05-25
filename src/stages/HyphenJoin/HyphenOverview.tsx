@@ -85,9 +85,7 @@ export function HyphenOverview({
       </div>
 
       {/* ── Post-book notes preview (conditional) ─────────────────────── */}
-      {notesPreview != null ? (
-        <PostBookNotesPreview>{notesPreview}</PostBookNotesPreview>
-      ) : null}
+      {notesPreview != null ? <PostBookNotesPreview>{notesPreview}</PostBookNotesPreview> : null}
     </section>
   );
 }

@@ -47,9 +47,7 @@ const PROJECTS: ProjectsDrawerProject[] = [
 
 // ─── render helpers ───────────────────────────────────────────────────────────
 
-function renderPopulated(
-  overrides: Partial<ProjectsLandingTemplatePopulatedProps> = {},
-) {
+function renderPopulated(overrides: Partial<ProjectsLandingTemplatePopulatedProps> = {}) {
   const onSelect = vi.fn();
   const utils = render(
     <ProjectsLandingTemplate
@@ -63,16 +61,10 @@ function renderPopulated(
   return { ...utils, onSelect };
 }
 
-function renderEmpty(
-  overrides: Partial<ProjectsLandingTemplateEmptyProps> = {},
-) {
+function renderEmpty(overrides: Partial<ProjectsLandingTemplateEmptyProps> = {}) {
   const onCreateProject = vi.fn();
   const utils = render(
-    <ProjectsLandingTemplate
-      state="empty"
-      onCreateProject={onCreateProject}
-      {...overrides}
-    />,
+    <ProjectsLandingTemplate state="empty" onCreateProject={onCreateProject} {...overrides} />,
   );
   return { ...utils, onCreateProject };
 }
@@ -250,7 +242,8 @@ describe('ProjectsLandingTemplate — tab switching', () => {
 
   it('shows manage content after switching to manage tab', () => {
     renderPopulated();
-    const manageTab = screen.getByTestId('projects-tab-strip')
+    const manageTab = screen
+      .getByTestId('projects-tab-strip')
       .querySelector('[data-tab="manage"]') as HTMLElement;
     fireEvent.click(manageTab);
     expect(screen.getByTestId('projects-tab-body').textContent).toContain('Clean');
@@ -258,7 +251,8 @@ describe('ProjectsLandingTemplate — tab switching', () => {
 
   it('shows attributes panel after switching to attributes tab', () => {
     renderPopulated();
-    const attrsTab = screen.getByTestId('projects-tab-strip')
+    const attrsTab = screen
+      .getByTestId('projects-tab-strip')
       .querySelector('[data-tab="attributes"]') as HTMLElement;
     fireEvent.click(attrsTab);
     expect(screen.getByTestId('projects-tab-body').textContent).toContain('Bibliographic');

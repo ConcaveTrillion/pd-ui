@@ -54,14 +54,7 @@ export const SinglePage: Story = {
 
 function ControlledDemo(): React.ReactElement {
   const [page, setPage] = React.useState(1);
-  return (
-    <TableFooter
-      page={page}
-      totalPages={8}
-      totalRows={237}
-      onPageChange={setPage}
-    />
-  );
+  return <TableFooter page={page} totalPages={8} totalRows={237} onPageChange={setPage} />;
 }
 
 export const Controlled: Story = {

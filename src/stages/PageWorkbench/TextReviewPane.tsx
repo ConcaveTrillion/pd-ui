@@ -8,12 +8,9 @@
  * is done in CSS — no JS-based measurement.
  */
 
-import React from 'react'
-import { Icon } from '../../icons/Icon.js'
-import {
-  TEXT_REVIEW_PANE,
-  TEXT_REVIEW_PANE_TOGGLE,
-} from '../../testids/index.js'
+import React from 'react';
+import { Icon } from '../../icons/Icon.js';
+import { TEXT_REVIEW_PANE, TEXT_REVIEW_PANE_TOGGLE } from '../../testids/index.js';
 
 // ---------------------------------------------------------------------------
 // Types
@@ -23,19 +20,19 @@ export interface TextReviewPaneProps {
   /** Extracted / OCR text content.
    *  When a string, rendered inside a `<pre>` for whitespace preservation.
    *  When a ReactNode, rendered as-is for rich / formatted content. */
-  text: string | React.ReactNode
+  text: string | React.ReactNode;
 
   /** Whether the pane is currently open (content visible). */
-  open: boolean
+  open: boolean;
 
   /** Called when the user toggles open/closed. */
-  onOpenChange: (open: boolean) => void
+  onOpenChange: (open: boolean) => void;
 
   /** Header label shown in the 44px strip. Defaults to "Text review". */
-  title?: string
+  title?: string;
 
   /** Forwarded to the outer `<section>` element. */
-  'data-testid'?: string
+  'data-testid'?: string;
 }
 
 // ---------------------------------------------------------------------------
@@ -63,20 +60,18 @@ export function TextReviewPane({
   title,
   'data-testid': testId,
 }: TextReviewPaneProps): React.ReactElement {
-  const label = title ?? 'Text review'
-  const outerTestId = testId ?? TEXT_REVIEW_PANE
+  const label = title ?? 'Text review';
+  const outerTestId = testId ?? TEXT_REVIEW_PANE;
 
   return (
-    <section
-      className="text-review-pane"
-      data-open={open}
-      data-testid={outerTestId}
-    >
+    <section className="text-review-pane" data-open={open} data-testid={outerTestId}>
       <header className="text-review-pane__header">
         <button
           type="button"
           className="text-review-pane__toggle"
-          onClick={() => { onOpenChange(!open) }}
+          onClick={() => {
+            onOpenChange(!open);
+          }}
           aria-expanded={open}
           aria-controls="text-review-content"
           data-testid={TEXT_REVIEW_PANE_TOGGLE}
@@ -91,12 +86,8 @@ export function TextReviewPane({
         className="text-review-pane__content"
         {...(!open ? { hidden: true } : {})}
       >
-        {typeof text === 'string' ? (
-          <pre className="text-review-pane__pre">{text}</pre>
-        ) : (
-          text
-        )}
+        {typeof text === 'string' ? <pre className="text-review-pane__pre">{text}</pre> : text}
       </div>
     </section>
-  )
+  );
 }

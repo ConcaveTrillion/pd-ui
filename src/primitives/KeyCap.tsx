@@ -17,7 +17,13 @@ export const KeyCap = React.forwardRef<HTMLDivElement, KeyCapProps>(function Key
         <React.Fragment key={`${key}-${index}`}>
           <span className="key">{key}</span>
           {index < keyArray.length - 1 && (
-            <span aria-hidden className="inline-block" style={{ color: 'var(--ink-3)', fontSize: '10px' }}>+</span>
+            <span
+              aria-hidden
+              className="inline-block"
+              style={{ color: 'var(--ink-3)', fontSize: '10px' }}
+            >
+              +
+            </span>
           )}
         </React.Fragment>
       ))}

@@ -33,9 +33,7 @@ describe('ToggleBadge', () => {
 
   it('does not fire onCheckedChange when disabled', () => {
     const onChange = vi.fn();
-    render(
-      <ToggleBadge checked={false} onCheckedChange={onChange} label="Auto-apply" disabled />,
-    );
+    render(<ToggleBadge checked={false} onCheckedChange={onChange} label="Auto-apply" disabled />);
     fireEvent.click(screen.getByRole('switch'));
     expect(onChange).not.toHaveBeenCalled();
   });

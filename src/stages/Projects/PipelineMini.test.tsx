@@ -1,10 +1,7 @@
 import { render, screen } from '@testing-library/react';
 import { describe, it, expect } from 'vitest';
 import { PipelineMini } from './PipelineMini.js';
-import {
-  PROJECTS_PIPELINE_MINI,
-  projectsPipelineMiniDotTestId,
-} from '../../testids/index.js';
+import { PROJECTS_PIPELINE_MINI, projectsPipelineMiniDotTestId } from '../../testids/index.js';
 
 // ─── Fixtures ─────────────────────────────────────────────────────────────────
 
@@ -44,9 +41,7 @@ describe('PipelineMini', () => {
     it('marks the active dot with data-active', () => {
       const stages = make23Stages();
       render(<PipelineMini stages={stages} activeStageId="stage-5" />);
-      const activeDot = screen.getByTestId(
-        projectsPipelineMiniDotTestId('stage-5'),
-      );
+      const activeDot = screen.getByTestId(projectsPipelineMiniDotTestId('stage-5'));
       expect(activeDot).toHaveAttribute('data-active', 'true');
     });
 
@@ -55,9 +50,7 @@ describe('PipelineMini', () => {
         i === 10 ? { ...s, status: 'active' as const } : s,
       );
       render(<PipelineMini stages={stages} />);
-      const activeDot = screen.getByTestId(
-        projectsPipelineMiniDotTestId('stage-10'),
-      );
+      const activeDot = screen.getByTestId(projectsPipelineMiniDotTestId('stage-10'));
       expect(activeDot).toHaveAttribute('data-active', 'true');
     });
 
@@ -67,12 +60,8 @@ describe('PipelineMini', () => {
       );
       // activeStageId overrides — stage-7 is active, not stage-3
       render(<PipelineMini stages={stages} activeStageId="stage-7" />);
-      const overriddenDot = screen.getByTestId(
-        projectsPipelineMiniDotTestId('stage-3'),
-      );
-      const activeDot = screen.getByTestId(
-        projectsPipelineMiniDotTestId('stage-7'),
-      );
+      const overriddenDot = screen.getByTestId(projectsPipelineMiniDotTestId('stage-3'));
+      const activeDot = screen.getByTestId(projectsPipelineMiniDotTestId('stage-7'));
       expect(overriddenDot).not.toHaveAttribute('data-active', 'true');
       expect(activeDot).toHaveAttribute('data-active', 'true');
     });
@@ -111,16 +100,12 @@ describe('PipelineMini', () => {
       const stages = make23Stages();
       render(<PipelineMini stages={stages} />);
       for (const s of stages) {
-        expect(
-          screen.getByTestId(projectsPipelineMiniDotTestId(s.id)),
-        ).toBeInTheDocument();
+        expect(screen.getByTestId(projectsPipelineMiniDotTestId(s.id))).toBeInTheDocument();
       }
     });
 
     it('accepts custom data-testid on container', () => {
-      render(
-        <PipelineMini stages={make23Stages()} data-testid="custom-mini" />,
-      );
+      render(<PipelineMini stages={make23Stages()} data-testid="custom-mini" />);
       expect(screen.getByTestId('custom-mini')).toBeInTheDocument();
     });
   });

@@ -21,7 +21,7 @@ const ANCHORS: InsertAnchorOption[] = [
 ];
 
 function renderOpen(overrides: Partial<React.ComponentProps<typeof InsertDialog>> = {}) {
-  const onInsert     = vi.fn<(arg: InsertSubmission) => void>();
+  const onInsert = vi.fn<(arg: InsertSubmission) => void>();
   const onOpenChange = vi.fn<(arg: boolean) => void>();
 
   render(
@@ -72,7 +72,7 @@ describe('InsertDialog', () => {
     it('defaults to Before', () => {
       renderOpen();
       const before = screen.getByRole('radio', { name: 'Before' });
-      const after  = screen.getByRole('radio', { name: 'After' });
+      const after = screen.getByRole('radio', { name: 'After' });
       expect(before).toHaveAttribute('aria-checked', 'true');
       expect(after).toHaveAttribute('aria-checked', 'false');
     });
@@ -82,14 +82,20 @@ describe('InsertDialog', () => {
       renderOpen();
       await user.click(screen.getByRole('radio', { name: 'After' }));
       expect(screen.getByRole('radio', { name: 'After' })).toHaveAttribute('aria-checked', 'true');
-      expect(screen.getByRole('radio', { name: 'Before' })).toHaveAttribute('aria-checked', 'false');
+      expect(screen.getByRole('radio', { name: 'Before' })).toHaveAttribute(
+        'aria-checked',
+        'false',
+      );
     });
   });
 
   describe('kind selector', () => {
     it('defaults to Missing selected', () => {
       renderOpen();
-      expect(screen.getByRole('radio', { name: /Missing/ })).toHaveAttribute('aria-checked', 'true');
+      expect(screen.getByRole('radio', { name: /Missing/ })).toHaveAttribute(
+        'aria-checked',
+        'true',
+      );
     });
 
     it('clicking Blank selects Blank', async () => {
@@ -97,7 +103,10 @@ describe('InsertDialog', () => {
       renderOpen();
       await user.click(screen.getByRole('radio', { name: /Blank/ }));
       expect(screen.getByRole('radio', { name: /Blank/ })).toHaveAttribute('aria-checked', 'true');
-      expect(screen.getByRole('radio', { name: /Missing/ })).toHaveAttribute('aria-checked', 'false');
+      expect(screen.getByRole('radio', { name: /Missing/ })).toHaveAttribute(
+        'aria-checked',
+        'false',
+      );
     });
 
     it('clicking Errata selects Errata', async () => {

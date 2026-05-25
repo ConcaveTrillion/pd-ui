@@ -46,30 +46,21 @@ interface MismatchRowProps {
 function MismatchRow({ item, onResolve }: MismatchRowProps): React.ReactElement {
   const { id, word, decisions, reason } = item;
 
-  const decisionsSummary = decisions
-    .map((d) => `${d.source} → ${d.choice}`)
-    .join(', ');
+  const decisionsSummary = decisions.map((d) => `${d.source} → ${d.choice}`).join(', ');
 
   return (
-    <tr
-      className="hyphen-mismatch__row"
-      data-testid={hyphenMismatchRowTestId(id)}
-    >
+    <tr className="hyphen-mismatch__row" data-testid={hyphenMismatchRowTestId(id)}>
       {/* Word column */}
       <td className="hyphen-mismatch__cell hyphen-mismatch__cell--word">
         <code className="hyphen-mismatch__word-code">{word}</code>
       </td>
 
       {/* Decisions summary column */}
-      <td className="hyphen-mismatch__cell hyphen-mismatch__cell--decisions">
-        {decisionsSummary}
-      </td>
+      <td className="hyphen-mismatch__cell hyphen-mismatch__cell--decisions">{decisionsSummary}</td>
 
       {/* Conflict reason column */}
       <td className="hyphen-mismatch__cell hyphen-mismatch__cell--reason">
-        {reason != null ? (
-          <span className="hyphen-mismatch__reason">{reason}</span>
-        ) : null}
+        {reason != null ? <span className="hyphen-mismatch__reason">{reason}</span> : null}
       </td>
 
       {/* Resolve action column — only rendered when onResolve is provided */}
@@ -129,23 +120,14 @@ export function HyphenMismatch({
             <th className="hyphen-mismatch__header hyphen-mismatch__header--word" scope="col">
               Word
             </th>
-            <th
-              className="hyphen-mismatch__header hyphen-mismatch__header--decisions"
-              scope="col"
-            >
+            <th className="hyphen-mismatch__header hyphen-mismatch__header--decisions" scope="col">
               Decisions
             </th>
-            <th
-              className="hyphen-mismatch__header hyphen-mismatch__header--reason"
-              scope="col"
-            >
+            <th className="hyphen-mismatch__header hyphen-mismatch__header--reason" scope="col">
               Conflict reason
             </th>
             {hasResolve ? (
-              <th
-                className="hyphen-mismatch__header hyphen-mismatch__header--action"
-                scope="col"
-              >
+              <th className="hyphen-mismatch__header hyphen-mismatch__header--action" scope="col">
                 Resolve
               </th>
             ) : null}

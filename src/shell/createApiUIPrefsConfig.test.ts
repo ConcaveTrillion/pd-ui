@@ -58,18 +58,16 @@ describe('createApiUIPrefsConfig (#5)', () => {
   });
 
   it('load() falls back to default prefs on non-2xx response', async () => {
-    vi.spyOn(globalThis, 'fetch').mockResolvedValue(
-      new Response('Not Found', { status: 404 }),
-    );
+    vi.spyOn(globalThis, 'fetch').mockResolvedValue(new Response('Not Found', { status: 404 }));
     const cfg = createApiUIPrefsConfig('/api/ui-prefs');
     const prefs = await cfg.load();
     expect(prefs).toHaveProperty('theme');
   });
 
   it('persistCommon() issues a PATCH request with common prefs', async () => {
-    const fetchSpy = vi.spyOn(globalThis, 'fetch').mockResolvedValue(
-      new Response('{}', { status: 200 }),
-    );
+    const fetchSpy = vi
+      .spyOn(globalThis, 'fetch')
+      .mockResolvedValue(new Response('{}', { status: 200 }));
     const cfg = createApiUIPrefsConfig('/api/ui-prefs');
     const common = { theme: 'light' as const, density: 'compact' as const, fontScale: 0.9 };
     await cfg.persistCommon(common);
@@ -83,9 +81,9 @@ describe('createApiUIPrefsConfig (#5)', () => {
   });
 
   it('persistApp() issues a PATCH request with app prefs nested under app key', async () => {
-    const fetchSpy = vi.spyOn(globalThis, 'fetch').mockResolvedValue(
-      new Response('{}', { status: 200 }),
-    );
+    const fetchSpy = vi
+      .spyOn(globalThis, 'fetch')
+      .mockResolvedValue(new Response('{}', { status: 200 }));
     const cfg = createApiUIPrefsConfig('/api/ui-prefs');
     await cfg.persistApp({ rightPanelOpen: true });
 
@@ -98,9 +96,9 @@ describe('createApiUIPrefsConfig (#5)', () => {
   });
 
   it('accepts a custom base URL', async () => {
-    const fetchSpy = vi.spyOn(globalThis, 'fetch').mockResolvedValue(
-      new Response(JSON.stringify(DEFAULT_PREFS), { status: 200 }),
-    );
+    const fetchSpy = vi
+      .spyOn(globalThis, 'fetch')
+      .mockResolvedValue(new Response(JSON.stringify(DEFAULT_PREFS), { status: 200 }));
     const cfg = createApiUIPrefsConfig('http://localhost:8000/api/ui-prefs');
     await cfg.load();
     expect((fetchSpy.mock.calls[0] as [string])[0]).toBe('http://localhost:8000/api/ui-prefs');

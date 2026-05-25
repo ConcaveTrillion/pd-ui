@@ -16,7 +16,7 @@
  * ever removes a field — that's the codegen contract.
  */
 
-export * from './generated/book-tools'
+export * from './generated/book-tools';
 // Named re-exports from ocr-ops (avoid wildcard — book-tools and ocr-ops both
 // export `components`, `paths`, `webhooks`, etc. which would conflict).
 export type {
@@ -32,10 +32,10 @@ export type {
   JobEvent,
   JobSpec,
   LaunchResult,
-} from './generated/ocr-ops.js'
-export type { JobState } from './job-state.js'
+} from './generated/ocr-ops.js';
+export type { JobState } from './job-state.js';
 
-import type { Word, Block, Page } from './generated/book-tools'
+import type { Word, Block, Page } from './generated/book-tools';
 
 /**
  * Minimum fields required by canvas and worklist components to render a word.
@@ -43,26 +43,15 @@ import type { Word, Block, Page } from './generated/book-tools'
  */
 export type WordLike = Pick<
   Word,
-  | 'bounding_box'
-  | 'text'
-  | 'ocr_confidence'
-  | 'review'
-  | 'word_labels'
-  | 'text_style_labels'
->
+  'bounding_box' | 'text' | 'ocr_confidence' | 'review' | 'word_labels' | 'text_style_labels'
+>;
 
 /**
  * Minimum fields required by block-level list components.
  * Lines are blocks: filter by `block.block_category === 'LINE'`.
  * Same for paragraphs, captions, figures, etc. No separate LineLike.
  */
-export type BlockLike = Pick<
-  Block,
-  | 'block_category'
-  | 'bounding_box'
-  | 'items'
-  | 'review'
->
+export type BlockLike = Pick<Block, 'block_category' | 'bounding_box' | 'items' | 'review'>;
 
 /**
  * Minimum fields required by page-level canvas components.
@@ -70,11 +59,5 @@ export type BlockLike = Pick<
  */
 export type PageLike = Pick<
   Page,
-  | 'page_index'
-  | 'name'
-  | 'image_path'
-  | 'width'
-  | 'height'
-  | 'items'
-  | 'review'
->
+  'page_index' | 'name' | 'image_path' | 'width' | 'height' | 'items' | 'review'
+>;

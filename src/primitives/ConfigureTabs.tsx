@@ -35,11 +35,7 @@ export function ConfigureTabs({
   className,
 }: ConfigureTabsProps): React.ReactElement {
   return (
-    <div
-      role="tablist"
-      className={cn('configure-tabs', className)}
-      aria-label="Configure sections"
-    >
+    <div role="tablist" className={cn('configure-tabs', className)} aria-label="Configure sections">
       {tabs.map((tab) => {
         const active = tab.id === value;
         return (
@@ -57,9 +53,7 @@ export function ConfigureTabs({
             onClick={active ? undefined : () => onValueChange(tab.id)}
           >
             <span className="configure-tabs__label">{tab.label}</span>
-            {tab.count != null ? (
-              <span className="configure-tabs__count">{tab.count}</span>
-            ) : null}
+            {tab.count != null ? <span className="configure-tabs__count">{tab.count}</span> : null}
           </button>
         );
       })}

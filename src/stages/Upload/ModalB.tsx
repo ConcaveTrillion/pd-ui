@@ -81,15 +81,12 @@ export const ModalB: React.FC<ModalBProps> = ({
     fileInputRef.current?.click();
   }, []);
 
-  const handleDropZoneKeyDown = React.useCallback(
-    (e: React.KeyboardEvent<HTMLDivElement>) => {
-      if (e.key === 'Enter' || e.key === ' ') {
-        e.preventDefault();
-        fileInputRef.current?.click();
-      }
-    },
-    [],
-  );
+  const handleDropZoneKeyDown = React.useCallback((e: React.KeyboardEvent<HTMLDivElement>) => {
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault();
+      fileInputRef.current?.click();
+    }
+  }, []);
 
   const handleFileChange = React.useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -114,11 +111,7 @@ export const ModalB: React.FC<ModalBProps> = ({
         <DialogHeader>
           <DialogTitle>Upload images</DialogTitle>
           <DialogClose asChild>
-            <button
-              type="button"
-              aria-label="Close"
-              className="upload-modal-b__close"
-            >
+            <button type="button" aria-label="Close" className="upload-modal-b__close">
               ✕
             </button>
           </DialogClose>
@@ -136,8 +129,7 @@ export const ModalB: React.FC<ModalBProps> = ({
           aria-label="Upload images"
           data-testid={UPLOAD_MODAL_B_DROP_ZONE}
           className={
-            'upload-modal-b__drop-zone' +
-            (dragOver ? ' upload-modal-b__drop-zone--over' : '')
+            'upload-modal-b__drop-zone' + (dragOver ? ' upload-modal-b__drop-zone--over' : '')
           }
           onDragOver={handleDragOver}
           onDragLeave={handleDragLeave}
@@ -163,12 +155,8 @@ export const ModalB: React.FC<ModalBProps> = ({
               <line x1="12" y1="3" x2="12" y2="15" />
             </svg>
           </span>
-          <span className="upload-modal-b__drop-primary">
-            Drop images here
-          </span>
-          <span className="upload-modal-b__drop-secondary">
-            or click to browse (PNG, JPG, JP2)
-          </span>
+          <span className="upload-modal-b__drop-primary">Drop images here</span>
+          <span className="upload-modal-b__drop-secondary">or click to browse (PNG, JPG, JP2)</span>
 
           {/* Hidden file input — keyboard / click fallback.
               stopPropagation prevents the click from bubbling back up to
@@ -182,7 +170,7 @@ export const ModalB: React.FC<ModalBProps> = ({
             data-testid={UPLOAD_MODAL_B_FILE_INPUT}
             aria-label="Choose images to upload"
             tabIndex={-1}
-            onClick={e => e.stopPropagation()}
+            onClick={(e) => e.stopPropagation()}
             onChange={handleFileChange}
           />
         </div>

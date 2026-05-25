@@ -48,7 +48,9 @@ function CustomRow({ item, isSelected, matchStatus }: WordRowProps) {
         alignItems: 'center',
         gap: '8px',
         padding: '4px 8px',
-        background: isSelected ? 'color-mix(in srgb, var(--accent) 15%, var(--bg-raised))' : 'transparent',
+        background: isSelected
+          ? 'color-mix(in srgb, var(--accent) 15%, var(--bg-raised))'
+          : 'transparent',
         fontFamily: 'var(--font-mono)',
         fontSize: 'var(--text-sm)',
         color: 'var(--ink-1)',

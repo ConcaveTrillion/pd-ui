@@ -35,11 +35,7 @@ const SAMPLE_PROJECT = {
 
 function renderTemplate(props: Partial<React.ComponentProps<typeof ProjectSettingsTemplate>> = {}) {
   return render(
-    <ProjectSettingsTemplate
-      project={SAMPLE_PROJECT}
-      currentGroup="general"
-      {...props}
-    />,
+    <ProjectSettingsTemplate project={SAMPLE_PROJECT} currentGroup="general" {...props} />,
   );
 }
 
@@ -66,7 +62,14 @@ describe('ProjectSettingsTemplate', () => {
   it('renders all 8 default nav items', () => {
     renderTemplate();
     const groups: ProjectSettingsGroup[] = [
-      'general', 'bib', 'pgdp', 'format', 'defaults', 'members', 'storage', 'danger',
+      'general',
+      'bib',
+      'pgdp',
+      'format',
+      'defaults',
+      'members',
+      'storage',
+      'danger',
     ];
     for (const group of groups) {
       expect(screen.getByTestId(projectSettingsNavItem(group))).toBeInTheDocument();
@@ -107,7 +110,14 @@ describe('ProjectSettingsTemplate', () => {
 
   it('all 8 currentGroup variants render without error', () => {
     const groups: ProjectSettingsGroup[] = [
-      'general', 'bib', 'pgdp', 'format', 'defaults', 'members', 'storage', 'danger',
+      'general',
+      'bib',
+      'pgdp',
+      'format',
+      'defaults',
+      'members',
+      'storage',
+      'danger',
     ];
     for (const group of groups) {
       const { unmount } = renderTemplate({ currentGroup: group });

@@ -28,7 +28,8 @@ describe('no-cva: src/primitives must not reference class-variance-authority', (
 
   it('contains no import statement for class-variance-authority', () => {
     // Check only for import statements, not comments/docs mentioning the name
-    const cvaImportPattern = /(?:^|[\n\r])(?:import|require)[^'"`]*['"`]class-variance-authority['"`]/m;
+    const cvaImportPattern =
+      /(?:^|[\n\r])(?:import|require)[^'"`]*['"`]class-variance-authority['"`]/m;
     const violations: string[] = [];
     for (const file of files) {
       const content = readFileSync(file, 'utf-8');
@@ -47,7 +48,7 @@ describe('no-cva: src/primitives must not reference class-variance-authority', (
       // Filter out comment lines before checking
       const nonCommentContent = content
         .split('\n')
-        .filter(line => !line.trimStart().startsWith('//') && !line.trimStart().startsWith('*'))
+        .filter((line) => !line.trimStart().startsWith('//') && !line.trimStart().startsWith('*'))
         .join('\n');
       if (nonCommentContent.includes('cva(')) {
         violations.push(file);

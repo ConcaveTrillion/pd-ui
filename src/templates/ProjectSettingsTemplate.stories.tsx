@@ -51,7 +51,14 @@ export const WithCustomContent: Story = {
 // ── All 8 currentGroup variants ──────────────────────────────────────────────
 
 const ALL_GROUPS: ProjectSettingsGroup[] = [
-  'general', 'bib', 'pgdp', 'format', 'defaults', 'members', 'storage', 'danger',
+  'general',
+  'bib',
+  'pgdp',
+  'format',
+  'defaults',
+  'members',
+  'storage',
+  'danger',
 ];
 
 export const General: Story = { args: { currentGroup: 'general' } };
@@ -70,7 +77,7 @@ export const DangerZone: Story = { args: { currentGroup: 'danger' } };
 export const AllGroupsShowcase: Story = {
   render: (args) => (
     <div style={{ display: 'flex', flexDirection: 'column', gap: 0 }}>
-      {ALL_GROUPS.map(group => (
+      {ALL_GROUPS.map((group) => (
         <div key={group} style={{ height: 380, borderBottom: '1px solid var(--border-1)' }}>
           <ProjectSettingsTemplate {...args} currentGroup={group} />
         </div>

@@ -30,14 +30,8 @@ function ControlledDemo(): React.ReactElement {
   const [filter, setFilter] = React.useState('');
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem', width: 280 }}>
-      <FilterToolbar
-        value={filter}
-        onValueChange={setFilter}
-        placeholder="Search flags…"
-      />
-      <div style={{ color: 'var(--ink-2)', fontSize: 12 }}>
-        Filter: {filter || '(empty)'}
-      </div>
+      <FilterToolbar value={filter} onValueChange={setFilter} placeholder="Search flags…" />
+      <div style={{ color: 'var(--ink-2)', fontSize: 12 }}>Filter: {filter || '(empty)'}</div>
     </div>
   );
 }

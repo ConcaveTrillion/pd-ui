@@ -3,7 +3,9 @@ import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { BaseJobConfigDialog } from './BaseJobConfigDialog.js';
 
-function noop() { return Promise.resolve(); }
+function noop() {
+  return Promise.resolve();
+}
 
 function renderDialog(overrides: Partial<React.ComponentProps<typeof BaseJobConfigDialog>> = {}) {
   return render(

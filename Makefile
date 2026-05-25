@@ -53,7 +53,7 @@ help:
 	@echo "  storybook-build      build Storybook static site"
 	@echo "  e2e                  build Storybook static site + run Playwright e2e tests"
 	@echo "  e2e-ci               run Playwright e2e tests (assumes storybook-static exists)"
-	@echo "  ci                   install + lint + typecheck + test + build + codegen-check"
+	@echo "  ci                   install + lint + format-check + typecheck + test + build + codegen-check"
 	@echo ""
 	@echo "  release-patch        bump patch, ci, commit, tag, push"
 	@echo "  release-minor        bump minor, ci, commit, tag, push"
@@ -167,7 +167,7 @@ frontend-format-check: format-check
 frontend-knip:
 	$(call _pnpm,run knip)
 
-ci: install lint typecheck test build codegen-check theme-check
+ci: install lint format-check typecheck test build codegen-check theme-check
 
 mise-download:
 	@if [ -x "$(MISE)" ]; then \

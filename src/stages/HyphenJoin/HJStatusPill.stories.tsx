@@ -67,13 +67,7 @@ export const Flagged: Story = {
 
 // ── Combined — all 5 stacked ──────────────────────────────────────────────────
 
-const ALL_STATUSES: HJStatus[] = [
-  'cross-page',
-  'validated',
-  'auto-joined',
-  'undecided',
-  'flagged',
-];
+const ALL_STATUSES: HJStatus[] = ['cross-page', 'validated', 'auto-joined', 'undecided', 'flagged'];
 
 export const Combined: Story = {
   name: 'Combined (all variants)',

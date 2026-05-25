@@ -14,19 +14,19 @@
  * stage, pan/zoom math, image loading, context provision.
  */
 
-import { useEffect, useRef, useState, useMemo, useCallback } from 'react'
-import { Image as KonvaImage, Layer, Rect, Stage } from 'react-konva'
-import type Konva from 'konva'
-import { CanvasInternalContext } from './context'
-import type { CanvasProps, CanvasWord, CoordContext, SelectionState, ViewportState } from './types'
-import { isValidBBox } from './types'
-import { isPageDimensionsValid } from './pageSizeGuard'
-import { makeRafThrottle } from './rafThrottle'
+import { useEffect, useRef, useState, useMemo, useCallback } from 'react';
+import { Image as KonvaImage, Layer, Rect, Stage } from 'react-konva';
+import type Konva from 'konva';
+import { CanvasInternalContext } from './context';
+import type { CanvasProps, CanvasWord, CoordContext, SelectionState, ViewportState } from './types';
+import { isValidBBox } from './types';
+import { isPageDimensionsValid } from './pageSizeGuard';
+import { makeRafThrottle } from './rafThrottle';
 
 // ── Helpers ───────────────────────────────────────────────────────────────────
 
-const EMPTY_SELECTION: SelectionState = { ids: new Set<string>() }
-const EMPTY_PAN = { x: 0, y: 0 }
+const EMPTY_SELECTION: SelectionState = { ids: new Set<string>() };
+const EMPTY_PAN = { x: 0, y: 0 };
 
 /**
  * Derive a stable ID from a word's bounding_box.
@@ -34,9 +34,9 @@ const EMPTY_PAN = { x: 0, y: 0 }
  * corrupt OCR data never throws during render or selection bookkeeping.
  */
 function defaultGetWordId(word: CanvasWord): string {
-  const bb = word.bounding_box
-  if (!isValidBBox(bb)) return `invalid-bbox:${word.text}`
-  return `${bb.top_left.x},${bb.top_left.y}`
+  const bb = word.bounding_box;
+  if (!isValidBBox(bb)) return `invalid-bbox:${word.text}`;
+  return `${bb.top_left.x},${bb.top_left.y}`;
 }
 
 // ── Component ─────────────────────────────────────────────────────────────────
@@ -75,34 +75,36 @@ export function PageImageCanvas<
   onStagePointerUp,
   children,
 }: CanvasProps<TWord, TPage>) {
-  const wrapperRef = useRef<HTMLDivElement>(null)
+  const wrapperRef = useRef<HTMLDivElement>(null);
 
   // ── Container size (ResizeObserver) ────────────────────────────────────────
-  const [containerSize, setContainerSize] = useState({ w: 0, h: 0 })
+  const [containerSize, setContainerSize] = useState({ w: 0, h: 0 });
   useEffect(() => {
-    const el = wrapperRef.current
-    if (!el) return
-    setContainerSize({ w: el.clientWidth, h: el.clientHeight })
+    const el = wrapperRef.current;
+    if (!el) return;
+    setContainerSize({ w: el.clientWidth, h: el.clientHeight });
     const ro = new ResizeObserver((entries) => {
-      const entry = entries[0]
+      const entry = entries[0];
       if (entry) {
         setContainerSize({
           w: entry.contentRect.width,
           h: entry.contentRect.height,
-        })
+        });
       }
-    })
-    ro.observe(el)
-    return () => { ro.disconnect() }
-  }, [])
+    });
+    ro.observe(el);
+    return () => {
+      ro.disconnect();
+    };
+  }, []);
 
   // ── Zoom state ─────────────────────────────────────────────────────────────
-  const [zoom, setZoom] = useState(initialZoom)
+  const [zoom, setZoom] = useState(initialZoom);
   useEffect(() => {
     if (fitOnMount) {
-      setZoom(0) // 0 → fit
+      setZoom(0); // 0 → fit
     }
-  }, [fitOnMount])
+  }, [fitOnMount]);
 
   // ── Page dimension validation (issue #29) ─────────────────────────────────
   // Validate before any dimension arithmetic.  Invalid metadata renders a
@@ -113,115 +115,129 @@ export function PageImageCanvas<
   const pageDimensionsValid = useMemo(
     () => isPageDimensionsValid(page.width, page.height),
     [page.width, page.height],
-  )
+  );
 
   const fitScale = useMemo(() => {
-    const { w, h } = containerSize
-    if (w <= 0 || h <= 0 || page.width <= 0 || page.height <= 0) return 1
-    return Math.min(w / page.width, h / page.height, 1)
-  }, [containerSize, page.width, page.height])
+    const { w, h } = containerSize;
+    if (w <= 0 || h <= 0 || page.width <= 0 || page.height <= 0) return 1;
+    return Math.min(w / page.width, h / page.height, 1);
+  }, [containerSize, page.width, page.height]);
 
-  const effectiveScale = zoom === 0 ? fitScale : zoom
+  const effectiveScale = zoom === 0 ? fitScale : zoom;
 
   // ── Pan state ──────────────────────────────────────────────────────────────
-  const [pan] = useState(EMPTY_PAN)
+  const [pan] = useState(EMPTY_PAN);
 
   // ── Selection state (uncontrolled + controlled) ────────────────────────────
-  const [internalSelection, setInternalSelection] = useState<SelectionState>(EMPTY_SELECTION)
-  const selection = selectionProp ?? internalSelection
+  const [internalSelection, setInternalSelection] = useState<SelectionState>(EMPTY_SELECTION);
+  const selection = selectionProp ?? internalSelection;
 
   const setSelection = useCallback(
     (s: SelectionState) => {
       if (selectionProp !== undefined) {
-        onSelectionChange?.(s)
+        onSelectionChange?.(s);
       } else {
-        setInternalSelection(s)
+        setInternalSelection(s);
       }
     },
     [selectionProp, onSelectionChange],
-  )
+  );
 
   // ── CoordContext ───────────────────────────────────────────────────────────
-  const coords: CoordContext = useMemo(() => ({
-    scale: effectiveScale,
-    stageWidth: page.width * effectiveScale,
-    stageHeight: page.height * effectiveScale,
-    pageWidth: page.width,
-    pageHeight: page.height,
-  }), [effectiveScale, page.width, page.height])
+  const coords: CoordContext = useMemo(
+    () => ({
+      scale: effectiveScale,
+      stageWidth: page.width * effectiveScale,
+      stageHeight: page.height * effectiveScale,
+      pageWidth: page.width,
+      pageHeight: page.height,
+    }),
+    [effectiveScale, page.width, page.height],
+  );
 
   // ── ViewportState ──────────────────────────────────────────────────────────
-  const viewport: ViewportState = useMemo(() => ({
-    scale: effectiveScale,
-    pan,
-  }), [effectiveScale, pan])
+  const viewport: ViewportState = useMemo(
+    () => ({
+      scale: effectiveScale,
+      pan,
+    }),
+    [effectiveScale, pan],
+  );
 
   // ── Slot render props (shared across all non-word slots) ───────────────────
-  const [hover] = useState<CanvasWord | null>(null)
+  const [hover] = useState<CanvasWord | null>(null);
 
-  const slotProps = useMemo(() => ({
-    coords,
-    selection,
-    hover,
-    zoom: effectiveScale,
-    pan,
-  }), [coords, selection, hover, effectiveScale, pan])
+  const slotProps = useMemo(
+    () => ({
+      coords,
+      selection,
+      hover,
+      zoom: effectiveScale,
+      pan,
+    }),
+    [coords, selection, hover, effectiveScale, pan],
+  );
 
   // ── Context value ──────────────────────────────────────────────────────────
   const ctxValue = useMemo(
     () => ({ coords, selection, viewport, setSelection }),
     [coords, selection, viewport, setSelection],
-  )
+  );
 
   // ── Image load state ───────────────────────────────────────────────────────
   // Clear immediately on src change so no stale image is shown while loading.
   // A "cancelled" flag acts as a source token to discard late-arriving loads
   // from a prior src (e.g. slow network + rapid src change).
   // onerror keeps imageEl null so a broken image never shows a stale frame.
-  const [imageEl, setImageEl] = useState<HTMLImageElement | null>(null)
+  const [imageEl, setImageEl] = useState<HTMLImageElement | null>(null);
   useEffect(() => {
-    let cancelled = false
-    setImageEl(null)
-    const img = new window.Image()
-    img.src = src
+    let cancelled = false;
+    setImageEl(null);
+    const img = new window.Image();
+    img.src = src;
     img.onload = () => {
-      if (!cancelled) setImageEl(img)
-    }
+      if (!cancelled) setImageEl(img);
+    };
     img.onerror = () => {
-      if (!cancelled) setImageEl(null)
-    }
+      if (!cancelled) setImageEl(null);
+    };
     return () => {
-      cancelled = true
-      img.onload = null
-      img.onerror = null
-    }
-  }, [src])
+      cancelled = true;
+      img.onload = null;
+      img.onerror = null;
+    };
+  }, [src]);
 
   // ── Image node ref (issue #12) ─────────────────────────────────────────────
   // Exposes the Konva Image node via callback so consumers can attach a
   // Konva Transformer without reaching into the Stage via findOne.
-  const imageNodeRef = useRef<Konva.Image | null>(null)
+  const imageNodeRef = useRef<Konva.Image | null>(null);
   const handleImageRef = useCallback(
     (node: Konva.Image | null) => {
-      imageNodeRef.current = node
-      onImageNodeReady?.(node)
+      imageNodeRef.current = node;
+      onImageNodeReady?.(node);
     },
     [onImageNodeReady],
-  )
+  );
 
   // ── Focus on mount (keyboard hotkeys) ─────────────────────────────────────
   useEffect(() => {
-    wrapperRef.current?.focus()
-  }, [])
+    wrapperRef.current?.focus();
+  }, []);
 
   // ── Drag (marquee select) ──────────────────────────────────────────────────
-  const dragStartRef = useRef<{ x: number; y: number } | null>(null)
-  const [dragRect, setDragRect] = useState<{ x: number; y: number; width: number; height: number } | null>(null)
+  const dragStartRef = useRef<{ x: number; y: number } | null>(null);
+  const [dragRect, setDragRect] = useState<{
+    x: number;
+    y: number;
+    width: number;
+    height: number;
+  } | null>(null);
   // Stable throttle instance — persists across renders so pending flag works correctly.
-  const dragThrottleRef = useRef(makeRafThrottle())
+  const dragThrottleRef = useRef(makeRafThrottle());
 
-  const stageWidth = page.width * effectiveScale
-  const stageHeight = page.height * effectiveScale
+  const stageWidth = page.width * effectiveScale;
+  const stageHeight = page.height * effectiveScale;
 
   // ── Render ─────────────────────────────────────────────────────────────────
   // Canvas viewport acts as a keyboard-navigable image region; tabIndex + pointer
@@ -253,7 +269,7 @@ export function PageImageCanvas<
       >
         Page cannot be rendered: invalid dimensions ({page.width}&times;{page.height})
       </div>
-    )
+    );
   }
 
   /* eslint-disable jsx-a11y/no-noninteractive-tabindex */
@@ -267,7 +283,13 @@ export function PageImageCanvas<
         data-testid="image-viewport"
         data-width={page.width}
         data-height={page.height}
-        style={{ width: '100%', height: '100%', outline: 'none', userSelect: 'none', position: 'relative' }}
+        style={{
+          width: '100%',
+          height: '100%',
+          outline: 'none',
+          userSelect: 'none',
+          position: 'relative',
+        }}
       >
         <div style={{ width: '100%', height: '100%', overflow: 'auto' }}>
           <Stage
@@ -277,23 +299,23 @@ export function PageImageCanvas<
             scaleY={effectiveScale}
             data-testid="canvas-stage"
             onMouseDown={(e) => {
-              onStagePointerDown?.(e, coords)
-              const stage = e.target.getStage()
-              const pos = stage?.getPointerPosition()
-              if (!pos) return
-              const s = effectiveScale || 1
-              dragStartRef.current = { x: pos.x / s, y: pos.y / s }
-              setDragRect(null)
+              onStagePointerDown?.(e, coords);
+              const stage = e.target.getStage();
+              const pos = stage?.getPointerPosition();
+              if (!pos) return;
+              const s = effectiveScale || 1;
+              dragStartRef.current = { x: pos.x / s, y: pos.y / s };
+              setDragRect(null);
             }}
             onMouseMove={(e) => {
-              onStagePointerMove?.(e, coords)
-              if (!dragStartRef.current) return
-              const stage = e.target.getStage()
-              const pos = stage?.getPointerPosition()
-              if (!pos) return
-              const s = effectiveScale || 1
-              const cur = { x: pos.x / s, y: pos.y / s }
-              const start = dragStartRef.current
+              onStagePointerMove?.(e, coords);
+              if (!dragStartRef.current) return;
+              const stage = e.target.getStage();
+              const pos = stage?.getPointerPosition();
+              if (!pos) return;
+              const s = effectiveScale || 1;
+              const cur = { x: pos.x / s, y: pos.y / s };
+              const start = dragStartRef.current;
               // Use the stable throttle ref so pending persists across event calls.
               // Passing the latest computed rect as `fn` ensures the rAF always
               // commits the most recent position, not a stale closure capture.
@@ -303,64 +325,64 @@ export function PageImageCanvas<
                   y: Math.min(cur.y, start.y),
                   width: Math.abs(cur.x - start.x),
                   height: Math.abs(cur.y - start.y),
-                })
-              })
+                });
+              });
             }}
             onMouseUp={(e) => {
-              onStagePointerUp?.(e, coords)
-              const start = dragStartRef.current
-              if (!start) return
-              const stage = e.target.getStage()
-              const pos = stage?.getPointerPosition()
-              const s = effectiveScale || 1
-              const cur = pos ? { x: pos.x / s, y: pos.y / s } : start
+              onStagePointerUp?.(e, coords);
+              const start = dragStartRef.current;
+              if (!start) return;
+              const stage = e.target.getStage();
+              const pos = stage?.getPointerPosition();
+              const s = effectiveScale || 1;
+              const cur = pos ? { x: pos.x / s, y: pos.y / s } : start;
               const rect = {
                 x: Math.min(cur.x, start.x),
                 y: Math.min(cur.y, start.y),
                 width: Math.abs(cur.x - start.x),
                 height: Math.abs(cur.y - start.y),
-              }
-              dragStartRef.current = null
-              setDragRect(null)
+              };
+              dragStartRef.current = null;
+              setDragRect(null);
 
               // Hit-test: trivial drag (≤2px) = point click
               if (rect.width <= 2 && rect.height <= 2) {
                 const hit = words.find((w) => {
-                  const bb = w.bounding_box
-                  if (!isValidBBox(bb)) return false
+                  const bb = w.bounding_box;
+                  if (!isValidBBox(bb)) return false;
                   return (
                     cur.x >= bb.top_left.x &&
                     cur.x <= bb.bottom_right.x &&
                     cur.y >= bb.top_left.y &&
                     cur.y <= bb.bottom_right.y
-                  )
-                })
+                  );
+                });
                 if (hit) {
-                  const id = getWordId(hit)
-                  setSelection({ ids: new Set([id]) })
+                  const id = getWordId(hit);
+                  setSelection({ ids: new Set([id]) });
                 }
-                return
+                return;
               }
 
               // Marquee select: collect all words whose bboxes intersect the drag rect
               // Words with invalid bounding boxes are silently skipped.
               const hitIds = words
                 .filter((w) => {
-                  const bb = w.bounding_box
-                  if (!isValidBBox(bb)) return false
+                  const bb = w.bounding_box;
+                  if (!isValidBBox(bb)) return false;
                   return (
                     bb.bottom_right.x > rect.x &&
                     bb.top_left.x < rect.x + rect.width &&
                     bb.bottom_right.y > rect.y &&
                     bb.top_left.y < rect.y + rect.height
-                  )
+                  );
                 })
-                .map((w) => getWordId(w))
-              setSelection({ ids: new Set(hitIds) })
+                .map((w) => getWordId(w));
+              setSelection({ ids: new Set(hitIds) });
             }}
             onMouseLeave={() => {
-              dragStartRef.current = null
-              setDragRect(null)
+              dragStartRef.current = null;
+              setDragRect(null);
             }}
           >
             {/* Layer 1: image */}
@@ -389,14 +411,14 @@ export function PageImageCanvas<
                 canvas crashes from corrupt OCR data (issue #22). */}
             <Layer name="overlay" listening={false}>
               {words.map((word) => {
-                if (!isValidBBox(word.bounding_box)) return null
-                const id = getWordId(word)
+                if (!isValidBBox(word.bounding_box)) return null;
+                const id = getWordId(word);
                 const wordSlotProps = {
                   ...slotProps,
                   word,
                   isSelected: selection.ids.has(id),
-                }
-                return children?.overlay?.(wordSlotProps) ?? null
+                };
+                return children?.overlay?.(wordSlotProps) ?? null;
               })}
             </Layer>
 
@@ -450,7 +472,7 @@ export function PageImageCanvas<
         )}
       </div>
     </CanvasInternalContext.Provider>
-  )
+  );
 }
 
-PageImageCanvas.displayName = 'PageImageCanvas'
+PageImageCanvas.displayName = 'PageImageCanvas';

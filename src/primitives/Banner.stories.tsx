@@ -64,7 +64,13 @@ export const WithLeading: Story = {
     leadingSlot: (
       <span
         aria-hidden="true"
-        style={{ display: 'inline-block', width: 24, height: 24, background: 'var(--ocr)', borderRadius: '50%' }}
+        style={{
+          display: 'inline-block',
+          width: 24,
+          height: 24,
+          background: 'var(--ocr)',
+          borderRadius: '50%',
+        }}
       />
     ),
   },

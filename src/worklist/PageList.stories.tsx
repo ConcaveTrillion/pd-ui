@@ -48,9 +48,7 @@ function CustomPageRow({ item, index, isSelected }: PageRowProps) {
         fontSize: isChapter ? 'var(--text-sm)' : 'var(--text-xs)',
         fontWeight: isChapter ? 600 : 400,
         color: isSelected ? 'var(--ink-1)' : isChapter ? 'var(--ink-1)' : 'var(--ink-2)',
-        borderLeft: isChapter
-          ? '2px solid var(--accent)'
-          : '2px solid transparent',
+        borderLeft: isChapter ? '2px solid var(--accent)' : '2px solid transparent',
         cursor: 'pointer',
       }}
     >

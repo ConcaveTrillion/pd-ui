@@ -22,8 +22,7 @@ export interface SettingsModalContextValue {
   openPanel: (panelId: string) => void;
 }
 
-export const SettingsModalContext =
-  React.createContext<SettingsModalContextValue | null>(null);
+export const SettingsModalContext = React.createContext<SettingsModalContextValue | null>(null);
 
 /**
  * Returns the SettingsModal context value. Must be called from a component

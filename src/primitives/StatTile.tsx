@@ -22,7 +22,13 @@ export interface StatTileProps {
  * Used in wf01 (source stats), wf05 (library stats), final/hyphen_join.
  * Token-only styling; no hex literals.
  */
-export function StatTile({ label, value, sub, tone, className }: StatTileProps): React.ReactElement {
+export function StatTile({
+  label,
+  value,
+  sub,
+  tone,
+  className,
+}: StatTileProps): React.ReactElement {
   return (
     <div
       className={cn(

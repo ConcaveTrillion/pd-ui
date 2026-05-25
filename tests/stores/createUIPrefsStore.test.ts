@@ -219,9 +219,7 @@ describe('createUIPrefsStore persist error surfacing (#38)', () => {
       const err = new Error('transient network error');
       let shouldFail = true;
       const config = makeSucceedingConfig({
-        persistCommon: vi.fn(() =>
-          shouldFail ? Promise.reject(err) : Promise.resolve(),
-        ),
+        persistCommon: vi.fn(() => (shouldFail ? Promise.reject(err) : Promise.resolve())),
       });
       const store = createUIPrefsStore(config);
 

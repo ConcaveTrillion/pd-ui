@@ -65,9 +65,7 @@ function CustomBlockRow({ item, index, isSelected }: BlockRowProps) {
         fontSize: isParagraph ? 'var(--text-sm)' : 'var(--text-xs)',
         fontWeight: isParagraph ? 600 : 400,
         color: 'var(--ink-1)',
-        borderLeft: isParagraph
-          ? '2px solid var(--accent)'
-          : '2px solid transparent',
+        borderLeft: isParagraph ? '2px solid var(--accent)' : '2px solid transparent',
         cursor: 'pointer',
       }}
     >
@@ -146,9 +144,7 @@ export const ControlledSelection: Story = {
         </div>
         <div style={{ fontSize: '12px', color: 'var(--ink-3)' }}>
           Selected index: {selected ?? 'none'} —{' '}
-          {selected != null
-            ? `"${SAMPLE_BLOCKS[selected]?.block_category ?? 'BLOCK'}"`
-            : '(none)'}
+          {selected != null ? `"${SAMPLE_BLOCKS[selected]?.block_category ?? 'BLOCK'}"` : '(none)'}
         </div>
       </div>
     );

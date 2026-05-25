@@ -2,10 +2,7 @@ import * as React from 'react';
 import { Banner } from '../../primitives/Banner.js';
 import { CheckIcon } from '../../primitives/CheckIcon.js';
 import { Button } from '../../primitives/Button.js';
-import {
-  VALIDATION_SUMMARY_HEADER,
-  VALIDATION_SUMMARY_HEADER_CTA,
-} from '../../testids/index.js';
+import { VALIDATION_SUMMARY_HEADER, VALIDATION_SUMMARY_HEADER_CTA } from '../../testids/index.js';
 
 // ─── Public types ─────────────────────────────────────────────────────────────
 
@@ -128,10 +125,7 @@ export function SummaryHeader({
   const config = STATE_CONFIG[state];
 
   const leadingSlot = (
-    <CheckIcon
-      state={state === 'pass' ? 'pass' : state === 'warn' ? 'warn' : 'error'}
-      size={24}
-    />
+    <CheckIcon state={state === 'pass' ? 'pass' : state === 'warn' ? 'warn' : 'error'} size={24} />
   );
 
   const headline = (

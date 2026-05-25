@@ -18,10 +18,7 @@ export interface LineBlockRowProps {
 /**
  * LineBlockRow — rows-mode view of a single OCR line.
  */
-export function LineBlockRow({
-  line,
-  onWordEdit,
-}: LineBlockRowProps): React.ReactElement {
+export function LineBlockRow({ line, onWordEdit }: LineBlockRowProps): React.ReactElement {
   const hasWords = line.words != null && line.words.length > 0;
 
   return (
@@ -62,9 +59,7 @@ export function LineBlockRow({
           {line.id}
         </span>
         {line.blockId != null && (
-          <span style={{ color: 'var(--ink-4)', fontSize: 10.5 }}>
-            {line.blockId}
-          </span>
+          <span style={{ color: 'var(--ink-4)', fontSize: 10.5 }}>{line.blockId}</span>
         )}
       </div>
 
@@ -76,7 +71,11 @@ export function LineBlockRow({
               key={word.id}
               word={word}
               {...(onWordEdit != null
-                ? { onClick: () => { onWordEdit(word.id); } }
+                ? {
+                    onClick: () => {
+                      onWordEdit(word.id);
+                    },
+                  }
                 : {})}
             />
           ))}

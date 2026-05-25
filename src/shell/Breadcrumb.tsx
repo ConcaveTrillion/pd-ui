@@ -12,11 +12,7 @@ export interface BreadcrumbProps {
 
 export function Breadcrumb({ children, className }: BreadcrumbProps) {
   return (
-    <nav
-      data-testid="breadcrumb"
-      aria-label="Breadcrumb"
-      className={cn('breadcrumb', className)}
-    >
+    <nav data-testid="breadcrumb" aria-label="Breadcrumb" className={cn('breadcrumb', className)}>
       <ol
         style={{
           display: 'flex',

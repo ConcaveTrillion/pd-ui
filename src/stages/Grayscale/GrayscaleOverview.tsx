@@ -58,19 +58,14 @@ export function GrayscaleOverview({
     perceptualCount,
   } = stats;
 
-  const showModeBreakdown =
-    standardCount != null && perceptualCount != null;
+  const showModeBreakdown = standardCount != null && perceptualCount != null;
 
   return (
     <section className="grayscale-overview" data-testid={testId}>
       {/* Top row — 4 stat tiles */}
       <div className="grayscale-overview__stat-row">
         <div data-testid={GRAYSCALE_OVERVIEW_STAT_PROCESSED}>
-          <StatTile
-            label="Pages Processed"
-            value={String(pagesProcessed)}
-            tone="neutral"
-          />
+          <StatTile label="Pages Processed" value={String(pagesProcessed)} tone="neutral" />
         </div>
         <div data-testid={GRAYSCALE_OVERVIEW_STAT_FLAGGED}>
           <StatTile
@@ -80,16 +75,10 @@ export function GrayscaleOverview({
           />
         </div>
         <div data-testid={GRAYSCALE_OVERVIEW_STAT_AVG}>
-          <StatTile
-            label="Avg / Page"
-            value={fmtSeconds(avgSecondsPerPage)}
-          />
+          <StatTile label="Avg / Page" value={fmtSeconds(avgSecondsPerPage)} />
         </div>
         <div data-testid={GRAYSCALE_OVERVIEW_STAT_TOTAL}>
-          <StatTile
-            label="Total Time"
-            value={fmtSeconds(totalSeconds)}
-          />
+          <StatTile label="Total Time" value={fmtSeconds(totalSeconds)} />
         </div>
       </div>
 

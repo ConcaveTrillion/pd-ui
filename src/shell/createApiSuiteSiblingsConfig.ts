@@ -63,7 +63,7 @@ export function createApiSuiteSiblingsConfig(opts: ApiSuiteSiblingsOptions = {})
       try {
         const res = await fetch(installedUrl);
         if (!res.ok) return [];
-        const data = await res.json() as InstalledApp[];
+        const data = (await res.json()) as InstalledApp[];
         return data;
       } catch {
         return [];
@@ -78,7 +78,7 @@ export function createApiSuiteSiblingsConfig(opts: ApiSuiteSiblingsOptions = {})
           body: JSON.stringify({ id }),
         });
         if (!res.ok) return { kind: 'requires-host-config', siblingId: id };
-        const data = await res.json() as LaunchResult;
+        const data = (await res.json()) as LaunchResult;
         return data;
       } catch {
         return { kind: 'requires-host-config', siblingId: id };

@@ -79,11 +79,11 @@ export const DangerActive: Story = {
 // ---------------------------------------------------------------------------
 
 const ACCOUNT_GROUPS: SettingsNavGroup[] = [
-  { id: 'profile',   name: 'Profile',          icon: 'image'    },
-  { id: 'security',  name: 'Security',          icon: 'wrench'   },
-  { id: 'billing',   name: 'Billing',           icon: 'hardDrive' },
-  { id: 'tokens',    name: 'API tokens',        icon: 'file'     },
-  { id: 'danger',    name: 'Delete account',    icon: 'trash',   danger: true },
+  { id: 'profile', name: 'Profile', icon: 'image' },
+  { id: 'security', name: 'Security', icon: 'wrench' },
+  { id: 'billing', name: 'Billing', icon: 'hardDrive' },
+  { id: 'tokens', name: 'API tokens', icon: 'file' },
+  { id: 'danger', name: 'Delete account', icon: 'trash', danger: true },
 ];
 
 export const CustomGroups: Story = {
@@ -135,7 +135,7 @@ export const LightTheme: Story = {
     backgrounds: { default: 'light' },
   },
   decorators: [
-    Story => (
+    (Story) => (
       <div data-theme="light">
         <Story />
       </div>
@@ -167,7 +167,7 @@ export const LightDangerActive: Story = {
     backgrounds: { default: 'light' },
   },
   decorators: [
-    Story => (
+    (Story) => (
       <div data-theme="light">
         <Story />
       </div>

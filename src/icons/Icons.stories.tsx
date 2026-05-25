@@ -85,7 +85,10 @@ type Story = StoryObj<typeof meta>;
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 type AnyIconComponent = React.ComponentType<any>;
 
-function IconGrid({ title, icons }: {
+function IconGrid({
+  title,
+  icons,
+}: {
   title: string;
   icons: { name: string; Icon: AnyIconComponent }[];
 }) {
@@ -200,7 +203,10 @@ export const AllIcons: Story = {
   render: () => (
     <div>
       <IconGrid title="Lucide icons (original curated subset)" icons={LUCIDE_ORIGINAL_ICONS} />
-      <IconGrid title="Lucide icons (Phase 2 design-handoff additions — 28 new)" icons={LUCIDE_NEW_ICONS} />
+      <IconGrid
+        title="Lucide icons (Phase 2 design-handoff additions — 28 new)"
+        icons={LUCIDE_NEW_ICONS}
+      />
       <IconGrid title="Bespoke OCR-domain icons" icons={BESPOKE_ICONS} />
     </div>
   ),
@@ -241,7 +247,8 @@ export const IconDispatcher: Story = {
         Icon dispatcher — all 40 design names
       </h3>
       <p style={{ color: 'var(--ink-3)', fontSize: '12px', marginBottom: '16px' }}>
-        Usage: <code style={{ background: 'var(--bg-raised)', padding: '2px 6px', borderRadius: '4px' }}>
+        Usage:{' '}
+        <code style={{ background: 'var(--bg-raised)', padding: '2px 6px', borderRadius: '4px' }}>
           {'<Icon name="check" size={16} />'}
         </code>
       </p>

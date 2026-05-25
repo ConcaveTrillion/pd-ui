@@ -23,10 +23,7 @@ export function LauncherSlot() {
   }
 
   return (
-    <div
-      data-testid="launcher-slot"
-      style={{ display: 'flex', alignItems: 'center', gap: '4px' }}
-    >
+    <div data-testid="launcher-slot" style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
       {ctx.siblings.map((sibling) => (
         <LauncherTile key={sibling.id} sibling={sibling} />
       ))}

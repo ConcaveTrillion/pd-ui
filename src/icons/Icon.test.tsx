@@ -16,7 +16,7 @@ import { describe, it, expect } from 'vitest';
 import { Icon, ICON_NAMES } from './Icon.js';
 
 // Every design name from Table 3
-const ALL_DESIGN_NAMES: Array<typeof ICON_NAMES[number]> = [
+const ALL_DESIGN_NAMES: Array<(typeof ICON_NAMES)[number]> = [
   'upload',
   'folder',
   'file',

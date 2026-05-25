@@ -69,13 +69,7 @@ function accentVar(status: JobStatus): string {
 
 // ─── Component ─────────────────────────────────────────────────────────────────
 
-export function JobRow({
-  job,
-  hovered = false,
-  onOpen,
-  onPauseResume,
-  onCancel,
-}: JobRowProps) {
+export function JobRow({ job, hovered = false, onOpen, onPauseResume, onCancel }: JobRowProps) {
   const done = isDone(job.status);
   const paused = isPaused(job.status);
   const failed = isFailed(job.status);
@@ -131,10 +125,7 @@ export function JobRow({
             height: 8,
             borderRadius: 99,
             background: accent,
-            animation:
-              !done && !paused && !failed
-                ? 'pgd-pulse 1.4s ease-in-out infinite'
-                : 'none',
+            animation: !done && !paused && !failed ? 'pgd-pulse 1.4s ease-in-out infinite' : 'none',
             flex: '0 0 auto',
           }}
         />
@@ -219,11 +210,7 @@ export function JobRow({
             style={{
               width: `${job.pct}%`,
               height: '100%',
-              background: paused
-                ? 'var(--fuzzy)'
-                : failed
-                  ? 'var(--mismatch)'
-                  : 'var(--ocr)',
+              background: paused ? 'var(--fuzzy)' : failed ? 'var(--mismatch)' : 'var(--ocr)',
               borderRadius: 99,
               backgroundImage: paused
                 ? 'repeating-linear-gradient(45deg, transparent 0 4px, rgba(0,0,0,0.18) 4px 8px)'

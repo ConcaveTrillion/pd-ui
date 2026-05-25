@@ -29,11 +29,7 @@ export function PageChip({
   className,
   'data-testid': testId,
 }: PageChipProps): React.ReactElement {
-  const classes = cn(
-    'page-chip',
-    selected ? 'page-chip--selected' : undefined,
-    className,
-  );
+  const classes = cn('page-chip', selected ? 'page-chip--selected' : undefined, className);
 
   if (onClick != null) {
     return (
@@ -50,10 +46,7 @@ export function PageChip({
   }
 
   return (
-    <span
-      className={classes}
-      data-testid={testId}
-    >
+    <span className={classes} data-testid={testId}>
       {prefix}
     </span>
   );

@@ -44,7 +44,5 @@ export const Disabled: Story = {
 };
 
 export const WithLongLabel: Story = {
-  render: () => (
-    <ControlledToggleBadge label="Apply hyphen-join rule automatically on page save" />
-  ),
+  render: () => <ControlledToggleBadge label="Apply hyphen-join rule automatically on page save" />,
 };

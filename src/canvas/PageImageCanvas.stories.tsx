@@ -69,11 +69,7 @@ type Story = StoryObj<typeof meta>;
 export const NoOverlay: Story = {
   render: () => (
     <div style={{ width: '700px', height: '500px', background: 'var(--bg)' }}>
-      <PageImageCanvas
-        src={BLANK_PNG}
-        page={FIXTURE_PAGE}
-        words={FIXTURE_WORDS}
-      />
+      <PageImageCanvas src={BLANK_PNG} page={FIXTURE_PAGE} words={FIXTURE_WORDS} />
     </div>
   ),
 };
@@ -82,18 +78,10 @@ export const NoOverlay: Story = {
 export const WithBBoxOverlay: Story = {
   render: () => (
     <div style={{ width: '700px', height: '500px', background: 'var(--bg)' }}>
-      <PageImageCanvas
-        src={BLANK_PNG}
-        page={FIXTURE_PAGE}
-        words={FIXTURE_WORDS}
-      >
+      <PageImageCanvas src={BLANK_PNG} page={FIXTURE_PAGE} words={FIXTURE_WORDS}>
         {{
           overlay: (p) => (
-            <BBoxLayer
-              {...p}
-              fill="rgba(93,159,223,0.15)"
-              stroke="var(--accent, #5d9fdf)"
-            />
+            <BBoxLayer {...p} fill="rgba(93,159,223,0.15)" stroke="var(--accent, #5d9fdf)" />
           ),
         }}
       </PageImageCanvas>

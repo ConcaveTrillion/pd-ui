@@ -98,7 +98,9 @@ export function CandidateDetail({
         <div className="scanno-candidate-detail__label">Candidate</div>
         <div className="scanno-candidate-detail__token-row">
           <span className="scanno-candidate-detail__token mono">{candidate.token}</span>
-          <span className="scanno-candidate-detail__arrow" aria-hidden="true">→</span>
+          <span className="scanno-candidate-detail__arrow" aria-hidden="true">
+            →
+          </span>
           <span className="scanno-candidate-detail__suggested mono">{candidate.suggested}</span>
         </div>
         <div className="scanno-candidate-detail__meta">
@@ -120,20 +122,14 @@ export function CandidateDetail({
         </div>
         <div className="scanno-candidate-detail__contexts">
           {visibleContexts.map((ctx) => (
-            <div
-              key={ctx.id}
-              className="scanno-candidate-detail__context"
-            >
+            <div key={ctx.id} className="scanno-candidate-detail__context">
               <span className="scanno-candidate-detail__page-id mono">{ctx.pageId}</span>
               <span className="scanno-candidate-detail__snippet">{ctx.snippet}</span>
             </div>
           ))}
         </div>
         {hasMore && (
-          <button
-            type="button"
-            className="scanno-candidate-detail__show-all"
-          >
+          <button type="button" className="scanno-candidate-detail__show-all">
             Show all {contexts.length}
           </button>
         )}
@@ -141,13 +137,10 @@ export function CandidateDetail({
 
       {/* ── Promote-preview form ──────────────────────────────────────────── */}
       <div className="scanno-candidate-detail__promote-preview">
-        <div className="scanno-candidate-detail__promote-title">
-          Promote to global library
-        </div>
+        <div className="scanno-candidate-detail__promote-title">Promote to global library</div>
         <div className="scanno-candidate-detail__promote-desc">
-          Creates a new rule in{' '}
-          <span className="mono">Library → Scannos</span>.
-          This book is recorded as the originating evidence.
+          Creates a new rule in <span className="mono">Library → Scannos</span>. This book is
+          recorded as the originating evidence.
         </div>
         <div className="scanno-candidate-detail__promote-form">
           <div className="scanno-candidate-detail__form-row">
@@ -162,7 +155,9 @@ export function CandidateDetail({
               className="mono"
               data-testid={SCANNO_CANDIDATE_DETAIL_SUGGESTED_INPUT}
               aria-label="Suggested replacement"
-              onChange={(e) => { setSuggested(e.target.value); }}
+              onChange={(e) => {
+                setSuggested(e.target.value);
+              }}
             />
           </div>
         </div>

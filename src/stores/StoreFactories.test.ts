@@ -7,11 +7,7 @@
  *  - Fire state updates via the returned store
  */
 import { describe, it, expect } from 'vitest';
-import {
-  createSelectionStore,
-  createViewportStore,
-  createWorklistStore,
-} from './index.js';
+import { createSelectionStore, createViewportStore, createWorklistStore } from './index.js';
 
 // ─── createSelectionStore ──────────────────────────────────────────────────────
 

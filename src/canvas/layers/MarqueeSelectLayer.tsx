@@ -17,25 +17,25 @@
  * Tolerates `selection` being undefined (renders nothing).
  */
 
-import { memo } from 'react'
-import { Rect } from 'react-konva'
-import type { SlotRenderProps, CanvasWord } from '../types'
-import { bboxToRect } from '../types'
+import { memo } from 'react';
+import { Rect } from 'react-konva';
+import type { SlotRenderProps, CanvasWord } from '../types';
+import { bboxToRect } from '../types';
 
 interface MarqueeSelectLayerProps extends SlotRenderProps {
   /** Full word array (needed to look up bboxes for selected IDs). */
-  words: CanvasWord[]
+  words: CanvasWord[];
   /** Derive a stable string ID for a word. */
-  getWordId?: (word: CanvasWord) => string
+  getWordId?: (word: CanvasWord) => string;
   /** Fill color for selected boxes (default: uses --accent token). */
-  fill?: string
+  fill?: string;
   /** Stroke color for selected boxes (default: uses --accent token). */
-  stroke?: string
+  stroke?: string;
 }
 
 function defaultId(w: CanvasWord): string {
-  const bb = w.bounding_box
-  return `${bb.top_left.x},${bb.top_left.y}`
+  const bb = w.bounding_box;
+  return `${bb.top_left.x},${bb.top_left.y}`;
 }
 
 function MarqueeSelectLayerInner({
@@ -45,16 +45,16 @@ function MarqueeSelectLayerInner({
   fill = 'var(--accent-fill, rgba(37,99,235,0.20))',
   stroke = 'var(--accent, #1d4ed8)',
 }: MarqueeSelectLayerProps) {
-  if (!selection || selection.ids.size === 0) return null
+  if (!selection || selection.ids.size === 0) return null;
 
-  const selected = words.filter((w) => selection.ids.has(getWordId(w)))
+  const selected = words.filter((w) => selection.ids.has(getWordId(w)));
 
   return (
     <>
       {selected.map((word) => {
-        const rect = bboxToRect(word.bounding_box)
-        if (!rect) return null
-        const id = getWordId(word)
+        const rect = bboxToRect(word.bounding_box);
+        if (!rect) return null;
+        const id = getWordId(word);
         return (
           <Rect
             key={id}
@@ -69,11 +69,11 @@ function MarqueeSelectLayerInner({
             listening={false}
             perfectDrawEnabled={false}
           />
-        )
+        );
       })}
     </>
-  )
+  );
 }
 
-export const MarqueeSelectLayer = memo(MarqueeSelectLayerInner)
-MarqueeSelectLayer.displayName = 'MarqueeSelectLayer'
+export const MarqueeSelectLayer = memo(MarqueeSelectLayerInner);
+MarqueeSelectLayer.displayName = 'MarqueeSelectLayer';

@@ -104,7 +104,9 @@ describe('Input – suffix slot', () => {
 describe('Input – autoFocusRing', () => {
   it('adds .input-focus-ring class to wrapper when autoFocusRing=true and suffix present', () => {
     const { container } = render(<Input data-testid="inp" suffix="px" autoFocusRing />);
-    expect(container.querySelector('.input-wrapper')?.classList.contains('input-focus-ring')).toBe(true);
+    expect(container.querySelector('.input-wrapper')?.classList.contains('input-focus-ring')).toBe(
+      true,
+    );
   });
 
   it('adds .input-focus-ring class to input element when autoFocusRing=true and no suffix', () => {

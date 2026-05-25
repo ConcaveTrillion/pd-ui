@@ -19,77 +19,85 @@
  * Spec §6.2: annotation-mode canvas for pd-ui Phase 2.
  */
 
-import { useMemo } from 'react'
-import { Rect, Circle } from 'react-konva'
-import { PageImageCanvas } from '../../canvas/PageImageCanvas.js'
-import { LayerToggle } from './LayerToggle.js'
+import { useMemo } from 'react';
+import { Rect, Circle } from 'react-konva';
+import { PageImageCanvas } from '../../canvas/PageImageCanvas.js';
+import { LayerToggle } from './LayerToggle.js';
 
 // ── Public types ──────────────────────────────────────────────────────────────
 
 export interface LabelerBlock {
-  id: string
+  id: string;
   /**
    * Normalized [x, y, w, h] (0–1) relative to page dimensions.
    * Top-left origin, same convention as WordBbox.
    */
-  bbox: [number, number, number, number]
+  bbox: [number, number, number, number];
   /** Optional block type label (e.g. 'text', 'heading', 'table'). */
-  type?: string
+  type?: string;
   /**
    * Optional color tone token (e.g. 'brand', 'ocr', 'clean').
    * Default: 'neutral'.
    */
-  tone?: string
+  tone?: string;
 }
 
 export interface LayerVisibility {
-  blocks: boolean
-  words: boolean
-  detections: boolean
+  blocks: boolean;
+  words: boolean;
+  detections: boolean;
 }
 
 export interface LabelerCanvasProps {
   /** Page image URL. */
-  imageUrl: string
+  imageUrl: string;
   /** Page width in natural pixels. */
-  pageWidth: number
+  pageWidth: number;
   /** Page height in natural pixels. */
-  pageHeight: number
+  pageHeight: number;
   /** Block annotations to display. */
-  blocks: ReadonlyArray<LabelerBlock>
+  blocks: ReadonlyArray<LabelerBlock>;
   /**
    * Called when the user adds/edits/removes a block.
    * M2 ships rendering only — mutation is a follow-on.
    */
-  onBlocksChange?: (blocks: ReadonlyArray<LabelerBlock>) => void
+  onBlocksChange?: (blocks: ReadonlyArray<LabelerBlock>) => void;
   /** Currently-selected block id (controlled). */
-  selectedBlockId?: string
+  selectedBlockId?: string;
   /** Called when the user clicks a block rect or deselects. */
-  onSelectBlock?: (id: string | null) => void
+  onSelectBlock?: (id: string | null) => void;
   /** Layer visibility map (controlled). */
-  layerVisibility: LayerVisibility
+  layerVisibility: LayerVisibility;
   /** Called when the user toggles a layer. */
-  onLayerVisibilityChange: (next: LayerVisibility) => void
-  'data-testid'?: string
+  onLayerVisibilityChange: (next: LayerVisibility) => void;
+  'data-testid'?: string;
 }
 
 // ── Tone → CSS custom property ────────────────────────────────────────────────
 
 function toneStroke(tone: string | undefined): string {
   switch (tone) {
-    case 'brand': return 'var(--brand)'
-    case 'ocr': return 'var(--ocr)'
-    case 'clean': return 'var(--clean)'
-    default: return 'var(--accent)'
+    case 'brand':
+      return 'var(--brand)';
+    case 'ocr':
+      return 'var(--ocr)';
+    case 'clean':
+      return 'var(--clean)';
+    default:
+      return 'var(--accent)';
   }
 }
 
 function toneFill(tone: string | undefined): string {
   switch (tone) {
-    case 'brand': return 'color-mix(in oklab, var(--brand) 12%, transparent)'
-    case 'ocr': return 'color-mix(in oklab, var(--ocr) 12%, transparent)'
-    case 'clean': return 'color-mix(in oklab, var(--clean) 12%, transparent)'
-    default: return 'color-mix(in oklab, var(--accent) 12%, transparent)'
+    case 'brand':
+      return 'color-mix(in oklab, var(--brand) 12%, transparent)';
+    case 'ocr':
+      return 'color-mix(in oklab, var(--ocr) 12%, transparent)';
+    case 'clean':
+      return 'color-mix(in oklab, var(--clean) 12%, transparent)';
+    default:
+      return 'color-mix(in oklab, var(--accent) 12%, transparent)';
   }
 }
 
@@ -105,10 +113,10 @@ function selectionHandles(
   w: number,
   h: number,
 ): Array<{ cx: number; cy: number; key: string }> {
-  const mx = x + w / 2
-  const my = y + h / 2
-  const ex = x + w
-  const ey = y + h
+  const mx = x + w / 2;
+  const my = y + h / 2;
+  const ex = x + w;
+  const ey = y + h;
   return [
     { cx: x, cy: y, key: 'nw' },
     { cx: mx, cy: y, key: 'n' },
@@ -118,12 +126,12 @@ function selectionHandles(
     { cx: mx, cy: ey, key: 's' },
     { cx: x, cy: ey, key: 'sw' },
     { cx: x, cy: my, key: 'w' },
-  ]
+  ];
 }
 
 // ── Empty words array (stable reference) ─────────────────────────────────────
 
-const EMPTY_WORDS: never[] = []
+const EMPTY_WORDS: never[] = [];
 
 // ── Component ─────────────────────────────────────────────────────────────────
 
@@ -155,29 +163,23 @@ export function LabelerCanvas(props: LabelerCanvasProps) {
     layerVisibility,
     onLayerVisibilityChange,
     'data-testid': testId = 'labeler-canvas',
-  } = props
+  } = props;
   // props.onBlocksChange: M2 ships rendering only. The prop is accepted in
   // the type contract but not wired to any mutation path yet — bbox
   // drag-to-create and handle dragging are explicit Phase 2 follow-ons.
   // Memoize the selected block lookup
   const selectedBlock = useMemo(
-    () => (selectedBlockId != null ? blocks.find((b) => b.id === selectedBlockId) ?? null : null),
+    () => (selectedBlockId != null ? (blocks.find((b) => b.id === selectedBlockId) ?? null) : null),
     [blocks, selectedBlockId],
-  )
+  );
 
   // Visible block count (used in HUD + tests)
-  const visibleBlockCount = layerVisibility.blocks ? blocks.length : 0
+  const visibleBlockCount = layerVisibility.blocks ? blocks.length : 0;
 
-  const page = useMemo(
-    () => ({ width: pageWidth, height: pageHeight }),
-    [pageWidth, pageHeight],
-  )
+  const page = useMemo(() => ({ width: pageWidth, height: pageHeight }), [pageWidth, pageHeight]);
 
   return (
-    <div
-      data-testid={testId}
-      style={{ position: 'relative', width: '100%', height: '100%' }}
-    >
+    <div data-testid={testId} style={{ position: 'relative', width: '100%', height: '100%' }}>
       <PageImageCanvas
         src={imageUrl}
         page={page}
@@ -187,22 +189,22 @@ export function LabelerCanvas(props: LabelerCanvasProps) {
         {{
           // ── underlay: block bbox rects ────────────────────────────────────
           underlay: ({ coords }) => {
-            if (!layerVisibility.blocks) return null
+            if (!layerVisibility.blocks) return null;
             return (
               <>
                 {blocks.map((block) => {
-                  const [nx, ny, nw, nh] = block.bbox
-                  const x = nx * coords.pageWidth
-                  const y = ny * coords.pageHeight
-                  const w = nw * coords.pageWidth
-                  const h = nh * coords.pageHeight
-                  const isSelected = block.id === selectedBlockId
+                  const [nx, ny, nw, nh] = block.bbox;
+                  const x = nx * coords.pageWidth;
+                  const y = ny * coords.pageHeight;
+                  const w = nw * coords.pageWidth;
+                  const h = nh * coords.pageHeight;
+                  const isSelected = block.id === selectedBlockId;
                   const stroke = isSelected
                     ? 'var(--accent-strong, var(--accent))'
-                    : toneStroke(block.tone)
+                    : toneStroke(block.tone);
                   const fill = isSelected
                     ? 'color-mix(in oklab, var(--accent) 20%, transparent)'
-                    : toneFill(block.tone)
+                    : toneFill(block.tone);
 
                   return (
                     <Rect
@@ -216,25 +218,29 @@ export function LabelerCanvas(props: LabelerCanvasProps) {
                       strokeWidth={isSelected ? 2 : 1.5}
                       fill={fill}
                       listening
-                      onClick={() => { onSelectBlock?.(block.id) }}
-                      onTap={() => { onSelectBlock?.(block.id) }}
+                      onClick={() => {
+                        onSelectBlock?.(block.id);
+                      }}
+                      onTap={() => {
+                        onSelectBlock?.(block.id);
+                      }}
                       perfectDrawEnabled={false}
                     />
-                  )
+                  );
                 })}
               </>
-            )
+            );
           },
 
           // ── tool: selection handles around the selected block ─────────────
           tool: ({ coords }) => {
-            if (selectedBlock == null) return null
-            const [nx, ny, nw, nh] = selectedBlock.bbox
-            const x = nx * coords.pageWidth
-            const y = ny * coords.pageHeight
-            const w = nw * coords.pageWidth
-            const h = nh * coords.pageHeight
-            const handles = selectionHandles(x, y, w, h)
+            if (selectedBlock == null) return null;
+            const [nx, ny, nw, nh] = selectedBlock.bbox;
+            const x = nx * coords.pageWidth;
+            const y = ny * coords.pageHeight;
+            const w = nw * coords.pageWidth;
+            const h = nh * coords.pageHeight;
+            const handles = selectionHandles(x, y, w, h);
             return (
               <>
                 {handles.map(({ cx, cy, key }) => (
@@ -252,7 +258,7 @@ export function LabelerCanvas(props: LabelerCanvasProps) {
                   />
                 ))}
               </>
-            )
+            );
           },
 
           // ── hud: block count status ───────────────────────────────────────
@@ -260,8 +266,8 @@ export function LabelerCanvas(props: LabelerCanvasProps) {
             // HUD is a DOM layer — we render nothing in Konva hud and instead
             // use the DOM overlay below. Return null here.
             // (coords available if needed for future positioning)
-            void coords
-            return null
+            void coords;
+            return null;
           },
         }}
       </PageImageCanvas>
@@ -298,13 +304,10 @@ export function LabelerCanvas(props: LabelerCanvasProps) {
           zIndex: 10,
         }}
       >
-        <LayerToggle
-          visibility={layerVisibility}
-          onChange={onLayerVisibilityChange}
-        />
+        <LayerToggle visibility={layerVisibility} onChange={onLayerVisibilityChange} />
       </div>
     </div>
-  )
+  );
 }
 
-LabelerCanvas.displayName = 'LabelerCanvas'
+LabelerCanvas.displayName = 'LabelerCanvas';

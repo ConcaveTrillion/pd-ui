@@ -54,11 +54,7 @@ describe('PanelToolbar', () => {
 
   it('accepts a custom data-testid', () => {
     render(
-      <PanelToolbar
-        lastRun={null}
-        onRevalidate={() => undefined}
-        data-testid="custom-toolbar"
-      />,
+      <PanelToolbar lastRun={null} onRevalidate={() => undefined} data-testid="custom-toolbar" />,
     );
     expect(screen.getByTestId('custom-toolbar')).toBeInTheDocument();
   });

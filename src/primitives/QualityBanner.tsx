@@ -56,7 +56,9 @@ export function QualityBanner({
   const extreme = (severe ?? false) || ratio > 0.7;
 
   return (
-    <div className={cn('quality-banner', extreme ? 'quality-banner--extreme' : undefined, className)}>
+    <div
+      className={cn('quality-banner', extreme ? 'quality-banner--extreme' : undefined, className)}
+    >
       <div className="quality-banner__stripe" aria-hidden="true" />
       <div className="quality-banner__body">
         <div className="quality-banner__icon-wrapper" aria-hidden="true">
@@ -68,9 +70,7 @@ export function QualityBanner({
               ? `${flagged} of ${total} pages flagged · ${title.toLowerCase()}`
               : `${flagged} pages flagged · ${title.toLowerCase()}`}
           </div>
-          {sub != null ? (
-            <div className="quality-banner__sub">{sub}</div>
-          ) : null}
+          {sub != null ? <div className="quality-banner__sub">{sub}</div> : null}
           <div className="quality-banner__chips">
             {flags.map((f) => (
               <FlagChip
@@ -83,11 +83,7 @@ export function QualityBanner({
         </div>
         <div className="quality-banner__actions">
           {onTune != null ? (
-            <button
-              type="button"
-              className="btn ghost sm quality-banner__action"
-              onClick={onTune}
-            >
+            <button type="button" className="btn ghost sm quality-banner__action" onClick={onTune}>
               Tune thresholds
             </button>
           ) : null}

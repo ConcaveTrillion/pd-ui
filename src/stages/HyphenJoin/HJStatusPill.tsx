@@ -14,12 +14,7 @@ import { HJ_STATUS_PILL } from '../../testids/index.js';
  * - `undecided`   — no rule matched; flagged for review (amber/fuzzy)
  * - `flagged`     — mismatch detected within the book (red/mismatch)
  */
-export type HJStatus =
-  | 'cross-page'
-  | 'validated'
-  | 'auto-joined'
-  | 'undecided'
-  | 'flagged';
+export type HJStatus = 'cross-page' | 'validated' | 'auto-joined' | 'undecided' | 'flagged';
 
 export interface HJStatusPillProps extends Omit<React.HTMLAttributes<HTMLSpanElement>, 'children'> {
   /** The hyphen-join decision status to visualise. */
@@ -31,11 +26,11 @@ export interface HJStatusPillProps extends Omit<React.HTMLAttributes<HTMLSpanEle
 // ─── Mappings ─────────────────────────────────────────────────────────────────
 
 const STATUS_TONE: Record<HJStatus, BadgeTone> = {
-  'cross-page': 'ocr',      // purple — special cross-page route
-  validated: 'exact',       // green — human-confirmed
-  'auto-joined': 'exact',   // green — auto-joined (dashed via modifier)
-  undecided: 'fuzzy',       // amber — no rule match
-  flagged: 'mismatch',      // red — mismatch in book
+  'cross-page': 'ocr', // purple — special cross-page route
+  validated: 'exact', // green — human-confirmed
+  'auto-joined': 'exact', // green — auto-joined (dashed via modifier)
+  undecided: 'fuzzy', // amber — no rule match
+  flagged: 'mismatch', // red — mismatch in book
 };
 
 const STATUS_LABEL: Record<HJStatus, string> = {

@@ -7,13 +7,7 @@ import { HJ_STATUS_PILL } from '../../testids/index.js';
 
 // ─── type-level exhaustiveness check ─────────────────────────────────────────
 // This compiles only if HJStatus covers exactly these five values.
-const ALL_STATUSES: HJStatus[] = [
-  'cross-page',
-  'validated',
-  'auto-joined',
-  'undecided',
-  'flagged',
-];
+const ALL_STATUSES: HJStatus[] = ['cross-page', 'validated', 'auto-joined', 'undecided', 'flagged'];
 
 // ─── HJStatusPill — renders each status variant ───────────────────────────────
 

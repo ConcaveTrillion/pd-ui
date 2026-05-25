@@ -49,9 +49,7 @@ describe('CropCard', () => {
 
   describe('status dot', () => {
     it('renders status dot with data-status attribute', () => {
-      const { container } = render(
-        <CropCard page={makePage({ status: 'flagged' })} density="m" />,
-      );
+      const { container } = render(<CropCard page={makePage({ status: 'flagged' })} density="m" />);
       const dot = container.querySelector('.crop-card__status');
       expect(dot).toBeInTheDocument();
       expect(dot).toHaveAttribute('data-status', 'flagged');
@@ -59,9 +57,7 @@ describe('CropCard', () => {
 
     it('status dot reflects each status value', () => {
       for (const status of ['clean', 'flagged', 'reviewed', 'error'] as const) {
-        const { container } = render(
-          <CropCard page={makePage({ status })} density="m" />,
-        );
+        const { container } = render(<CropCard page={makePage({ status })} density="m" />);
         const dot = container.querySelector('.crop-card__status');
         expect(dot).toHaveAttribute('data-status', status);
         container.remove();
@@ -71,9 +67,7 @@ describe('CropCard', () => {
 
   describe('bbox overlay', () => {
     it('renders bbox overlay when page.bbox is present', () => {
-      const { container } = render(
-        <CropCard page={makePage({ bbox: BBOX })} density="m" />,
-      );
+      const { container } = render(<CropCard page={makePage({ bbox: BBOX })} density="m" />);
       const overlay = container.querySelector('.crop-card__bbox');
       expect(overlay).toBeInTheDocument();
     });
@@ -85,9 +79,7 @@ describe('CropCard', () => {
     });
 
     it('applies normalized bbox coordinates as percentage styles', () => {
-      const { container } = render(
-        <CropCard page={makePage({ bbox: BBOX })} density="m" />,
-      );
+      const { container } = render(<CropCard page={makePage({ bbox: BBOX })} density="m" />);
       const overlay = container.querySelector<HTMLElement>('.crop-card__bbox');
       expect(overlay).not.toBeNull();
       expect(overlay!.style.left).toBe('10%');
@@ -113,23 +105,27 @@ describe('CropCard', () => {
 
     it('density s: count badge shows total number of flags', () => {
       const { container } = render(
-        <CropCard page={makePage({ flags: ['overCrop', 'deskewFail', 'edgeNoise'] })} density="s" />,
+        <CropCard
+          page={makePage({ flags: ['overCrop', 'deskewFail', 'edgeNoise'] })}
+          density="s"
+        />,
       );
       const count = container.querySelector('.crop-card__flag-count');
       expect(count).toHaveTextContent('3');
     });
 
     it('density s: no chips or count when flags is empty', () => {
-      const { container } = render(
-        <CropCard page={makePage({ flags: [] })} density="s" />,
-      );
+      const { container } = render(<CropCard page={makePage({ flags: [] })} density="s" />);
       expect(container.querySelector('.crop-card__flag-count')).not.toBeInTheDocument();
       expect(container.querySelectorAll('.crop-card__flag-chip')).toHaveLength(0);
     });
 
     it('density m: shows up to 2 chips', () => {
       const { container } = render(
-        <CropCard page={makePage({ flags: ['overCrop', 'underCrop', 'deskewFail'] })} density="m" />,
+        <CropCard
+          page={makePage({ flags: ['overCrop', 'underCrop', 'deskewFail'] })}
+          density="m"
+        />,
       );
       const chips = container.querySelectorAll('.crop-card__flag-chip');
       expect(chips).toHaveLength(2);
@@ -137,7 +133,10 @@ describe('CropCard', () => {
 
     it('density m: shows +N overflow when more than 2 flags', () => {
       const { container } = render(
-        <CropCard page={makePage({ flags: ['overCrop', 'underCrop', 'deskewFail'] })} density="m" />,
+        <CropCard
+          page={makePage({ flags: ['overCrop', 'underCrop', 'deskewFail'] })}
+          density="m"
+        />,
       );
       const overflow = container.querySelector('.crop-card__flag-overflow');
       expect(overflow).toBeInTheDocument();
@@ -186,13 +185,7 @@ describe('CropCard', () => {
 
   describe('checkbox', () => {
     it('checkbox absent on density s', () => {
-      render(
-        <CropCard
-          page={makePage()}
-          density="s"
-          onSelect={vi.fn()}
-        />,
-      );
+      render(<CropCard page={makePage()} density="s" onSelect={vi.fn()} />);
       expect(screen.queryByRole('checkbox')).not.toBeInTheDocument();
     });
 
@@ -219,7 +212,12 @@ describe('CropCard', () => {
     it('checkbox fires onSelect(id) when changed', async () => {
       const handler = vi.fn();
       render(
-        <CropCard page={makePage({ id: 'pg-5' })} density="m" onSelect={handler} selected={false} />,
+        <CropCard
+          page={makePage({ id: 'pg-5' })}
+          density="m"
+          onSelect={handler}
+          selected={false}
+        />,
       );
       await userEvent.click(screen.getByRole('checkbox'));
       expect(handler).toHaveBeenCalledOnce();
@@ -229,26 +227,20 @@ describe('CropCard', () => {
 
   describe('selection', () => {
     it('selected=true drives aria-pressed on the Thumbnail button', () => {
-      render(
-        <CropCard page={makePage()} density="m" onSelect={vi.fn()} selected={true} />,
-      );
+      render(<CropCard page={makePage()} density="m" onSelect={vi.fn()} selected={true} />);
       const btn = screen.getByRole('button', { name: /select page 5/i });
       expect(btn).toHaveAttribute('aria-pressed', 'true');
     });
 
     it('selected=false drives aria-pressed false', () => {
-      render(
-        <CropCard page={makePage()} density="m" onSelect={vi.fn()} selected={false} />,
-      );
+      render(<CropCard page={makePage()} density="m" onSelect={vi.fn()} selected={false} />);
       const btn = screen.getByRole('button', { name: /select page 5/i });
       expect(btn).toHaveAttribute('aria-pressed', 'false');
     });
 
     it('fires onSelect(id) when card body is clicked', async () => {
       const handler = vi.fn();
-      render(
-        <CropCard page={makePage({ id: 'pg-7' })} density="m" onSelect={handler} />,
-      );
+      render(<CropCard page={makePage({ id: 'pg-7' })} density="m" onSelect={handler} />);
       const btn = screen.getByRole('button', { name: /select page 5/i });
       await userEvent.click(btn);
       expect(handler).toHaveBeenCalledOnce();

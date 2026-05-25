@@ -32,12 +32,7 @@ const CASE_NO_NGRAMS: HJDecisionCase = {
 // ─── Render helpers ────────────────────────────────────────────────────────────
 
 function renderCard(props: Partial<Parameters<typeof HJDecisionCard>[0]> = {}) {
-  return render(
-    <HJDecisionCard
-      decisionCase={CASE_UNDECIDED}
-      {...props}
-    />,
-  );
+  return render(<HJDecisionCard decisionCase={CASE_UNDECIDED} {...props} />);
 }
 
 // ─── Tests ────────────────────────────────────────────────────────────────────

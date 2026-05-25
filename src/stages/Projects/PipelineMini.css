@@ -15,7 +15,10 @@
   height: 6px;
   background: var(--color-muted, var(--border-2));
   opacity: 1;
-  transition: width 0.15s ease, height 0.15s ease, background 0.15s ease;
+  transition:
+    width 0.15s ease,
+    height 0.15s ease,
+    background 0.15s ease;
 }
 
 /* done */

@@ -100,7 +100,7 @@ export function SwapRow(props: SwapRowProps): React.ReactElement {
     );
   } else {
     const label = state === 'accepted' ? 'Accepted' : 'Skipped';
-    const tone = state === 'accepted' ? 'clean' : 'neutral' as const;
+    const tone = state === 'accepted' ? 'clean' : ('neutral' as const);
     actionZone = (
       <div className="swap-row__state">
         <Badge tone={tone} dot={state === 'accepted'}>

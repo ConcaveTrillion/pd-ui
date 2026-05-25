@@ -45,7 +45,7 @@ export function SuiteSiblingsProvider({ value, children }: SuiteSiblingsProvider
     return () => {
       cancelled = true;
     };
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const launch = React.useCallback(

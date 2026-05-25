@@ -80,10 +80,7 @@ describe('ReorderScansBanner — detected state', () => {
     const user = userEvent.setup();
     const onSort = vi.fn();
     render(<ReorderScansBanner {...defaultDetectedProps} onSort={onSort} />);
-    await user.selectOptions(
-      screen.getByTestId(REORDER_SCANS_BANNER_SORT),
-      'position',
-    );
+    await user.selectOptions(screen.getByTestId(REORDER_SCANS_BANNER_SORT), 'position');
     expect(onSort).toHaveBeenCalledWith('position');
   });
 

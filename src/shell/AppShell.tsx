@@ -121,31 +121,38 @@ export function AppShell({
   const [modalOpen, setModalOpen] = React.useState(false);
   const [activePanel, setActivePanel] = React.useState('appearance');
 
-  const settingsModalCtx = React.useMemo(() => ({
-    open: modalOpen,
-    activePanel,
-    openModal: () => { setModalOpen(true); },
-    closeModal: () => { setModalOpen(false); },
-    openPanel: (panelId: string) => {
-      setActivePanel(panelId);
-      setModalOpen(true);
-    },
-  }), [modalOpen, activePanel]);
+  const settingsModalCtx = React.useMemo(
+    () => ({
+      open: modalOpen,
+      activePanel,
+      openModal: () => {
+        setModalOpen(true);
+      },
+      closeModal: () => {
+        setModalOpen(false);
+      },
+      openPanel: (panelId: string) => {
+        setActivePanel(panelId);
+        setModalOpen(true);
+      },
+    }),
+    [modalOpen, activePanel],
+  );
 
   // Determine the resolved header content.
   // When `header` is undefined, use the built-in AppShellHeader.
   // LauncherSlot is only injected into the built-in header when launcherSlot='header'.
   const resolvedHeader: React.ReactNode =
-    header !== undefined
-      ? header
-      : (
-        <AppShellHeader
-          appIconUrl={appIconUrl}
-          appDisplayName={appDisplayName}
-          headerActions={headerActions}
-          showLauncher={launcherSlot === 'header'}
-        />
-      );
+    header !== undefined ? (
+      header
+    ) : (
+      <AppShellHeader
+        appIconUrl={appIconUrl}
+        appDisplayName={appDisplayName}
+        headerActions={headerActions}
+        showLauncher={launcherSlot === 'header'}
+      />
+    );
 
   return (
     <UIPrefsStoreProvider value={uiPrefsStore}>
@@ -228,10 +235,11 @@ export function AppShell({
           </div>
 
           {/* SettingsModal — rendered outside the grid so it portal-overlays correctly */}
-          {settingsPanels !== undefined
-            ? <SettingsModal settingsPanels={settingsPanels} />
-            : <SettingsModal />
-          }
+          {settingsPanels !== undefined ? (
+            <SettingsModal settingsPanels={settingsPanels} />
+          ) : (
+            <SettingsModal />
+          )}
 
           {/* children slot — for context consumers rendered outside the grid zones */}
           {children}
