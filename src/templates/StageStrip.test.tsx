@@ -260,4 +260,59 @@ describe('StageStrip', () => {
     );
     expect(ref.current?.tagName).toBe('DIV');
   });
+
+  // ── variant prop (non-breaking Phase 2 M10 addition) ─────────────────────
+
+  it('adds stage-strip--configure modifier when variant="configure"', () => {
+    render(
+      <StageStrip
+        stages={[...SAMPLE_STAGES]}
+        current="source"
+        variant="configure"
+        data-testid="strip"
+      />,
+    );
+    const el = screen.getByTestId('strip');
+    expect(el.classList.contains('stage-strip--configure')).toBe(true);
+  });
+
+  it('does NOT add configure modifier when variant is omitted', () => {
+    render(
+      <StageStrip
+        stages={[...SAMPLE_STAGES]}
+        current="source"
+        data-testid="strip"
+      />,
+    );
+    const el = screen.getByTestId('strip');
+    expect(el.classList.contains('stage-strip--configure')).toBe(false);
+  });
+
+  it('does NOT add configure modifier when variant="default"', () => {
+    render(
+      <StageStrip
+        stages={[...SAMPLE_STAGES]}
+        current="source"
+        variant="default"
+        data-testid="strip"
+      />,
+    );
+    const el = screen.getByTestId('strip');
+    expect(el.classList.contains('stage-strip--configure')).toBe(false);
+  });
+
+  it('variant=configure does not break existing running modifier', () => {
+    render(
+      <StageStrip
+        stages={[...SAMPLE_STAGES]}
+        current="source"
+        variant="configure"
+        running
+        data-testid="strip"
+      />,
+    );
+    const el = screen.getByTestId('strip');
+    expect(el.classList.contains('stage-strip--configure')).toBe(true);
+    expect(el.classList.contains('stage-strip--running')).toBe(true);
+  });
 });

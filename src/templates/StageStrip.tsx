@@ -96,6 +96,17 @@ export interface StageStripProps extends React.HTMLAttributes<HTMLDivElement> {
    * Use for per-stage action buttons or supplementary controls.
    */
   actions?: React.ReactNode;
+  /**
+   * Context variant — non-breaking Phase 2 M10 addition.
+   *
+   * - `'default'` (or omitted) — standard pipeline workbench context.
+   * - `'configure'` — Project Configure → Pages tab context
+   *   (design source: `wf03/wf03-variations.jsx:375-451`).
+   *   Applies the `stage-strip--configure` CSS modifier to the root element,
+   *   enabling context-specific overrides in the consuming app's stylesheet.
+   *   Visual rendering is identical to `'default'` in pd-ui's base theme.
+   */
+  variant?: 'default' | 'configure';
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -115,6 +126,7 @@ export const StageStrip = React.forwardRef<HTMLDivElement, StageStripProps>(
       onPrev,
       onNext,
       actions,
+      variant,
       ...props
     },
     ref,
@@ -128,6 +140,7 @@ export const StageStrip = React.forwardRef<HTMLDivElement, StageStripProps>(
         className={cn(
           'stage-strip',
           running ? 'stage-strip--running' : undefined,
+          variant === 'configure' ? 'stage-strip--configure' : undefined,
           className,
         )}
         {...props}
