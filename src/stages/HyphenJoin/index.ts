@@ -22,6 +22,14 @@ export type { HyphenUndecidedProps, HJDecisionHandlers } from './HyphenUndecided
 export { HyphenMismatch } from './HyphenMismatch.js';
 export type { HyphenMismatchProps, HyphenMismatchItem, HyphenDecision } from './HyphenMismatch.js';
 
+// ─── HyphenPageWorkbench ──────────────────────────────────────────────────────
+export { HyphenPageWorkbench } from './HyphenPageWorkbench.js';
+export type {
+  HyphenPageWorkbenchProps,
+  HyphenPageWorkbenchPage,
+  HJWorkbenchDecision,
+} from './HyphenPageWorkbench.js';
+
 // ─── HyphenStepSettings ───────────────────────────────────────────────────────
 export { HyphenStepSettings, HYPHEN_STEP_SETTINGS_DEFAULT } from './HyphenStepSettings.js';
 export type {
