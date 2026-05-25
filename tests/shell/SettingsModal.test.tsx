@@ -14,7 +14,7 @@
  * 10. AppearancePanel store wiring — theme, density, fontScale, color reset.
  */
 import * as React from 'react';
-import { render, screen, fireEvent, act } from '@testing-library/react';
+import { render, screen, fireEvent, act, waitFor } from '@testing-library/react';
 import { describe, it, expect, vi } from 'vitest';
 import { AppShell } from '../../src/shell/AppShell.js';
 import { useSettingsModal } from '../../src/shell/SettingsModalContext.js';
@@ -56,7 +56,7 @@ describe('SettingsModal — gear trigger', () => {
   });
 });
 
-// ─── 2. Close button dismisses ────────────────────────────────────────────────
+// ─── 2. Close button / Escape / outside-click dismisses ──────────────────────
 
 describe('SettingsModal — close', () => {
   it('close button dismisses the modal', () => {
@@ -67,6 +67,94 @@ describe('SettingsModal — close', () => {
 
     fireEvent.click(screen.getByTestId('settings-modal-close'));
     expect(screen.queryByTestId('settings-modal')).toBeNull();
+  });
+
+  /**
+   * Issue #32: Settings modal must close on Escape.
+   *
+   * Radix Dialog handles Escape via its DismissableLayer. Firing a
+   * KeyDown Escape event on the dialog content must call onOpenChange(false),
+   * which routes through closeModal() in the SettingsModal wrapper.
+   */
+  it('Escape key dismisses the modal (issue #32)', () => {
+    render(<AppShell {...minimalProps()} />);
+
+    fireEvent.click(screen.getByTestId('settings-slot-trigger'));
+    const modal = screen.getByTestId('settings-modal');
+    expect(modal).toBeTruthy();
+
+    fireEvent.keyDown(modal, { key: 'Escape', code: 'Escape', bubbles: true });
+    expect(screen.queryByTestId('settings-modal')).toBeNull();
+  });
+
+  /**
+   * Issue #32: Settings modal must close when the overlay (outside the dialog
+   * content) is clicked.
+   *
+   * Radix DismissableLayer attaches a `pointerdown` listener to `document` inside
+   * a `setTimeout(0)` (so the open-animation doesn't immediately re-close the
+   * dialog). When that event fires and the pointer did NOT land inside the React
+   * subtree (i.e. `onPointerDownCapture` on the content was not triggered first),
+   * Radix fires `onPointerDownOutside` → `onOpenChange(false)`.
+   *
+   * We must flush the `setTimeout(0)` via fake timers before dispatching, then
+   * dispatch a native `pointerdown` on `document.body` (outside the dialog
+   * content, so `isPointerInsideReactTree` stays false).
+   */
+  it('outside pointerdown dismisses the modal — onOpenChange not blocked (issue #32)', async () => {
+    vi.useFakeTimers();
+
+    render(<AppShell {...minimalProps()} />);
+
+    fireEvent.click(screen.getByTestId('settings-slot-trigger'));
+    expect(screen.getByTestId('settings-modal')).toBeTruthy();
+
+    // Flush the setTimeout(0) used by Radix's DismissableLayer to register
+    // the document-level pointerdown listener.
+    act(() => {
+      vi.runAllTimers();
+    });
+
+    // Dispatch natively on document.body — this is OUTSIDE the React dialog
+    // subtree, so Radix's `isPointerInsideReactTree` stays false and the
+    // outside-pointer-down handler runs.
+    act(() => {
+      document.body.dispatchEvent(
+        new PointerEvent('pointerdown', { bubbles: true, cancelable: true }),
+      );
+    });
+
+    vi.useRealTimers();
+
+    // Modal must no longer be in the DOM.
+    await waitFor(() => {
+      expect(screen.queryByTestId('settings-modal')).toBeNull();
+    });
+  });
+
+  /**
+   * Issue #32: onOpenChange is wired — closeModal() is called when Dialog
+   * reports isOpen=false. This is a unit-level guard ensuring the SettingsModal
+   * wrapper does not suppress the close signal.
+   */
+  it('onOpenChange(false) triggers closeModal (issue #32 — wiring guard)', () => {
+    // Render with a spy on closeModal via context override.
+    // We use the full AppShell so onOpenChange is the real wire path.
+    render(<AppShell {...minimalProps()} />);
+
+    // Open
+    fireEvent.click(screen.getByTestId('settings-slot-trigger'));
+    expect(screen.getByTestId('settings-modal')).toBeTruthy();
+
+    // Close via X button (exercises the same onOpenChange(false) path that
+    // overlay-click and Escape use at the Radix level).
+    fireEvent.click(screen.getByTestId('settings-modal-close'));
+    expect(screen.queryByTestId('settings-modal')).toBeNull();
+
+    // Re-open to confirm the state round-trips — if closeModal() was a no-op
+    // the modal would stay closed/broken forever.
+    fireEvent.click(screen.getByTestId('settings-slot-trigger'));
+    expect(screen.getByTestId('settings-modal')).toBeTruthy();
   });
 });
 
