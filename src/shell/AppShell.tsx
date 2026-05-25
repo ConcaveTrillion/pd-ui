@@ -47,9 +47,16 @@ interface AppShellHeaderProps {
   appIconUrl?: string;
   appDisplayName: string;
   headerActions?: React.ReactNode;
+  /** When true, LauncherSlot is rendered inside this header. */
+  showLauncher: boolean;
 }
 
-function AppShellHeader({ appIconUrl, appDisplayName, headerActions }: AppShellHeaderProps) {
+function AppShellHeader({
+  appIconUrl,
+  appDisplayName,
+  headerActions,
+  showLauncher,
+}: AppShellHeaderProps) {
   return (
     <TopNav>
       {appIconUrl && (
@@ -74,7 +81,7 @@ function AppShellHeader({ appIconUrl, appDisplayName, headerActions }: AppShellH
       </span>
       <div style={{ flex: 1 }} />
       {headerActions}
-      <LauncherSlot />
+      {showLauncher && <LauncherSlot />}
       <SettingsSlot />
     </TopNav>
   );
@@ -127,6 +134,7 @@ export function AppShell({
 
   // Determine the resolved header content.
   // When `header` is undefined, use the built-in AppShellHeader.
+  // LauncherSlot is only injected into the built-in header when launcherSlot='header'.
   const resolvedHeader: React.ReactNode =
     header !== undefined
       ? header
@@ -135,6 +143,7 @@ export function AppShell({
           appIconUrl={appIconUrl}
           appDisplayName={appDisplayName}
           headerActions={headerActions}
+          showLauncher={launcherSlot === 'header'}
         />
       );
 
@@ -169,13 +178,14 @@ export function AppShell({
               {resolvedHeader}
             </div>
 
-            {/* Rail zone */}
+            {/* Rail zone — when launcherSlot='rail', LauncherSlot is appended here */}
             <div
               data-testid="app-shell-rail"
               style={{ gridArea: 'rail' }}
               className="min-w-0 overflow-hidden"
             >
               {rail}
+              {launcherSlot === 'rail' && <LauncherSlot />}
             </div>
 
             {/* Drawer zone */}
