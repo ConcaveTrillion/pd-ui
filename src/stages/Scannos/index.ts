@@ -9,3 +9,7 @@ export type { ScannoTokenProps, ScannoSource } from './ScannoToken.js';
 // ─── NavGroup ─────────────────────────────────────────────────────────────────
 export { NavGroup } from './NavGroup.js';
 export type { NavGroupProps } from './NavGroup.js';
+
+// ─── InlineMarkPopover ────────────────────────────────────────────────────────
+export { InlineMarkPopover } from './InlineMarkPopover.js';
+export type { InlineMarkPopoverProps, InlineMarkToken, InlineMarkSource } from './InlineMarkPopover.js';
