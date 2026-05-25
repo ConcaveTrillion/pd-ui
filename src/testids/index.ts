@@ -543,6 +543,18 @@ export const SCANNO_TOKEN = 'scanno-token' as const;
 export const REORDER_AFTER_APPLY_STRIP = 'reorder-after-apply-strip' as const;
 export const REORDER_AFTER_APPLY_STRIP_UNDO = 'reorder-after-apply-strip-undo' as const;
 
+// ─── Stages / Validation / DownloadFooter (Phase 2 M9) ───────────────────────
+
+/** Root element of the Validation DownloadFooter contextual CTA footer. */
+export const VALIDATION_DOWNLOAD_FOOTER = 'validation-download-footer' as const;
+
+/** Download / Download anyway button inside DownloadFooter. */
+export const VALIDATION_DOWNLOAD_FOOTER_DOWNLOAD =
+  'validation-download-footer-download' as const;
+
+/** Fix & rebuild / Fix all (N) button inside DownloadFooter. */
+export const VALIDATION_DOWNLOAD_FOOTER_FIX = 'validation-download-footer-fix' as const;
+
 // ─── Stages / Validation / CheckRow (Phase 2 M9) ─────────────────────────────
 
 /** Root element of a CheckRow (collapsible validation check). */

@@ -17,3 +17,7 @@ export type { PanelToolbarProps } from './PanelToolbar.js';
 // ─── CheckRow ─────────────────────────────────────────────────────────────────
 export { CheckRow } from './CheckRow.js';
 export type { CheckRowProps, CheckRowCheck, CheckRowPage } from './CheckRow.js';
+
+// ─── DownloadFooter ───────────────────────────────────────────────────────────
+export { DownloadFooter } from './DownloadFooter.js';
+export type { DownloadFooterProps } from './DownloadFooter.js';
