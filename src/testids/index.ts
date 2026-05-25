@@ -513,3 +513,5 @@ export const QUALITY_PAGE_ROW = 'quality-page-row' as const;
 export const qualityPageRowTestId = (id: string) => `quality-page-row-${id}` as const;
 export const qualityPageRowScoreTestId = (pageId: string, key: string) =>
   `quality-page-row-score-${pageId}-${key}` as const;
+
+export const SCANNO_TOKEN = 'scanno-token' as const;

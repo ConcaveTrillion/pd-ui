@@ -28,6 +28,7 @@ export default defineConfig({
         'stages/HyphenJoin/index': resolve(__dirname, 'src/stages/HyphenJoin/index.ts'),
         'stages/Validation/index': resolve(__dirname, 'src/stages/Validation/index.ts'),
         'stages/QualityFlags/index': resolve(__dirname, 'src/stages/QualityFlags/index.ts'),
+        'stages/Scannos/index': resolve(__dirname, 'src/stages/Scannos/index.ts'),
       },
       formats: ['es'],
     },
