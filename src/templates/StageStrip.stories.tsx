@@ -145,3 +145,22 @@ export const ShortPipeline: Story = {
     current: 'process',
   },
 };
+
+/**
+ * Configure-page context variant (Phase 2 M10).
+ *
+ * Design source: wf03/wf03-variations.jsx:375-451 — StageContextStrip used
+ * inside the Project Configure → Pages tab. Applies the
+ * `stage-strip--configure` CSS modifier; visual rendering is identical to
+ * the default in pd-ui's base theme, but consuming apps can target the
+ * modifier for context-specific overrides.
+ */
+export const ConfigureVariant: Story = {
+  args: {
+    stages: [...PIPELINE_STAGES],
+    current: 'source',
+    variant: 'configure',
+    flagged: 47,
+    dirty: 167,
+  },
+};
