@@ -16,3 +16,12 @@ export type {
   ProjectsEmptyAction,
   ProjectsEmptyProps,
 } from './ProjectsEmpty.js';
+
+// ─── ProjectsAttributesPanel ──────────────────────────────────────────────────
+export { ProjectsAttributesPanel } from './ProjectsAttributesPanel.js';
+export type {
+  ProjectsAttributesPanelProps,
+  ProjectSummary,
+  AttributesPanelSection,
+  AttributesPanelField,
+} from './ProjectsAttributesPanel.js';

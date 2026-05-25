@@ -693,6 +693,11 @@ export const PROJECTS_EMPTY_SECONDARY_CTA = 'projects-empty-secondary-cta' as co
 /** Root element of the Projects PipelineMini progress strip. */
 export const PROJECTS_PIPELINE_MINI = 'projects-pipeline-mini' as const;
 
+// ─── Stages / Projects / ProjectsAttributesPanel (Phase 2 M11) ───────────────
+
+/** Root wrapper of the ProjectsAttributesPanel (collapsible 2-column attributes). */
+export const PROJECTS_ATTRIBUTES_PANEL = 'projects-attributes-panel' as const;
+
 /** Per-stage dot testid: `projects-pipeline-mini-dot-${stageId}`. */
 export const projectsPipelineMiniDotTestId = (stageId: string) =>
   `projects-pipeline-mini-dot-${stageId}` as const;
