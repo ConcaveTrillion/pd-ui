@@ -362,11 +362,34 @@ export type {
   ThumbQuality,
 } from './stages/Source/index.js';
 
-// ─── Stages / Grayscale ───────────────────────────────────────────────────────
-export { AutoDetectBanner } from './stages/Grayscale/index.js';
+// ─── Stages / Grayscale (Phase 2 M4) ─────────────────────────────────────────
+export {
+  AutoDetectBanner,
+  ModeCard,
+  AdvancedParams,
+  GRAYSCALE_PARAMS_DEFAULT,
+  GrayscaleOverview,
+  GrayThumb,
+  PageViewer,
+  StageControlsLeft,
+} from './stages/Grayscale/index.js';
 export type {
   AutoDetectBannerProps,
   GrayscaleMode,
+  ModeCardProps,
+  ModeEstimate,
+  EstimateTone,
+  AdvancedParamsProps,
+  GrayscaleParams,
+  GrayscaleOverviewProps,
+  GrayscaleStats,
+  GrayThumbProps,
+  GrayPage,
+  PageViewerProps,
+  PageViewerMode,
+  PageViewerPage,
+  PageViewerThumb,
+  StageControlsLeftProps,
 } from './stages/Grayscale/index.js';
 
 // ─── Types ────────────────────────────────────────────────────────────────────

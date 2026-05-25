@@ -411,3 +411,42 @@ export const AUTO_DETECT_BANNER = 'auto-detect-banner' as const;
 
 /** "Re-detect" button inside the AutoDetectBanner. */
 export const AUTO_DETECT_BANNER_REDETECT = 'auto-detect-banner-redetect' as const;
+
+// ─── ModeCard (Phase 2 M4 — Grayscale stage) ─────────────────────────────────
+/** Outer radiogroup wrapper for the two-up mode chooser. */
+export const MODE_CARD_GROUP = 'mode-card-group' as const;
+/**
+ * Build a testid for a specific mode radio card: `mode-card-{mode}`.
+ * mode is one of 'standard' | 'perceptual'.
+ */
+export const modeCardTestId = (mode: string) => `mode-card-${mode}` as const;
+
+// ─── AdvancedParams (Phase 2 M4 — Grayscale stage) ───────────────────────────
+/** Outer wrapper of the AdvancedParams accordion. */
+export const ADVANCED_PARAMS = 'advanced-params' as const;
+export const advancedParamsSliderTestId = (
+  key: 'samplerRadius' | 'gamma' | 'outputMin' | 'outputMax',
+) => `advanced-params-slider-${key}` as const;
+export const advancedParamsResetTestId = (
+  key: 'samplerRadius' | 'gamma' | 'outputRange',
+) => `advanced-params-reset-${key}` as const;
+
+// ─── GrayscaleOverview (Phase 2 M4) ──────────────────────────────────────────
+export const GRAYSCALE_OVERVIEW = 'grayscale-overview' as const;
+export const GRAYSCALE_OVERVIEW_STAT_PROCESSED = 'grayscale-overview-stat-processed' as const;
+export const GRAYSCALE_OVERVIEW_STAT_FLAGGED = 'grayscale-overview-stat-flagged' as const;
+export const GRAYSCALE_OVERVIEW_STAT_AVG = 'grayscale-overview-stat-avg' as const;
+export const GRAYSCALE_OVERVIEW_STAT_TOTAL = 'grayscale-overview-stat-total' as const;
+
+// ─── GrayThumb (Phase 2 M4 — Grayscale stage) ────────────────────────────────
+export const GRAY_THUMB = 'gray-thumb' as const;
+export const grayThumbTestId = (id: string) => `gray-thumb-${id}` as const;
+
+// ─── PageViewer (Phase 2 M4 — Grayscale stage) ───────────────────────────────
+export const PAGE_VIEWER = 'page-viewer' as const;
+export const PAGE_VIEWER_RERUN = 'page-viewer-rerun' as const;
+export const pageViewerThumbTestId = (id: string) =>
+  `page-viewer-thumb-${id}` as const;
+
+// ─── StageControlsLeft (Phase 2 M4 — Grayscale stage) ────────────────────────
+export const STAGE_CONTROLS_LEFT = 'stage-controls-left' as const;
