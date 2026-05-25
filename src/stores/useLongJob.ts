@@ -12,7 +12,7 @@
  * The deployMode is read from useAppShell() when available; the hook
  * accepts it directly to avoid the mandatory-context requirement.
  *
- * Covers issue #166.
+ * Covers issue #166. Stale-state fix: #36.
  */
 import * as React from 'react';
 
@@ -60,7 +60,20 @@ export function useLongJob(jobId: string | null, options: UseLongJobOptions = {}
   const [events, setEvents] = React.useState<LongJobEvent[]>([]);
 
   React.useEffect(() => {
-    if (!jobId || !pollFn) return;
+    // When jobId clears or pollFn is absent, reset to idle so no stale fields
+    // from a previous job leak into the next render (#36).
+    if (!jobId || !pollFn) {
+      setStatus('idle');
+      setProgress(null);
+      setEvents([]);
+      return;
+    }
+
+    // Reset eagerly when a new job ID is provided so callers never see the
+    // previous job's progress/events before the first poll settles (#36).
+    setStatus('idle');
+    setProgress(null);
+    setEvents([]);
 
     let cancelled = false;
     let timeoutId: ReturnType<typeof setTimeout> | undefined;
