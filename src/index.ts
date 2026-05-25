@@ -332,6 +332,7 @@ export {
   ThumbCard,
   BulkBar,
   InsertDialog,
+  SourcePageWorkbench,
 } from './stages/Source/index.js';
 export type {
   SourceBannerProps,
@@ -353,6 +354,7 @@ export type {
   InsertKind,
   InsertAnchorOption,
   InsertSubmission,
+  SourcePageWorkbenchProps,
 } from './stages/Source/index.js';
 
 // ─── Types ────────────────────────────────────────────────────────────────────

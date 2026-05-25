@@ -40,3 +40,6 @@ export type {
   InsertAnchorOption,
   InsertSubmission,
 } from './InsertDialog.js';
+// ─── SourcePageWorkbench (Phase 2 M3) ─────────────────────────────────────────
+export { SourcePageWorkbench } from './SourcePageWorkbench.js';
+export type { SourcePageWorkbenchProps } from './SourcePageWorkbench.js';

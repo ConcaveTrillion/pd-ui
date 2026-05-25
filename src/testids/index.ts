@@ -353,3 +353,25 @@ export const insertDialogPositionTestId = (p: string) =>
  */
 export const insertDialogKindTestId = (k: string) =>
   `insert-dialog-kind-${k}` as const;
+// ─── SourcePageWorkbench (Phase 2 M3 — Source stage) ─────────────────────────
+
+/** Outer wrapper of the SourcePageWorkbench per-page detail view. */
+export const SOURCE_PAGE_WORKBENCH = 'source-page-workbench' as const;
+
+/** Apply &amp; Continue button inside SourcePageWorkbench. */
+export const SOURCE_PAGE_WORKBENCH_APPLY = 'spw-apply' as const;
+
+/** Prev navigation button inside SourcePageWorkbench. */
+export const SOURCE_PAGE_WORKBENCH_PREV = 'spw-prev' as const;
+
+/** Next navigation button inside SourcePageWorkbench. */
+export const SOURCE_PAGE_WORKBENCH_NEXT = 'spw-next' as const;
+
+/**
+ * Build a testid for a specific role anchor: `spw-role-{role}`.
+ * role is one of 'cover' | 'page' | 'back' | 'blank' | 'duplicate'.
+ * These hidden anchors are used by Playwright drivers to determine
+ * active role state without querying Segmented internals.
+ */
+export const sourcePageWorkbenchRoleTestId = (role: string) =>
+  `spw-role-${role}` as const;
