@@ -490,3 +490,10 @@ export const cropOverviewActivityTestId = (id: string) => `crop-overview-activit
 export const CROP_STEP_SETTINGS = 'crop-step-settings' as const;
 export const CROP_STEP_SETTINGS_RERUN = 'crop-step-settings-rerun' as const;
 export const cropStrategyTestId = (s: string) => `crop-strategy-${s}` as const;
+
+// ─── QualityFlags ─────────────────────────────────────────────────────────────
+
+export const QUALITY_PAGE_ROW = 'quality-page-row' as const;
+export const qualityPageRowTestId = (id: string) => `quality-page-row-${id}` as const;
+export const qualityPageRowScoreTestId = (pageId: string, key: string) =>
+  `quality-page-row-score-${pageId}-${key}` as const;
