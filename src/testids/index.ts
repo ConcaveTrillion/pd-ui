@@ -563,6 +563,18 @@ export const HYPHEN_STEP_SETTINGS_CACHE_TTL = 'hyphen-step-settings-cache-ttl' a
 export const HYPHEN_STEP_SETTINGS_AUTO_FLAG_THRESHOLD =
   'hyphen-step-settings-auto-flag-threshold' as const;
 
+// ─── HyphenAutoJoined (Phase 2 M6 — HyphenJoin stage) ────────────────────────
+
+/** Root section for the HyphenAutoJoined grouped-by-word validation panel. */
+export const HYPHEN_AUTO_JOINED = 'hyphen-auto-joined' as const;
+
+/**
+ * Build a testid for a specific word group section: `hyphen-auto-joined-group-${word}`.
+ * Playwright drivers use these to target individual group sections.
+ */
+export const hyphenAutoJoinedGroupTestId = (word: string) =>
+  `hyphen-auto-joined-group-${word}` as const;
+
 // ─── Stages / Validation (Phase 2 M9) ────────────────────────────────────────
 
 /** Root Banner element of the Validation SummaryHeader. */
