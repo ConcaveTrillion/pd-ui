@@ -6,6 +6,19 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ---
 
+## [0.2.1] — 2026-05-25
+
+### Fixed
+
+- Externalized `react/jsx-dev-runtime` in Vite rollup config. The dev
+  runtime was being bundled into the dist, causing a
+  `TypeError: Cannot read properties of undefined (reading 'ReactCurrentDispatcher')`
+  at module-load time for React 19 consumers running vitest (which uses the
+  dev React bundle). React 18 consumers were unaffected. Fixes pd-prep-for-pgdp
+  and pd-ocr-labeler-spa vitest runs after upgrading to pd-ui@0.2.0.
+
+[0.2.1]: https://github.com/ConcaveTrillion/pd-ui/releases/tag/v0.2.1
+
 ## [0.1.0-alpha.1] — 2026-05-21
 
 Re-publish of the Phase 1 alpha. No source changes to library components —

@@ -36,7 +36,7 @@ export default defineConfig({
     },
     rollupOptions: {
       external: [
-        'react', 'react-dom', 'react/jsx-runtime',
+        'react', 'react-dom', 'react/jsx-runtime', 'react/jsx-dev-runtime',
         /^@radix-ui\//,
         /^@dnd-kit\//,
         '@tanstack/react-virtual',
