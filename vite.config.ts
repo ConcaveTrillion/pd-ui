@@ -25,6 +25,7 @@ export default defineConfig({
         'stages/Source/index': resolve(__dirname, 'src/stages/Source/index.ts'),
         'stages/Grayscale/index': resolve(__dirname, 'src/stages/Grayscale/index.ts'),
         'stages/Crop/index': resolve(__dirname, 'src/stages/Crop/index.ts'),
+        'stages/PageReorder/index': resolve(__dirname, 'src/stages/PageReorder/index.ts'),
       },
       formats: ['es'],
     },

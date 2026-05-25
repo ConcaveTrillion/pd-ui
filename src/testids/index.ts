@@ -490,3 +490,7 @@ export const cropOverviewActivityTestId = (id: string) => `crop-overview-activit
 export const CROP_STEP_SETTINGS = 'crop-step-settings' as const;
 export const CROP_STEP_SETTINGS_RERUN = 'crop-step-settings-rerun' as const;
 export const cropStrategyTestId = (s: string) => `crop-strategy-${s}` as const;
+
+// ─── Stages / PageReorder (Phase 2 M8) ───────────────────────────────────────
+export const REORDER_AFTER_APPLY_STRIP = 'reorder-after-apply-strip' as const;
+export const REORDER_AFTER_APPLY_STRIP_UNDO = 'reorder-after-apply-strip-undo' as const;
