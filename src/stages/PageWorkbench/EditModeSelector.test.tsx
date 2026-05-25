@@ -69,11 +69,11 @@ describe('EditModeSelector', () => {
     expect(root).toHaveAttribute('data-testid', 'edit-mode-selector')
   })
 
-  it('inner Segmented track has ARIA role="group" semantics', () => {
+  it('inner Segmented track has ARIA role="radiogroup" semantics', () => {
     render(
       <EditModeSelector mode="view" onModeChange={vi.fn()} />,
     )
-    // Segmented renders a div[role="group"] containing the radio buttons
-    expect(screen.getByRole('group')).toBeInTheDocument()
+    // Segmented renders a div[role="radiogroup"] containing the radio buttons
+    expect(screen.getByRole('radiogroup')).toBeInTheDocument()
   })
 })

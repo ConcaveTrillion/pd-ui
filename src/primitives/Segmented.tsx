@@ -97,7 +97,7 @@ export const Segmented = React.forwardRef<HTMLDivElement, SegmentedProps>(
         }
 
         if (next !== null) {
-          const group = e.currentTarget.closest('[role="group"]');
+          const group = e.currentTarget.closest('[role="radiogroup"]');
           const buttons = group?.querySelectorAll<HTMLButtonElement>(
             'button[role="radio"]',
           );
@@ -110,7 +110,7 @@ export const Segmented = React.forwardRef<HTMLDivElement, SegmentedProps>(
     return (
       <div
         ref={ref}
-        role="group"
+        role="radiogroup"
         className={cn(
           'segmented',
           `segmented--${size}`,
@@ -126,6 +126,7 @@ export const Segmented = React.forwardRef<HTMLDivElement, SegmentedProps>(
               type="button"
               role="radio"
               aria-checked={isActive}
+              tabIndex={isActive ? 0 : -1}
               className={cn(
                 'segmented__item',
                 isActive && 'segmented__item--active',

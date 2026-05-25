@@ -74,13 +74,17 @@ interface SegButtonProps {
   active: boolean;
   onClick: () => void;
   children: React.ReactNode;
+  tabIndex?: number;
   'data-testid'?: string;
 }
 
-function SegButton({ active, onClick, children, ...rest }: SegButtonProps) {
+function SegButton({ active, onClick, children, tabIndex, ...rest }: SegButtonProps) {
   return (
     <button
       type="button"
+      role="radio"
+      aria-checked={active}
+      tabIndex={tabIndex ?? (active ? 0 : -1)}
       onClick={onClick}
       style={{
         padding: '3px 10px',
@@ -204,6 +208,8 @@ export function AppearancePanel() {
       {/* ── Theme ─────────────────────────────────────────────────────── */}
       <Row label="Theme">
         <div
+          role="radiogroup"
+          aria-label="Theme"
           style={{
             display: 'inline-flex',
             padding: '2px',
@@ -232,6 +238,8 @@ export function AppearancePanel() {
       {/* ── Density ───────────────────────────────────────────────────── */}
       <Row label="Density">
         <div
+          role="radiogroup"
+          aria-label="Density"
           style={{
             display: 'inline-flex',
             padding: '2px',

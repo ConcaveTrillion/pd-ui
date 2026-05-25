@@ -10,9 +10,9 @@ const opts = [
 ];
 
 describe('Segmented', () => {
-  it('renders a group role', () => {
+  it('renders a radiogroup role', () => {
     render(<Segmented options={opts} defaultValue="a" />);
-    expect(screen.getByRole('group')).toBeTruthy();
+    expect(screen.getByRole('radiogroup')).toBeTruthy();
   });
 
   it('renders all option labels', () => {
@@ -101,21 +101,54 @@ describe('Segmented', () => {
 
   it('applies .segmented class to root', () => {
     render(<Segmented options={opts} defaultValue="a" />);
-    expect(screen.getByRole('group').classList.contains('segmented')).toBe(true);
+    expect(screen.getByRole('radiogroup').classList.contains('segmented')).toBe(true);
   });
 
   it('applies .segmented--full class when full=true', () => {
     render(<Segmented options={opts} defaultValue="a" full />);
     expect(
-      screen.getByRole('group').classList.contains('segmented--full'),
+      screen.getByRole('radiogroup').classList.contains('segmented--full'),
     ).toBe(true);
   });
 
   it('applies size class', () => {
     render(<Segmented options={opts} defaultValue="a" size="sm" />);
     expect(
-      screen.getByRole('group').classList.contains('segmented--sm'),
+      screen.getByRole('radiogroup').classList.contains('segmented--sm'),
     ).toBe(true);
+  });
+
+  it('selected item has tabIndex=0 (roving focus)', () => {
+    render(<Segmented options={opts} defaultValue="b" />);
+    const radios = screen.getAllByRole('radio');
+    const beta = radios.find(r => r.textContent === 'Beta');
+    expect(beta?.getAttribute('tabindex')).toBe('0');
+  });
+
+  it('non-selected items have tabIndex=-1 (roving focus)', () => {
+    render(<Segmented options={opts} defaultValue="b" />);
+    const radios = screen.getAllByRole('radio');
+    const nonSelected = radios.filter(r => r.textContent !== 'Beta');
+    for (const r of nonSelected) {
+      expect(r.getAttribute('tabindex')).toBe('-1');
+    }
+  });
+
+  it('roving tabIndex updates when selection changes', async () => {
+    const user = userEvent.setup();
+    render(<Segmented options={opts} defaultValue="a" />);
+    const radios = screen.getAllByRole('radio');
+    // Initially Alpha is selected (tabIndex=0)
+    const alpha = radios.find(r => r.textContent === 'Alpha');
+    expect(alpha?.getAttribute('tabindex')).toBe('0');
+    // Click Beta
+    await user.click(screen.getByText('Beta'));
+    // Now Beta has tabIndex=0
+    const radios2 = screen.getAllByRole('radio');
+    const beta2 = radios2.find(r => r.textContent === 'Beta');
+    expect(beta2?.getAttribute('tabindex')).toBe('0');
+    const alpha2 = radios2.find(r => r.textContent === 'Alpha');
+    expect(alpha2?.getAttribute('tabindex')).toBe('-1');
   });
 
   it('renders option icons when provided', () => {
