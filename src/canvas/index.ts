@@ -8,7 +8,7 @@
  * Hooks:          `useCanvasCoords`, `useViewport`, `useCanvasSelection`.
  * Types:          `CanvasProps`, `SlotRenderProps`, `WordSlotProps`,
  *                 `CoordContext`, `SelectionState`, `ViewportState`,
- *                 `CanvasRect`, `bboxToRect`.
+ *                 `CanvasRect`, `bboxToRect`, `isValidBBox`.
  */
 
 // Component
@@ -38,4 +38,4 @@ export type {
   PageBBox,
   PagePoint,
 } from './types'
-export { bboxToRect } from './types'
+export { bboxToRect, isValidBBox } from './types'

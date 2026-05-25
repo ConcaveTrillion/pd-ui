@@ -19,14 +19,21 @@ import { Image as KonvaImage, Layer, Rect, Stage } from 'react-konva'
 import type Konva from 'konva'
 import { CanvasInternalContext } from './context'
 import type { CanvasProps, CanvasWord, CoordContext, SelectionState, ViewportState } from './types'
+import { isValidBBox } from './types'
 
 // ── Helpers ───────────────────────────────────────────────────────────────────
 
 const EMPTY_SELECTION: SelectionState = { ids: new Set<string>() }
 const EMPTY_PAN = { x: 0, y: 0 }
 
+/**
+ * Derive a stable ID from a word's bounding_box.
+ * Falls back to the word text when the bbox is invalid or missing, so that
+ * corrupt OCR data never throws during render or selection bookkeeping.
+ */
 function defaultGetWordId(word: CanvasWord): string {
   const bb = word.bounding_box
+  if (!isValidBBox(bb)) return `invalid-bbox:${word.text}`
   return `${bb.top_left.x},${bb.top_left.y}`
 }
 
@@ -272,6 +279,7 @@ export function PageImageCanvas<
               if (rect.width <= 2 && rect.height <= 2) {
                 const hit = words.find((w) => {
                   const bb = w.bounding_box
+                  if (!isValidBBox(bb)) return false
                   return (
                     cur.x >= bb.top_left.x &&
                     cur.x <= bb.bottom_right.x &&
@@ -287,9 +295,11 @@ export function PageImageCanvas<
               }
 
               // Marquee select: collect all words whose bboxes intersect the drag rect
+              // Words with invalid bounding boxes are silently skipped.
               const hitIds = words
                 .filter((w) => {
                   const bb = w.bounding_box
+                  if (!isValidBBox(bb)) return false
                   return (
                     bb.bottom_right.x > rect.x &&
                     bb.top_left.x < rect.x + rect.width &&
@@ -327,8 +337,11 @@ export function PageImageCanvas<
             </Layer>
 
             {/* Layer 3: overlay — per-word slot */}
+            {/* Words with invalid bounding boxes are silently skipped to prevent
+                canvas crashes from corrupt OCR data (issue #22). */}
             <Layer name="overlay" listening={false}>
               {words.map((word) => {
+                if (!isValidBBox(word.bounding_box)) return null
                 const id = getWordId(word)
                 const wordSlotProps = {
                   ...slotProps,
