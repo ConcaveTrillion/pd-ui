@@ -519,6 +519,11 @@ export const HJ_DECISION_CARD_PREV = 'hj-decision-card-prev' as const;
 /** Ngrams sparkline SVG inside HJDecisionCard (absent when ngrams undefined). */
 export const HJ_DECISION_CARD_SPARKLINE = 'hj-decision-card-sparkline' as const;
 
+// ─── HyphenOverview (Phase 2 M6 — HyphenJoin stage) ──────────────────────────
+
+/** Root section for the HyphenJoin overview panel. */
+export const HYPHEN_OVERVIEW = 'hyphen-overview' as const;
+
 // ─── Stages / Validation (Phase 2 M9) ────────────────────────────────────────
 
 /** Root Banner element of the Validation SummaryHeader. */
