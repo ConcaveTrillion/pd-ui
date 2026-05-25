@@ -402,5 +402,45 @@ export type {
   StageControlsLeftProps,
 } from './stages/Grayscale/index.js';
 
+// ─── Stages / Crop (Phase 2 M5) ──────────────────────────────────────────────
+export {
+  CropBanner,
+  CropToolbar,
+  CropCard,
+  CropBulkBar,
+  BboxEditor,
+  CropOverview,
+  CropStepSettings,
+  CROP_SETTINGS_DEFAULT,
+} from './stages/Crop/index.js';
+export type {
+  CropBannerProps,
+  CropState,
+  CropFlagCounts,
+  CropToolbarProps,
+  CropFilter,
+  CropFlagKind,
+  CropDensity,
+  CropFilterCounts,
+  CropFlagDrillCounts,
+  CropCardProps,
+  CropPage,
+  CropStatus,
+  CropBbox,
+  CropBulkBarProps,
+  CropBulkAction,
+  BboxEditorProps,
+  BboxEditorPage,
+  BboxMargins,
+  BboxUnit,
+  BboxScope,
+  CropOverviewProps,
+  FlagDistributionEntry,
+  CropActivityEntry,
+  CropStepSettingsProps,
+  CropSettings,
+  CropStrategy,
+} from './stages/Crop/index.js';
+
 // ─── Types ────────────────────────────────────────────────────────────────────
 export * from './types/index.js';

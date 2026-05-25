@@ -460,3 +460,33 @@ export const STAGE_TOOLBAR = 'stage-toolbar' as const;
 export const THUMBNAIL = 'thumbnail' as const;
 /** Build a per-instance Thumbnail testid: `thumbnail-{id}`. */
 export const thumbnailTestId = (id: string) => `thumbnail-${id}` as const;
+
+// ─── Stages / Crop (Phase 2 M5) ──────────────────────────────────────────────
+export const CROP_BANNER = 'crop-banner' as const;
+export const CROP_BANNER_RERUN = 'crop-banner-rerun' as const;
+
+export const CROP_TOOLBAR = 'crop-toolbar' as const;
+export const CROP_TOOLBAR_RERUN = 'crop-toolbar-rerun' as const;
+export const cropToolbarFilterTestId = (filter: string) => `crop-toolbar-filter-${filter}` as const;
+export const cropToolbarFlagTestId = (kind: string) => `crop-toolbar-flag-${kind}` as const;
+export const cropToolbarDensityTestId = (d: string) => `crop-toolbar-density-${d}` as const;
+
+export const CROP_CARD = 'crop-card' as const;
+export const cropCardTestId = (id: string) => `crop-card-${id}` as const;
+export const cropCardFlagTestId = (id: string, kind: string) => `crop-card-flag-${id}-${kind}` as const;
+
+export const CROP_BULK_BAR = 'crop-bulk-bar' as const;
+export const cropBulkBarActionTestId = (action: string) => `crop-bulk-bar-action-${action}` as const;
+
+export const BBOX_EDITOR = 'bbox-editor' as const;
+export const BBOX_EDITOR_APPLY = 'bbox-editor-apply' as const;
+export const bboxEditorMarginTestId = (side: string) => `bbox-editor-margin-${side}` as const;
+
+export const CROP_OVERVIEW = 'crop-overview' as const;
+export const CROP_OVERVIEW_DISTRIBUTION = 'crop-overview-distribution' as const;
+export const CROP_OVERVIEW_ACTIVITY = 'crop-overview-activity' as const;
+export const cropOverviewActivityTestId = (id: string) => `crop-overview-activity-${id}` as const;
+
+export const CROP_STEP_SETTINGS = 'crop-step-settings' as const;
+export const CROP_STEP_SETTINGS_RERUN = 'crop-step-settings-rerun' as const;
+export const cropStrategyTestId = (s: string) => `crop-strategy-${s}` as const;
