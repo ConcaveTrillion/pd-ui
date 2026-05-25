@@ -21,3 +21,13 @@ export type { HyphenUndecidedProps, HJDecisionHandlers } from './HyphenUndecided
 // ─── HyphenMismatch ───────────────────────────────────────────────────────────
 export { HyphenMismatch } from './HyphenMismatch.js';
 export type { HyphenMismatchProps, HyphenMismatchItem, HyphenDecision } from './HyphenMismatch.js';
+
+// ─── HyphenStepSettings ───────────────────────────────────────────────────────
+export { HyphenStepSettings, HYPHEN_STEP_SETTINGS_DEFAULT } from './HyphenStepSettings.js';
+export type {
+  HyphenStepSettingsProps,
+  HyphenSettings,
+  HyphenRule,
+  HyphenNgramCacheSettings,
+  HyphenThresholds,
+} from './HyphenStepSettings.js';
