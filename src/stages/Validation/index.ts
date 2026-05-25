@@ -13,3 +13,7 @@ export type {
 // ─── PanelToolbar ─────────────────────────────────────────────────────────────
 export { PanelToolbar } from './PanelToolbar.js';
 export type { PanelToolbarProps } from './PanelToolbar.js';
+
+// ─── CheckRow ─────────────────────────────────────────────────────────────────
+export { CheckRow } from './CheckRow.js';
+export type { CheckRowProps, CheckRowCheck, CheckRowPage } from './CheckRow.js';
