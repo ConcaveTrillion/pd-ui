@@ -82,7 +82,9 @@ describe('package.json contract', () => {
     expect(files).toContain('theme');
   });
 
-  it('version is 0.2.1', () => {
-    expect(pkg['version']).toBe('0.2.1');
+  it('version is a valid semver string', () => {
+    // Do not hardcode version — check shape only so the test survives releases.
+    expect(typeof pkg['version']).toBe('string');
+    expect(pkg['version']).toMatch(/^\d+\.\d+\.\d+/);
   });
 });
