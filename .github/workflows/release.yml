@@ -11,14 +11,14 @@ name: release
 #      dispatches pd-npm-publish.  Only this job holds write permissions.
 #
 # Quality gates intentionally excluded:
-#   - codegen-check: fetches Python wheels from the self-hosted pd-index-pip
+#   - codegen-check: fetches Python wheels from the self-hosted pdomain-index-pip
 #     registry (unavailable in GitHub-hosted runners).  The committed
 #     src/types/generated/ snapshot is what CI typechecks.  Run
 #     `make codegen-check` locally before tagging a release.
 #
 # Consumers install via:
-#   @concavetrillion:registry=https://concavetrillion.github.io/pd-index-npm/
-#   npm install @concavetrillion/pd-ui
+#   @pdomain:registry=https://pdomain.github.io/pdomain-index-npm/
+#   npm install @pdomain/pdomain-ui
 
 on:
   push:
@@ -98,7 +98,7 @@ jobs:
   # ─── Job 2: publish ───────────────────────────────────────────────────────────
   # Write-scoped permissions are isolated here.  No install or build steps run
   # under elevated credentials — only attestation, release creation, and the
-  # pd-index-npm dispatch.
+  # pdomain-index-npm dispatch.
   publish:
     name: attest + publish GitHub Release
     needs: build
@@ -130,24 +130,24 @@ jobs:
           files: dist/*.tgz
           fail_on_unmatched_files: true
 
-      # Notify ConcaveTrillion/pd-index-npm so it indexes the new version
+      # Notify pdomain/pdomain-index-npm so it indexes the new version
       # immediately instead of requiring a manual dispatch.
       #
       # Requires repo secret PD_NPM_DISPATCH_TOKEN (fine-grained PAT with
-      # Contents: read+write on ConcaveTrillion/pd-index-npm).
+      # Contents: read+write on pdomain/pdomain-index-npm).
       # Non-fatal: the registry can be updated manually via workflow_dispatch.
-      - name: Notify pd-index-npm of new release
+      - name: Notify pdomain-index-npm of new release
         env:
           GH_TOKEN: ${{ secrets.PD_NPM_DISPATCH_TOKEN }}
           TAG: ${{ github.ref_name }}
         run: |
           if [ -z "$GH_TOKEN" ]; then
-            echo "::warning::PD_NPM_DISPATCH_TOKEN not set; pd-index-npm will need a manual dispatch"
+            echo "::warning::PD_NPM_DISPATCH_TOKEN not set; pdomain-index-npm will need a manual dispatch"
             exit 0
           fi
           TARBALL_NAME=$(ls dist/*.tgz | xargs basename)
-          TARBALL_URL="https://github.com/ConcaveTrillion/pd-ui/releases/download/${TAG}/${TARBALL_NAME}"
-          gh api -X POST /repos/ConcaveTrillion/pd-index-npm/dispatches \
+          TARBALL_URL="https://github.com/pdomain/pdomain-ui/releases/download/${TAG}/${TARBALL_NAME}"
+          gh api -X POST /repos/pdomain/pdomain-index-npm/dispatches \
             -f event_type=pd-npm-publish \
             -f "client_payload[tarball_url]=${TARBALL_URL}" || \
-            echo "::warning::pd-index-npm dispatch failed; publish manually via workflow_dispatch"
+            echo "::warning::pdomain-index-npm dispatch failed; publish manually via workflow_dispatch"

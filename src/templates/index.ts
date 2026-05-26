@@ -1,10 +1,10 @@
 /**
- * Templates subpath barrel (`@concavetrillion/pd-ui/templates`).
+ * Templates subpath barrel (`@pdomain/pdomain-ui/templates`).
  *
  * Cross-stage layout molecules that compose primitive-layer components
  * into shared pipeline / project UI patterns.
  *
- * Import via: `import { ... } from '@concavetrillion/pd-ui/templates'`
+ * Import via: `import { ... } from '@pdomain/pdomain-ui/templates'`
  */
 
 // ─── StageStrip (#340) ────────────────────────────────────────────────────────

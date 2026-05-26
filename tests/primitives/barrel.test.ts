@@ -1,6 +1,6 @@
 /**
- * Verify that every primitive exported by @concavetrillion/pd-ui/primitives
- * is a function (component). Uses the vitest alias `@concavetrillion/pd-ui`
+ * Verify that every primitive exported by @pdomain/pdomain-ui/primitives
+ * is a function (component). Uses the vitest alias `@pdomain/pdomain-ui`
  * pointing at src/primitives/index.ts via the tsconfig `paths` alias.
  *
  * Import from the path alias to exercise the same resolution consumers use.
@@ -18,7 +18,7 @@ const EXPECTED_COMPONENTS = [
   'Badge',
   'Chip',
   'StatusPip',
-  // Job-state components — must stay exported (see pd-ui#15; these gate pd-ocr-simple-gui)
+  // Job-state components — must stay exported (see pdomain-ui#15; these gate pdomain-ocr-simple-gui)
   'JobStatusPip',
   // Layout & dialog shells
   'PageSplitView',

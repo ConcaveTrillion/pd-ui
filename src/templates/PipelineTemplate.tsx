@@ -1,7 +1,7 @@
 /**
  * PipelineTemplate — locked per-project Pipeline page template.
  *
- * Design source: docs/templates/design_handoff_pd_ui/final/pipeline/pipeline-template.jsx
+ * Design source: docs/templates/design_handoff_pdomain_ui/final/pipeline/pipeline-template.jsx
  * Port plan: Table 5 row "PipelineTemplate"
  *
  * Two primary slots:

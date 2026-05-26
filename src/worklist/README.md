@@ -1,4 +1,4 @@
-# `@concavetrillion/pd-ui/worklist`
+# `@pdomain/pdomain-ui/worklist`
 
 Virtualized, keyboard-navigable list panels for the pd-\* review workflow.
 
@@ -16,8 +16,8 @@ navigation behaviour (`ArrowDown` / `ArrowUp` / `Enter`).
 ## Render-prop slot
 
 ```tsx
-import { WordList } from '@concavetrillion/pd-ui/worklist'
-import type { WordRowProps, WordListItem } from '@concavetrillion/pd-ui/worklist'
+import { WordList } from '@pdomain/pdomain-ui/worklist'
+import type { WordRowProps, WordListItem } from '@pdomain/pdomain-ui/worklist'
 
 <WordList
   items={words}
@@ -35,7 +35,7 @@ import type { WordRowProps, WordListItem } from '@concavetrillion/pd-ui/worklist
 
 ## Migration guide — `LineCard` adapter (Phase 2)
 
-In Phase 2 `pd-ocr-labeler-spa` will replace its internal `LineCard.tsx`
+In Phase 2 `pdomain-ocr-labeler-spa` will replace its internal `LineCard.tsx`
 with a `renderRow` fill for `<WordList>` (or `<LineList>`). The expected
 prop shape is:
 
@@ -90,7 +90,7 @@ function makeLineCardRow(callbacks: LineCardCallbacks) {
 ### `MatchStatus` mapping
 
 `LineCard`'s `MatchStatus` in labeler-spa includes `unmatched_ocr` and
-`unmatched_gt` variants. The pd-ui `MatchStatus` type is a strict four-value
+`unmatched_gt` variants. The pdomain-ui `MatchStatus` type is a strict four-value
 union (`exact | fuzzy | mismatch | none`). When migrating:
 
 - `'unmatched_ocr'` → map to `'mismatch'`
@@ -98,7 +98,7 @@ union (`exact | fuzzy | mismatch | none`). When migrating:
 - `'unvalidated'` → map to `'none'`
 
 The mapping lives in the consuming app's `getMatchStatus` callback, not in
-pd-ui (pd-ui has no labeler-specific concepts).
+pdomain-ui (pdomain-ui has no labeler-specific concepts).
 
 ## Filter / sort hooks
 
@@ -107,7 +107,7 @@ filter predicates and sort comparators for use with `items` arrays before
 passing them to list components.
 
 ```ts
-import { useWorklistFilter } from '@concavetrillion/pd-ui/worklist'
+import { useWorklistFilter } from '@pdomain/pdomain-ui/worklist'
 
 const filtered = useWorklistFilter(words, { matchStatus: 'mismatch' })
 ```

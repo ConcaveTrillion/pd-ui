@@ -71,8 +71,8 @@ describe('src/types/index.ts barrel', () => {
     expect(typesExport?.import).toContain('dist/types.js');
   });
 
-  // Regression guard for pd-ui#15: JobState must stay exported from /types.
-  // pd-ocr-simple-gui imports `JobState` from "@concavetrillion/pd-ui/types".
+  // Regression guard for pdomain-ui#15: JobState must stay exported from /types.
+  // pdomain-ocr-simple-gui imports `JobState` from "@pdomain/pdomain-ui/types".
   it('exports JobState from job-state.ts', () => {
     const content = readFileSync(join(REPO_ROOT, 'src/types/index.ts'), 'utf-8');
     expect(content, 'JobState must be re-exported from src/types/index.ts').toContain('JobState');

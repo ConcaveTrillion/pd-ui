@@ -2,7 +2,7 @@
  * ProjectSettingsTemplate — project-scoped settings page template.
  *
  * Design source: `ProjectSettingsTemplate` in
- * docs/templates/design_handoff_pd_ui/final/pipeline/pipeline-template.jsx
+ * docs/templates/design_handoff_pdomain_ui/final/pipeline/pipeline-template.jsx
  * (lines 339–394).
  *
  * Layout:

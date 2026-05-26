@@ -2,8 +2,8 @@
  * AppShell deprecated props — back-compat + type contract tests.
  *
  * Issue #358: `drawer` and `rightPanel` are @deprecated (OQ-12 / 3-zone shell
- * convergence) but retained for back-compat with pd-ocr-labeler-spa and
- * pd-prep-for-pgdp until those apps migrate.
+ * convergence) but retained for back-compat with pdomain-ocr-labeler-spa and
+ * pdomain-prep-for-pgdp until those apps migrate.
  *
  * Back-compat guarantee: both props must still render their content.
  * Type contract guarantee: both props are still present in AppShellProps.

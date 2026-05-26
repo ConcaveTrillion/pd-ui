@@ -20,7 +20,7 @@
  *   - Rail items: role="button", tabIndex=0, aria-current for active.
  *   - Dialog title is always rendered for screen readers.
  *
- * Constraints (pd-ui CLAUDE.md):
+ * Constraints (pdomain-ui CLAUDE.md):
  *   - No CVA.
  *   - No hex literals — all colors are var(--token).
  *   - No direct lucide-react imports (Check is imported from ../../icons/index.js).

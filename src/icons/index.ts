@@ -1,10 +1,10 @@
 /**
- * Icons subpath barrel (`@concavetrillion/pd-ui/icons`).
+ * Icons subpath barrel (`@pdomain/pdomain-ui/icons`).
  *
  * Re-exports all curated lucide icons, all bespoke OCR-domain SVG icons,
  * and the <Icon name> dispatcher shim (OQ-1).
  *
- * This is the ONLY public import path for icons in pd-ui consumers.
+ * This is the ONLY public import path for icons in pdomain-ui consumers.
  */
 export * from './lucide.js';
 export * from './bespoke.js';

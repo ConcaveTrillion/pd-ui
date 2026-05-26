@@ -1,5 +1,5 @@
 /**
- * @concavetrillion/pd-ui/worklist
+ * @pdomain/pdomain-ui/worklist
  *
  * Virtualized, keyboard-navigable list panels for the pd-* review workflow.
  *
@@ -9,7 +9,7 @@
  *   <PageList>        — page panel with render-prop rows
  *
  * Status row primitives:
- *   <StatusPip>       — re-exported from @concavetrillion/pd-ui/primitives
+ *   <StatusPip>       — re-exported from @pdomain/pdomain-ui/primitives
  *   <ConfidenceBar>   — horizontal OCR confidence bar
  *   <MatchStatusChip> — compact match status chip
  *

@@ -46,7 +46,7 @@ describe('shell barrel exports contract (issue #46 guard)', () => {
       .join('\n');
     expect(
       exportStatements,
-      'shell barrel must NOT export useSuiteSiblings — use @concavetrillion/pd-ui/stores instead',
+      'shell barrel must NOT export useSuiteSiblings — use @pdomain/pdomain-ui/stores instead',
     ).not.toMatch(/useSuiteSiblings[^C]/);
   });
 

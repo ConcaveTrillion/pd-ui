@@ -1,11 +1,11 @@
 /**
- * pd-ui/shell subpath export.
+ * pdomain-ui/shell subpath export.
  *
  * Re-exports all public shell API:
  *   - AppShell component + context hook
  *   - LauncherSlot + LauncherTile
  *   - SuiteSiblingsProvider + useSuiteSiblingsContext (M8.4)
- *     (consumer alias `useSuiteSiblings` lives in @concavetrillion/pd-ui/stores)
+ *     (consumer alias `useSuiteSiblings` lives in @pdomain/pdomain-ui/stores)
  *   - Sub-shell layout primitives (Breadcrumb, TopNav, Drawer, Rail, RightPanel)
  *   - All shell types (AppShellProps, NavItem, UIPrefsConfig, etc.)
  */

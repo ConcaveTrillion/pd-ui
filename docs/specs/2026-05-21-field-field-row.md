@@ -2,9 +2,9 @@
 
 **Date:** 2026-05-21
 **Status:** Partially implemented — help slot is missing; see §5
-**Subpath:** `@concavetrillion/pd-ui/primitives`
-**Required by:** `pd-ocr-trainer-spa` config cards, profile edit dialog
-**Spec source:** `pd-ocr-trainer-spa/specs/03-frontend.md §6.3`
+**Subpath:** `@pdomain/pdomain-ui/primitives`
+**Required by:** `pdomain-ocr-trainer-spa` config cards, profile edit dialog
+**Spec source:** `pdomain-ocr-trainer-spa/specs/03-frontend.md §6.3`
 
 ---
 
@@ -12,7 +12,7 @@
 
 A labelled form-row primitive that gives all pd-* app config screens a
 consistent layout: a label, a control slot, an optional expandable help
-slot, and an error slot. Works with the existing pd-ui `Input`, `Textarea`,
+slot, and an error slot. Works with the existing pdomain-ui `Input`, `Textarea`,
 `Select`, and `Accordion` primitives.
 
 ---
@@ -24,7 +24,7 @@ slot, and an error slot. Works with the existing pd-ui `Input`, `Textarea`,
 | `<Field>` | Single labelled field: label + control + optional help + optional error |
 | `<FieldRow>` | Horizontal group of two or more `<Field>` elements on one row |
 
-Both are exported from `@concavetrillion/pd-ui/primitives`.
+Both are exported from `@pdomain/pdomain-ui/primitives`.
 
 ---
 
@@ -50,7 +50,7 @@ interface FieldProps extends React.HTMLAttributes<HTMLDivElement> {
    * Help content — rendered inside a native <details>/<summary> Accordion
    * below the control. The summary text is "Help" unless `helpLabel` is set.
    *
-   * NOT YET IMPLEMENTED — tracked as a pd-ui enhancement.
+   * NOT YET IMPLEMENTED — tracked as a pdomain-ui enhancement.
    * Trainer-spa config cards use this to expose per-field documentation
    * (e.g. "What is learning rate?").
    */
@@ -74,7 +74,7 @@ interface FieldProps extends React.HTMLAttributes<HTMLDivElement> {
   error?: string;
 
   /**
-   * The form control. Typically a pd-ui Input, Textarea, or Select.
+   * The form control. Typically a pdomain-ui Input, Textarea, or Select.
    */
   children?: React.ReactNode;
 }
@@ -98,7 +98,7 @@ The trainer-spa maps this at the form level; `Field` only receives the
 final `error` string. The recommended consumer pattern:
 
 ```ts
-// In the form component (trainer-spa, not pd-ui)
+// In the form component (trainer-spa, not pdomain-ui)
 function errorForPath(details: ErrorDetail[], path: string[]): string | undefined {
   const key = path.join('.');
   const hit = details.find(d => d.loc.slice(1).join('.') === key);
@@ -126,7 +126,7 @@ plain strings. The loc-to-string mapping is always app-side.
 config cards need this to show expandable documentation for each config
 parameter (learning rate, batch size, vocab, etc.).
 
-**Target implementation:** use the existing pd-ui `Accordion` primitive
+**Target implementation:** use the existing pdomain-ui `Accordion` primitive
 (`<details>/<summary>`) as the help disclosure:
 
 ```tsx

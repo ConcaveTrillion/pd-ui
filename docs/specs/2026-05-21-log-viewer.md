@@ -2,16 +2,16 @@
 
 **Date:** 2026-05-21
 **Status:** Spec — not yet implemented
-**Subpath:** `@concavetrillion/pd-ui/primitives`
-**Required by:** `pd-ocr-trainer-spa` RunDetailPage (live training-output log)
-**Spec source:** `pd-ocr-trainer-spa/specs/03-frontend.md §6.3`
+**Subpath:** `@pdomain/pdomain-ui/primitives`
+**Required by:** `pdomain-ocr-trainer-spa` RunDetailPage (live training-output log)
+**Spec source:** `pdomain-ocr-trainer-spa/specs/03-frontend.md §6.3`
 
 ---
 
 ## 1. Purpose
 
 A virtualized, streaming-text viewer that renders a growing list of log lines
-efficiently. pd-ui owns the virtualization (`@tanstack/react-virtual`), the
+efficiently. pdomain-ui owns the virtualization (`@tanstack/react-virtual`), the
 auto-scroll toggle, and the line-wrap toggle. The consumer feeds it an array
 of log lines and wires it to whatever data source it has (e.g. the
 `useLongJob` hook's SSE events). The viewer is data-source-agnostic.
@@ -26,7 +26,7 @@ of log lines and wires it to whatever data source it has (e.g. the
   virtualized list    — renders only visible lines
 ```
 
-Exported from `@concavetrillion/pd-ui/primitives`.
+Exported from `@pdomain/pdomain-ui/primitives`.
 
 ---
 
@@ -228,8 +228,8 @@ container.
 
 ```tsx
 // RunDetailPage.tsx (trainer-spa — illustrative, not normative)
-import { LogViewer } from '@concavetrillion/pd-ui/primitives';
-import { useLongJob } from '@concavetrillion/pd-ui/shell';
+import { LogViewer } from '@pdomain/pdomain-ui/primitives';
+import { useLongJob } from '@pdomain/pdomain-ui/shell';
 import { useUIPrefsStore } from '../stores/ui-prefs.js';
 
 export function RunDetailPage({ runId }: { runId: string }) {

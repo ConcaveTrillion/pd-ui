@@ -9,8 +9,8 @@ import { createApiSuiteSiblingsConfig } from './createApiSuiteSiblingsConfig.js'
 import type { InstalledApp } from './types.js';
 
 const MOCK_APPS: InstalledApp[] = [
-  { id: 'pd-ocr-labeler-spa', displayName: 'Labeler', launchUrl: 'http://localhost:8001' },
-  { id: 'pd-prep-for-pgdp', displayName: 'PGDP Prep', launchUrl: 'http://localhost:8002' },
+  { id: 'pdomain-ocr-labeler-spa', displayName: 'Labeler', launchUrl: 'http://localhost:8001' },
+  { id: 'pdomain-prep-for-pgdp', displayName: 'PGDP Prep', launchUrl: 'http://localhost:8002' },
 ];
 
 describe('createApiSuiteSiblingsConfig (#6)', () => {
@@ -67,14 +67,14 @@ describe('createApiSuiteSiblingsConfig (#6)', () => {
       }),
     );
     const cfg = createApiSuiteSiblingsConfig();
-    const result = await cfg.postLaunch('pd-ocr-labeler-spa');
+    const result = await cfg.postLaunch('pdomain-ocr-labeler-spa');
 
     expect(fetchSpy).toHaveBeenCalledOnce();
     const [url, init] = fetchSpy.mock.calls[0] as [string, RequestInit];
     expect(url).toBe('/api/suite/launch');
     expect(init.method).toBe('POST');
     const body = JSON.parse(init.body as string) as Record<string, unknown>;
-    expect(body).toMatchObject({ id: 'pd-ocr-labeler-spa' });
+    expect(body).toMatchObject({ id: 'pdomain-ocr-labeler-spa' });
     expect(result).toMatchObject({ kind: 'opened' });
   });
 
@@ -83,15 +83,21 @@ describe('createApiSuiteSiblingsConfig (#6)', () => {
       new Response('Not Implemented', { status: 501 }),
     );
     const cfg = createApiSuiteSiblingsConfig();
-    const result = await cfg.postLaunch('pd-ocr-labeler-spa');
-    expect(result).toMatchObject({ kind: 'requires-host-config', siblingId: 'pd-ocr-labeler-spa' });
+    const result = await cfg.postLaunch('pdomain-ocr-labeler-spa');
+    expect(result).toMatchObject({
+      kind: 'requires-host-config',
+      siblingId: 'pdomain-ocr-labeler-spa',
+    });
   });
 
   it('postLaunch() returns requires-host-config on fetch error', async () => {
     vi.spyOn(globalThis, 'fetch').mockRejectedValue(new Error('Network error'));
     const cfg = createApiSuiteSiblingsConfig();
-    const result = await cfg.postLaunch('pd-prep-for-pgdp');
-    expect(result).toMatchObject({ kind: 'requires-host-config', siblingId: 'pd-prep-for-pgdp' });
+    const result = await cfg.postLaunch('pdomain-prep-for-pgdp');
+    expect(result).toMatchObject({
+      kind: 'requires-host-config',
+      siblingId: 'pdomain-prep-for-pgdp',
+    });
   });
 
   it('accepts custom base URLs', async () => {

@@ -1,6 +1,6 @@
 # Changelog
 
-All notable changes to `@concavetrillion/pd-ui` are documented here.
+All notable changes to `@pdomain/pdomain-ui` are documented here.
 
 Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
@@ -14,10 +14,10 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
   runtime was being bundled into the dist, causing a
   `TypeError: Cannot read properties of undefined (reading 'ReactCurrentDispatcher')`
   at module-load time for React 19 consumers running vitest (which uses the
-  dev React bundle). React 18 consumers were unaffected. Fixes pd-prep-for-pgdp
-  and pd-ocr-labeler-spa vitest runs after upgrading to pd-ui@0.2.0.
+  dev React bundle). React 18 consumers were unaffected. Fixes pdomain-prep-for-pgdp
+  and pdomain-ocr-labeler-spa vitest runs after upgrading to pdomain-ui@0.2.0.
 
-[0.2.1]: https://github.com/ConcaveTrillion/pd-ui/releases/tag/v0.2.1
+[0.2.1]: https://github.com/pdomain/pdomain-ui/releases/tag/v0.2.1
 
 ## [0.1.0-alpha.1] — 2026-05-21
 
@@ -26,16 +26,16 @@ this release exists solely to ship corrected registry metadata.
 
 ### Fixed
 
-- Re-published so the `pd-index-npm` packument carries the full
+- Re-published so the `pdomain-index-npm` packument carries the full
   `dependencies` block. The earlier `0.1.0-alpha` packument dropped the
   install-relevant metadata (`scripts/rebuild-packuments.ts` bug, since
-  fixed), so a fresh install of `@concavetrillion/pd-ui` failed to resolve
+  fixed), so a fresh install of `@pdomain/pdomain-ui` failed to resolve
   transitive deps (`konva`, `react-konva`, `@radix-ui/*`, `clsx`,
   `react-virtuoso`, `@dnd-kit/*`, `@tanstack/react-virtual`, `zustand`,
   `lucide-react`). npm registry versions are immutable, so the fix ships
   as a new patch-prerelease version rather than overwriting `0.1.0-alpha`.
 
-[0.1.0-alpha.1]: https://github.com/ConcaveTrillion/pd-ui/releases/tag/v0.1.0-alpha.1
+[0.1.0-alpha.1]: https://github.com/pdomain/pdomain-ui/releases/tag/v0.1.0-alpha.1
 
 ## [0.1.0-alpha] — 2026-05-17
 
@@ -62,28 +62,28 @@ M0 through M9, plus M10 (publish scaffolding).
 - `src/primitives/` — `cn()` helper, pure HTML primitives (Button, Input, Label, Badge,
   Checkbox, TextArea, Select, Separator, Slot), Radix UI wrappers (Dialog, AlertDialog,
   Popover, Tooltip, DropdownMenu, Tabs, ToggleGroup)
-- `@concavetrillion/pd-ui/primitives` subpath export
+- `@pdomain/pdomain-ui/primitives` subpath export
 - No CVA — variants are CSS class modifiers
 
 **M3 — Icons**
 - `src/icons/` — curated lucide-react re-exports (25 icons) + 11 bespoke OCR-domain SVG icons
-- `@concavetrillion/pd-ui/icons` subpath export
+- `@pdomain/pdomain-ui/icons` subpath export
 - ESLint rule blocks direct `lucide-react` imports outside `src/icons/`
 
 **M4 — Codegen pipeline**
-- `scripts/codegen-fetch.mjs` — fetches pinned `pd-book-tools` + `pd-ocr-ops` wheels
+- `scripts/codegen-fetch.mjs` — fetches pinned `pdomain-book-tools` + `pdomain-ocr-ops` wheels
 - `scripts/codegen-emit.mjs` — invokes `schemas.emit`, writes JSON Schema to `.codegen/`
 - `scripts/codegen-tsgen.mjs` — wraps JSON Schema in OpenAPI stub, generates TS via
   `openapi-typescript`, writes to `src/types/generated/` (committed)
 - `codegen.versions.json` — pinned wheel versions
 - `make codegen-check` CI gate
-- `@concavetrillion/pd-ui/types` subpath with `*Like` type reductions
+- `@pdomain/pdomain-ui/types` subpath with `*Like` type reductions
 
 **M5 — PageImageCanvas**
 - `src/canvas/PageImageCanvas.tsx` — slot-based Konva stage for OCR page display
 - `PageBBox` bounding box type + `bboxToRect()` utility
 - `useCanvasSelection` hook — multi-select, keyboard modifiers
-- `@concavetrillion/pd-ui/canvas` subpath export
+- `@pdomain/pdomain-ui/canvas` subpath export
 
 **M6 — WordList**
 - `src/worklist/WordList.tsx` — react-virtuoso virtualized word list
@@ -91,7 +91,7 @@ M0 through M9, plus M10 (publish scaffolding).
 - `LineCard`, `LineList`, `PageList` adapter components
 - `useWorklistSort` + `useWorklistFilter` hooks
 - `ConfidenceBar` + `MatchStatusChip` status row primitives
-- `@concavetrillion/pd-ui/worklist` subpath export
+- `@pdomain/pdomain-ui/worklist` subpath export
 
 **M7+M8 — AppShell + Zustand store factories**
 - `src/shell/AppShell.tsx` — CSS grid shell with `deployMode` prop and UIPrefs context
@@ -99,7 +99,7 @@ M0 through M9, plus M10 (publish scaffolding).
 - `createUIPrefsStore()`, `createSuiteStore()`, `createJobStore()` factory functions
   (never singletons — apps instantiate per AppShell)
 - `useSuiteSiblings()`, `useLongJob()` hooks
-- `@concavetrillion/pd-ui/shell` and `@concavetrillion/pd-ui/stores` subpath exports
+- `@pdomain/pdomain-ui/shell` and `@pdomain/pdomain-ui/stores` subpath exports
 
 **M9 — Storybook**
 - Storybook 8 with React + Vite builder
@@ -108,14 +108,14 @@ M0 through M9, plus M10 (publish scaffolding).
 
 **M10 — Publish scaffolding**
 - Version set to `0.1.0-alpha`
-- `publishConfig.registry` pointing to self-hosted `pd-index-npm`
+- `publishConfig.registry` pointing to self-hosted `pdomain-index-npm`
 - `tests/build.contract.test.ts` — asserts all 9 dist entry JS + `.d.ts` files exist
 - `tests/pack.contract.test.ts` — runs `pnpm pack --json`, asserts tarball completeness
 - `tests/package.contract.test.ts` — version, exports, files, no-CVA contract assertions
 
 ### Not included in 0.1.0-alpha
 
-- Actual publish to `pd-index-npm` registry (#177) — blocked on registry setup
+- Actual publish to `pdomain-index-npm` registry (#177) — blocked on registry setup
 - Hosted-mode backend adapters — Phase 2 work in each consuming app
 
-[0.1.0-alpha]: https://github.com/ConcaveTrillion/pd-ui/releases/tag/v0.1.0-alpha
+[0.1.0-alpha]: https://github.com/pdomain/pdomain-ui/releases/tag/v0.1.0-alpha

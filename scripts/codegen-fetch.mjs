@@ -3,14 +3,14 @@
  * codegen-fetch.mjs — M4.1
  *
  * Reads codegen.versions.json, creates .codegen/venv/ via `uv venv`, and
- * installs pinned wheels from the pd-index-pip self-hosted registry.
+ * installs pinned wheels from the pdomain-index-pip self-hosted registry.
  *
  * SHA256 hash verification is enforced for every wheel before installation.
  * Wheels are downloaded to a local cache dir, their SHA256 is verified, and
  * only then installed from the local path. A hash mismatch is a fatal error.
  *
  * Flags:
- *   --book-tools-only   Only install pd-book-tools (skip pd-ocr-ops)
+ *   --book-tools-only   Only install pdomain-book-tools (skip pdomain-ocr-ops)
  *   --dry-run           Print the commands that would be run; do not execute
  *   --local             Install from local sibling paths instead of registry
  *                       (bootstrap mode for dev before wheels are published)
@@ -34,7 +34,7 @@ import { createWriteStream } from 'fs'
 const __dirname = dirname(fileURLToPath(import.meta.url))
 const REPO_ROOT = resolve(__dirname, '..')
 
-const PD_INDEX_PIP_URL = 'https://concavetrillion.github.io/pd-index-pip/simple/'
+const PD_INDEX_PIP_URL = 'https://pdomain.github.io/pdomain-index-pip/simple/'
 const GH_RELEASES_BASE = 'https://github.com/ConcaveTrillion'
 
 function parseArgs(argv) {
@@ -57,7 +57,7 @@ function readVersions() {
  * Normalise a versions entry: support both the legacy plain-string format
  * and the new { version, sha256 } object format.
  *
- * @param {string} pkg  Package name (e.g. "pd-book-tools")
+ * @param {string} pkg  Package name (e.g. "pdomain-book-tools")
  * @param {unknown} entry  Value from codegen.versions.json
  * @returns {{ version: string, sha256: Record<string,string> | null }}
  */
@@ -186,13 +186,13 @@ async function main() {
 
   // Determine which packages to install
   const pkgNames = opts.bookToolsOnly
-    ? ['pd-book-tools']
-    : ['pd-book-tools', 'pd-ocr-ops']
+    ? ['pdomain-book-tools']
+    : ['pdomain-book-tools', 'pdomain-ocr-ops']
 
   if (opts.local) {
     // Local bootstrap mode: install from sibling repo paths (no hash check needed)
     const localPaths = pkgNames.map((pkg) => {
-      const repoName = pkg // 'pd-book-tools', 'pd-ocr-ops'
+      const repoName = pkg // 'pdomain-book-tools', 'pdomain-ocr-ops'
       const localPath = resolve(REPO_ROOT, '..', repoName)
       const { version } = normaliseEntry(pkg, versions[pkg])
       console.log(`[local mode] ${pkg}==${version} from ${localPath}`)

@@ -2,7 +2,7 @@
 /**
  * sync-design-system.mjs
  *
- * Syncs pd-ui/theme/*.css → ../docs/design-system/*.css
+ * Syncs pdomain-ui/theme/*.css → ../docs/design-system/*.css
  *
  * Usage:
  *   node scripts/sync-design-system.mjs            # sync + print diff summary
@@ -117,7 +117,7 @@ if (!anyDiff) {
 
 if (isCheck) {
   console.error(
-    'sync-design-system --check: diff detected between pd-ui/theme/ and docs/design-system/.\n' +
+    'sync-design-system --check: diff detected between pdomain-ui/theme/ and docs/design-system/.\n' +
     'Run: node scripts/sync-design-system.mjs  to sync.'
   )
   process.exit(1)

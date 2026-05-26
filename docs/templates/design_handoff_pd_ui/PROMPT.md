@@ -1,24 +1,24 @@
-# Claude Code prompt — port `pd-prep-for-pgdp` designs into `pd-ui`
+# Claude Code prompt — port `pdomain-prep-for-pgdp` designs into `pdomain-ui`
 
-Paste this prompt verbatim into Claude Code, sitting at the root of your `pd-ui` repo with this design-handoff folder available as a sibling or symlinked subdirectory.
+Paste this prompt verbatim into Claude Code, sitting at the root of your `pdomain-ui` repo with this design-handoff folder available as a sibling or symlinked subdirectory.
 
 ---
 
 ## Mission
 
-I have a shared React + Vite + TypeScript component library called **`pd-ui`** used across my apps. Alongside it, I have a folder of design explorations and a near-final design package for an app called **pd-prep-for-pgdp** (a Distributed Proofreaders prep pipeline). The designs are HTML prototypes written in plain JSX (untyped, inline `<script type="text/babel">`).
+I have a shared React + Vite + TypeScript component library called **`pdomain-ui`** used across my apps. Alongside it, I have a folder of design explorations and a near-final design package for an app called **pdomain-prep-for-pgdp** (a Distributed Proofreaders prep pipeline). The designs are HTML prototypes written in plain JSX (untyped, inline `<script type="text/babel">`).
 
-**Your job:** read every page and wireframe in the design bundle, extract every component, and surface them in `pd-ui` as **properly typed, idiomatic React+TS components** following pd-ui's existing patterns. The downstream goal is for the pd-prep-for-pgdp app to be implementable almost entirely by importing from `pd-ui`.
+**Your job:** read every page and wireframe in the design bundle, extract every component, and surface them in `pdomain-ui` as **properly typed, idiomatic React+TS components** following pdomain-ui's existing patterns. The downstream goal is for the pdomain-prep-for-pgdp app to be implementable almost entirely by importing from `pdomain-ui`.
 
 This is **not** a one-shot port. It's an iterative cataloguing exercise that ends with:
-1. A new section in pd-ui (`src/pd-prep/` or similar — match the library's convention) housing the new components.
-2. A migration of any *generic* primitives discovered in the designs (Button variants, Badge tones, KeyCap, Divider, etc.) into pd-ui's existing atoms layer where they don't already exist.
-3. Storybook / demo entries for each new component, mirroring how pd-ui currently documents components.
+1. A new section in pdomain-ui (`src/pd-prep/` or similar — match the library's convention) housing the new components.
+2. A migration of any *generic* primitives discovered in the designs (Button variants, Badge tones, KeyCap, Divider, etc.) into pdomain-ui's existing atoms layer where they don't already exist.
+3. Storybook / demo entries for each new component, mirroring how pdomain-ui currently documents components.
 4. A short `MIGRATION_NOTES.md` you write at the end explaining what landed where, what was deliberately *not* ported, and what's still ambiguous.
 
 ## Inputs
 
-In the design bundle (`design_handoff_pd_ui/` — sibling to this prompt):
+In the design bundle (`design_handoff_pdomain_ui/` — sibling to this prompt):
 
 - `final/` — the near-final designs. Every `.jsx` file under `final/<stage>/` is a wired-up canvas of one pipeline stage (Source, Grayscale, Crop, Hyphen-join, plus the Pipeline shell + Projects landing). These are the **source of truth** for component design — port these first.
 - `wf01/` … `wf11/`, `wf-pw/` — exploration wireframes. Some of these are now-superseded by `final/`; others contain components that haven't been promoted yet (notably wf09's reorder UI, wf05b's scannos workbench, wf-pw's Page Workbench). **Treat these as second-class.** Only port from a wireframe if (a) its content isn't superseded by a `final/` file, or (b) `final/index.html` explicitly references it as the canonical source for a stage that hasn't been wired yet.
@@ -30,16 +30,16 @@ In the design bundle (`design_handoff_pd_ui/` — sibling to this prompt):
 
 ### Pass 1 · Read & catalogue (don't write code yet)
 
-1. Open `design_handoff_pd_ui/final/index.html` in your head. It's the map: 22+ pipeline stages, a Projects landing page, a Template shell, and 9 wireframe references. Note which stages are wired and which are placeholders.
-2. Read `design-system/ui-base.jsx` and `design-system/template.jsx` end-to-end. **This is the shared kit every `.jsx` file relies on.** Every Button, Icon, Badge, etc. comes from here. The first thing you do in pd-ui is reconcile this against pd-ui's existing atoms.
-3. Read `design-system/tokens.css`. Map every CSS custom property into pd-ui's token system. **Do not invent new token names** if pd-ui already has equivalents — alias the design's `--ink-1` to pd-ui's existing primary text color etc.
-4. Scan `COMPONENT_INDEX.md`. Identifiers that appear in ≥3 files are almost certainly already in pd-ui or belong there. Identifiers that appear in 1 file are likely page-scoped and stay co-located.
+1. Open `design_handoff_pdomain_ui/final/index.html` in your head. It's the map: 22+ pipeline stages, a Projects landing page, a Template shell, and 9 wireframe references. Note which stages are wired and which are placeholders.
+2. Read `design-system/ui-base.jsx` and `design-system/template.jsx` end-to-end. **This is the shared kit every `.jsx` file relies on.** Every Button, Icon, Badge, etc. comes from here. The first thing you do in pdomain-ui is reconcile this against pdomain-ui's existing atoms.
+3. Read `design-system/tokens.css`. Map every CSS custom property into pdomain-ui's token system. **Do not invent new token names** if pdomain-ui already has equivalents — alias the design's `--ink-1` to pdomain-ui's existing primary text color etc.
+4. Scan `COMPONENT_INDEX.md`. Identifiers that appear in ≥3 files are almost certainly already in pdomain-ui or belong there. Identifiers that appear in 1 file are likely page-scoped and stay co-located.
 
-### Pass 2 · Reconcile atoms with existing pd-ui
+### Pass 2 · Reconcile atoms with existing pdomain-ui
 
 For each design-system primitive in `design-system/ui-base.jsx`:
-- **Already in pd-ui** → check that prop names, variants, and tones line up. If they don't, decide which side to migrate (prefer pd-ui's existing API unless the design's is meaningfully better). Note divergences in `MIGRATION_NOTES.md`.
-- **Not in pd-ui** → port it as a typed component into pd-ui's atoms layer. Match pd-ui's file structure, naming, and Storybook conventions.
+- **Already in pdomain-ui** → check that prop names, variants, and tones line up. If they don't, decide which side to migrate (prefer pdomain-ui's existing API unless the design's is meaningfully better). Note divergences in `MIGRATION_NOTES.md`.
+- **Not in pdomain-ui** → port it as a typed component into pdomain-ui's atoms layer. Match pdomain-ui's file structure, naming, and Storybook conventions.
 
 Atoms to look for: `Icon`, `Button`, `Badge`, `KeyCap`, `Divider`, `Tabs/TabsBand`, `Input`, `Toggle`, `Segmented` (the inset segmented control used everywhere), `Chip`/`Pill`, `Tooltip`, `Spinner`.
 
@@ -68,7 +68,7 @@ For every ported component:
 - Define a `Props` interface. Don't use `any`. Don't widen with `Record<string, unknown>` — be explicit about every prop the design exercises.
 - For "state" props that drive whole-page variants (e.g. `SourceFiles` has `state: 'generating' | 'selection'`), use string-literal unions and discriminated unions where appropriate.
 - For density / tone / variant props, mirror the CSS-token system: `tone: 'clean' | 'dirty' | 'review' | 'fuzzy' | 'exact' | 'gt' | 'mismatch'` etc. — pull the canonical list from `tokens.css`.
-- Preserve every `data-screen-label` / `data-comment-anchor` attribute the source places on elements; if pd-ui has a convention for these, use it.
+- Preserve every `data-screen-label` / `data-comment-anchor` attribute the source places on elements; if pdomain-ui has a convention for these, use it.
 
 ### Pass 5 · Strip the prototype scaffolding
 
@@ -76,12 +76,12 @@ The design files use:
 - `<script type="text/babel">` with Babel-standalone — drop this.
 - `Object.assign(window, { … })` to share components across script tags — replace with normal ESM exports.
 - A `DesignCanvas` / `DCSection` / `DCArtboard` wrapper for the visual exploration grid — **do not port this.** It's purely for showing many states side-by-side in the prototype. Each `DCArtboard` corresponds to one (component, props) pair; lift that pair into a Storybook story instead.
-- A `theme` state held in `localStorage('pgd-theme')` — match pd-ui's existing theme handling instead.
+- A `theme` state held in `localStorage('pgd-theme')` — match pdomain-ui's existing theme handling instead.
 
 ### Pass 6 · Write MIGRATION_NOTES.md
 
-End with a markdown file in pd-ui's root describing:
-- Every new pd-ui export (atom / molecule / template / stage component) and which design file it came from.
+End with a markdown file in pdomain-ui's root describing:
+- Every new pdomain-ui export (atom / molecule / template / stage component) and which design file it came from.
 - Tokens added or aliased.
 - Conscious omissions ("did not port `FakeThumb` — pure placeholder for design canvas, replace with real thumbnail logic in the consuming app").
 - Open questions for me (the human).
@@ -91,7 +91,7 @@ End with a markdown file in pd-ui's root describing:
 **Port** if it shows up in 2+ files, or appears in `final/` (not just wireframes), or implements a generic UX pattern (segmented control, banner, dialog, sticky bulk bar). The COMPONENT_INDEX frequency table is your starting heuristic.
 
 **Co-locate, don't port** if it's:
-- A page-specific layout helper (`SourceWBSubhead`, `SrcWBField`, `SrcWBInput`, `SrcWBSelect` — these are *only* useful inside the Source Page Workbench; they should live next to `SourcePageWorkbench` not in pd-ui's root).
+- A page-specific layout helper (`SourceWBSubhead`, `SrcWBField`, `SrcWBInput`, `SrcWBSelect` — these are *only* useful inside the Source Page Workbench; they should live next to `SourcePageWorkbench` not in pdomain-ui's root).
 - A placeholder visual (`FakeThumb`, `SkeletonThumb`, `InsertedThumb`) — these mimic real page scans for the prototype only. In production they'll be replaced with actual image components.
 - A one-shot data wrapper (`InPagesTab` etc. — `wf09/app.jsx` defines this as a local closure).
 
@@ -99,17 +99,17 @@ End with a markdown file in pd-ui's root describing:
 
 ## Guardrails
 
-- **Don't bring my visual decisions into pd-ui as overrides.** If pd-ui already has a `Button` with `variant="primary"` that looks different from the design, *flag it in MIGRATION_NOTES rather than overriding pd-ui*. I'll decide whether to update pd-ui or restyle the consuming app.
-- **Don't ship `tokens.css` verbatim** if pd-ui has its own token file. Diff the two, port missing tokens with names that match pd-ui's convention, and document aliases.
+- **Don't bring my visual decisions into pdomain-ui as overrides.** If pdomain-ui already has a `Button` with `variant="primary"` that looks different from the design, *flag it in MIGRATION_NOTES rather than overriding pdomain-ui*. I'll decide whether to update pdomain-ui or restyle the consuming app.
+- **Don't ship `tokens.css` verbatim** if pdomain-ui has its own token file. Diff the two, port missing tokens with names that match pdomain-ui's convention, and document aliases.
 - **No `!important`** in any ported CSS.
-- **Match pd-ui's existing file layout, naming, and export conventions** — don't introduce a new convention. If you're unsure, ask me before structuring the new folder.
+- **Match pdomain-ui's existing file layout, naming, and export conventions** — don't introduce a new convention. If you're unsure, ask me before structuring the new folder.
 - **One PR per pass** (or at least one commit per pass) — atoms, then molecules, then templates, then stage components, then wireframe-only. Keep them reviewable.
 
 ## Done when
 
-- Every component in `COMPONENT_INDEX.md` that meets the "port" rule has a typed pd-ui export with a Storybook entry.
-- pd-ui builds cleanly with `pnpm build` (or whatever the existing build command is).
-- A consuming app can replace any `.jsx` file in `final/` with imports from pd-ui + a thin glue file. Demonstrate this for at least `final/source/source.jsx` → pd-ui imports.
+- Every component in `COMPONENT_INDEX.md` that meets the "port" rule has a typed pdomain-ui export with a Storybook entry.
+- pdomain-ui builds cleanly with `pnpm build` (or whatever the existing build command is).
+- A consuming app can replace any `.jsx` file in `final/` with imports from pdomain-ui + a thin glue file. Demonstrate this for at least `final/source/source.jsx` → pdomain-ui imports.
 - `MIGRATION_NOTES.md` exists, is honest about gaps, and lists open questions.
 
 Start with Pass 1. Don't write code yet. Once you've read the design system, atoms, and `final/index.html`, summarize what you found and what your plan is. Then we'll proceed pass by pass.

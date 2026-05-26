@@ -1,5 +1,5 @@
 /**
- * Playwright config for pd-ui e2e tests.
+ * Playwright config for pdomain-ui e2e tests.
  *
  * Tests run against the pre-built Storybook static site (`storybook-static/`).
  *

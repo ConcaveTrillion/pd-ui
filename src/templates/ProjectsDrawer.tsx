@@ -6,7 +6,7 @@
  * it needs a projects-selection rail.
  *
  * Target path: src/templates/ProjectsDrawer.tsx
- * Subpath export: @concavetrillion/pd-ui/templates
+ * Subpath export: @pdomain/pdomain-ui/templates
  *
  * Slot-based API — consumers supply:
  *  - `projects`: typed array of ProjectsDrawerProject
@@ -16,7 +16,7 @@
  *  - `createSlot` (optional): replaces the default "New project" button entirely
  *  - `defaultTab` (optional): 'active' | 'archived' — which tab is shown initially
  *
- * Design source: docs/templates/design_handoff_pd_ui/final/projects/projects.jsx
+ * Design source: docs/templates/design_handoff_pdomain_ui/final/projects/projects.jsx
  * — ProjectsPage left-rail section, extracted as a standalone molecule.
  */
 import * as React from 'react';

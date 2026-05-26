@@ -1,7 +1,7 @@
 name: ci
 
 # Runs on every push to main and on every pull request targeting main.
-# This is the primary quality gate for @concavetrillion/pd-ui.
+# This is the primary quality gate for @pdomain/pdomain-ui.
 #
 # Jobs:
 #   1. lint      — ESLint flat config (src/ + tests/)
@@ -11,11 +11,11 @@ name: ci
 #   4. build     — Vite library build → dist/ (verifies all entry points compile)
 #
 # Intentionally excluded:
-#   - codegen-check: fetches Python wheels from the self-hosted pd-index-pip
+#   - codegen-check: fetches Python wheels from the self-hosted pdomain-index-pip
 #     registry (unavailable in GitHub-hosted runners). Run `make codegen-check`
 #     locally. The committed src/types/generated/ snapshot is what CI typechecks.
 #   - theme-check: sync-design-system.mjs requires the workspace-level
-#     ../docs/design-system/ directory, which is outside the pd-ui checkout.
+#     ../docs/design-system/ directory, which is outside the pdomain-ui checkout.
 #     Run `make theme-check` from the ocr-container workspace locally.
 
 on:

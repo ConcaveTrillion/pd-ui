@@ -11,7 +11,7 @@ const pkg = JSON.parse(readFileSync(resolve(__dirname, '../package.json'), 'utf-
 
 describe('package.json contract', () => {
   it('has correct name', () => {
-    expect(pkg['name']).toBe('@concavetrillion/pd-ui');
+    expect(pkg['name']).toBe('@pdomain/pdomain-ui');
   });
 
   it('exports has all required subpaths', () => {

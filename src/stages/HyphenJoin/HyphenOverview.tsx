@@ -44,7 +44,7 @@ function PostBookNotesPreview({ children }: { children: React.ReactNode }): Reac
  * Renders four stat tiles (Undecided / Auto-joined / Mismatch / Flagged)
  * and an optional post-book notes preview card below.
  *
- * Design source: `docs/templates/design_handoff_pd_ui/final/hyphen_join/hyphen.jsx`
+ * Design source: `docs/templates/design_handoff_pdomain_ui/final/hyphen_join/hyphen.jsx`
  * (Overview tab — stat tiles + PostBookNotesPreview section).
  */
 export function HyphenOverview({

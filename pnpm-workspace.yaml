@@ -1,4 +1,4 @@
-# pd-ui is a single-package repo, not a pnpm workspace. This file exists
+# pdomain-ui is a single-package repo, not a pnpm workspace. This file exists
 # only to carry pnpm settings (allowBuilds for the esbuild build script).
 # `packages: []` is required so `pnpm store path` (run by setup-node's
 # cache step under pnpm 9) does not error with "packages field missing".

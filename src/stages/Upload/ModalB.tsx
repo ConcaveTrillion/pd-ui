@@ -12,7 +12,7 @@
  *   - Drop zone: role="button", aria-label="Upload images", visible focus ring via tokens.
  *   - Clicking the drop zone activates the hidden file input.
  *
- * Constraints (pd-ui CLAUDE.md):
+ * Constraints (pdomain-ui CLAUDE.md):
  *   - No CVA.
  *   - No hex literals — all colors are var(--token).
  *   - No direct lucide-react imports.

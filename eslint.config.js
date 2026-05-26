@@ -4,7 +4,7 @@ import jsxA11y from 'eslint-plugin-jsx-a11y'
 
 export default tseslint.config(
   // Global ignores
-  { ignores: ['dist/**', 'storybook-static/**', '.codegen/**', 'node_modules/**', 'tests/fixtures/lint-bad/**'] },
+  { ignores: ['dist/**', 'storybook-static/**', '.codegen/**', 'node_modules/**', 'tests/fixtures/lint-bad/**', 'src/types/generated/**'] },
 
   // Base TS parser config for ALL files (no type-checking yet)
   ...tseslint.configs.recommended,
@@ -29,8 +29,8 @@ export default tseslint.config(
     rules: {
       'no-restricted-imports': ['error', {
         paths: [
-          { name: 'lucide-react', message: 'Import icons from @concavetrillion/pd-ui/icons only' },
-          { name: 'class-variance-authority', message: 'CVA is forbidden in pd-ui' },
+          { name: 'lucide-react', message: 'Import icons from @pdomain/pdomain-ui/icons only' },
+          { name: 'class-variance-authority', message: 'CVA is forbidden in pdomain-ui' },
         ],
       }],
     },

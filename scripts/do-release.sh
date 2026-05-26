@@ -142,5 +142,5 @@ git push origin main --follow-tags
 
 echo ""
 echo "Released $VERSION."
-echo "   Repo: https://github.com/ConcaveTrillion/pd-ui"
-echo "   Tag:  https://github.com/ConcaveTrillion/pd-ui/releases/tag/$VERSION"
+echo "   Repo: https://github.com/pdomain/pdomain-ui"
+echo "   Tag:  https://github.com/pdomain/pdomain-ui/releases/tag/$VERSION"

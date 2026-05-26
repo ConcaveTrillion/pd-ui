@@ -1,11 +1,11 @@
-# Lint-rule Deviations — pd-ui
+# Lint-rule Deviations — pdomain-ui
 
 Standing suppressions and per-file rule overrides in this repo.
 Each entry records: the rule, the tool, the file(s) affected, and
 the justification. Update this file whenever a new suppression is added
 or removed.
 
-Reference implementation: `pd-book-tools/docs/conventions/lint-deviations.md`.
+Reference implementation: `pdomain-book-tools/docs/conventions/lint-deviations.md`.
 
 ---
 
@@ -103,7 +103,7 @@ consistent with every other component in this repo that adds props over time
 of interactive roles. However, the element **is** keyboard-interactive: it
 receives focus to dispatch hotkeys (select/drag/zoom mode switching) that
 the canvas responds to. This is the established pattern from
-`pd-ocr-labeler-spa` and reflects real keyboard accessibility — without
+`pdomain-ocr-labeler-spa` and reflects real keyboard accessibility — without
 `tabIndex` the canvas cannot receive keyboard focus at all. The `role="img"`
 is kept because the element's primary semantic is "a visual canvas of page
 image content"; the keyboard interaction is secondary.

@@ -2,7 +2,7 @@
 
 Auto-extracted from every `.jsx` file in the project. Each identifier is a top-level `const Name = …` or `function Name(…)` where Name starts with a capital — these are React components, hooks, or React-adjacent helpers.
 
-**Use as a starting point, not gospel.** Many entries are local sub-components (e.g. `FakeThumb`, `SrcWBField`, `SrcWBInput`) that should stay co-located with their parent rather than being promoted into pd-ui. The PROMPT.md triage rules tell you how to decide.
+**Use as a starting point, not gospel.** Many entries are local sub-components (e.g. `FakeThumb`, `SrcWBField`, `SrcWBInput`) that should stay co-located with their parent rather than being promoted into pdomain-ui. The PROMPT.md triage rules tell you how to decide.
 
 ## Components by file
 
@@ -932,7 +932,7 @@ Auto-extracted from every `.jsx` file in the project. Each identifier is a top-l
 
 ## Cross-file frequency — likely shared primitives
 
-Identifiers that show up in **2+ files** are strong candidates for pd-ui promotion (they're already being copy-pasted across explorations).
+Identifiers that show up in **2+ files** are strong candidates for pdomain-ui promotion (they're already being copy-pasted across explorations).
 
 | name | files | likely category |
 |---|---|---|

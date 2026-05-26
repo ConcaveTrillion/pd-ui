@@ -1,7 +1,7 @@
 /**
  * SettingsNav — settings sidebar navigation molecule.
  *
- * Design source: docs/templates/design_handoff_pd_ui/final/pipeline/pipeline-template.jsx
+ * Design source: docs/templates/design_handoff_pdomain_ui/final/pipeline/pipeline-template.jsx
  * Component: inline sidebar inside `ProjectSettingsTemplate` (lines 356–386)
  *
  * Renders a vertical list of settings group items with icon, active highlight

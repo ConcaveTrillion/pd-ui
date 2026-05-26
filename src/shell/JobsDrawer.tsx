@@ -12,7 +12,7 @@
  * jobs that have been dismissed from the drawer body.
  *
  * Part of the shell subpath; ported from
- * docs/templates/design_handoff_pd_ui/design-system/template.jsx (OQ-5).
+ * docs/templates/design_handoff_pdomain_ui/design-system/template.jsx (OQ-5).
  * Target path: src/shell/JobsDrawer.tsx (per OQ-5 decision + #354).
  */
 import * as React from 'react';

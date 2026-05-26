@@ -17,7 +17,7 @@
  * Usage
  * ─────
  * ```ts
- * import { createApiUIPrefsConfig } from '@concavetrillion/pd-ui/shell';
+ * import { createApiUIPrefsConfig } from '@pdomain/pdomain-ui/shell';
  *
  * <AppShell
  *   uiPrefsConfig={createApiUIPrefsConfig('/api/ui-prefs')}
@@ -25,7 +25,7 @@
  * />
  * ```
  *
- * This replaces the localStorage shim that pd-ocr-labeler-spa used in
+ * This replaces the localStorage shim that pdomain-ocr-labeler-spa used in
  * App.tsx (GAP-1 / GAP-2 from issue #5).
  */
 

@@ -2,7 +2,7 @@
  * AttributesPanel — PGDP-level project attributes panel.
  *
  * Collapsible sections in a 2-column reflow grid.
- * Ported from docs/templates/design_handoff_pd_ui/final/projects/projects.jsx
+ * Ported from docs/templates/design_handoff_pdomain_ui/final/projects/projects.jsx
  *
  * Design notes:
  * - Uses CSS custom properties only (no hex literals per spec §4).

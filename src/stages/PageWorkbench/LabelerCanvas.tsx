@@ -16,7 +16,7 @@
  * time they are projected to page-space pixels so the Konva Stage can draw
  * them at the correct scale.
  *
- * Spec §6.2: annotation-mode canvas for pd-ui Phase 2.
+ * Spec §6.2: annotation-mode canvas for pdomain-ui Phase 2.
  */
 
 import { useMemo } from 'react';

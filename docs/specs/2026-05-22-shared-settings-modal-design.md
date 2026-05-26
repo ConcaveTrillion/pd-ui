@@ -2,38 +2,38 @@
 
 > **Status**: Draft
 > **Last updated**: 2026-05-22
-> **Spec-Issue**: ConcaveTrillion/pd-ui#9
+> **Spec-Issue**: pdomain/pdomain-ui#9
 
 ## TL;DR
 
-pd-ui gains a shared `SettingsModal` — a tabbed dialog opened by the header gear
+pdomain-ui gains a shared `SettingsModal` — a tabbed dialog opened by the header gear
 — with a built-in "Appearance" panel owning all `UIPrefs` and a `settingsPanels`
 prop for app-injected panels. `AppShell` also gains a `headerActions` slot and a
 `useSettingsModal()` hook for programmatic open (resolving
-`pd-ocr-labeler-spa#405`). The current gear → Radix Popover is replaced.
+`pdomain-ocr-labeler-spa#405`). The current gear → Radix Popover is replaced.
 
 ## Context
 
 Every pd-* SPA needs the same shape of surface: a theme / `UIPrefs` control plus
 app-specific configuration. Today the results are scattered and inconsistent:
 
-- `pd-ui` `AppShell` exposes a built-in `SettingsSlot` — a gear opening a Radix
+- `pdomain-ui` `AppShell` exposes a built-in `SettingsSlot` — a gear opening a Radix
   Popover that exposes only `theme`, `density`, and `fontScale`. The remaining
   `UIPrefs` fields (`layerColors`, `statusColors`, `accentColor`,
   `accentInkColor`) have no UI at all.
 - `AppShell` exposes `header / rail / drawer / main / rightPanel / footer` slots
   but no slot for app-specific header controls.
-- `pd-ocr-labeler-spa` ships theme as an inline `ThemeChips` widget and OCR
+- `pdomain-ocr-labeler-spa` ships theme as an inline `ThemeChips` widget and OCR
   config as a standalone `OCRConfigModal`; there is no unified settings surface.
-  It documents the gap: `ui-prefs.ts` GAP-5 ("Cannot use pd-ui
+  It documents the gap: `ui-prefs.ts` GAP-5 ("Cannot use pdomain-ui
   `createUIPrefsStore`"), `dialog-store.ts` GAP-6.
-- `pd-ocr-labeler-spa#405`: the issue-401 HeaderBar deprecation left
+- `pdomain-ocr-labeler-spa#405`: the issue-401 HeaderBar deprecation left
   `OCRConfigModal` with no user-facing trigger. CT decided (2026-05-21) to
   resolve #405 by the labeler adopting this shared settings surface rather than
   a one-off gear button. #405 is blocked on this spec.
 
-This spec covers only the `pd-ui` surface. Apps migrating onto it
-(`pd-ocr-labeler-spa#405`, `pd-prep-for-pgdp`) are separate follow-up issues.
+This spec covers only the `pdomain-ui` surface. Apps migrating onto it
+(`pdomain-ocr-labeler-spa#405`, `pdomain-prep-for-pgdp`) are separate follow-up issues.
 
 ## Constraints
 
@@ -41,13 +41,13 @@ This spec covers only the `pd-ui` surface. Apps migrating onto it
   `src/icons/` — repo-wide ESLint rules.
 - **Stores are factories.** `UIPrefs` state stays in `createUIPrefsStore`; the
   modal consumes it through existing context hooks.
-- **Deploy-mode-agnostic.** `pd-ui` never branches on hosted-vs-local.
+- **Deploy-mode-agnostic.** `pdomain-ui` never branches on hosted-vs-local.
 - **Strict TypeScript** (`exactOptionalPropertyTypes`, `noUncheckedIndexedAccess`).
 - **Port-not-copy.** The `ColorField` primitive is designed fresh against
-  `pd-ui` conventions, informed by — not copied from — labeler-spa pickers.
+  `pdomain-ui` conventions, informed by — not copied from — labeler-spa pickers.
 - Behavior-heavy primitives use Radix; the modal builds on the existing
   Radix-dialog-based `Dialog` primitive.
-- App panels own their own state and data fetching; `pd-ui` renders their
+- App panels own their own state and data fetching; `pdomain-ui` renders their
   `content` node and nothing more.
 
 ## Decision
@@ -57,7 +57,7 @@ This spec covers only the `pd-ui` surface. Apps migrating onto it
 - **`SettingsModal`** — new component on the `Dialog` primitive. A left vertical
   tab-nav lists panels; the right pane renders the active panel's content. The
   built-in "Appearance" panel is always the first tab.
-- **`AppearancePanel`** — built-in, owned by `pd-ui`. Controls for `theme`,
+- **`AppearancePanel`** — built-in, owned by `pdomain-ui`. Controls for `theme`,
   `density`, `fontScale` (the current Popover controls) plus `layerColors`,
   `statusColors`, `accentColor` / `accentInkColor`, wired to `createUIPrefsStore`.
 - **`ColorField`** — new small primitive (`src/primitives/`): a labeled swatch +
@@ -109,7 +109,7 @@ function useSettingsModal(): {
 };
 ```
 
-This is how `pd-ocr-labeler-spa#405` is resolved: the labeler registers an `ocr`
+This is how `pdomain-ocr-labeler-spa#405` is resolved: the labeler registers an `ocr`
 panel via `settingsPanels` and calls `openPanel('ocr')` from wherever the old
 HeaderBar trigger lived.
 
@@ -156,7 +156,7 @@ their `persistCommon` implementation to accept the wider object.
 
 - **Panel injection — descriptor array vs render-prop / children.** Chosen:
   descriptor array (`settingsPanels`). It is declarative, testable without
-  rendering, lets `pd-ui` own a consistent tab layout, and makes `openPanel(id)`
+  rendering, lets `pdomain-ui` own a consistent tab layout, and makes `openPanel(id)`
   trivial. A render-prop / `<SettingsPanel>` children API is more flexible but
   pushes layout responsibility onto each app and complicates programmatic open.
 - **Modal vs keeping the Popover.** Chosen: replace the Popover with the modal —
@@ -172,14 +172,14 @@ their `persistCommon` implementation to accept the wider object.
 
 ## Consequences
 
-- `pd-ocr-labeler-spa#405` is unblocked: the labeler injects an OCR panel and
+- `pdomain-ocr-labeler-spa#405` is unblocked: the labeler injects an OCR panel and
   triggers it via `useSettingsModal().openPanel('ocr')`.
 - The `SettingsSlot` Popover and its tests are removed; the gear and its testid
   are retained.
 - `UIPrefsConfig.persistCommon` is a breaking signature change for consumers;
   `createApiUIPrefsConfig` and both SPA adapters update in lockstep.
-- A new `ColorField` primitive enters `pd-ui`'s public surface.
-- GAP-5 / GAP-6 in `pd-ocr-labeler-spa` are addressed once the labeler migrates
+- A new `ColorField` primitive enters `pdomain-ui`'s public surface.
+- GAP-5 / GAP-6 in `pdomain-ocr-labeler-spa` are addressed once the labeler migrates
   onto `AppShell` + this modal (its own follow-up).
 - The work decomposes into roughly: `ColorField` primitive; `UIPrefsConfig` /
   store widening; `SettingsModal` + `AppearancePanel`; `AppShell`
@@ -198,12 +198,12 @@ their `persistCommon` implementation to accept the wider object.
 
 ## References
 
-- ConcaveTrillion/pd-ui#9 — this spec's issue.
-- ConcaveTrillion/pd-ocr-labeler-spa#405 — OCR-config trigger, blocked on this.
-- `pd-ui/src/shell/AppShell.tsx`, `src/shell/SettingsSlot.tsx`,
+- pdomain/pdomain-ui#9 — this spec's issue.
+- pdomain/pdomain-ocr-labeler-spa#405 — OCR-config trigger, blocked on this.
+- `pdomain-ui/src/shell/AppShell.tsx`, `src/shell/SettingsSlot.tsx`,
   `src/shell/types.ts` — current shell surface.
-- `pd-ui/src/stores/createUIPrefsStore.ts` — `UIPrefs` store factory.
-- `pd-ui/src/primitives/Dialog.tsx` — Radix-dialog primitive the modal builds on.
-- `pd-ocr-labeler-spa/frontend/src/components/OCRConfigModal.tsx` — the app panel
+- `pdomain-ui/src/stores/createUIPrefsStore.ts` — `UIPrefs` store factory.
+- `pdomain-ui/src/primitives/Dialog.tsx` — Radix-dialog primitive the modal builds on.
+- `pdomain-ocr-labeler-spa/frontend/src/components/OCRConfigModal.tsx` — the app panel
   the labeler will inject.
 - `docs/specs/2026-05-16-cross-cut-design.md` §6 — AppShell contract origin.
