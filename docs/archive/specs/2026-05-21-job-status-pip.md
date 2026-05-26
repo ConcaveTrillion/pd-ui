@@ -3,17 +3,17 @@
 **Date:** 2026-05-21
 **Status:** Implemented — this spec documents the settled API and trainer-spa
 conventions
-**Subpath:** `@concavetrillion/pd-ui/primitives`
-**Required by:** `pd-ocr-trainer-spa` RunDetailPage (run-state indicator),
+**Subpath:** `@concavetrillion/pdomain-ui/primitives`
+**Required by:** `pdomain-ocr-trainer-spa` RunDetailPage (run-state indicator),
 RunsPage list
-**Spec source:** `pd-ocr-trainer-spa/specs/03-frontend.md §6.3`
+**Spec source:** `pdomain-ocr-trainer-spa/specs/03-frontend.md §6.3`
 
 ---
 
 ## 1. Purpose
 
 A job-state pip that renders a colored dot + state label for the five
-canonical `JobState` values. A job-aware variant of the existing pd-ui
+canonical `JobState` values. A job-aware variant of the existing pdomain-ui
 `StatusPip`, driven by the same `JobState` type that `useLongJob` returns.
 
 ---
@@ -25,7 +25,7 @@ interface JobStatusPipProps extends React.HTMLAttributes<HTMLDivElement> {
   /**
    * The job's current state.
    *
-   * Type is derived from the pd-ocr-ops generated schema:
+   * Type is derived from the pdomain-ocr-ops generated schema:
    *   "queued" | "running" | "succeeded" | "failed" | "cancelled"
    *
    * NOTE: the canonical terminal success state is "succeeded", NOT "done".
@@ -74,7 +74,7 @@ export type JobState = components['schemas']['JobStatus']['state'];
 // = "queued" | "running" | "succeeded" | "failed" | "cancelled"
 ```
 
-The type is generated from `pd-ocr-ops`'s OpenAPI schema via `pnpm codegen`.
+The type is generated from `pdomain-ocr-ops`'s OpenAPI schema via `pnpm codegen`.
 Do not widen or alias it in consumer code — use `JobState` directly to stay
 in sync with the backend contract.
 
@@ -113,8 +113,8 @@ and merging would produce a prop soup or a discriminated union with no benefit.
 
 ```tsx
 // RunsPage.tsx — status column in a runs table
-import { JobStatusPip } from '@concavetrillion/pd-ui/primitives';
-import type { JobState } from '@concavetrillion/pd-ui/types';
+import { JobStatusPip } from '@concavetrillion/pdomain-ui/primitives';
+import type { JobState } from '@concavetrillion/pdomain-ui/types';
 
 <JobStatusPip state={run.status as JobState} />
 
@@ -150,6 +150,6 @@ the current contract (`13-driver-contract.md`). The built-in
   not be removed or made optional.
 - **D-J2** The `label` prop defaults to the raw state string, not a
   humanized version. Apps that want "Queued" instead of "queued" set
-  `label="Queued"`. pd-ui does not own display-string localization.
+  `label="Queued"`. pdomain-ui does not own display-string localization.
 - **D-J3** `pip--running` animation is defined in `primitives.css` (not
   inline JS). This keeps animation under the design-system's control.

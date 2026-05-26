@@ -2,16 +2,16 @@
 
 **Date:** 2026-05-21
 **Status:** Implemented (issue #10) — `src/primitives/kanban/`
-**Subpath:** `@concavetrillion/pd-ui/primitives`
-**Required by:** `pd-ocr-trainer-spa` DatasetsPage (dual kanban — detection + recognition)
-**Spec source:** `pd-ocr-trainer-spa/specs/03-frontend.md §6.3`
+**Subpath:** `@concavetrillion/pdomain-ui/primitives`
+**Required by:** `pdomain-ocr-trainer-spa` DatasetsPage (dual kanban — detection + recognition)
+**Spec source:** `pdomain-ocr-trainer-spa/specs/03-frontend.md §6.3`
 
 ---
 
 ## 1. Purpose
 
 A drag-and-drop, per-column-virtualized kanban board whose columns can hold
-thousands of items (page chips). pd-ui owns the `dnd-kit` integration and
+thousands of items (page chips). pdomain-ui owns the `dnd-kit` integration and
 virtualization. The consumer supplies data, render-prop functions for chip
 content and column headers, and a move-event callback. The board never
 assumes immediate persistence — the consumer owns commit/staging
@@ -27,7 +27,7 @@ assumes immediate persistence — the consumer owns commit/staging
     <PageChip>          (one per item in the column; virtualized)
 ```
 
-All three are exported from `@concavetrillion/pd-ui/primitives`.
+All three are exported from `@concavetrillion/pdomain-ui/primitives`.
 
 ---
 
@@ -194,7 +194,7 @@ interface KanbanChipRenderProps<TItem extends KanbanItemDef> {
 ## 5. dnd-kit sensor configuration
 
 ```ts
-// internal — pd-ui configures this; consumers do not need to touch it
+// internal — pdomain-ui configures this; consumers do not need to touch it
 const sensors = useSensors(
   useSensor(PointerSensor),
   useSensor(KeyboardSensor, {
@@ -285,7 +285,7 @@ accept `data-testid` pass-through only.
 
 ```tsx
 // DatasetsPage.tsx (trainer-spa — illustrative, not normative)
-import { KanbanBoard } from '@concavetrillion/pd-ui/primitives';
+import { KanbanBoard } from '@concavetrillion/pdomain-ui/primitives';
 import { useKanbanStore } from '../stores/kanban-staging.js';
 import type { DatasetPage, DatasetColumn } from '../api/types.js';
 
@@ -354,5 +354,5 @@ Both packages can coexist.
 - **D-K5** `isPending` is the board's way of rendering staged moves without
   knowing the staging semantics. The trainer-spa passes `isPending` in
   `renderChip` by checking its staging store.
-- **D-K6** No built-in "Apply / Discard" affordance in pd-ui — that's SPA-level
+- **D-K6** No built-in "Apply / Discard" affordance in pdomain-ui — that's SPA-level
   UX. The board is stateless with respect to commits.
