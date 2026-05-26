@@ -212,4 +212,42 @@ the line basedpyright reports.
   acceptable; the framework's `Depends()` return type is intentionally
   `Any` so handlers can declare their own signatures.
 
+## Rule: Forwarding optional props under `exactOptionalPropertyTypes`
+
+**The rule.** When forwarding an optional prop from a parent to a child under
+`exactOptionalPropertyTypes: true`, never pass `prop={value}` directly when
+`value` may be `undefined`. Use a conditional spread instead:
+
+```tsx
+// WRONG — TypeScript error: type 'T | undefined' is not assignable to type 'T'
+<Child name={item.name} sub={item.sub} />
+
+// CORRECT — conditional spread; only adds the key when the value is defined
+<Child name={item.name} {...(item.sub !== undefined ? { sub: item.sub } : {})} />
+```
+
+**Why.** `exactOptionalPropertyTypes` distinguishes "key not present" from
+"key present with value `undefined`". A direct `prop={maybUndefined}` writes the
+key with `undefined`, which the child's `prop?: T` type does not accept. The spread
+only inserts the key when the value is defined, satisfying the type contract
+without casting.
+
+**Real call sites in this repo** (as reference):
+
+- `src/primitives/SummaryStrip.tsx` line 40:
+  `{...(cell.sub !== undefined ? { sub: cell.sub } : {})}`
+- `src/templates/PipelineTemplate.tsx` line 276:
+  `{...(onSettingsToggle !== undefined ? { onClick: onSettingsToggle } : {})}`
+
+**Common high-confidence violations** (bot auto-fix candidates)
+
+- `<Child optProp={parentProp}` where `parentProp` is typed `T | undefined`
+  and the child declares `optProp?: T` (not `T | undefined`) — replace with
+  the conditional spread.
+
+**Common judgment-call violations** (bot flags, CT decides)
+
+- When the child's type is genuinely `prop?: T | undefined` (e.g. a DOM
+  element attribute that accepts `undefined`) — direct pass is fine; no spread needed.
+
 <!-- workspace-conventions:end -->
