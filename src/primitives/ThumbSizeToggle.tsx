@@ -20,8 +20,14 @@ export const THUMB_SIZES: ThumbSizeOption[] = [
 ];
 
 export interface ThumbSizeToggleProps {
-  /** Currently active size id. */
-  value: string;
+  /**
+   * Currently active size id.
+   * Pass `undefined` (or omit) when no size is pre-selected.
+   * The component maps undefined → `''` internally so Radix ToggleGroup
+   * always stays in controlled mode and never fires the
+   * uncontrolled→controlled console.error.
+   */
+  value?: string;
   /** Called with the new size id when the user selects an option. */
   onValueChange: (value: string) => void;
   /** Override the available size options. Defaults to THUMB_SIZES. */
@@ -42,10 +48,17 @@ export function ThumbSizeToggle({
   sizes = THUMB_SIZES,
   className,
 }: ThumbSizeToggleProps): React.ReactElement {
+  // Map undefined → '' so Radix ToggleGroup stays in controlled mode for the
+  // full lifetime of the component. Without this, a consumer that starts with
+  // value={undefined} and later provides a string triggers Radix's
+  // uncontrolled→controlled console.error. Radix uses '' to mean "nothing
+  // selected" in a single-type ToggleGroup, matching the onValueChange guard
+  // below which filters out '' before calling the consumer callback.
+  const controlledValue = value ?? '';
   return (
     <ToggleGroup
       type="single"
-      value={value}
+      value={controlledValue}
       onValueChange={(v) => {
         if (v !== '') onValueChange(v);
       }}
