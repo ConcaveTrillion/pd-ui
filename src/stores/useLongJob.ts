@@ -3,7 +3,7 @@
  *
  * Per spec §6, this hook uses SSE in hosted mode and polling fallback in
  * local mode. Phase 1 ships a polling stub that can be wired to real
- * pd-ocr-ops job routes.
+ * pdomain-ocr-ops job routes.
  *
  * Transport contract URL:
  *   GET /api/jobs/<jobId>          → { status, progress, events }

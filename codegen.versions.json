@@ -1,14 +1,14 @@
 {
-  "pd-book-tools": {
-    "version": "0.14.1",
+  "pdomain-book-tools": {
+    "version": "0.14.2.dev70+ge82fdcda1",
     "sha256": {
-      "pd_book_tools-0.14.1-py3-none-any.whl": "d1ae8b934b1b0b9e421ea0d82ea040a003910c6541810e26870404c368bc2f38"
+      "pdomain_book_tools-0.14.2.dev70+ge82fdcda1-py3-none-any.whl": "d1e72b347dad974caa88821327e15590241d01c0351565db1594f319794bf892"
     }
   },
-  "pd-ocr-ops": {
+  "pdomain-ocr-ops": {
     "version": "0.2.2",
     "sha256": {
-      "pd_ocr_ops-0.2.2-py3-none-any.whl": "d829730215a0d89ea458e093022b5e8d3589112322b363483f2540a1c1465c79"
+      "pdomain_ocr_ops-0.2.2-py3-none-any.whl": "0e1d49293d90b68507346088ec2be936d49297aa44ecdc4e3366d03af9974443"
     }
   }
 }

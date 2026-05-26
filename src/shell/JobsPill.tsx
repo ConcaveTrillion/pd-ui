@@ -1,7 +1,7 @@
 /**
  * JobsPill — header-anchored jobs indicator molecule.
  *
- * Ported from docs/templates/design_handoff_pd_ui/design-system/template.jsx
+ * Ported from docs/templates/design_handoff_pdomain_ui/design-system/template.jsx
  * per OQ-5 decision: port into src/shell/ alongside AppHeader, JobsDrawer, JobRow.
  *
  * States:

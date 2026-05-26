@@ -39,18 +39,18 @@ describe('codegen:fetch script', () => {
     const versionsPath = join(REPO_ROOT, 'codegen.versions.json');
     const content = readFileSync(versionsPath, 'utf-8');
     const versions = JSON.parse(content) as Record<string, unknown>;
-    expect(versions).toHaveProperty('pd-book-tools');
+    expect(versions).toHaveProperty('pdomain-book-tools');
     // Since #25: each entry is an object { version, sha256 }, not a plain string
-    const entry = versions['pd-book-tools'] as Record<string, unknown>;
+    const entry = versions['pdomain-book-tools'] as Record<string, unknown>;
     expect(entry).toHaveProperty('version');
     expect(typeof entry['version']).toBe('string');
   });
 
-  it('codegen.versions.json has pd-ocr-ops key with version and sha256', () => {
+  it('codegen.versions.json has pdomain-ocr-ops key with version and sha256', () => {
     const versionsPath = join(REPO_ROOT, 'codegen.versions.json');
     const versions = JSON.parse(readFileSync(versionsPath, 'utf-8')) as Record<string, unknown>;
-    expect(versions).toHaveProperty('pd-ocr-ops');
-    const entry = versions['pd-ocr-ops'] as Record<string, unknown>;
+    expect(versions).toHaveProperty('pdomain-ocr-ops');
+    const entry = versions['pdomain-ocr-ops'] as Record<string, unknown>;
     expect(entry).toHaveProperty('version');
     expect(entry).toHaveProperty('sha256');
   });
@@ -72,7 +72,7 @@ describe('codegen:fetch script', () => {
       string,
       { version: string }
     >;
-    const btVersion = versions['pd-book-tools']?.version;
+    const btVersion = versions['pdomain-book-tools']?.version;
 
     const env = {
       ...process.env,
@@ -107,11 +107,11 @@ describe('codegen:fetch script', () => {
         '';
     }
 
-    expect(output).toContain('pd-book-tools');
+    expect(output).toContain('pdomain-book-tools');
     expect(output).toContain(btVersion);
   });
 
-  it('script --dry-run prints pip install command with pd-index-pip URL', () => {
+  it('script --dry-run prints pip install command with pdomain-index-pip URL', () => {
     const env = {
       ...process.env,
       PATH: `${shimBinDir}:${process.env['PATH'] ?? ''}`,
@@ -129,7 +129,7 @@ describe('codegen:fetch script', () => {
     }
 
     // Must reference the self-hosted index
-    expect(output).toMatch(/pd-index-pip|concavetrillion.*pd-index|pd-index/);
+    expect(output).toMatch(/pdomain-index-pip|concavetrillion.*pd-index|pd-index/);
   });
 
   // -------------------------------------------------------------------------
@@ -159,7 +159,7 @@ describe('codegen:fetch script', () => {
 
   it('hash mismatch causes script to exit non-zero', () => {
     // Arrange: write a fake wheel file with known content
-    const fakeWheelName = 'pd_book_tools-0.14.1-py3-none-any.whl';
+    const fakeWheelName = 'pdomain_book_tools-0.14.1-py3-none-any.whl';
     const fakeWheelContent = Buffer.from('this is not a real wheel');
     const wheelCacheDir = join(tmpDir, 'wheel-cache');
     mkdirSync(wheelCacheDir);
@@ -176,7 +176,7 @@ describe('codegen:fetch script', () => {
     writeFileSync(
       versionsFile,
       JSON.stringify({
-        'pd-book-tools': {
+        'pdomain-book-tools': {
           version: '0.14.1',
           sha256: { [fakeWheelName]: storedHash },
         },
@@ -187,7 +187,7 @@ describe('codegen:fetch script', () => {
     // Run script in hash-check-only mode (no install, but hash must be verified)
     // CODEGEN_WHEEL_CACHE_DIR tells the script to use pre-downloaded wheels
     // CODEGEN_VERSIONS_PATH overrides which versions file to read
-    // --book-tools-only avoids needing pd-ocr-ops hash too
+    // --book-tools-only avoids needing pdomain-ocr-ops hash too
     const env = {
       ...process.env,
       CODEGEN_VERSIONS_PATH: versionsFile,
@@ -222,7 +222,7 @@ describe('codegen:fetch script', () => {
 
   it('correct hash allows script to proceed past verification', () => {
     // Arrange: write a fake wheel file and compute its real hash
-    const fakeWheelName = 'pd_book_tools-0.14.1-py3-none-any.whl';
+    const fakeWheelName = 'pdomain_book_tools-0.14.1-py3-none-any.whl';
     const fakeWheelContent = Buffer.from('fake wheel content for hash test');
     const wheelCacheDir = join(tmpDir, 'wheel-cache');
     mkdirSync(wheelCacheDir);
@@ -233,7 +233,7 @@ describe('codegen:fetch script', () => {
     writeFileSync(
       versionsFile,
       JSON.stringify({
-        'pd-book-tools': {
+        'pdomain-book-tools': {
           version: '0.14.1',
           sha256: { [fakeWheelName]: correctHash },
         },

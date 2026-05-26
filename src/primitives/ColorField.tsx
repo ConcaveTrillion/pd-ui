@@ -1,7 +1,7 @@
 /**
  * ColorField — labeled color swatch + native color input with optional reset.
  *
- * Design constraints (spec §4 / pd-ui CLAUDE.md):
+ * Design constraints (spec §4 / pdomain-ui CLAUDE.md):
  *   - No hex literals: colors are applied via inline style using the `value` prop.
  *   - No CVA: variants handled by CSS class modifiers.
  *   - No direct lucide-react imports: icons come from src/icons/.

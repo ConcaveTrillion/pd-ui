@@ -1,7 +1,7 @@
 /**
  * AttributesPanel stories — DCArtboard coverage.
  *
- * Source: docs/templates/design_handoff_pd_ui/final/projects/projects.jsx
+ * Source: docs/templates/design_handoff_pdomain_ui/final/projects/projects.jsx
  * Component: AttributesPanel — PGDP-level project attributes.
  *
  * DCArtboard variants covered:

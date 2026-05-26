@@ -5,7 +5,7 @@
  * slot-filling helpers. They are exported from the `./canvas` subpath.
  *
  * `selection` and `onSelectionChange` are optional so read-only embedders
- * (e.g. pd-ocr-simple-gui's per-page view) do not have to thread no-op pairs.
+ * (e.g. pdomain-ocr-simple-gui's per-page view) do not have to thread no-op pairs.
  * When `selection` is undefined the canvas treats selection as the empty set;
  * when `onSelectionChange` is undefined, selection-changing actions are tracked
  * internally but no callback fires.
@@ -15,7 +15,7 @@
  * ESLint no-unsafe-* false positives that arise when TypeScript-ESLint
  * cannot fully resolve deeply-nested generated `components["schemas"]` types.
  * The canvas API accepts any value structurally compatible with these interfaces,
- * which includes pd-book-tools `Word` instances — no explicit casting needed.
+ * which includes pdomain-book-tools `Word` instances — no explicit casting needed.
  */
 
 import type { ReactNode } from 'react';
@@ -30,7 +30,7 @@ export interface PagePoint {
 
 /**
  * Bounding box in page-space: top_left and bottom_right corners.
- * Structurally matches `Word.bounding_box` from pd-book-tools.
+ * Structurally matches `Word.bounding_box` from pdomain-book-tools.
  */
 export interface PageBBox {
   top_left: PagePoint;
@@ -97,13 +97,13 @@ export function bboxToRect(bb: PageBBox | null | undefined): CanvasRect | null {
 
 // ── Minimal canvas-facing structural interfaces ───────────────────────────────
 //
-// These mirror the subset of pd-book-tools `Word` and `Page` fields that the
-// canvas needs at runtime. Any pd-book-tools Word/Page value satisfies these
+// These mirror the subset of pdomain-book-tools `Word` and `Page` fields that the
+// canvas needs at runtime. Any pdomain-book-tools Word/Page value satisfies these
 // interfaces structurally without explicit casting.
 
 /**
  * Minimum required shape for a word passed to `<PageImageCanvas>`.
- * Matches `WordLike` from `@concavetrillion/pd-ui/types` structurally.
+ * Matches `WordLike` from `@pdomain/pdomain-ui/types` structurally.
  */
 export interface CanvasWord {
   bounding_box: PageBBox;
@@ -116,7 +116,7 @@ export interface CanvasWord {
 
 /**
  * Minimum required shape for a page passed to `<PageImageCanvas>`.
- * Matches `PageLike` from `@concavetrillion/pd-ui/types` structurally.
+ * Matches `PageLike` from `@pdomain/pdomain-ui/types` structurally.
  */
 export interface CanvasPage {
   width: number;
@@ -182,13 +182,13 @@ export type WordSlotProps = SlotRenderProps & {
 /**
  * Props for `<PageImageCanvas>`.
  *
- * Layer order (fixed by pd-ui):
+ * Layer order (fixed by pdomain-ui):
  *   image → underlay → overlay (per-word) → selection → tool → hud
  *
  * `selection` / `onSelectionChange` are optional — see file-level comment.
  *
  * TWord must extend CanvasWord (which is structurally compatible with
- * pd-book-tools Word and WordLike). TPage must extend CanvasPage.
+ * pdomain-book-tools Word and WordLike). TPage must extend CanvasPage.
  */
 export type CanvasProps<
   TWord extends CanvasWord = CanvasWord,
@@ -257,7 +257,7 @@ export type CanvasProps<
    *
    * This is the preferred way to intercept pointer events for custom
    * interaction modes (rebox, add-word, erase) — it replaces the
-   * `image-event-overlay` div pattern used in pd-ocr-labeler-spa.
+   * `image-event-overlay` div pattern used in pdomain-ocr-labeler-spa.
    */
   onStagePointerDown?: (
     e: import('konva/lib/Node').KonvaEventObject<MouseEvent>,

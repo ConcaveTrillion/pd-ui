@@ -3,7 +3,7 @@
  *
  * Design choice: using @radix-ui/react-accordion (not native <details>) for
  * consistent keyboard navigation, animation hooks, and ARIA attributes across
- * the suite. All pd-ui Radix wrappers are styling + slot layers only.
+ * the suite. All pdomain-ui Radix wrappers are styling + slot layers only.
  */
 import * as React from 'react';
 import * as AccordionPrimitive from '@radix-ui/react-accordion';

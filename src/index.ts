@@ -1,5 +1,5 @@
 /**
- * @concavetrillion/pd-ui — root barrel
+ * @pdomain/pdomain-ui — root barrel
  *
  * Re-exports all subpath APIs at a single ambient surface.
  * Apps may import from subpaths for tree-shaking, or from the root for convenience.

@@ -1,17 +1,17 @@
-# pd-ui design-handoff port — recon + atoms + templates
+# pdomain-ui design-handoff port — recon + atoms + templates
 
 **Status:** draft (brainstorming output, awaiting CT review)
 **Date:** 2026-05-24
-**Source brief:** `pd-ui/docs/templates/design_handoff_pd_ui/PROMPT.md`
+**Source brief:** `pdomain-ui/docs/templates/design_handoff_pdomain_ui/PROMPT.md`
 **Scope:** Passes 1–3.1 from PROMPT.md (recon, atom reconcile, layout templates + cross-stage molecules). Stage-specific components and wireframe-only components deferred to a follow-on spec.
 
 ## 1 · Goal
 
 Port the visual language and component surface from the
-`design_handoff_pd_ui/` design bundle into pd-ui as **generic, typed,
+`design_handoff_pdomain_ui/` design bundle into pdomain-ui as **generic, typed,
 shared** components — so that every present and future pd-* SPA
-(`pd-prep-for-pgdp`, `pd-ocr-simple-gui`, `pd-ocr-labeler-spa`, future
-trainer SPA, etc.) implements its UI by composing pd-ui exports rather
+(`pdomain-prep-for-pgdp`, `pdomain-ocr-simple-gui`, `pdomain-ocr-labeler-spa`, future
+trainer SPA, etc.) implements its UI by composing pdomain-ui exports rather
 than reimplementing chrome.
 
 The deliverable for this spec is a coherent slice of that port covering:
@@ -30,12 +30,12 @@ spec to be written after this one ships.
 
 ## 2 · Non-goals
 
-- Migrating any consumer app (`pd-prep-for-pgdp`,
-  `pd-ocr-simple-gui`, `pd-ocr-labeler-spa`) onto the new exports —
+- Migrating any consumer app (`pdomain-prep-for-pgdp`,
+  `pdomain-ocr-simple-gui`, `pdomain-ocr-labeler-spa`) onto the new exports —
   consumer migration is downstream work.
 - Rewriting `tokens.css` or `primitives.css`. Additive only, and only if
   Phase 1 finds gaps (recon suggests none).
-- Switching pd-ui's icon library away from `lucide-react`.
+- Switching pdomain-ui's icon library away from `lucide-react`.
 - Porting any component whose verdict in the port-plan is `skip` or
   `co-locate` (page-scoped helpers, prototype scaffolding).
 - Stage-specific components or wireframe-only explorations (deferred to
@@ -45,7 +45,7 @@ spec to be written after this one ships.
 
 ## 3 · Constraints
 
-From pd-ui CLAUDE.md (hard):
+From pdomain-ui CLAUDE.md (hard):
 
 - No CVA. Variants are CSS class modifiers on design-system primitives.
 - No hex literals in component styles — all colors `var(--token)`.
@@ -64,11 +64,11 @@ From PROMPT.md:
   `DesignCanvas` / `DCSection` / `DCArtboard` wrappers, and the
   `localStorage('pgd-theme')` toggle.
 - Preserve `data-screen-label` / `data-comment-anchor` attributes; map
-  to pd-ui's `testids` convention.
+  to pdomain-ui's `testids` convention.
 
 ## 4 · Approach: recon-first, then atoms, then templates
 
-Three phases, single milestone (`spec: pd-ui-design-handoff (#N)` in
+Three phases, single milestone (`spec: pdomain-ui-design-handoff (#N)` in
 `ocr-container-meta`). Phase 1 produces a written audit that gates
 Phases 2–3.
 
@@ -81,15 +81,15 @@ five tables.
 
 1. **Atom verdict table** — every identifier from
    `design-system/ui-base.jsx`, one row each:
-   `name | already-in-pd-ui | port | rename | skip` plus target path.
+   `name | already-in-pdomain-ui | port | rename | skip` plus target path.
 2. **Token diff table** — every `--*` in design's `tokens.css` vs
-   pd-ui's `src/theme/tokens.css`: `identical | alias-needed |
+   pdomain-ui's `src/theme/tokens.css`: `identical | alias-needed |
    missing`. (Recon suggests this table is mostly `identical`.)
 3. **Icon mapping table** — every name in the design's `Icon`
    switch-statement: `lucide-name | bespoke | skip`. ~50 rows.
 4. **Cross-stage molecule inventory** — for every identifier that
    appears in 3+ files of the design bundle: classify as `cross-stage
-   molecule` (port into pd-ui under this spec's Phase 3) vs
+   molecule` (port into pdomain-ui under this spec's Phase 3) vs
    `stage-specific` (defer to follow-on spec). Examples expected to
    land in cross-stage: `StageContextStrip`, `ViewToggle`, `BulkBar`,
    `FileToolbar`, `ThumbCard`, `AttributesPanel`, `RunAllDirtyPanel`,
@@ -106,7 +106,7 @@ port-plan is approved.
 
 ### 4.2 Phase 2 — atom-layer reconciliation
 
-Confirmed by recon, **already in pd-ui** (no work needed): `Button`,
+Confirmed by recon, **already in pdomain-ui** (no work needed): `Button`,
 `Badge`, `Input`, `KeyCap`, `Tooltip`, `Chip`, `Tabs`, `Separator`
 (=`Divider`).
 
@@ -118,13 +118,13 @@ Confirmed **gaps** to port:
   `src/icons/bespoke.tsx` as typed components. Update
   `Icons.stories.tsx`. No new `Icon` switch component — apps continue
   to import named icon components directly from
-  `@concavetrillion/pd-ui/icons`.
+  `@pdomain/pdomain-ui/icons`.
 - **Segmented** — inset single-select segmented control. Distinct from
   the existing `ToggleGroup` (which is a flat multi-select group).
   Used across every wired stage.
 - **StepDots** — numbered-circle progress indicator. Used in onboarding
   / pipeline progression states.
-- **PageHeader** — title + breadcrumb composite. pd-ui has `Breadcrumb`
+- **PageHeader** — title + breadcrumb composite. pdomain-ui has `Breadcrumb`
   and `TopNav` separately but no `PageHeader` molecule.
 
 Open until Phase 1: `AppFrame`, `ServerFooter`, `ProjectListBackdrop`.
@@ -179,19 +179,19 @@ Cross-stage molecules (final list from Phase 1 inventory):
   'mismatch'`.
 - Collocated `.stories.tsx` + `.test.tsx`.
 - Preserve `data-screen-label` / `data-comment-anchor` attributes as
-  pd-ui `testids` constants.
+  pdomain-ui `testids` constants.
 
 ### 4.4 Phase 3.x — MIGRATION_NOTES.md
 
-Final issue under this spec: write `pd-ui/MIGRATION_NOTES.md` describing:
+Final issue under this spec: write `pdomain-ui/MIGRATION_NOTES.md` describing:
 
-- Every new pd-ui export (atom / molecule / template) and which design
+- Every new pdomain-ui export (atom / molecule / template) and which design
   file it came from.
 - Tokens added or aliased.
 - Conscious omissions and the reason.
 - Open questions for CT (the human).
 
-## 5 · Folder layout in pd-ui
+## 5 · Folder layout in pdomain-ui
 
 - New atoms → `src/primitives/` (collocated `.tsx` + `.stories.tsx` +
   `.test.tsx`, matching existing convention).
@@ -213,7 +213,7 @@ Final issue under this spec: write `pd-ui/MIGRATION_NOTES.md` describing:
   `docs/research/2026-05-24-design-handoff-port-plan.md`.
 
 **No `src/pd-prep/` folder.** PROMPT.md's suggested
-pd-prep-prefixed naming is wrong for pd-ui — these components are
+pd-prep-prefixed naming is wrong for pdomain-ui — these components are
 generic and shared across every pd-* SPA.
 
 ## 6 · Icon strategy
@@ -227,13 +227,13 @@ Lucide-first, bespoke for gaps.
   `src/icons/bespoke.tsx` as typed components matching the existing
   bespoke convention.
 - Apps continue to import named icon components from
-  `@concavetrillion/pd-ui/icons`. No design-style `<Icon name="…" />`
+  `@pdomain/pdomain-ui/icons`. No design-style `<Icon name="…" />`
   switch component.
 - MIGRATION_NOTES documents the full mapping.
 
 ## 7 · Token reconciliation
 
-Recon confirms pd-ui's `src/theme/tokens.css` already defines every
+Recon confirms pdomain-ui's `src/theme/tokens.css` already defines every
 custom property used by the design bundle's `tokens.css`
 (`--bg-page`, `--bg-surface`, `--ink-1..4`, `--accent`,
 `--exact/fuzzy/mismatch/ocr/gt`, `--block/para/line/word`,
@@ -261,9 +261,9 @@ Reasons:
 - Keeps templates deploy-mode-agnostic and stage-agnostic.
 - Allows consuming apps to swap any region without forking the
   template.
-- Mirrors pd-ui's existing `AppShell` slot pattern (`<AppShell
+- Mirrors pdomain-ui's existing `AppShell` slot pattern (`<AppShell
   rail={…} settingsSlot={…} launcherSlot={…} …>`).
-- Avoids leaking pipeline-specific state types into pd-ui.
+- Avoids leaking pipeline-specific state types into pdomain-ui.
 
 Cross-stage molecules expose **typed data props** (the data they
 render) plus optional render-prop slots for nested customization
@@ -308,7 +308,7 @@ Vitest config, and CI pipeline.
 
 ## 11 · Issue decomposition (provisional)
 
-New milestone: `spec: pd-ui-design-handoff (#N)` in
+New milestone: `spec: pdomain-ui-design-handoff (#N)` in
 `ocr-container-meta`. Final issue list determined by `/decompose-spec
 --sync` after CT approves this spec.
 
@@ -338,27 +338,27 @@ Counts will shift after port-plan review.
 
 - `docs/research/2026-05-24-design-handoff-port-plan.md` exists,
   CT-approved, and committed.
-- Every gap identified in Phase 1 has a typed pd-ui export with a
+- Every gap identified in Phase 1 has a typed pdomain-ui export with a
   Storybook story and a `.test.tsx`.
 - `pnpm exec tsc --noEmit` clean under strict settings.
 - `make ci AI=1` green.
 - A consuming app can replace `final/source/source.jsx` (the most
-  complete `final/` file) using only pd-ui imports + stage-specific
+  complete `final/` file) using only pdomain-ui imports + stage-specific
   glue. Demonstration is documented in `MIGRATION_NOTES.md` but the
   glue itself is not part of this spec (stage-specific glue lives in
   the follow-on spec or in a consumer-repo example).
-- `MIGRATION_NOTES.md` exists at pd-ui root, honestly lists gaps,
+- `MIGRATION_NOTES.md` exists at pdomain-ui root, honestly lists gaps,
   open questions, and the icon mapping.
 
 ## 13 · Follow-on specs (not part of this spec)
 
-- **`pd-ui-design-handoff-stages`** — Pass 3.3 stage-specific
+- **`pdomain-ui-design-handoff-stages`** — Pass 3.3 stage-specific
   components: `Source/`, `Grayscale/`, `Crop/`, `HyphenJoin/`,
   `ProjectsLanding/` body components.
-- **`pd-ui-design-handoff-wireframes`** — Pass 3.4 wireframe-only
+- **`pdomain-ui-design-handoff-wireframes`** — Pass 3.4 wireframe-only
   components: `PageReorder/` (wf09), `Scannos/` (wf05b),
   `PageWorkbench/` (wf-pw), `PackageValidation/` (wf02),
   `QualityFlags/` (wf03).
 - **Consumer migrations** — separate per-consumer specs in their own
-  repos (`pd-prep-for-pgdp`, `pd-ocr-simple-gui`,
-  `pd-ocr-labeler-spa`).
+  repos (`pdomain-prep-for-pgdp`, `pdomain-ocr-simple-gui`,
+  `pdomain-ocr-labeler-spa`).

@@ -5,7 +5,7 @@
  * presents a unified interface whether the backend uses the StageDispatcher
  * or another adapter.
  *
- * Phase 1 ships a stub implementation that can be wired to real pd-ocr-ops
+ * Phase 1 ships a stub implementation that can be wired to real pdomain-ocr-ops
  * HTTP routes. The transport contract URL is:
  *   POST /api/stage/<stageId>/run
  *   Body: { page_id: pageId, params }

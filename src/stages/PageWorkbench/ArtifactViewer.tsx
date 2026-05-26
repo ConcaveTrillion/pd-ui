@@ -82,8 +82,8 @@ const EMPTY_WORDS: CanvasWord[] = [];
 // ── Component ─────────────────────────────────────────────────────────────────
 
 /**
- * `<ArtifactViewer>` — the shared image annotation surface for pd-prep-for-pgdp
- * and pd-ocr-labeler-spa. Switch overlay modes via `overlayMode` prop.
+ * `<ArtifactViewer>` — the shared image annotation surface for pdomain-prep-for-pgdp
+ * and pdomain-ocr-labeler-spa. Switch overlay modes via `overlayMode` prop.
  */
 export function ArtifactViewer({
   imageSrc,

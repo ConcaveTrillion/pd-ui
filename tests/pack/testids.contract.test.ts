@@ -1,7 +1,7 @@
 /**
  * Built-artifact contract for the ./testids subpath export.
  *
- * Issue: ConcaveTrillion/pd-ui#28 — Published /testids subpath was an empty
+ * Issue: pdomain/pdomain-ui#28 — Published /testids subpath was an empty
  * public contract (src/testids/index.ts contained only `export {}`).
  *
  * This test reads dist/testids.js and dist/testids.d.ts AFTER a build and
@@ -79,7 +79,7 @@ const REQUIRED_EXPORTS: ReadonlyArray<string> = [
   'REORDER_SCANS_BANNER',
 ] as const;
 
-describe('dist/testids.js — built artifact content (pd-ui#28)', () => {
+describe('dist/testids.js — built artifact content (pdomain-ui#28)', () => {
   it('dist/testids.js exists (run pnpm build first)', () => {
     expect(existsSync(JS_PATH), 'dist/testids.js missing — run pnpm build').toBe(true);
   });
@@ -112,7 +112,7 @@ describe('dist/testids.js — built artifact content (pd-ui#28)', () => {
   });
 });
 
-describe('dist/testids.d.ts — declaration file exports (pd-ui#28)', () => {
+describe('dist/testids.d.ts — declaration file exports (pdomain-ui#28)', () => {
   it('dist/testids.d.ts exists (run pnpm build first)', () => {
     expect(existsSync(DTS_PATH), 'dist/testids.d.ts missing — run pnpm build').toBe(true);
   });

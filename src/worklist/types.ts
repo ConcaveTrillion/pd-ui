@@ -7,7 +7,7 @@
  * Design note: Like canvas types, we define plain structural interfaces here
  * rather than re-using generated Pick<Word,...> aliases directly. This avoids
  * ESLint no-unsafe-* false positives while still being structurally compatible
- * with pd-book-tools Word instances.
+ * with pdomain-book-tools Word instances.
  */
 
 import type { ReactNode } from 'react';
@@ -29,7 +29,7 @@ export type MatchStatus = 'exact' | 'fuzzy' | 'mismatch' | 'none';
 /**
  * Minimum required shape for a word item passed to <WordList>.
  * Any type with at least these fields satisfies the TWord generic constraint.
- * Structurally compatible with WordLike from `@concavetrillion/pd-ui/types`.
+ * Structurally compatible with WordLike from `@pdomain/pdomain-ui/types`.
  */
 export interface WordListItem {
   text: string;
@@ -61,7 +61,7 @@ export interface WordRowProps<TWord extends WordListItem = WordListItem> {
 
 /**
  * Minimum required shape for a block item passed to <LineList> / <PageList>.
- * Structurally compatible with BlockLike from `@concavetrillion/pd-ui/types`.
+ * Structurally compatible with BlockLike from `@pdomain/pdomain-ui/types`.
  */
 export interface BlockListItem {
   block_category?: ('BLOCK' | 'PARAGRAPH' | 'LINE') | null | undefined;
@@ -77,7 +77,7 @@ export interface BlockListItem {
 
 /**
  * Minimum required shape for a page item passed to <PageList>.
- * Structurally compatible with PageLike from `@concavetrillion/pd-ui/types`.
+ * Structurally compatible with PageLike from `@pdomain/pdomain-ui/types`.
  */
 export interface PageListItem {
   page_index?: number | undefined;

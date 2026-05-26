@@ -12,7 +12,7 @@ export interface InputProps extends Omit<React.InputHTMLAttributes<HTMLInputElem
    * instead of a bare <input>. Existing callers that omit `suffix` are unaffected.
    *
    * Design reference:
-   *   docs/templates/design_handoff_pd_ui/design-system/ui-base.jsx → Input
+   *   docs/templates/design_handoff_pdomain_ui/design-system/ui-base.jsx → Input
    */
   suffix?: React.ReactNode;
   /**

@@ -171,7 +171,7 @@ function CaseRow({ decisionCase }: CaseRowProps): React.ReactElement {
  * When `groups` is empty, renders an empty-state message.
  *
  * Design source:
- *   `docs/templates/design_handoff_pd_ui/final/hyphen_join/hyphen.jsx`
+ *   `docs/templates/design_handoff_pdomain_ui/final/hyphen_join/hyphen.jsx`
  *   §HyphenAutoJoined / AutoJoinedList (V5 — grouped-by-word validation).
  */
 export function HyphenAutoJoined({

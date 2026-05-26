@@ -3,7 +3,7 @@
  * with projects-specific default sections.
  *
  * Design source:
- *   docs/templates/design_handoff_pd_ui/final/projects/projects.jsx lines 157-285
+ *   docs/templates/design_handoff_pdomain_ui/final/projects/projects.jsx lines 157-285
  *
  * Collapsible 2-column attributes panel for the projects detail pane:
  *   Bibliographic / PGDP project / Format & content / Project comments.

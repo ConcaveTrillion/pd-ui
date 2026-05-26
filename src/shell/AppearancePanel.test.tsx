@@ -2,7 +2,7 @@
  * AppearancePanel a11y tests — verifies that the Theme and Density segmented
  * controls expose proper ARIA semantics to assistive technology.
  *
- * Covers ConcaveTrillion/pd-ui#47: Settings segmented controls must expose
+ * Covers pdomain/pdomain-ui#47: Settings segmented controls must expose
  * selected state via role="radiogroup" + role="radio" + aria-checked.
  */
 import * as React from 'react';

@@ -17,7 +17,7 @@ export interface PageHeaderProps extends React.HTMLAttributes<HTMLDivElement> {
  * to introduce the page with a title, optional descriptive subtitle, and
  * an optional trailing action (e.g. a primary CTA button).
  *
- * Design source: docs/templates/design_handoff_pd_ui/design-system/ui-base.jsx
+ * Design source: docs/templates/design_handoff_pdomain_ui/design-system/ui-base.jsx
  */
 export const PageHeader = React.forwardRef<HTMLDivElement, PageHeaderProps>(function PageHeader(
   { className, title, sub, action, ...props },

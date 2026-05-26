@@ -1,17 +1,17 @@
 ---
-title: "pd-ui design handoff — Phase 2: per-stage components (43 components + ArtifactViewer)"
+title: "pdomain-ui design handoff — Phase 2: per-stage components (43 components + ArtifactViewer)"
 date: 2026-05-24
 status: draft
 owner: ConcaveTrillion
 related:
-  - pd-ui/MIGRATION_NOTES.md
-  - pd-ui/docs/specs/2026-05-24-pd-ui-design-handoff-design.md
-  - pd-prep-for-pgdp/docs/specs/2026-05-24-pd-ui-design-handoff-implementation.md
-  - docs/plans/2026-05-24-pd-ui-design-handoff.md
-milestone: "spec: pd-ui-design-handoff-phase-2 (#TBD)"
+  - pdomain-ui/MIGRATION_NOTES.md
+  - pdomain-ui/docs/specs/2026-05-24-pdomain-ui-design-handoff-design.md
+  - pdomain-prep-for-pgdp/docs/specs/2026-05-24-pdomain-ui-design-handoff-implementation.md
+  - docs/plans/2026-05-24-pdomain-ui-design-handoff.md
+milestone: "spec: pdomain-ui-design-handoff-phase-2 (#TBD)"
 ---
 
-# pd-ui design handoff — Phase 2: per-stage components
+# pdomain-ui design handoff — Phase 2: per-stage components
 
 ## §1 TL;DR
 
@@ -19,7 +19,7 @@ Phase 1 (milestone #333) shipped 61 foundation exports: primitives, atoms,
 shell molecules, full-page templates, cross-stage molecules, Storybook, and
 store factories. What remains is **43 per-stage components** (across eight
 stages and two add-on surfaces) plus one new **multi-consumer molecule**
-(`ArtifactViewer`) that both `pd-prep-for-pgdp` and `pd-ocr-labeler-spa` need.
+(`ArtifactViewer`) that both `pdomain-prep-for-pgdp` and `pdomain-ocr-labeler-spa` need.
 
 This spec defines the exhaustive component catalog, the prioritized milestone
 order, the `ArtifactViewer` API (the critical cross-consumer deliverable),
@@ -27,10 +27,10 @@ the stage-folder layout convention, and the promotion rule for recurring
 patterns. It is the source-of-truth for all Phase 2 GH issues in
 `ocr-container-meta`.
 
-**Consumer contract cross-reference:** this spec covers the pd-ui
-library side. The pd-prep-for-pgdp consumer integration plan — routes,
+**Consumer contract cross-reference:** this spec covers the pdomain-ui
+library side. The pdomain-prep-for-pgdp consumer integration plan — routes,
 stores, backend contracts, e2e acceptance — lives in
-`pd-prep-for-pgdp/docs/specs/2026-05-24-pd-ui-design-handoff-implementation.md`.
+`pdomain-prep-for-pgdp/docs/specs/2026-05-24-pdomain-ui-design-handoff-implementation.md`.
 Do not duplicate consumer-side content here.
 
 ---
@@ -57,7 +57,7 @@ Milestone #333 closed with:
 - `src/canvas/` — PageImageCanvas + slots (slot-based Konva wrapper).
 - `src/worklist/` — VirtualizedWordList.
 - `src/stores/` — factory functions (UIPrefs, SuiteSiblings, AppShell).
-- `src/types/generated/` — codegen types from pd-book-tools schemas.
+- `src/types/generated/` — codegen types from pdomain-book-tools schemas.
 - `src/testids/` — testid constants catalog.
 
 ### What remains (Phase 2 scope)
@@ -88,7 +88,7 @@ component.
 
 ### Design sources
 
-All design sources are in `pd-ui/docs/templates/design_handoff_pd_ui/`:
+All design sources are in `pdomain-ui/docs/templates/design_handoff_pdomain_ui/`:
 
 - `final/source/source.jsx` — Source stage
 - `final/grayscale/grayscale.jsx` — Grayscale stage
@@ -110,8 +110,8 @@ All design sources are in `pd-ui/docs/templates/design_handoff_pd_ui/`:
 `ArtifactViewer` is the only Phase 2 component needed by **two** consumer
 repos before either can proceed with page-workbench work:
 
-- `pd-prep-for-pgdp` — `PageWorkbenchPage` image annotation surface.
-- `pd-ocr-labeler-spa` — its image-annotation surface (currently ad-hoc
+- `pdomain-prep-for-pgdp` — `PageWorkbenchPage` image annotation surface.
+- `pdomain-ocr-labeler-spa` — its image-annotation surface (currently ad-hoc
   Konva chrome that will migrate to the shared molecule).
 
 This shared need elevates `ArtifactViewer` to the first milestone.
@@ -136,13 +136,13 @@ This shared need elevates `ArtifactViewer` to the first milestone.
 ### Non-Goals
 
 - **Consumer wiring**: routes, stores, and backend contracts are out of scope
-  for pd-ui. That work belongs in per-consumer specs (the pd-prep-for-pgdp
-  spec is already written; pd-ocr-labeler-spa's is pending).
+  for pdomain-ui. That work belongs in per-consumer specs (the pdomain-prep-for-pgdp
+  spec is already written; pdomain-ocr-labeler-spa's is pending).
 - **Stages without a design source**: Dewarp, Deskew, Threshold, Denoise,
   OCR, Spellcheck, Illustrations, Regex, Page Split, Proof Pack, Zip, Build
   Package, Submit Check, Archive are listed as no-design in `final/index.html`
   — out of scope until designs exist.
-- **Backend adapters**: `pd-ocr-ops` is the owner of suite plumbing; pd-ui
+- **Backend adapters**: `pdomain-ocr-ops` is the owner of suite plumbing; pdomain-ui
   never imports from it.
 - **Animated transitions / micro-interactions**: the JSX prototypes are the
   spec for what exists, not pixel-perfect timing curves.
@@ -213,16 +213,16 @@ Milestones ordered by dependency and consumer unblocking:
 |---|---|---|
 | M1 | `ArtifactViewer` + three overlays | both consumers' page-workbench integration |
 | M2 | Page Workbench cross-cutting (10 components) | per-stage workbench control panels |
-| M3 | Source stage (7 components) | pd-prep-for-pgdp S01 slice |
-| M4 | Grayscale stage (8 components) | pd-prep-for-pgdp S02 slice |
-| M5 | Crop stage (7 components) | pd-prep-for-pgdp S03 slice |
-| M6 | Hyphen Join stage (8 components) | pd-prep-for-pgdp S15 slice |
-| M7 | Scannos stage (6 components) | pd-prep-for-pgdp S13 slice |
-| M8 | Page Reorder stage (4 components) | pd-prep-for-pgdp S11 slice |
-| M9 | Validation stage (6 components) | pd-prep-for-pgdp S19 slice |
-| M10 | Quality Flags add-ons (3 components) | pd-prep-for-pgdp wf03 slice |
-| M11 | Projects add-ons (3 components) | pd-prep-for-pgdp landing slice |
-| M12 | Upload modal add-ons (2 components) | pd-prep-for-pgdp wf01 slice |
+| M3 | Source stage (7 components) | pdomain-prep-for-pgdp S01 slice |
+| M4 | Grayscale stage (8 components) | pdomain-prep-for-pgdp S02 slice |
+| M5 | Crop stage (7 components) | pdomain-prep-for-pgdp S03 slice |
+| M6 | Hyphen Join stage (8 components) | pdomain-prep-for-pgdp S15 slice |
+| M7 | Scannos stage (6 components) | pdomain-prep-for-pgdp S13 slice |
+| M8 | Page Reorder stage (4 components) | pdomain-prep-for-pgdp S11 slice |
+| M9 | Validation stage (6 components) | pdomain-prep-for-pgdp S19 slice |
+| M10 | Quality Flags add-ons (3 components) | pdomain-prep-for-pgdp wf03 slice |
+| M11 | Projects add-ons (3 components) | pdomain-prep-for-pgdp landing slice |
+| M12 | Upload modal add-ons (2 components) | pdomain-prep-for-pgdp wf01 slice |
 
 Stages M3–M5 are fully wired in `final/` and have the richest design
 detail; M6–M9 are well-specified in the wf-series wireframes; M10–M12
@@ -233,7 +233,7 @@ add incremental components on top of already-shipped templates.
 ### §6.2 Per-stage component catalog
 
 All 43 net-new components. "Design source" references are
-`file:line-range` inside `pd-ui/docs/templates/design_handoff_pd_ui/`.
+`file:line-range` inside `pdomain-ui/docs/templates/design_handoff_pdomain_ui/`.
 
 #### Stage: Source (`src/stages/Source/`)
 
@@ -377,7 +377,7 @@ remain un-exported or need an explicit named export:
 #### Add-ons: Upload modal (`src/stages/Upload/`)
 
 2 components (the 5 `ModalA`–`ModalE` variants were all specified in the
-consumer spec; pd-ui ships the two production variants plus Storybook stories
+consumer spec; pdomain-ui ships the two production variants plus Storybook stories
 for the others):
 
 | Component | Design source | Description |
@@ -393,9 +393,9 @@ subpath (design-exploration only).
 ### §6.3 ArtifactViewer API specification
 
 `ArtifactViewer` is the Phase 2 critical-path component. Both
-`pd-prep-for-pgdp` and `pd-ocr-labeler-spa` depend on it for their
+`pdomain-prep-for-pgdp` and `pdomain-ocr-labeler-spa` depend on it for their
 image-annotation surface. It is exported as a top-level named export from
-`@concavetrillion/pd-ui/stages/PageWorkbench` (and also re-exported from the
+`@pdomain/pdomain-ui/stages/PageWorkbench` (and also re-exported from the
 root barrel under `./stages`).
 
 #### Role
@@ -489,7 +489,7 @@ ArtifactViewer
 `ArtifactPlate` and `PaperRender` are internal sub-components; they are
 not independently exported (use `ArtifactViewer` for the composed surface).
 `SplitOverlay`, `IllustOverlay`, `WordBboxOverlay` are exported individually
-from `@concavetrillion/pd-ui/stages/PageWorkbench` for consumers that need
+from `@pdomain/pdomain-ui/stages/PageWorkbench` for consumers that need
 to compose them with a custom outer shell.
 
 #### Cross-consumer shape comparison
@@ -498,10 +498,10 @@ Both consumers use the same `ArtifactViewerProps` shape:
 
 | Consumer | `overlayMode` | Key data props |
 |---|---|---|
-| `pd-prep-for-pgdp` — Grayscale PageViewer | `'split'` | `splitProposal` with re-detectable `splitX` |
-| `pd-prep-for-pgdp` — Crop BboxEditor | `'view'` (with `LabelerCanvas` wrapping) | — |
-| `pd-prep-for-pgdp` — OCR/Labeler | `'words'` | `wordBboxes` with confidence |
-| `pd-ocr-labeler-spa` — annotation surface | `'words'` or `'view'` | `wordBboxes`, `onWordClick` |
+| `pdomain-prep-for-pgdp` — Grayscale PageViewer | `'split'` | `splitProposal` with re-detectable `splitX` |
+| `pdomain-prep-for-pgdp` — Crop BboxEditor | `'view'` (with `LabelerCanvas` wrapping) | — |
+| `pdomain-prep-for-pgdp` — OCR/Labeler | `'words'` | `wordBboxes` with confidence |
+| `pdomain-ocr-labeler-spa` — annotation surface | `'words'` or `'view'` | `wordBboxes`, `onWordClick` |
 
 The shape is intentionally minimal — consumers that need richer annotation
 (drawing new bboxes, drag-to-resize) should use `LabelerCanvas` instead,
@@ -579,7 +579,7 @@ duplicates in the tree.
 ## §7 Implementation Plan
 
 Milestones map 1:1 to GH issues in `ocr-container-meta` under the milestone
-`spec: pd-ui-design-handoff-phase-2 (#TBD)`.
+`spec: pdomain-ui-design-handoff-phase-2 (#TBD)`.
 
 ### Milestone 1: ArtifactViewer + overlays
 
@@ -600,8 +600,8 @@ Milestones map 1:1 to GH issues in `ocr-container-meta` under the milestone
 
 **Dependencies:** `PageImageCanvas` (already shipped), `src/canvas/`.
 
-**Unblocks:** Milestone 2 (PageWorkbench cross-cutting), pd-prep-for-pgdp
-PageViewer, pd-ocr-labeler-spa annotation migration.
+**Unblocks:** Milestone 2 (PageWorkbench cross-cutting), pdomain-prep-for-pgdp
+PageViewer, pdomain-ocr-labeler-spa annotation migration.
 
 ### Milestone 2: Page Workbench cross-cutting
 
@@ -623,7 +623,7 @@ Promoted to `src/primitives/` in this milestone: `BackendChip`, `CheckIcon`,
 
 **Dependencies:** M1 (`ArtifactViewer` used in `SourcePageWorkbench`).
 
-**Unblocks:** pd-prep-for-pgdp S01 slice.
+**Unblocks:** pdomain-prep-for-pgdp S01 slice.
 
 ### Milestone 4: Grayscale stage
 
@@ -635,7 +635,7 @@ Promoted to `src/primitives/` in this milestone: `BackendChip`, `CheckIcon`,
 **Dependencies:** M1 (`ArtifactViewer` used in `PageViewer`), M2
 (`StageControlsPanel` chrome), primitives `BackendChip`.
 
-**Unblocks:** pd-prep-for-pgdp S02 slice.
+**Unblocks:** pdomain-prep-for-pgdp S02 slice.
 
 ### Milestone 5: Crop stage
 
@@ -645,7 +645,7 @@ Promoted to `src/primitives/` in this milestone: `BackendChip`, `CheckIcon`,
 **Dependencies:** M1 (`ArtifactViewer` used in `BboxEditor`), M2
 (`StageControlsPanel`).
 
-**Unblocks:** pd-prep-for-pgdp S03 slice.
+**Unblocks:** pdomain-prep-for-pgdp S03 slice.
 
 ### Milestone 6: Hyphen Join stage
 
@@ -655,7 +655,7 @@ Promoted to `src/primitives/` in this milestone: `BackendChip`, `CheckIcon`,
 
 **Dependencies:** M1 (`ArtifactViewer` used in `HyphenPageWorkbench`).
 
-**Unblocks:** pd-prep-for-pgdp S15 slice.
+**Unblocks:** pdomain-prep-for-pgdp S15 slice.
 
 ### Milestone 7: Scannos stage
 
@@ -667,7 +667,7 @@ those two.
 **Dependencies:** none (no `ArtifactViewer` usage in Scannos text-review
 surfaces).
 
-**Unblocks:** pd-prep-for-pgdp S13 slice.
+**Unblocks:** pdomain-prep-for-pgdp S13 slice.
 
 ### Milestone 8: Page Reorder stage
 
@@ -676,7 +676,7 @@ variant), `AfterApplyStrip`.
 
 **Dependencies:** none.
 
-**Unblocks:** pd-prep-for-pgdp S11 slice.
+**Unblocks:** pdomain-prep-for-pgdp S11 slice.
 
 ### Milestone 9: Validation stage
 
@@ -686,7 +686,7 @@ variant), `AfterApplyStrip`.
 
 **Dependencies:** M2 (`CheckIcon`, `PageChip` from promoted primitives).
 
-**Unblocks:** pd-prep-for-pgdp S19 slice.
+**Unblocks:** pdomain-prep-for-pgdp S19 slice.
 
 ### Milestone 10: Quality Flags add-ons
 
@@ -697,7 +697,7 @@ prop extension (non-breaking if so); `PageThumb` (quality-flags variant);
 **Dependencies:** Phase 1 `StageContextStrip`, `FilterToolbar`,
 `BulkActionBar` (all already in primitives).
 
-**Unblocks:** pd-prep-for-pgdp wf03 slice.
+**Unblocks:** pdomain-prep-for-pgdp wf03 slice.
 
 ### Milestone 11: Projects add-ons
 
@@ -708,7 +708,7 @@ standalone).
 **Dependencies:** Phase 1 `ProjectsLandingTemplate`, `AttributesPanel`
 (primitives).
 
-**Unblocks:** pd-prep-for-pgdp landing page slice.
+**Unblocks:** pdomain-prep-for-pgdp landing page slice.
 
 ### Milestone 12: Upload modal add-ons
 
@@ -718,7 +718,7 @@ standalone).
 
 **Dependencies:** Phase 1 primitives (Dialog, Segmented, etc.).
 
-**Unblocks:** pd-prep-for-pgdp wf01 slice.
+**Unblocks:** pdomain-prep-for-pgdp wf01 slice.
 
 ---
 
@@ -746,7 +746,7 @@ A dedicated integration test (`ArtifactViewer.integration.test.tsx`)
 exercises both consumer shapes:
 
 ```tsx
-// pd-prep-for-pgdp shape
+// pdomain-prep-for-pgdp shape
 render(
   <ArtifactViewer
     imageSrc="mock.png"
@@ -758,7 +758,7 @@ render(
 );
 expect(screen.getByRole('separator')).toBeInTheDocument(); // split handle
 
-// pd-ocr-labeler-spa shape
+// pdomain-ocr-labeler-spa shape
 render(
   <ArtifactViewer
     imageSrc="mock.png"
@@ -814,36 +814,36 @@ stage and are not shared across stages. The existing `src/stores/` folder
 hosts only suite-wide shared state. Per-stage stores should live adjacent
 to the components that use them.
 
-**OQ-P2-3: Should `pd-ocr-labeler-spa`'s existing canvas chrome migrate
+**OQ-P2-3: Should `pdomain-ocr-labeler-spa`'s existing canvas chrome migrate
 to `ArtifactViewer`, or stay separate?**
 
-`pd-ocr-labeler-spa` currently has an ad-hoc Konva chrome for its image-
+`pdomain-ocr-labeler-spa` currently has an ad-hoc Konva chrome for its image-
 annotation surface. Option A: migrate it to `ArtifactViewer` (unified,
-consumes pd-ui). Option B: keep it separate (labeler-spa's annotation
+consumes pdomain-ui). Option B: keep it separate (labeler-spa's annotation
 needs may diverge from the prep-for-pgdp split/illust/words modes).
 
 **Recommendation:** the `overlayMode='words'` + `LabelerCanvas` path in
 `ArtifactViewer` covers the labeler-spa word-level annotation case. The
 migration should happen, but it is the labeler-spa team's call after
 `ArtifactViewer` ships. File as a labeler-spa follow-on issue, not a
-pd-ui blocker.
+pdomain-ui blocker.
 
 Cross-repo recommendation:
 
 ```
 Cross-repo recommendation
-  Target: pd-ocr-labeler-spa
+  Target: pdomain-ocr-labeler-spa
   Reason: ArtifactViewer (shipping M1) covers the annotation surface;
           migrating the ad-hoc Konva chrome would unify both consumers
           under one tested component.
-  gh issue create -R ConcaveTrillion/pd-ocr-labeler-spa \
+  gh issue create -R pdomain/pdomain-ocr-labeler-spa \
     -l kind:feature-request -l status:backlog \
-    --title "Migrate annotation canvas to pd-ui ArtifactViewer" \
-    --body "pd-ui will ship ArtifactViewer in Phase 2 M1. \
+    --title "Migrate annotation canvas to pdomain-ui ArtifactViewer" \
+    --body "pdomain-ui will ship ArtifactViewer in Phase 2 M1. \
             ArtifactViewer supports overlayMode='words' + onWordClick, \
             matching the labeler-spa annotation surface. \
             This issue tracks migrating the current ad-hoc Konva chrome \
-            to consume ArtifactViewer from @concavetrillion/pd-ui/stages/PageWorkbench."
+            to consume ArtifactViewer from @pdomain/pdomain-ui/stages/PageWorkbench."
   → Run this? CT can edit before executing.
 ```
 

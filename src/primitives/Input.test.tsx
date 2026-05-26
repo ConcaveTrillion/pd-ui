@@ -9,7 +9,7 @@
  *   - The wrapper div is only rendered when `suffix` is provided, so the DOM
  *     footprint for bare usage is unchanged.
  *
- * Design reference: docs/templates/design_handoff_pd_ui/design-system/ui-base.jsx
+ * Design reference: docs/templates/design_handoff_pdomain_ui/design-system/ui-base.jsx
  *   → Input component (wrapper div with flex layout, suffix <span>, autoFocus ring).
  */
 import { describe, it, expect } from 'vitest';

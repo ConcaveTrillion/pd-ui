@@ -1,7 +1,7 @@
 /**
  * TabsBand — per-stage tab band molecule.
  *
- * Design source: docs/templates/design_handoff_pd_ui/final/pipeline/pipeline-template.jsx
+ * Design source: docs/templates/design_handoff_pdomain_ui/final/pipeline/pipeline-template.jsx
  * Component: `TabsBand` (lines 226–263)
  *
  * Renders a horizontal row of underline-style tabs. Purely presentational —
@@ -11,7 +11,7 @@
  * Constraints:
  * - No hex literals — all colors via var(--token).
  * - No CVA — variants are CSS class modifiers.
- * - No direct lucide-react imports — pass icon nodes from @concavetrillion/pd-ui/icons.
+ * - No direct lucide-react imports — pass icon nodes from @pdomain/pdomain-ui/icons.
  */
 import * as React from 'react';
 import { cn } from '../primitives/cn.js';
@@ -25,7 +25,7 @@ export interface TabsBandItem {
   id: string;
   /** Display label for the tab. */
   name: string;
-  /** Optional icon node (use icons from @concavetrillion/pd-ui/icons). */
+  /** Optional icon node (use icons from @pdomain/pdomain-ui/icons). */
   icon?: React.ReactNode;
   /** Optional numeric badge count rendered beside the label. */
   count?: number;

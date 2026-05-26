@@ -1,4 +1,4 @@
-# pd-ui — shared TS/React/Vite component library
+# pdomain-ui — shared TS/React/Vite component library
 # Usage: make <target> [AI=1]
 #
 # AI=1 captures verbose output to .ci-ai.log; stdout shows pass/fail.
@@ -146,7 +146,7 @@ _do-release:
 	@BUMP=$(or $(BUMP),minor) ./scripts/do-release.sh
 
 # ---------------------------------------------------------------------------
-# Frontend-* aliases (pd-ui IS a frontend repo — bare targets are canonical)
+# Frontend-* aliases (pdomain-ui IS a frontend repo — bare targets are canonical)
 # ---------------------------------------------------------------------------
 
 frontend-install: install

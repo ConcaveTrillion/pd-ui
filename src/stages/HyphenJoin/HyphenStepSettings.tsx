@@ -119,7 +119,7 @@ function SettingsRow({ label, sub, children }: SettingsRowProps): React.ReactEle
  * All field changes fire `onChange` with the entire updated `HyphenSettings`
  * object (immutable spread pattern — never mutates props).
  *
- * Design source: `docs/templates/design_handoff_pd_ui/final/hyphen_join/hyphen.jsx`
+ * Design source: `docs/templates/design_handoff_pdomain_ui/final/hyphen_join/hyphen.jsx`
  * (HyphenStepSettings component, lines 176–421).
  */
 export function HyphenStepSettings({

@@ -1,8 +1,8 @@
 /**
  * Curated lucide-react re-exports.
  *
- * THIS FILE is the ONLY place in pd-ui that imports directly from lucide-react.
- * All consumers must import icons from `@concavetrillion/pd-ui/icons`.
+ * THIS FILE is the ONLY place in pdomain-ui that imports directly from lucide-react.
+ * All consumers must import icons from `@pdomain/pdomain-ui/icons`.
  * ESLint enforces this via the no-restricted-imports rule (with an override
  * that exempts this file only).
  */

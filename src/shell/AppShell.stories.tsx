@@ -42,7 +42,7 @@ const HeaderSlot = (
       borderBottom: '1px solid var(--border)',
     }}
   >
-    <span style={{ fontWeight: 600, color: 'var(--ink-1)' }}>pd-ui Demo App</span>
+    <span style={{ fontWeight: 600, color: 'var(--ink-1)' }}>pdomain-ui Demo App</span>
     <Button variant="ghost" size="sm">
       File
     </Button>
@@ -151,7 +151,7 @@ export const AllSlots: Story = {
     <div style={{ width: '100vw', height: '100vh' }}>
       <AppShell
         appId="demo"
-        appDisplayName="pd-ui Demo"
+        appDisplayName="pdomain-ui Demo"
         appIconUrl=""
         uiPrefsConfig={STUB_PREFS_CONFIG}
         header={HeaderSlot}
@@ -170,7 +170,7 @@ export const MainOnly: Story = {
     <div style={{ width: '100vw', height: '100vh' }}>
       <AppShell
         appId="demo"
-        appDisplayName="pd-ui Demo"
+        appDisplayName="pdomain-ui Demo"
         appIconUrl=""
         uiPrefsConfig={STUB_PREFS_CONFIG}
         header={HeaderSlot}
@@ -186,7 +186,7 @@ export const HostedMode: Story = {
     <div style={{ width: '100vw', height: '100vh' }}>
       <AppShell
         appId="demo"
-        appDisplayName="pd-ui Demo (hosted)"
+        appDisplayName="pdomain-ui Demo (hosted)"
         appIconUrl=""
         uiPrefsConfig={STUB_PREFS_CONFIG}
         deployMode="hosted"
@@ -202,7 +202,9 @@ export const HostedMode: Story = {
               borderBottom: '1px solid var(--border)',
             }}
           >
-            <span style={{ fontWeight: 600, color: 'var(--ink-1)' }}>pd-ui Demo App [hosted]</span>
+            <span style={{ fontWeight: 600, color: 'var(--ink-1)' }}>
+              pdomain-ui Demo App [hosted]
+            </span>
           </div>
         }
         main={MainSlot}
@@ -240,7 +242,7 @@ export const BuiltInHeader: Story = {
     <div style={{ width: '100vw', height: '100vh' }}>
       <AppShell
         appId="demo-builtin"
-        appDisplayName="pd-ui Demo App"
+        appDisplayName="pdomain-ui Demo App"
         appIconUrl=""
         uiPrefsConfig={STUB_PREFS_CONFIG}
         main={

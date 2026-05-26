@@ -17,7 +17,7 @@
  *   createSlot    — replaces the default "Create new project" CTA button (both states)
  *
  * Design source:
- *   docs/templates/design_handoff_pd_ui/final/projects/projects.jsx
+ *   docs/templates/design_handoff_pdomain_ui/final/projects/projects.jsx
  *   — ProjectsPage (populated) + ProjectsEmpty (empty)
  *
  * Dependencies:

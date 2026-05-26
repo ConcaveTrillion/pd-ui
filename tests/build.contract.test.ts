@@ -87,9 +87,9 @@ describe('dist/ output completeness', () => {
   });
 });
 
-// Regression guard for pd-ui#15: export drift breaks pd-ocr-simple-gui
+// Regression guard for pdomain-ui#15: export drift breaks pdomain-ocr-simple-gui
 // These symbols must remain exported after every build or consumers break.
-describe('dist/primitives.d.ts — consumer-critical exports (pd-ui#15)', () => {
+describe('dist/primitives.d.ts — consumer-critical exports (pdomain-ui#15)', () => {
   const dtsPath = resolve(__dirname, '../dist/primitives.d.ts');
 
   it('dist/primitives.d.ts exists (build must run first)', () => {
@@ -97,7 +97,7 @@ describe('dist/primitives.d.ts — consumer-critical exports (pd-ui#15)', () => 
   });
 
   const REQUIRED_SYMBOLS = [
-    // pd-ocr-simple-gui imports these directly
+    // pdomain-ocr-simple-gui imports these directly
     'JobStatusPip', // used in RecentProjectsList and ResultsPage
     'JobState', // re-exported via JobStatusPip.tsx for backward compat
     'BaseJobConfigDialog',
@@ -116,7 +116,7 @@ describe('dist/primitives.d.ts — consumer-critical exports (pd-ui#15)', () => 
   }
 });
 
-describe('dist/types.d.ts — consumer-critical exports (pd-ui#15)', () => {
+describe('dist/types.d.ts — consumer-critical exports (pdomain-ui#15)', () => {
   const dtsPath = resolve(__dirname, '../dist/types.d.ts');
 
   it('dist/types.d.ts exists (build must run first)', () => {

@@ -9,12 +9,12 @@ export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElemen
   size?: ButtonSize;
   /**
    * Icon node rendered before the button label.
-   * Accepts any ReactNode — typically a component from `@concavetrillion/pd-ui/icons`.
+   * Accepts any ReactNode — typically a component from `@pdomain/pdomain-ui/icons`.
    */
   icon?: React.ReactNode;
   /**
    * Icon node rendered after the button label.
-   * Accepts any ReactNode — typically a component from `@concavetrillion/pd-ui/icons`.
+   * Accepts any ReactNode — typically a component from `@pdomain/pdomain-ui/icons`.
    */
   iconRight?: React.ReactNode;
   /**

@@ -1,18 +1,18 @@
-# pd-ui Design-Handoff Migration Notes
+# pdomain-ui Design-Handoff Migration Notes
 
-**Applies to:** `@concavetrillion/pd-ui` consumers — `pd-ocr-labeler-spa`,
-`pd-prep-for-pgdp`, and future `pd-ocr-trainer-spa`.
+**Applies to:** `@pdomain/pdomain-ui` consumers — `pdomain-ocr-labeler-spa`,
+`pdomain-prep-for-pgdp`, and future `pdomain-ocr-trainer-spa`.
 
 **Authoritative references:**
 - Port-plan + CT decisions: `docs/research/2026-05-24-design-handoff-port-plan.md`
-- Design-handoff plan: `docs/plans/2026-05-24-pd-ui-design-handoff.md` (workspace root)
+- Design-handoff plan: `docs/plans/2026-05-24-pdomain-ui-design-handoff.md` (workspace root)
 - All shipped work landed on commits `2042bd9..main` (design-handoff milestone #333)
 
 ---
 
 ## Overview of changes shipped in this milestone
 
-The design-handoff milestone (`spec: pd-ui-design-handoff (#333)`) extended
+The design-handoff milestone (`spec: pdomain-ui-design-handoff (#333)`) extended
 existing primitives, added an `<Icon name>` dispatcher shim, ported four
 shell molecules (`AppHeader`, `JobsPill`, `JobsDrawer`, `JobRow`), ported five
 new template molecules (`StageStrip`, `TabsBand`, `ProjectsDrawer`,
@@ -29,23 +29,23 @@ every design-system icon name to the corresponding named lucide or bespoke
 export. Named exports remain available; the shim allows ported stage code to
 use the design API verbatim.
 
-**New export** (from `@concavetrillion/pd-ui/icons`):
+**New export** (from `@pdomain/pdomain-ui/icons`):
 ```ts
-import { Icon, ICON_NAMES } from '@concavetrillion/pd-ui/icons';
+import { Icon, ICON_NAMES } from '@pdomain/pdomain-ui/icons';
 // types:
-import type { IconName, IconDispatcherProps } from '@concavetrillion/pd-ui/icons';
+import type { IconName, IconDispatcherProps } from '@pdomain/pdomain-ui/icons';
 ```
 
-**Before (design bundle style, not valid in pd-ui consumers prior to this milestone):**
+**Before (design bundle style, not valid in pdomain-ui consumers prior to this milestone):**
 ```tsx
-// Design source called a monolithic SVG dispatcher — not available in pd-ui
+// Design source called a monolithic SVG dispatcher — not available in pdomain-ui
 <Icon name="check" size={14} />
 <Icon name="alert" size={16} className="error-icon" />
 ```
 
 **After (now valid):**
 ```tsx
-import { Icon } from '@concavetrillion/pd-ui/icons';
+import { Icon } from '@pdomain/pdomain-ui/icons';
 
 <Icon name="check" size={14} />
 <Icon name="alert" size={16} className="error-icon" />
@@ -79,10 +79,10 @@ map identically to lucide exports of the same PascalCase name.
 `HardDrive`, `Image`, `Link`, `Loader2` (already present), `Moon`, `Package`,
 `Pause`, `Play`, `RefreshCw`, `Scissors`, `Sparkles`, `Sun`, `Upload`, `Wrench`.
 
-**Named exports still work** — direct named imports from `@concavetrillion/pd-ui/icons`
+**Named exports still work** — direct named imports from `@pdomain/pdomain-ui/icons`
 are unchanged and preferred for code that wasn't ported from the design bundle:
 ```tsx
-import { Check, AlertTriangle } from '@concavetrillion/pd-ui/icons';
+import { Check, AlertTriangle } from '@pdomain/pdomain-ui/icons';
 ```
 
 ---
@@ -106,8 +106,8 @@ Existing callers that omit them are unaffected.
 
 **After:**
 ```tsx
-import { Button } from '@concavetrillion/pd-ui/primitives';
-import { Icon } from '@concavetrillion/pd-ui/icons';
+import { Button } from '@pdomain/pdomain-ui/primitives';
+import { Icon } from '@pdomain/pdomain-ui/icons';
 
 <Button variant="primary" icon={<Icon name="plus" size={14} />}>
   Add project
@@ -144,8 +144,8 @@ import { Icon } from '@concavetrillion/pd-ui/icons';
 
 **After:**
 ```tsx
-import { Input } from '@concavetrillion/pd-ui/primitives';
-import { Icon } from '@concavetrillion/pd-ui/icons';
+import { Input } from '@pdomain/pdomain-ui/primitives';
+import { Icon } from '@pdomain/pdomain-ui/icons';
 
 // Suffix inside the input wrapper (search icon, clear button, etc.)
 <Input
@@ -182,7 +182,7 @@ design-system status vocabulary. The existing `variant` prop (default / primary
 
 **After:**
 ```tsx
-import { Badge } from '@concavetrillion/pd-ui/primitives';
+import { Badge } from '@pdomain/pdomain-ui/primitives';
 
 // Semantic status tones
 <Badge tone="exact">Exact</Badge>
@@ -218,7 +218,7 @@ import { Badge } from '@concavetrillion/pd-ui/primitives';
 **Decision:** port all four into `src/shell/` so every pd-* SPA gets a
 consistent jobs indicator and user-avatar chrome.
 
-**New exports** (from `@concavetrillion/pd-ui/shell`):
+**New exports** (from `@pdomain/pdomain-ui/shell`):
 
 ```ts
 import {
@@ -226,14 +226,14 @@ import {
   JobsPill, type JobsPillProps, type ActiveJob,
   JobRow,  type JobRowProps, type Job, type JobStatus,
   JobsDrawer, type JobsDrawerProps, type JobsDrawerMode, type JobToast,
-} from '@concavetrillion/pd-ui/shell';
+} from '@pdomain/pdomain-ui/shell';
 ```
 
 **Before** — consumers had to roll their own chrome or use the generic
 `TopNav` layout shell:
 ```tsx
 // Only layout slot available — no jobs indicator, no avatar
-import { TopNav } from '@concavetrillion/pd-ui/shell';
+import { TopNav } from '@pdomain/pdomain-ui/shell';
 
 <TopNav>
   <img src={appIcon} alt="" width={20} height={20} />
@@ -243,7 +243,7 @@ import { TopNav } from '@concavetrillion/pd-ui/shell';
 
 **After:**
 ```tsx
-import { AppHeader, JobsPill, JobsDrawer, JobRow } from '@concavetrillion/pd-ui/shell';
+import { AppHeader, JobsPill, JobsDrawer, JobRow } from '@pdomain/pdomain-ui/shell';
 
 // Compose AppHeader with a jobs pill
 <AppHeader
@@ -278,7 +278,7 @@ composes `TopNav` internally — do not nest `AppHeader` inside `TopNav`.
 
 **Decision:** `AppShell` is converging to a 3-zone shell (header + rail +
 main). The `drawer` and `rightPanel` props are retained for back-compat with
-existing consumers (`pd-ocr-labeler-spa`, `pd-prep-for-pgdp`) but are
+existing consumers (`pdomain-ocr-labeler-spa`, `pdomain-prep-for-pgdp`) but are
 `@deprecated` in JSDoc. These props will be removed in a future spec after
 both consumers migrate.
 
@@ -306,7 +306,7 @@ No action is required before the follow-on migration spec lands.
 
 ## 7. New template molecules: StageStrip, TabsBand, ProjectsDrawer
 
-These are exported from `@concavetrillion/pd-ui/templates`.
+These are exported from `@pdomain/pdomain-ui/templates`.
 
 ### StageStrip
 
@@ -314,7 +314,7 @@ Pipeline stage progress indicator. Renders an ordered list of pipeline stage
 tabs with active/done/pending states.
 
 ```tsx
-import { StageStrip, PIPELINE_STAGES } from '@concavetrillion/pd-ui/templates';
+import { StageStrip, PIPELINE_STAGES } from '@pdomain/pdomain-ui/templates';
 
 <StageStrip
   stages={PIPELINE_STAGES}
@@ -332,8 +332,8 @@ pipelines.
 A horizontal tab band that renders within a pipeline stage shell.
 
 ```tsx
-import { TabsBand } from '@concavetrillion/pd-ui/templates';
-import type { TabsBandItem } from '@concavetrillion/pd-ui/templates';
+import { TabsBand } from '@pdomain/pdomain-ui/templates';
+import type { TabsBandItem } from '@pdomain/pdomain-ui/templates';
 
 const tabs: TabsBandItem[] = [
   { id: 'pages', label: 'Pages' },
@@ -354,8 +354,8 @@ Suite-wide projects list drawer. Renders as a slide-in panel showing project
 cards with status badges; embeds in templates, not an AppShell zone (OQ-12).
 
 ```tsx
-import { ProjectsDrawer } from '@concavetrillion/pd-ui/templates';
-import type { ProjectsDrawerProject } from '@concavetrillion/pd-ui/templates';
+import { ProjectsDrawer } from '@pdomain/pdomain-ui/templates';
+import type { ProjectsDrawerProject } from '@pdomain/pdomain-ui/templates';
 
 <ProjectsDrawer
   open={projectsOpen}
@@ -371,9 +371,9 @@ import type { ProjectsDrawerProject } from '@concavetrillion/pd-ui/templates';
 ## 8. New full-page templates: PipelineTemplate, ProjectSettingsTemplate,
    ProjectsLandingTemplate, SettingsNav
 
-These are also exported from `@concavetrillion/pd-ui/templates`.
+These are also exported from `@pdomain/pdomain-ui/templates`.
 
-> Note: these templates compose lower-level pd-ui molecules and are intended
+> Note: these templates compose lower-level pdomain-ui molecules and are intended
 > as a starting scaffold. Consuming apps are expected to pass their own
 > `children` for the per-stage content area.
 
@@ -383,7 +383,7 @@ Full pipeline-project shell. Composes `AppHeader` + `StageStrip` + `TabsBand`
 + content slot.
 
 ```tsx
-import { PipelineTemplate } from '@concavetrillion/pd-ui/templates';
+import { PipelineTemplate } from '@pdomain/pdomain-ui/templates';
 
 <PipelineTemplate
   project={project}
@@ -405,7 +405,7 @@ Project-scoped settings destination. Left rail is a `SettingsNav` with eight
 setting groups; `children` fills the right pane.
 
 ```tsx
-import { ProjectSettingsTemplate } from '@concavetrillion/pd-ui/templates';
+import { ProjectSettingsTemplate } from '@pdomain/pdomain-ui/templates';
 
 <ProjectSettingsTemplate
   project={project}
@@ -423,7 +423,7 @@ discriminated union (OQ-11 decision; `ProjectsPage` + `ProjectsEmpty`
 merged into a single component).
 
 ```tsx
-import { ProjectsLandingTemplate } from '@concavetrillion/pd-ui/templates';
+import { ProjectsLandingTemplate } from '@pdomain/pdomain-ui/templates';
 
 // Populated state
 <ProjectsLandingTemplate
@@ -447,7 +447,7 @@ Extracted settings group nav sidebar from `ProjectSettingsTemplate` (OQ-10).
 Available for apps that build their own settings layout.
 
 ```tsx
-import { SettingsNav } from '@concavetrillion/pd-ui/templates';
+import { SettingsNav } from '@pdomain/pdomain-ui/templates';
 
 <SettingsNav
   groups={settingsGroups}
@@ -460,7 +460,7 @@ import { SettingsNav } from '@concavetrillion/pd-ui/templates';
 
 ## 9. New cross-stage primitive molecules (batch 1)
 
-All shipped in `@concavetrillion/pd-ui/primitives`. These were ported from
+All shipped in `@pdomain/pdomain-ui/primitives`. These were ported from
 the design bundle's `final/` files (Table 4 cross-stage entries).
 
 | Export | Description |
@@ -485,7 +485,7 @@ the design bundle's `final/` files (Table 4 cross-stage entries).
 </ToggleGroup>
 
 // After: simple boolean switch
-import { Toggle } from '@concavetrillion/pd-ui/primitives';
+import { Toggle } from '@pdomain/pdomain-ui/primitives';
 <Toggle checked={enabled} onCheckedChange={setEnabled} label="Auto-OCR" />
 ```
 
@@ -493,7 +493,7 @@ import { Toggle } from '@concavetrillion/pd-ui/primitives';
 
 ## 10. Token aliases NOT added (OQ-6)
 
-**Decision:** pd-ui does **not** add `--font-sans` / `--font-mono` back-compat
+**Decision:** pdomain-ui does **not** add `--font-sans` / `--font-mono` back-compat
 aliases. Consumers must use the canonical token names.
 
 | Avoid | Use instead |
@@ -508,7 +508,7 @@ find-and-replace at the consumer's call site.
 
 ## 11. `Divider` rename: use `Separator`
 
-The design bundle uses the identifier `Divider`. pd-ui exports `Separator`
+The design bundle uses the identifier `Divider`. pdomain-ui exports `Separator`
 (same component, Radix-backed, functionally equivalent).
 
 ```tsx
@@ -516,8 +516,8 @@ The design bundle uses the identifier `Divider`. pd-ui exports `Separator`
 <Divider />
 <Divider vertical />
 
-// pd-ui equivalent
-import { Separator } from '@concavetrillion/pd-ui/primitives';
+// pdomain-ui equivalent
+import { Separator } from '@pdomain/pdomain-ui/primitives';
 <Separator />
 <Separator orientation="vertical" />
 ```
@@ -531,7 +531,7 @@ Tracks per-stage components landed under Phase 2 (spec:
 
 ### M1: ArtifactViewer + overlays (2026-05-24 · 9f81be7)
 
-New subpath: `@concavetrillion/pd-ui/stages/PageWorkbench`.
+New subpath: `@pdomain/pdomain-ui/stages/PageWorkbench`.
 
 | Export | Role |
 |---|---|
@@ -547,8 +547,8 @@ exported — consume `ArtifactViewer` for the composed surface. Consumers
 that need a custom outer shell can import the individual overlays
 directly.
 
-Unblocks: pd-prep-for-pgdp PageWorkbenchPage / Grayscale PageViewer /
-Crop BboxEditor / OCR labeler surfaces; pd-ocr-labeler-spa annotation
+Unblocks: pdomain-prep-for-pgdp PageWorkbenchPage / Grayscale PageViewer /
+Crop BboxEditor / OCR labeler surfaces; pdomain-ocr-labeler-spa annotation
 canvas migration.
 
 ### M2 atom promotions (2026-05-24)
@@ -570,7 +570,7 @@ Grayscale `StageControlsLeft` (`BackendChip`), M7 Scannos
 ### M2 cross-cutting — first 4 (2026-05-24)
 
 PageWorkbench composition components, exported from
-`@concavetrillion/pd-ui/stages/PageWorkbench`:
+`@pdomain/pdomain-ui/stages/PageWorkbench`:
 
 | Export | Commit | Description |
 |---|---|---|
@@ -599,7 +599,7 @@ PageWorkbench composition components, exported from
 
 ### M3 Source — batch 1 (2026-05-25)
 
-New subpath: `@concavetrillion/pd-ui/stages/Source`.
+New subpath: `@pdomain/pdomain-ui/stages/Source`.
 
 | Export | Commit | Description |
 |---|---|---|
@@ -616,11 +616,11 @@ New subpath: `@concavetrillion/pd-ui/stages/Source`.
 | `SourcePageWorkbench` | `c7e3754` | Per-page detail view composing `ArtifactViewer`. Renders afterImageUrl via `overlayMode='view'`; true before/after split is a follow-on. |
 | `SourceStepSettings` | `ee0d270` | Generation settings panel (preset + save-as + thumb quality + workers slider + auto-confirm + re-generate). Inline save-preset form (no `prompt()`). |
 
-**M3 Source complete: 7 exports.** Unblocks pd-prep-for-pgdp S01 slice.
+**M3 Source complete: 7 exports.** Unblocks pdomain-prep-for-pgdp S01 slice.
 
 ### M4 Grayscale (2026-05-25)
 
-New subpath: `@concavetrillion/pd-ui/stages/Grayscale`.
+New subpath: `@pdomain/pdomain-ui/stages/Grayscale`.
 
 | Export | Commit | Description |
 |---|---|---|
@@ -632,7 +632,7 @@ New subpath: `@concavetrillion/pd-ui/stages/Grayscale`.
 | `PageViewer` | `485d628` | Before/Split/After viewer composing `ArtifactViewer` + 13-page thumb scroller. |
 | `StageControlsLeft` | `485d628` | Composes M2 `StageControlsPanel` + M4 `ModeCard` + M4 `AdvancedParams` in the `controlsSlot`. |
 
-**M4 Grayscale complete: 7 exports.** Unblocks pd-prep-for-pgdp S02 slice.
+**M4 Grayscale complete: 7 exports.** Unblocks pdomain-prep-for-pgdp S02 slice.
 
 Build strategy note: shipped via 7 parallel worktree agents, then
 consolidated via the "pull component files + write barrels manually"
@@ -651,19 +651,19 @@ The following design-bundle identifiers were intentionally **not** ported:
 | `AppFrame` | Use `AppShell` | Design `AppFrame` is a monolithic wrapper; maps to `AppShell` + `Dialog`/`Drawer` composition |
 | `TopNav` (design version) | Use `AppHeader` | Design's opinionated `TopNav` is superseded by the slotted `AppHeader` molecule |
 | `VariationA`, `VariationB`, `ThemedFrame` | `skip` | Design-canvas artboard frames; not portworthy React components |
-| `STAGE_DEFS`, `STAGE_FLAGS`, `FLAG_TONE`, `FLAG_META` | `stage-specific` | Data constants; belong in `pd-ocr-ops` or the consuming SPA's own constants |
-| `Tab` (pipeline-shell local) | `co-locate` | Thin per-file tab helper that differs per stage; use pd-ui `Tabs` primitive from `@concavetrillion/pd-ui/primitives` |
+| `STAGE_DEFS`, `STAGE_FLAGS`, `FLAG_TONE`, `FLAG_META` | `stage-specific` | Data constants; belong in `pdomain-ocr-ops` or the consuming SPA's own constants |
+| `Tab` (pipeline-shell local) | `co-locate` | Thin per-file tab helper that differs per stage; use pdomain-ui `Tabs` primitive from `@pdomain/pdomain-ui/primitives` |
 | `CheckRow`, `PageThumb`, `PageRow` | `stage-specific` | Tightly coupled to page/image data model; defer to per-stage SPA |
-| `ProjectConfigureFrame` | Not yet ported | Composed of `BuildPackagePanel` + `RunAllDirtyPanel` + `DiskCostBanner`; those sub-molecules are in pd-ui; `ProjectConfigureFrame` is deferred to the stages spec |
-| `StageJumpPopover`, `StageContextStrip`, `ConfigureHeader`, `ConfigureTabs` | Deferred | Cross-stage molecules scheduled for the follow-on `pd-ui-design-handoff-stages` spec |
+| `ProjectConfigureFrame` | Not yet ported | Composed of `BuildPackagePanel` + `RunAllDirtyPanel` + `DiskCostBanner`; those sub-molecules are in pdomain-ui; `ProjectConfigureFrame` is deferred to the stages spec |
+| `StageJumpPopover`, `StageContextStrip`, `ConfigureHeader`, `ConfigureTabs` | Deferred | Cross-stage molecules scheduled for the follow-on `pdomain-ui-design-handoff-stages` spec |
 | `ThumbGrid`, `ThumbFlagBadge`, `ThumbSizeToggle`, `FilterToolbar`, `TableHeader`, `TableFooter`, `SummaryStrip`, `SummaryCell` | Deferred | Phase 3 / stages spec |
 
 ---
 
-## 13. Migration checklist for `pd-ocr-labeler-spa` and `pd-prep-for-pgdp`
+## 13. Migration checklist for `pdomain-ocr-labeler-spa` and `pdomain-prep-for-pgdp`
 
 1. **Icons:** replace any inline icon SVGs or direct `lucide-react` imports
-   with named exports from `@concavetrillion/pd-ui/icons`. Use `<Icon name>`
+   with named exports from `@pdomain/pdomain-ui/icons`. Use `<Icon name>`
    dispatcher for code ported verbatim from the design bundle.
 
 2. **Badge tones:** replace custom status-colored spans with

@@ -11,15 +11,15 @@ const SYNC_SCRIPT = resolve(__dirname, '../../scripts/sync-design-system.mjs');
 const NODE = process.execPath;
 
 function buildInSyncWorkspace(): string {
-  const tmpRoot = mkdtempSync(resolve(tmpdir(), 'pd-ui-check-test-'));
+  const tmpRoot = mkdtempSync(resolve(tmpdir(), 'pdomain-ui-check-test-'));
 
-  const themeDir = resolve(tmpRoot, 'pd-ui', 'theme');
+  const themeDir = resolve(tmpRoot, 'pdomain-ui', 'theme');
   mkdirSync(themeDir, { recursive: true });
 
   const docsDir = resolve(tmpRoot, 'docs', 'design-system');
   mkdirSync(docsDir, { recursive: true });
 
-  const scriptsDir = resolve(tmpRoot, 'pd-ui', 'scripts');
+  const scriptsDir = resolve(tmpRoot, 'pdomain-ui', 'scripts');
   mkdirSync(scriptsDir, { recursive: true });
 
   const content = ':root { --sync: test; }';
@@ -32,10 +32,10 @@ function buildInSyncWorkspace(): string {
 }
 
 function runCheckScript(tmpRoot: string, args: string[] = []): ReturnType<typeof spawnSync> {
-  const patchedScriptPath = resolve(tmpRoot, 'pd-ui', 'scripts', 'sync-design-system.mjs');
+  const patchedScriptPath = resolve(tmpRoot, 'pdomain-ui', 'scripts', 'sync-design-system.mjs');
 
   const originalScript = readFileSync(SYNC_SCRIPT, 'utf-8');
-  const pdUiRootTmp = resolve(tmpRoot, 'pd-ui');
+  const pdUiRootTmp = resolve(tmpRoot, 'pdomain-ui');
   const patchedScript = originalScript.replace(
     /const pdUiRoot = resolve\(__dirname, '\.\.'\)/,
     `const pdUiRoot = ${JSON.stringify(pdUiRootTmp)}`,
@@ -44,7 +44,7 @@ function runCheckScript(tmpRoot: string, args: string[] = []): ReturnType<typeof
 
   return spawnSync(NODE, [patchedScriptPath, '--check', ...args], {
     encoding: 'utf-8',
-    cwd: resolve(tmpRoot, 'pd-ui'),
+    cwd: resolve(tmpRoot, 'pdomain-ui'),
   });
 }
 
@@ -59,7 +59,7 @@ afterEach(() => {
 });
 
 describe('codegen:theme-check (sync --check mode)', () => {
-  it('exits 0 when pd-ui/theme/ and docs/design-system/ are in sync', () => {
+  it('exits 0 when pdomain-ui/theme/ and docs/design-system/ are in sync', () => {
     const result = runCheckScript(tmpRoot);
     expect(
       result.status,
@@ -67,10 +67,10 @@ describe('codegen:theme-check (sync --check mode)', () => {
     ).toBe(0);
   });
 
-  it('exits non-zero when pd-ui/theme/tokens.css has been mutated', () => {
-    // Mutate the pd-ui/theme/tokens.css to simulate drift
+  it('exits non-zero when pdomain-ui/theme/tokens.css has been mutated', () => {
+    // Mutate the pdomain-ui/theme/tokens.css to simulate drift
     writeFileSync(
-      resolve(tmpRoot, 'pd-ui', 'theme', 'tokens.css'),
+      resolve(tmpRoot, 'pdomain-ui', 'theme', 'tokens.css'),
       ':root { --drifted: yes; }',
       'utf-8',
     );
@@ -81,9 +81,9 @@ describe('codegen:theme-check (sync --check mode)', () => {
     expect(output).toMatch(/diff detected|CHANGED/);
   });
 
-  it('exits non-zero when pd-ui/theme/primitives.css has been mutated', () => {
+  it('exits non-zero when pdomain-ui/theme/primitives.css has been mutated', () => {
     writeFileSync(
-      resolve(tmpRoot, 'pd-ui', 'theme', 'primitives.css'),
+      resolve(tmpRoot, 'pdomain-ui', 'theme', 'primitives.css'),
       '.btn { drifted: true; }',
       'utf-8',
     );

@@ -1,13 +1,13 @@
 /**
  * StageStrip — cross-stage pipeline progress + nav molecule.
  *
- * Design source: `StageContextStrip` in docs/templates/design_handoff_pd_ui/
+ * Design source: `StageContextStrip` in docs/templates/design_handoff_pdomain_ui/
  * (wf02/pipeline-shell.jsx, wf03/wf03-variations.jsx, wf05/pipeline-shell.jsx,
  * wf05b/pipeline-shell.jsx, wf09/pipeline-shell.jsx, wf10/pipeline-shell.jsx,
  * wf11/wf03-variations.jsx, wf-pw/wf03-variations.jsx).
  *
  * Name reconciliation: the design source exports `StageContextStrip`; the
- * pd-ui plan (Task 7, docs/plans/2026-05-24-pd-ui-design-handoff.md) exports
+ * pdomain-ui plan (Task 7, docs/plans/2026-05-24-pdomain-ui-design-handoff.md) exports
  * it as `StageStrip` — a cleaner library API name. Both names refer to the
  * same molecule.
  *
@@ -104,7 +104,7 @@ export interface StageStripProps extends React.HTMLAttributes<HTMLDivElement> {
    *   (design source: `wf03/wf03-variations.jsx:375-451`).
    *   Applies the `stage-strip--configure` CSS modifier to the root element,
    *   enabling context-specific overrides in the consuming app's stylesheet.
-   *   Visual rendering is identical to `'default'` in pd-ui's base theme.
+   *   Visual rendering is identical to `'default'` in pdomain-ui's base theme.
    */
   variant?: 'default' | 'configure';
 }

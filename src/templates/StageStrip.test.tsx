@@ -1,10 +1,10 @@
 /**
  * Tests for StageStrip molecule (#340).
  *
- * Design source: StageContextStrip in docs/templates/design_handoff_pd_ui/
+ * Design source: StageContextStrip in docs/templates/design_handoff_pdomain_ui/
  * Export name reconciliation: design calls it StageContextStrip; the plan
- * (Task 7 in docs/plans/2026-05-24-pd-ui-design-handoff.md) exports it as
- * StageStrip — a cleaner name for the pd-ui library API surface.
+ * (Task 7 in docs/plans/2026-05-24-pdomain-ui-design-handoff.md) exports it as
+ * StageStrip — a cleaner name for the pdomain-ui library API surface.
  */
 import { describe, it, expect, vi } from 'vitest';
 import { render, screen, fireEvent } from '@testing-library/react';

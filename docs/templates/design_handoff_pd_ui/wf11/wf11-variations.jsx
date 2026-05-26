@@ -257,7 +257,7 @@ const BodyA = () => (
     <WF11Field label="Grayscale mode" hint="auto · luma-weighted">
       <Seg2 opts={['Standard', 'Perceptual']} active="Perceptual" />
       <div className="mono" style={{ fontSize: 10.5, color: 'var(--ink-4)', marginTop: 6 }}>
-        np_uint8_color_to_gray · pd-book-tools
+        np_uint8_color_to_gray · pdomain-book-tools
       </div>
     </WF11Field>
     <PerceptualCallout />
@@ -347,7 +347,7 @@ const BodyB = ({ backend = 'gpu' }) => {
         />
         <ModeCard kind="perceptual"
           title="Perceptual"
-          subtitle="Neighbourhood-sampled (pd-book-tools). Preserves local contrast on color or stained pages."
+          subtitle="Neighbourhood-sampled (pdomain-book-tools). Preserves local contrast on color or stained pages."
           badge={timeStr}
           badgeTone={backend === 'gpu' ? 'fuzzy' : 'mismatch'}
           selected
@@ -479,7 +479,7 @@ const BodyC = ({ backend = 'gpu' }) => {
         <ModeRow
           on={false}
           name="Perceptual"
-          sub="pd-book-tools np_uint8_color_to_gray — GPU-accelerated, preserves local contrast."
+          sub="pdomain-book-tools np_uint8_color_to_gray — GPU-accelerated, preserves local contrast."
           tag={timeStr}
           tagTone={backend === 'gpu' ? 'fuzzy' : 'mismatch'}
         />
@@ -606,7 +606,7 @@ const AdvancedAccordion = ({ open }) => (
           background: 'var(--bg-raised)', border: '1px solid var(--border-1)',
           fontSize: 10.5, color: 'var(--ink-3)', lineHeight: 1.5,
         }}>
-          Defaults match pd-book-tools <span className="mono" style={{ color: 'var(--ink-2)' }}>np_uint8_color_to_gray</span> reference.
+          Defaults match pdomain-book-tools <span className="mono" style={{ color: 'var(--ink-2)' }}>np_uint8_color_to_gray</span> reference.
         </div>
       </div>
     ) : null}

@@ -1,7 +1,7 @@
 /**
  * AppHeader — opinionated top chrome for all pd-* SPAs.
  *
- * Ported from docs/templates/design_handoff_pd_ui/design-system/template.jsx
+ * Ported from docs/templates/design_handoff_pdomain_ui/design-system/template.jsx
  * per OQ-5 decision: port into src/shell/ composing existing JobsPill.
  *
  * Three-column layout:

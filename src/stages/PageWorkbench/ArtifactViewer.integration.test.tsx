@@ -2,8 +2,8 @@
  * ArtifactViewer cross-consumer integration test.
  *
  * Exercises both consumer shapes as defined in spec §8:
- *   - pd-prep-for-pgdp: overlayMode='split' with splitProposal
- *   - pd-ocr-labeler-spa: overlayMode='words' with wordBboxes + onWordClick
+ *   - pdomain-prep-for-pgdp: overlayMode='split' with splitProposal
+ *   - pdomain-ocr-labeler-spa: overlayMode='words' with wordBboxes + onWordClick
  *
  * Uses the standard react-konva mock pattern (vi.mock before imports).
  */
@@ -71,7 +71,7 @@ vi.mock('react-konva', () => ({
 import { ArtifactViewer } from './ArtifactViewer.js';
 
 describe('ArtifactViewer cross-consumer integration', () => {
-  it('pd-prep-for-pgdp shape: split mode renders role="separator"', () => {
+  it('pdomain-prep-for-pgdp shape: split mode renders role="separator"', () => {
     render(
       <ArtifactViewer
         imageSrc="mock.png"
@@ -85,7 +85,7 @@ describe('ArtifactViewer cross-consumer integration', () => {
     expect(screen.getByRole('separator')).toBeInTheDocument();
   });
 
-  it('pd-ocr-labeler-spa shape: words mode renders word-bbox-{id}', () => {
+  it('pdomain-ocr-labeler-spa shape: words mode renders word-bbox-{id}', () => {
     render(
       <ArtifactViewer
         imageSrc="mock.png"

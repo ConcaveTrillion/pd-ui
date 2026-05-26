@@ -2,15 +2,15 @@
  * AppShell type contract.
  *
  * Matches the surface defined in spec §6 of 2026-05-16-cross-cut-design.md.
- * `SuiteApp`, `InstalledApp`, `UIPrefs` live in /types once pd-ocr-ops codegen
+ * `SuiteApp`, `InstalledApp`, `UIPrefs` live in /types once pdomain-ocr-ops codegen
  * lands (M4 re-enable). Until then they are defined here as minimal local types
  * used only within the shell and stores subpaths.
  */
 import type * as React from 'react';
 
-// ─── Suite types (local stubs — will be replaced by codegen from pd-ocr-ops) ─
+// ─── Suite types (local stubs — will be replaced by codegen from pdomain-ocr-ops) ─
 
-/** An app that is part of the pd-suite (registered in pd-suite.json). */
+/** An app that is part of the pdomain-suite (registered in pdomain-suite.json). */
 export interface SuiteApp {
   id: string;
   displayName: string;
@@ -108,7 +108,7 @@ export interface SettingsPanelDescriptor {
   label: string;
   /** Optional tab icon node. */
   icon?: React.ReactNode;
-  /** Panel body. The app owns its own state; pd-ui renders this node as-is. */
+  /** Panel body. The app owns its own state; pdomain-ui renders this node as-is. */
   content: React.ReactNode;
 }
 
@@ -125,7 +125,7 @@ export interface SettingsPanelDescriptor {
  * to zero width/height without shifting others.
  */
 export interface AppShellProps {
-  /** Stable app identifier matching pd-suite.json (e.g. 'pd-ocr-labeler-spa'). */
+  /** Stable app identifier matching pdomain-suite.json (e.g. 'pdomain-ocr-labeler-spa'). */
   appId: string;
   /** Human-readable name shown in the header. */
   appDisplayName: string;
@@ -147,7 +147,7 @@ export interface AppShellProps {
    * Templates own their own interior layouts; the preferred pattern is to embed a
    * `<ProjectsDrawer>` molecule (or equivalent) directly inside `main` rather than
    * wiring it through AppShell's layout grid. The `drawer` prop is retained for
-   * back-compat with `pd-ocr-labeler-spa` and `pd-prep-for-pgdp` until those apps
+   * back-compat with `pdomain-ocr-labeler-spa` and `pdomain-prep-for-pgdp` until those apps
    * migrate. Breaking removal is deferred to a future spec after migration is complete.
    */
   drawer?: React.ReactNode;
@@ -160,7 +160,7 @@ export interface AppShellProps {
    * Templates own their own interior layouts; the preferred pattern is to embed a
    * right-panel molecule directly inside `main` rather than wiring it through
    * AppShell's layout grid. The `rightPanel` prop is retained for back-compat with
-   * `pd-ocr-labeler-spa` and `pd-prep-for-pgdp` until those apps migrate. Breaking
+   * `pdomain-ocr-labeler-spa` and `pdomain-prep-for-pgdp` until those apps migrate. Breaking
    * removal is deferred to a future spec after migration is complete.
    */
   rightPanel?: React.ReactNode;
@@ -182,7 +182,7 @@ export interface AppShellProps {
   /**
    * Deployment context. Default `'local'`.
    * `'hosted'` gates local-only affordances (desktop shortcuts, etc.).
-   * pd-ui itself never branches on this for real logic — adapters live in pd-ocr-ops.
+   * pdomain-ui itself never branches on this for real logic — adapters live in pdomain-ocr-ops.
    */
   deployMode?: 'local' | 'hosted';
   /**

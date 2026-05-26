@@ -39,7 +39,7 @@ function App() {
       {themeToggle}
       <DesignCanvas
         title="WF-11 · Perceptual Grayscale Stage Controls"
-        subtitle="Adds a Grayscale mode selector (Standard vs Perceptual) to the Page Workbench's StageControlsPanel. Each artboard is the full Page Workbench with the grayscale stage selected — only the left drawer body differs between variants. Perceptual mode runs pd-book-tools np_uint8_color_to_gray, a GPU-accelerated neighbourhood-sampled algorithm."
+        subtitle="Adds a Grayscale mode selector (Standard vs Perceptual) to the Page Workbench's StageControlsPanel. Each artboard is the full Page Workbench with the grayscale stage selected — only the left drawer body differs between variants. Perceptual mode runs pdomain-book-tools np_uint8_color_to_gray, a GPU-accelerated neighbourhood-sampled algorithm."
         sectionGap={56}
       >
         <DCSection

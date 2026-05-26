@@ -8,9 +8,9 @@
  * Spec §6: slot-based API with `children.underlay`, `children.overlay`,
  * `children.selection`, `children.tool`, `children.hud`.
  *
- * Port-not-copy from pd-ocr-labeler-spa/PageImageCanvas.tsx.
+ * Port-not-copy from pdomain-ocr-labeler-spa/PageImageCanvas.tsx.
  * Labeler-specific logic (mode pills, bulk-action strip, store subscriptions)
- * is intentionally left as slot responsibilities — pd-ui owns only the
+ * is intentionally left as slot responsibilities — pdomain-ui owns only the
  * stage, pan/zoom math, image loading, context provision.
  */
 
@@ -244,7 +244,7 @@ export function PageImageCanvas<
   // events are required for hotkey dispatch (select/drag/zoom modes).
   // The jsx-a11y rule is disabled because role="img" + tabIndex is the correct
   // pattern here: the element renders an image but also accepts keyboard focus
-  // for interaction mode hotkeys. This matches the pd-ocr-labeler-spa pattern.
+  // for interaction mode hotkeys. This matches the pdomain-ocr-labeler-spa pattern.
 
   // Invalid page dimensions: render a safe fallback instead of a Konva stage.
   // Dimensions may be invalid when OCR/page metadata is corrupt or out of range.

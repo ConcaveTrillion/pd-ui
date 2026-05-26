@@ -1,6 +1,6 @@
 # New session — Scannos design for pgdp-prep
 
-Attach this project (`pd-prep-for-pgdp`) and open `wf05/index.html`. The hyphen-join workbench is largely settled; the **Scannos** half of the global library is the next problem to crack and it's gnarlier than hyphens. I want to spend a session pulling on the tensions before drawing more pixels.
+Attach this project (`pdomain-prep-for-pgdp`) and open `wf05/index.html`. The hyphen-join workbench is largely settled; the **Scannos** half of the global library is the next problem to crack and it's gnarlier than hyphens. I want to spend a session pulling on the tensions before drawing more pixels.
 
 ## What exists today
 

@@ -1,5 +1,5 @@
 /**
- * @concavetrillion/pd-ui/canvas
+ * @pdomain/pdomain-ui/canvas
  *
  * Slot-based Konva canvas for page-image rendering with overlay layers.
  *

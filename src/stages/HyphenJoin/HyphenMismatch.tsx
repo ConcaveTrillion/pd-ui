@@ -94,7 +94,7 @@ function MismatchRow({ item, onResolve }: MismatchRowProps): React.ReactElement 
  *
  * When `mismatches` is empty, renders a small empty-state message.
  *
- * Design source: `docs/templates/design_handoff_pd_ui/final/hyphen_join/variations.jsx`
+ * Design source: `docs/templates/design_handoff_pdomain_ui/final/hyphen_join/variations.jsx`
  * (MismatchedReportV4 / MismatchRow — §V4 Mismatched dash report).
  */
 export function HyphenMismatch({

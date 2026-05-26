@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 # scripts/update-pd-deps.sh — bump pd-* codegen inputs to registry latest.
 #
-# pd-ui SPECIAL CASE: pd-ui does not import sibling pd-* code at runtime.
-# It consumes pd-book-tools and pd-ocr-ops ONLY as codegen inputs: pinned
+# pdomain-ui SPECIAL CASE: pdomain-ui does not import sibling pd-* code at runtime.
+# It consumes pdomain-book-tools and pdomain-ocr-ops ONLY as codegen inputs: pinned
 # wheel versions → fetch wheels → emit JSON Schema → generate TS types into
 # src/types/generated/.
 #
@@ -10,9 +10,9 @@
 # package.json.
 #
 # What this does:
-#   1. For each codegen sibling (pd-book-tools, pd-ocr-ops):
+#   1. For each codegen sibling (pdomain-book-tools, pdomain-ocr-ops):
 #      a. Reads codegen.versions.json for the current pinned version.
-#      b. Queries pd-index-pip (PEP 503) for the latest version.
+#      b. Queries pdomain-index-pip (PEP 503) for the latest version.
 #      c. If latest > current, updates codegen.versions.json.
 #   2. If any version changed, runs make codegen to regenerate TS types.
 #   3. Leaves the diff staged (codegen.versions.json + regenerated output).
@@ -23,8 +23,8 @@
 set -euo pipefail
 
 # ─── Config ──────────────────────────────────────────────────────────────────
-CODEGEN_SIBLINGS=(pd-book-tools pd-ocr-ops)
-PD_INDEX_PIP="https://concavetrillion.github.io/pd-index-pip"
+CODEGEN_SIBLINGS=(pdomain-book-tools pdomain-ocr-ops)
+PD_INDEX_PIP="https://pdomain.github.io/pdomain-index-pip"
 # ─────────────────────────────────────────────────────────────────────────────
 
 REPO_ROOT="$(cd "$(dirname "$0")/.." && pwd)"
@@ -38,7 +38,7 @@ if [[ ! -f "$VERSIONS_JSON" ]]; then
   exit 1
 fi
 
-# ─── Step 1: Query pd-index-pip and bump each sibling ────────────────────────
+# ─── Step 1: Query pdomain-index-pip and bump each sibling ────────────────────────
 ANY_CHANGED=false
 
 for sibling in "${CODEGEN_SIBLINGS[@]}"; do
@@ -59,13 +59,13 @@ print(v)
 
   say "→ current $sibling = $current"
 
-  # Query pd-index-pip for latest version
+  # Query pdomain-index-pip for latest version
   index_url="$PD_INDEX_PIP/simple/$sibling/"
   say "→ querying $index_url"
 
   html=$(curl -sSf "$index_url" 2>&1) || {
     echo "ERROR: could not fetch $index_url" >&2
-    echo "       Network issue or $sibling not yet seeded in pd-index-pip." >&2
+    echo "       Network issue or $sibling not yet seeded in pdomain-index-pip." >&2
     echo "       No changes made." >&2
     exit 1
   }
@@ -95,7 +95,7 @@ if vers:
   )
 
   if [[ -z "$latest" ]]; then
-    echo "ERROR: pd-index-pip returned a page for $sibling but no wheel/sdist found." >&2
+    echo "ERROR: pdomain-index-pip returned a page for $sibling but no wheel/sdist found." >&2
     echo "       Index may not be seeded yet. No changes made." >&2
     exit 1
   fi

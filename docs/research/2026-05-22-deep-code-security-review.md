@@ -1,8 +1,8 @@
-# pd-ui deep code review and security scan
+# pdomain-ui deep code review and security scan
 
 Date: 2026-05-22
-Repo: `ConcaveTrillion/pd-ui`
-Scope: full `pd-ui` source, tests, package/release configuration, scripts,
+Repo: `pdomain/pdomain-ui`
+Scope: full `pdomain-ui` source, tests, package/release configuration, scripts,
 and dependency audit.
 
 Review method:
@@ -23,73 +23,73 @@ Summary:
 Filed issues:
 
 - 1. High: Malformed OCR word boxes can crash canvas rendering —
-  <https://github.com/ConcaveTrillion/pd-ui/issues/22>
+  <https://github.com/pdomain/pdomain-ui/issues/22>
 - 1. High: `useStageCall` enters warming state but never retries —
-  <https://github.com/ConcaveTrillion/pd-ui/issues/23>
+  <https://github.com/pdomain/pdomain-ui/issues/23>
 - 1. High: Release checkout exposes a write-scoped token to
   install/build steps —
-  <https://github.com/ConcaveTrillion/pd-ui/issues/24>
+  <https://github.com/pdomain/pdomain-ui/issues/24>
 - 1. High: Codegen executes remotely fetched Python wheels without hash
   verification —
-  <https://github.com/ConcaveTrillion/pd-ui/issues/25>
+  <https://github.com/pdomain/pdomain-ui/issues/25>
 - 1. High: Release tag name is interpolated directly into shell —
-  <https://github.com/ConcaveTrillion/pd-ui/issues/26>
+  <https://github.com/pdomain/pdomain-ui/issues/26>
 - 1. High: `make ci` is not clean-checkout reproducible —
-  <https://github.com/ConcaveTrillion/pd-ui/issues/27>
+  <https://github.com/pdomain/pdomain-ui/issues/27>
 - 1. High: Published `/testids` subpath is an empty public contract —
-  <https://github.com/ConcaveTrillion/pd-ui/issues/28>
+  <https://github.com/pdomain/pdomain-ui/issues/28>
 - 1. High: Unverified OCR/page metadata can force huge Konva canvas
   allocation —
-  <https://github.com/ConcaveTrillion/pd-ui/issues/29>
+  <https://github.com/pdomain/pdomain-ui/issues/29>
 - 1. Medium: `launcherSlot` does not control launcher placement or
   visibility —
-  <https://github.com/ConcaveTrillion/pd-ui/issues/30>
+  <https://github.com/pdomain/pdomain-ui/issues/30>
 - 1. Medium: Sibling launches open tabs with opener access —
-  <https://github.com/ConcaveTrillion/pd-ui/issues/31>
+  <https://github.com/pdomain/pdomain-ui/issues/31>
 - 1. Medium: Settings popover cannot be dismissed by outside click —
-  <https://github.com/ConcaveTrillion/pd-ui/issues/32>
+  <https://github.com/pdomain/pdomain-ui/issues/32>
 - 1. Medium: Job config dialog ignores Radix close events —
-  <https://github.com/ConcaveTrillion/pd-ui/issues/33>
+  <https://github.com/pdomain/pdomain-ui/issues/33>
 - 1. Medium: Canvas can show a stale page image after `src` changes or
   fails —
-  <https://github.com/ConcaveTrillion/pd-ui/issues/34>
+  <https://github.com/pdomain/pdomain-ui/issues/34>
 - 1. Medium: Drag throttling is ineffective and can flood renders —
-  <https://github.com/ConcaveTrillion/pd-ui/issues/35>
+  <https://github.com/pdomain/pdomain-ui/issues/35>
 - 1. Medium: `useLongJob` shows stale job state when job ID clears or
   changes —
-  <https://github.com/ConcaveTrillion/pd-ui/issues/36>
+  <https://github.com/pdomain/pdomain-ui/issues/36>
 - 1. Medium: UI prefs load can overwrite edits made during hydration —
-  <https://github.com/ConcaveTrillion/pd-ui/issues/37>
+  <https://github.com/pdomain/pdomain-ui/issues/37>
 - 1. Medium: Preference persist failures are silently ignored —
-  <https://github.com/ConcaveTrillion/pd-ui/issues/38>
+  <https://github.com/pdomain/pdomain-ui/issues/38>
 - 1. Medium: Worklist Enter can select an out-of-range index after
   filtering —
-  <https://github.com/ConcaveTrillion/pd-ui/issues/39>
+  <https://github.com/pdomain/pdomain-ui/issues/39>
 - 1. Medium: Release workflow uses mutable third-party action tags —
-  <https://github.com/ConcaveTrillion/pd-ui/issues/40>
+  <https://github.com/pdomain/pdomain-ui/issues/40>
 - 1. Medium: Release publishes without running package/codegen/test
   gates —
-  <https://github.com/ConcaveTrillion/pd-ui/issues/41>
+  <https://github.com/pdomain/pdomain-ui/issues/41>
 - 1. Medium: Storybook E2E server depends on undeclared `npx serve` —
-  <https://github.com/ConcaveTrillion/pd-ui/issues/42>
+  <https://github.com/pdomain/pdomain-ui/issues/42>
 - 1. Medium: Vulnerable dev dependency `esbuild@0.21.5` —
-  <https://github.com/ConcaveTrillion/pd-ui/issues/43>
+  <https://github.com/pdomain/pdomain-ui/issues/43>
 - 1. Medium: Vulnerable dev dependency `vite@5.4.21` —
-  <https://github.com/ConcaveTrillion/pd-ui/issues/44>
+  <https://github.com/pdomain/pdomain-ui/issues/44>
 - 1. Medium: Vulnerable dev dependency `uuid@9.0.1` —
-  <https://github.com/ConcaveTrillion/pd-ui/issues/45>
+  <https://github.com/pdomain/pdomain-ui/issues/45>
 - 1. Medium: Shell docs and barrel disagree on hook exports —
-  <https://github.com/ConcaveTrillion/pd-ui/issues/46>
+  <https://github.com/pdomain/pdomain-ui/issues/46>
 - 1. Low: Settings segmented controls expose no selected state to
   assistive tech —
-  <https://github.com/ConcaveTrillion/pd-ui/issues/47>
+  <https://github.com/pdomain/pdomain-ui/issues/47>
 - 1. Low: Field errors are not associated with their inputs —
-  <https://github.com/ConcaveTrillion/pd-ui/issues/48>
+  <https://github.com/pdomain/pdomain-ui/issues/48>
 - 1. Low: Shell string used for git status path —
-  <https://github.com/ConcaveTrillion/pd-ui/issues/49>
+  <https://github.com/pdomain/pdomain-ui/issues/49>
 - 1. Low: Story coverage gate exempts exported public worklist
   components —
-  <https://github.com/ConcaveTrillion/pd-ui/issues/50>
+  <https://github.com/pdomain/pdomain-ui/issues/50>
 
 ## Findings
 

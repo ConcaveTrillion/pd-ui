@@ -1,7 +1,7 @@
 /**
  * Tests for scripts/codegen-emit.mjs
  *
- * Strategy: create a stub venv where `python -m pd_book_tools.schemas.emit`
+ * Strategy: create a stub venv where `python -m pdomain_book_tools.schemas.emit`
  * is replaced by a shell script that echoes a known JSON fixture. Verify that
  * the script writes .codegen/book-tools.schema.json containing that fixture.
  */
@@ -49,7 +49,7 @@ describe('codegen:emit script', () => {
     const stubPython = join(binDir, 'python');
     writeFileSync(
       stubPython,
-      `#!/bin/sh\nif echo "$@" | grep -q "pd_book_tools.schemas.emit"; then\n  echo '${FIXTURE_SCHEMA}'\nelse\n  exec python3 "$@"\nfi\n`,
+      `#!/bin/sh\nif echo "$@" | grep -q "pdomain_book_tools.schemas.emit"; then\n  echo '${FIXTURE_SCHEMA}'\nelse\n  exec python3 "$@"\nfi\n`,
       'utf-8',
     );
     chmodSync(stubPython, 0o755);

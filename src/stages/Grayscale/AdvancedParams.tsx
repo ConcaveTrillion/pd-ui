@@ -5,7 +5,7 @@
  * Each row has a linked range+number input pair and a reset button.
  * Output range has two number inputs (min/max) + reset.
  *
- * Design source: docs/templates/design_handoff_pd_ui/final/grayscale/grayscale.jsx §AdvancedParams
+ * Design source: docs/templates/design_handoff_pdomain_ui/final/grayscale/grayscale.jsx §AdvancedParams
  */
 import * as React from 'react';
 import {

@@ -1,6 +1,6 @@
 /**
  * createApiSuiteSiblingsConfig — builds the fetchInstalled/postLaunch callbacks
- * that SuiteSiblingsProvider needs, backed by the pd-ocr-ops standard
+ * that SuiteSiblingsProvider needs, backed by the pdomain-ocr-ops standard
  * `/api/suite/*` REST contract.
  *
  * Contract
@@ -21,7 +21,7 @@
  * import {
  *   SuiteSiblingsProvider,
  *   createApiSuiteSiblingsConfig,
- * } from '@concavetrillion/pd-ui/shell';
+ * } from '@pdomain/pdomain-ui/shell';
  *
  * <SuiteSiblingsProvider value={createApiSuiteSiblingsConfig()}>
  *   <AppShell ... />
@@ -29,7 +29,7 @@
  * ```
  *
  * This replaces the no-op fetchInstalled/postLaunch stubs in
- * pd-ocr-labeler-spa's App.tsx (GAP-3 from issue #6).
+ * pdomain-ocr-labeler-spa's App.tsx (GAP-3 from issue #6).
  */
 
 import type { InstalledApp, LaunchResult } from './types.js';
@@ -48,7 +48,7 @@ export interface ApiSuiteSiblingsOptions {
 }
 
 /**
- * Create the fetchInstalled/postLaunch pair backed by the pd-ocr-ops
+ * Create the fetchInstalled/postLaunch pair backed by the pdomain-ocr-ops
  * `/api/suite/*` REST endpoints.
  */
 export function createApiSuiteSiblingsConfig(opts: ApiSuiteSiblingsOptions = {}): {

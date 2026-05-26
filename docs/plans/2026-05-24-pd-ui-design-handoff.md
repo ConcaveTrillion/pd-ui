@@ -3,22 +3,22 @@ status: active
 synced: 2026-05-24
 milestone: 16
 repo: ConcaveTrillion/ocr-container-meta
-spec: docs/specs/2026-05-24-pd-ui-design-handoff-design.md
+spec: docs/specs/2026-05-24-pdomain-ui-design-handoff-design.md
 ---
 
-# pd-ui design-handoff port — Implementation Plan
+# pdomain-ui design-handoff port — Implementation Plan
 
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task.
 
-**Goal:** Port the design-handoff bundle's atoms, cross-stage molecules, and layout templates into pd-ui as typed, slot-based, shared exports — gated by a Phase 1 audit document.
+**Goal:** Port the design-handoff bundle's atoms, cross-stage molecules, and layout templates into pdomain-ui as typed, slot-based, shared exports — gated by a Phase 1 audit document.
 
 **Architecture:** Three phases, single milestone. Phase 1 produces a research doc (port-plan) that classifies every design identifier and gates Phases 2–3. Phase 2 adds atom-layer gaps to `src/primitives/` and `src/icons/`. Phase 3 adds layout templates to a new `src/templates/` folder plus cross-stage molecules promoted from the design's stage folders.
 
 **Tech Stack:** React 18, TypeScript (strict + `noUncheckedIndexedAccess` + `exactOptionalPropertyTypes`), Vite library build, Vitest + jsdom, Storybook (collocated `.stories.tsx`), pnpm, lucide-react.
 
-**Spec:** [`docs/specs/2026-05-24-pd-ui-design-handoff-design.md`](../specs/2026-05-24-pd-ui-design-handoff-design.md)
+**Spec:** [`docs/specs/2026-05-24-pdomain-ui-design-handoff-design.md`](../specs/2026-05-24-pdomain-ui-design-handoff-design.md)
 
-**Design bundle:** `docs/templates/design_handoff_pd_ui/`
+**Design bundle:** `docs/templates/design_handoff_pdomain_ui/`
 
 ---
 
@@ -36,17 +36,17 @@ for this identifier."**
 ---
 
 ## Task 1 — Write design-handoff port-plan audit  {#port-plan-audit}
-model: sonnet  effort: M  area: pd-ui-docs
+model: sonnet  effort: M  area: pdomain-ui-docs
 
 Context: This is the Phase 1 deliverable. Produces a research document
-that classifies every identifier in `design_handoff_pd_ui/` against
-pd-ui's current state. CT review of this document gates every Phase 2
+that classifies every identifier in `design_handoff_pdomain_ui/` against
+pdomain-ui's current state. CT review of this document gates every Phase 2
 and Phase 3 task in this plan.
 
 Approach: Create `docs/research/2026-05-24-design-handoff-port-plan.md`
 with five verdict tables defined in spec §4.1: (1) Atom verdict for
 every identifier in `design-system/ui-base.jsx`; (2) Token diff between
-design `tokens.css` and pd-ui `src/theme/tokens.css`; (3) Icon mapping
+design `tokens.css` and pdomain-ui `src/theme/tokens.css`; (3) Icon mapping
 for every name in the design's `Icon` switch (~50 rows); (4)
 Cross-stage molecule inventory for every identifier with usage count ≥3
 in `COMPONENT_INDEX.md`, classified cross-stage vs stage-specific; (5)
@@ -68,9 +68,9 @@ Acceptance:
 ---
 
 ## Task 2 — Port Icon: lucide additions + bespoke gaps  {#port-icon}
-model: sonnet  effort: M  area: pd-ui-frontend
+model: sonnet  effort: M  area: pdomain-ui-frontend
 
-Context: pd-ui hard constraint is lucide-react only via `src/icons/`.
+Context: pdomain-ui hard constraint is lucide-react only via `src/icons/`.
 The design bundle's `Icon` component is a switch over ~50 inline SVGs.
 Lucide-first strategy: re-export lucide equivalents where available,
 implement domain glyphs as bespoke components.
@@ -100,10 +100,10 @@ Acceptance:
 ---
 
 ## Task 3 — Port Segmented atom  {#port-segmented}
-model: sonnet  effort: S  area: pd-ui-frontend
+model: sonnet  effort: S  area: pdomain-ui-frontend
 
 Context: Inset single-select segmented control used across every wired
-stage in the design bundle. Distinct from pd-ui's existing
+stage in the design bundle. Distinct from pdomain-ui's existing
 `ToggleGroup` (a flat multi-select group).
 
 Approach: Implement `src/primitives/Segmented.tsx` as a typed
@@ -128,7 +128,7 @@ Acceptance:
 ---
 
 ## Task 4 — Port StepDots atom  {#port-stepdots}
-model: sonnet  effort: S  area: pd-ui-frontend
+model: sonnet  effort: S  area: pdomain-ui-frontend
 
 Context: Numbered-circle progress indicator used in pipeline
 progression states across the design bundle.
@@ -151,16 +151,16 @@ Acceptance:
 ---
 
 ## Task 5 — Port PageHeader atom (if confirmed by audit)  {#port-pageheader}
-model: sonnet  effort: S  area: pd-ui-frontend
+model: sonnet  effort: S  area: pdomain-ui-frontend
 
-Context: Title + breadcrumb composite. pd-ui has `Breadcrumb` and
+Context: Title + breadcrumb composite. pdomain-ui has `Breadcrumb` and
 `TopNav` separately but no `PageHeader` molecule. Audit may downgrade
 this to "skip" if the existing primitives compose cleanly enough.
 
 Approach: If port-plan Table 1 verdict is `port`, implement
 `src/primitives/PageHeader.tsx` composing existing `Breadcrumb` with a
 typed title prop. Collocated stories + tests. If verdict is
-`already-in-pd-ui` or `skip`, close this task with a no-op comment
+`already-in-pdomain-ui` or `skip`, close this task with a no-op comment
 referencing the verdict row.
 
 Blocked-by: #port-plan-audit
@@ -174,7 +174,7 @@ Acceptance:
 ---
 
 ## Task 6 — Reconcile token-diff gaps  {#reconcile-tokens}
-model: haiku  effort: S  area: pd-ui-frontend
+model: haiku  effort: S  area: pdomain-ui-frontend
 
 Context: Port-plan Table 2 found 25 tokens identical, 0
 `value-mismatch`, and 2 `missing` (`--font-sans`, `--font-mono`
@@ -198,7 +198,7 @@ Acceptance:
 ---
 
 ## Task 7 — Port StageStrip molecule  {#port-stagestrip}
-model: sonnet  effort: M  area: pd-ui-frontend
+model: sonnet  effort: M  area: pdomain-ui-frontend
 
 Context: Stage progress + nav strip. 8+ usages in design bundle. Used
 inside `PipelineTemplate` and standalone in some stages.
@@ -223,7 +223,7 @@ Acceptance:
 ---
 
 ## Task 8 — Port TabsBand molecule  {#port-tabsband}
-model: sonnet  effort: M  area: pd-ui-frontend
+model: sonnet  effort: M  area: pdomain-ui-frontend
 
 Context: Sticky tab band at the top of every stage body in the design.
 
@@ -246,7 +246,7 @@ Acceptance:
 ---
 
 ## Task 9 — Port BulkBar molecule  {#port-bulkbar}
-model: sonnet  effort: M  area: pd-ui-frontend
+model: sonnet  effort: M  area: pdomain-ui-frontend
 
 Context: Sticky bottom bulk-action bar that appears across the Source
 and other stages when a selection is active.
@@ -269,7 +269,7 @@ Acceptance:
 ---
 
 ## Task 10 — Port AttributesPanel molecule  {#port-attributespanel}
-model: sonnet  effort: M  area: pd-ui-frontend
+model: sonnet  effort: M  area: pdomain-ui-frontend
 
 Context: Right-side attributes panel used across multiple stages for
 displaying selected entity properties.
@@ -292,7 +292,7 @@ Acceptance:
 ---
 
 ## Task 11 — Port additional cross-stage molecules from port-plan  {#port-additional-molecules}
-model: sonnet  effort: L  area: pd-ui-frontend
+model: sonnet  effort: L  area: pdomain-ui-frontend
 
 Context: Port-plan Table 4 may identify additional cross-stage
 molecules beyond StageStrip/TabsBand/BulkBar/AttributesPanel.
@@ -318,7 +318,7 @@ Acceptance:
 ---
 
 ## Task 12 — Port PipelineTemplate  {#port-pipelinetemplate}
-model: sonnet  effort: M  area: pd-ui-frontend
+model: sonnet  effort: M  area: pdomain-ui-frontend
 
 Context: Page chrome shared by all wired pipeline stages (Source,
 Grayscale, Crop, Hyphen-join). Slot-based.
@@ -343,7 +343,7 @@ Acceptance:
 ---
 
 ## Task 13 — Port ProjectsLandingTemplate  {#port-projectslandingtemplate}
-model: sonnet  effort: M  area: pd-ui-frontend
+model: sonnet  effort: M  area: pdomain-ui-frontend
 
 Context: Projects landing chrome from `final/projects/projects.jsx`.
 Per **OQ-11**: the design has `ProjectsPage` (populated) and
@@ -371,7 +371,7 @@ Acceptance:
 ---
 
 ## Task 14 — Port ProjectSettingsTemplate  {#port-projectsettingstemplate}
-model: sonnet  effort: M  area: pd-ui-frontend
+model: sonnet  effort: M  area: pdomain-ui-frontend
 
 Context: Settings layout from `final/pipeline/project-settings.jsx`.
 Slot-based.
@@ -392,11 +392,11 @@ Acceptance:
 
 ---
 
-## Task 16 — Extend pd-ui Button with icon/iconRight/full props  {#extend-button}
-model: sonnet  effort: S  area: pd-ui-frontend
+## Task 16 — Extend pdomain-ui Button with icon/iconRight/full props  {#extend-button}
+model: sonnet  effort: S  area: pdomain-ui-frontend
 
 Context: Per **OQ-2**: design `Button` composes icons via `icon` /
-`iconRight` props and supports `full` (width: 100%). pd-ui `Button`
+`iconRight` props and supports `full` (width: 100%). pdomain-ui `Button`
 has none. Extend non-breakingly.
 
 Approach: Add optional `icon?: ReactNode`, `iconRight?: ReactNode`,
@@ -417,12 +417,12 @@ Acceptance:
 
 ---
 
-## Task 17 — Extend pd-ui Input with composite wrapper + suffix slot  {#extend-input}
-model: sonnet  effort: S  area: pd-ui-frontend
+## Task 17 — Extend pdomain-ui Input with composite wrapper + suffix slot  {#extend-input}
+model: sonnet  effort: S  area: pdomain-ui-frontend
 
 Context: Per **OQ-3**: design `Input` is a `<div>` shell with child
 `<input>`, a `suffix` slot, and an inline focus ring on `autoFocus`.
-pd-ui `Input` is a bare styled `<input>`.
+pdomain-ui `Input` is a bare styled `<input>`.
 
 Approach: Refactor `src/primitives/Input.tsx` to render a composite
 wrapper when `suffix` is provided (otherwise still render bare for
@@ -445,12 +445,12 @@ Acceptance:
 
 ---
 
-## Task 18 — Extend pd-ui Badge with tone prop  {#extend-badge}
-model: sonnet  effort: S  area: pd-ui-frontend
+## Task 18 — Extend pdomain-ui Badge with tone prop  {#extend-badge}
+model: sonnet  effort: S  area: pdomain-ui-frontend
 
 Context: Per **OQ-4**: design `Badge` uses a 13-value semantic `tone`
 prop driven by status tokens (exact / fuzzy / mismatch / ocr / gt /
-review / running / clean / dirty / etc.). pd-ui `Badge` has 3
+review / running / clean / dirty / etc.). pdomain-ui `Badge` has 3
 structural variants. The full list of tones comes from port-plan
 Table 1's note on the Badge row (which cross-references the design
 sources for the canonical 13 names).
@@ -476,13 +476,13 @@ Acceptance:
 ---
 
 ## Task 19 — Port AppHeader to src/shell/  {#port-appheader}
-model: sonnet  effort: M  area: pd-ui-frontend
+model: sonnet  effort: M  area: pdomain-ui-frontend
 
 Context: Per **OQ-5**: design `AppHeader` is the opinionated suite
 chrome bar — app icon + search + jobs pill + bell + user avatar.
 Every pd-* SPA will need this; centralize.
 
-Approach: Implement `src/shell/AppHeader.tsx` composing pd-ui
+Approach: Implement `src/shell/AppHeader.tsx` composing pdomain-ui
 primitives. Slots: `logo`, `search?`, `jobsPill?`, `notifications?`,
 `userAvatar`. Props: `username`, `initials`, `unread?`. Stories cover
 the variants from `final/template/template.jsx`. Tests cover slot
@@ -501,7 +501,7 @@ Acceptance:
 ---
 
 ## Task 20 — Port JobsPill molecule  {#port-jobspill}
-model: sonnet  effort: S  area: pd-ui-frontend
+model: sonnet  effort: S  area: pdomain-ui-frontend
 
 Context: Per **OQ-5**: status pill that displays active job count and
 opens JobsDrawer on click.
@@ -523,13 +523,13 @@ Acceptance:
 ---
 
 ## Task 21 — Port JobsDrawer molecule  {#port-jobsdrawer}
-model: sonnet  effort: M  area: pd-ui-frontend
+model: sonnet  effort: M  area: pdomain-ui-frontend
 
 Context: Per **OQ-5**: side drawer listing active and recent jobs.
 
 Approach: Implement `src/shell/JobsDrawer.tsx` as a typed molecule
 with `open: boolean`, `onOpenChange`, `jobs: JobRow[]` (typed). Uses
-existing pd-ui `Drawer` primitive or Radix Dialog (decide based on
+existing pdomain-ui `Drawer` primitive or Radix Dialog (decide based on
 existing pattern). Stories + tests.
 
 Blocked-by: #port-plan-audit, #port-jobrow
@@ -545,7 +545,7 @@ Acceptance:
 ---
 
 ## Task 22 — Port JobRow molecule  {#port-jobrow}
-model: sonnet  effort: S  area: pd-ui-frontend
+model: sonnet  effort: S  area: pdomain-ui-frontend
 
 Context: Per **OQ-5**: one row inside JobsDrawer — job name, status,
 progress, optional cancel action.
@@ -567,7 +567,7 @@ Acceptance:
 ---
 
 ## Task 23 — Port ProjectsDrawer molecule  {#port-projectsdrawer}
-model: sonnet  effort: M  area: pd-ui-frontend
+model: sonnet  effort: M  area: pdomain-ui-frontend
 
 Context: Per **OQ-12**: suite-wide project-picker drawer molecule.
 Lives at the molecule layer (not as an AppShell zone); templates that
@@ -590,7 +590,7 @@ Acceptance:
 ---
 
 ## Task 24 — Port SettingsNav template  {#port-settingsnav}
-model: sonnet  effort: S  area: pd-ui-frontend
+model: sonnet  effort: S  area: pdomain-ui-frontend
 
 Context: Per **OQ-10**: extract the 8-item settings nav rail
 (general / bibliographic / pgdp / format / defaults / members /
@@ -616,11 +616,11 @@ Acceptance:
 ---
 
 ## Task 25 — Deprecate AppShell drawer/rightPanel props (JSDoc + tests)  {#deprecate-appshell-zones}
-model: haiku  effort: S  area: pd-ui-frontend
+model: haiku  effort: S  area: pdomain-ui-frontend
 
 Context: Per **OQ-12**: AppShell's `drawer` and `rightPanel` slot
 props are deprecated. They remain functional for back-compat with
-`pd-ocr-labeler-spa` and `pd-prep-for-pgdp`. New templates own their
+`pdomain-ocr-labeler-spa` and `pdomain-prep-for-pgdp`. New templates own their
 own internal drawer / right-panel concerns. Removal happens in a
 separate future spec after the two consumers migrate.
 
@@ -642,19 +642,19 @@ Acceptance:
 ---
 
 ## Task 15 — Write MIGRATION_NOTES.md  {#migration-notes}
-model: haiku  effort: S  area: pd-ui-docs
+model: haiku  effort: S  area: pdomain-ui-docs
 
 Context: Final deliverable summarizing what landed where, what was
 deliberately not ported, and what's still ambiguous. PROMPT.md §6
 requirement.
 
-Approach: Write `MIGRATION_NOTES.md` at pd-ui repo root with five
-sections: new exports table (column 1 = pd-ui export path, column 2 =
+Approach: Write `MIGRATION_NOTES.md` at pdomain-ui repo root with five
+sections: new exports table (column 1 = pdomain-ui export path, column 2 =
 design source file); tokens added or aliased; icon mapping reference
 (link to port-plan Table 3); conscious omissions (every `co-locate` or
 `skip` verdict with one-line reason); open questions for CT and how
 they were resolved (link to port-plan CT-decisions section).
-Demonstration of `final/source/source.jsx` → pd-ui imports is
+Demonstration of `final/source/source.jsx` → pdomain-ui imports is
 documented (the glue itself is part of the follow-on stages spec).
 
 Blocked-by: #port-icon, #port-segmented, #port-stepdots, #port-pageheader, #reconcile-tokens, #port-stagestrip, #port-tabsband, #port-bulkbar, #port-attributespanel, #port-additional-molecules, #port-pipelinetemplate, #port-projectslandingtemplate, #port-projectsettingstemplate, #extend-button, #extend-input, #extend-badge, #port-appheader, #port-jobspill, #port-jobsdrawer, #port-jobrow, #port-projectsdrawer, #port-settingsnav, #deprecate-appshell-zones
@@ -662,20 +662,20 @@ Blocked-by: #port-icon, #port-segmented, #port-stepdots, #port-pageheader, #reco
 Verification: `git ls-files MIGRATION_NOTES.md && make ci AI=1`
 
 Acceptance:
-- [ ] `MIGRATION_NOTES.md` exists at pd-ui root.
-- [ ] New exports table lists every new pd-ui export with its design source.
+- [ ] `MIGRATION_NOTES.md` exists at pdomain-ui root.
+- [ ] New exports table lists every new pdomain-ui export with its design source.
 - [ ] Tokens added or aliased section reflects port-plan Table 2 outcomes.
 - [ ] Icon mapping references port-plan Table 3.
 - [ ] Conscious omissions list every `co-locate` / `skip` verdict.
 - [ ] Open questions for CT documented.
-- [ ] `final/source/source.jsx` → pd-ui imports demonstration documented.
+- [ ] `final/source/source.jsx` → pdomain-ui imports demonstration documented.
 
 ---
 
 ## Done when
 
-- Every task above is closed under milestone `spec: pd-ui-design-handoff (#N)`.
+- Every task above is closed under milestone `spec: pdomain-ui-design-handoff (#N)`.
 - `pnpm exec tsc --noEmit` clean under strict settings.
 - `make ci AI=1` green on merge into `main`.
-- `MIGRATION_NOTES.md` exists at pd-ui root.
+- `MIGRATION_NOTES.md` exists at pdomain-ui root.
 - Workspace convention: branches stay local; no PR opened (CT pushes when ready).
