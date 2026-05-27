@@ -180,7 +180,7 @@ Identifiers with count ≥ 3 from the frequency table (excluding `App` which is 
 
 | identifier | file count | files | classification | target path | depends on |
 |---|---|---|---|---|---|
-| `STAGE_DEFS` | 9 | wf02, wf05, wf05b, wf09, wf10, wf11, pipeline-template, wf-pw/wf03-variations, wf03/wf03-variations | `stage-specific` | — | Constant array; each file copies the same pipeline stage list. Not a React component; not a pdomain-ui export. Lives in pdomain-ocr-ops or a consuming app's constants. |
+| `STAGE_DEFS` | 9 | wf02, wf05, wf05b, wf09, wf10, wf11, pipeline-template, wf-pw/wf03-variations, wf03/wf03-variations | `stage-specific` | — | Constant array; each file copies the same pipeline stage list. Not a React component; not a pdomain-ui export. Lives in pdomain-ops or a consuming app's constants. |
 | `StageContextStrip` | 8 | wf02/pipeline-shell, wf03/wf03-variations, wf05/pipeline-shell, wf05b/pipeline-shell, wf09/pipeline-shell, wf10/pipeline-shell, wf11/wf03-variations, wf-pw/wf03-variations | `cross-stage molecule` | `src/primitives/StageContextStrip.tsx` | `StageStrip` data model; `Icon`; stage status tokens |
 | `ViewToggle` | 5 | wf03/wf03-variations, wf05/variations, wf05b/pipeline-shell (implied), wf11/wf03-variations, wf-pw/wf03-variations | `cross-stage molecule` | `src/primitives/ViewToggle.tsx` | `Icon`; `Button` variants |
 | `RunAllDirtyPanel` | 5 | wf02/pipeline-shell, wf05/pipeline-shell, wf05b/pipeline-shell, wf09/pipeline-shell, wf10/pipeline-shell | `cross-stage molecule` | `src/primitives/RunAllDirtyPanel.tsx` | `Button`; status tokens |

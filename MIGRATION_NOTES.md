@@ -651,7 +651,7 @@ The following design-bundle identifiers were intentionally **not** ported:
 | `AppFrame` | Use `AppShell` | Design `AppFrame` is a monolithic wrapper; maps to `AppShell` + `Dialog`/`Drawer` composition |
 | `TopNav` (design version) | Use `AppHeader` | Design's opinionated `TopNav` is superseded by the slotted `AppHeader` molecule |
 | `VariationA`, `VariationB`, `ThemedFrame` | `skip` | Design-canvas artboard frames; not portworthy React components |
-| `STAGE_DEFS`, `STAGE_FLAGS`, `FLAG_TONE`, `FLAG_META` | `stage-specific` | Data constants; belong in `pdomain-ocr-ops` or the consuming SPA's own constants |
+| `STAGE_DEFS`, `STAGE_FLAGS`, `FLAG_TONE`, `FLAG_META` | `stage-specific` | Data constants; belong in `pdomain-ops` or the consuming SPA's own constants |
 | `Tab` (pipeline-shell local) | `co-locate` | Thin per-file tab helper that differs per stage; use pdomain-ui `Tabs` primitive from `@pdomain/pdomain-ui/primitives` |
 | `CheckRow`, `PageThumb`, `PageRow` | `stage-specific` | Tightly coupled to page/image data model; defer to per-stage SPA |
 | `ProjectConfigureFrame` | Not yet ported | Composed of `BuildPackagePanel` + `RunAllDirtyPanel` + `DiskCostBanner`; those sub-molecules are in pdomain-ui; `ProjectConfigureFrame` is deferred to the stages spec |

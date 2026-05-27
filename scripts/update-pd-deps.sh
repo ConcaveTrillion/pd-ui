@@ -2,7 +2,7 @@
 # scripts/update-pd-deps.sh — bump pd-* codegen inputs to registry latest.
 #
 # pdomain-ui SPECIAL CASE: pdomain-ui does not import sibling pd-* code at runtime.
-# It consumes pdomain-book-tools and pdomain-ocr-ops ONLY as codegen inputs: pinned
+# It consumes pdomain-book-tools and pdomain-ops ONLY as codegen inputs: pinned
 # wheel versions → fetch wheels → emit JSON Schema → generate TS types into
 # src/types/generated/.
 #
@@ -10,7 +10,7 @@
 # package.json.
 #
 # What this does:
-#   1. For each codegen sibling (pdomain-book-tools, pdomain-ocr-ops):
+#   1. For each codegen sibling (pdomain-book-tools, pdomain-ops):
 #      a. Reads codegen.versions.json for the current pinned version.
 #      b. Queries pdomain-index-pip (PEP 503) for the latest version.
 #      c. If latest > current, updates codegen.versions.json.
@@ -23,7 +23,7 @@
 set -euo pipefail
 
 # ─── Config ──────────────────────────────────────────────────────────────────
-CODEGEN_SIBLINGS=(pdomain-book-tools pdomain-ocr-ops)
+CODEGEN_SIBLINGS=(pdomain-book-tools pdomain-ops)
 PD_INDEX_PIP="https://pdomain.github.io/pdomain-index-pip"
 # ─────────────────────────────────────────────────────────────────────────────
 

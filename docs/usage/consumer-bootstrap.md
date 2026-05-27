@@ -186,7 +186,7 @@ import {
 
 const UI_PREFS_CONFIG: UIPrefsConfig = {
   load: async () => {
-    // Try /api/suite/prefs (pdomain-ocr-ops) first, fall back to localStorage.
+    // Try /api/suite/prefs (pdomain-ops) first, fall back to localStorage.
     try {
       const res = await fetch("/api/suite/prefs");
       if (res.ok) {
@@ -216,7 +216,7 @@ const UI_PREFS_CONFIG: UIPrefsConfig = {
     } catch { /* ignore */ }
   },
   persistApp: async (_appPrefs) => {
-    // Write to /api/suite/prefs/apps/<your-app-id> when pdomain-ocr-ops is available.
+    // Write to /api/suite/prefs/apps/<your-app-id> when pdomain-ops is available.
   },
 };
 
@@ -455,7 +455,7 @@ Use this when wiring a new SPA or auditing an existing one.
 
 ### `AppShell`
 
-- [ ] `appId` is a stable kebab-case identifier matching the pdomain-ocr-ops registry entry
+- [ ] `appId` is a stable kebab-case identifier matching the pdomain-ops registry entry
 - [ ] `deployMode="local"` for Phase 1 / local-only SPAs
 - [ ] `uiPrefsConfig` has both `load` (tries `/api/suite/prefs`, falls back to localStorage) and `persistCommon` (tries `/api/suite/prefs/common`) callbacks
 - [ ] `header` slot receives `<AppHeader activeJobs={...} ...>`

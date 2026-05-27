@@ -49,13 +49,13 @@ Plan: [`../docs/plans/2026-05-16-pdomain-ui-new-repo.md`](../docs/plans/2026-05-
 - **Strict TypeScript**: `strict: true`, `noUncheckedIndexedAccess`, `exactOptionalPropertyTypes`.
 - **Deploy-mode-agnostic**: pdomain-ui never branches on hosted-vs-local inside components.
   Only `<AppShell deployMode>` changes wording/visibility. All real mode logic lives
-  in pdomain-ocr-ops adapters.
+  in pdomain-ops adapters.
 - **Port-not-copy**: when porting from labeler-spa, read the source once, design the
   slot-based API surface, then port. Do not verbatim-copy labeler-specific logic.
 
 ## Codegen
 
-When bumping `pdomain-book-tools` or `pdomain-ocr-ops` in `codegen.versions.json`:
+When bumping `pdomain-book-tools` or `pdomain-ops` in `codegen.versions.json`:
 1. Run `pnpm codegen` (fetches wheels → emits JSON Schema → generates TS types).
 2. Commit both `codegen.versions.json` and the regenerated `src/types/generated/` in the same PR.
 
@@ -73,7 +73,7 @@ When bumping `pdomain-book-tools` or `pdomain-ocr-ops` in `codegen.versions.json
 - `../pdomain-book-tools/` — upstream dependency; its `schemas.emit` drives M4 codegen.
 - `../pdomain-ocr-labeler-spa/` — primary source-of-truth for component ports (canvas, worklist, shell).
 - `../pdomain-prep-for-pgdp/` — secondary consumer reference.
-- `../pdomain-ocr-ops/` — GPU dispatch + suite-prefs routes (wired in Phase 2).
+- `../pdomain-ops/` — GPU dispatch + suite-prefs routes (wired in Phase 2).
 
 ## GH issues
 

@@ -5,10 +5,10 @@
       "pdomain_book_tools-0.14.2-py3-none-any.whl": "38481af0d680c6c719093ab91649ae11d4cc4c686e8f93f17fed29949cada67e"
     }
   },
-  "pdomain-ocr-ops": {
+  "pdomain-ops": {
     "version": "0.2.3",
     "sha256": {
-      "pdomain_ocr_ops-0.2.3-py3-none-any.whl": "3462e705adb565d438d7909c81be83c7260b831e997f4b6aadbb830b256cc56e"
+      "pdomain_ops-0.2.3-py3-none-any.whl": "3462e705adb565d438d7909c81be83c7260b831e997f4b6aadbb830b256cc56e"
     }
   }
 }

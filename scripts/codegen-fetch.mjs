@@ -10,7 +10,7 @@
  * only then installed from the local path. A hash mismatch is a fatal error.
  *
  * Flags:
- *   --book-tools-only   Only install pdomain-book-tools (skip pdomain-ocr-ops)
+ *   --book-tools-only   Only install pdomain-book-tools (skip pdomain-ops)
  *   --dry-run           Print the commands that would be run; do not execute
  *   --local             Install from local sibling paths instead of registry
  *                       (bootstrap mode for dev before wheels are published)
@@ -187,12 +187,12 @@ async function main() {
   // Determine which packages to install
   const pkgNames = opts.bookToolsOnly
     ? ['pdomain-book-tools']
-    : ['pdomain-book-tools', 'pdomain-ocr-ops']
+    : ['pdomain-book-tools', 'pdomain-ops']
 
   if (opts.local) {
     // Local bootstrap mode: install from sibling repo paths (no hash check needed)
     const localPaths = pkgNames.map((pkg) => {
-      const repoName = pkg // 'pdomain-book-tools', 'pdomain-ocr-ops'
+      const repoName = pkg // 'pdomain-book-tools', 'pdomain-ops'
       const localPath = resolve(REPO_ROOT, '..', repoName)
       const { version } = normaliseEntry(pkg, versions[pkg])
       console.log(`[local mode] ${pkg}==${version} from ${localPath}`)

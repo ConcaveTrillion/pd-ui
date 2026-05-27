@@ -56,7 +56,7 @@ function WithErrorDemo() {
   async function handleSubmit(): Promise<void> {
     await new Promise<void>((_, reject) =>
       setTimeout(() => {
-        reject(new Error('Backend unreachable — check pdomain-ocr-ops.'));
+        reject(new Error('Backend unreachable — check pdomain-ops.'));
       }, 600),
     );
   }
