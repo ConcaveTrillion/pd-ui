@@ -2,7 +2,7 @@
  * createUIPrefsStore — Zustand store factory for UI preferences.
  *
  * Returns a fresh store per call. Apps instantiate one per AppShell, passing
- * the load/persist callbacks from their pdomain-ocr-ops backend integration.
+ * the load/persist callbacks from their pdomain-ops backend integration.
  *
  * The store calls `config.load()` once on construction to hydrate from the
  * backend; `config.persistCommon` fires on any non-app pref change;

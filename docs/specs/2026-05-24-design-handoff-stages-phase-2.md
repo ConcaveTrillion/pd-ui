@@ -142,7 +142,7 @@ This shared need elevates `ArtifactViewer` to the first milestone.
   OCR, Spellcheck, Illustrations, Regex, Page Split, Proof Pack, Zip, Build
   Package, Submit Check, Archive are listed as no-design in `final/index.html`
   — out of scope until designs exist.
-- **Backend adapters**: `pdomain-ocr-ops` is the owner of suite plumbing; pdomain-ui
+- **Backend adapters**: `pdomain-ops` is the owner of suite plumbing; pdomain-ui
   never imports from it.
 - **Animated transitions / micro-interactions**: the JSX prototypes are the
   spec for what exists, not pixel-perfect timing curves.

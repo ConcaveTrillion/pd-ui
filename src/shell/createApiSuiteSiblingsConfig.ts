@@ -1,6 +1,6 @@
 /**
  * createApiSuiteSiblingsConfig — builds the fetchInstalled/postLaunch callbacks
- * that SuiteSiblingsProvider needs, backed by the pdomain-ocr-ops standard
+ * that SuiteSiblingsProvider needs, backed by the pdomain-ops standard
  * `/api/suite/*` REST contract.
  *
  * Contract
@@ -48,7 +48,7 @@ export interface ApiSuiteSiblingsOptions {
 }
 
 /**
- * Create the fetchInstalled/postLaunch pair backed by the pdomain-ocr-ops
+ * Create the fetchInstalled/postLaunch pair backed by the pdomain-ops
  * `/api/suite/*` REST endpoints.
  */
 export function createApiSuiteSiblingsConfig(opts: ApiSuiteSiblingsOptions = {}): {

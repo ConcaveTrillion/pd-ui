@@ -6,7 +6,7 @@
  * the resulting JSON Schema to .codegen/book-tools.schema.json.
  *
  * Flags:
- *   --book-tools-only   Only emit pdomain-book-tools schemas (skip pdomain-ocr-ops)
+ *   --book-tools-only   Only emit pdomain-book-tools schemas (skip pdomain-ops)
  *
  * Environment overrides (used in tests):
  *   CODEGEN_VENV_DIR     Path to the venv (default: .codegen/venv)
@@ -69,10 +69,10 @@ async function main() {
       process.env['CODEGEN_OPS_SCHEMA_OUT'] ??
       join(REPO_ROOT, '.codegen', 'ocr-ops.schema.json')
 
-    console.log(`Running pdomain_ocr_ops.schemas via ${pythonBin}`)
+    console.log(`Running pdomain_ops.schemas via ${pythonBin}`)
     console.log(`Output: ${opsSchemaOut}`)
 
-    const opsResult = execFileSync(pythonBin, ['-m', 'pdomain_ocr_ops.schemas'], {
+    const opsResult = execFileSync(pythonBin, ['-m', 'pdomain_ops.schemas'], {
       encoding: 'utf-8',
       cwd: REPO_ROOT,
     })
@@ -81,7 +81,7 @@ async function main() {
     try {
       opsParsed = JSON.parse(opsResult)
     } catch (err) {
-      console.error('pdomain_ocr_ops.schemas output is not valid JSON:', err.message)
+      console.error('pdomain_ops.schemas output is not valid JSON:', err.message)
       process.exit(1)
     }
 

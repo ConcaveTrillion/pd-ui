@@ -46,11 +46,11 @@ describe('codegen:fetch script', () => {
     expect(typeof entry['version']).toBe('string');
   });
 
-  it('codegen.versions.json has pdomain-ocr-ops key with version and sha256', () => {
+  it('codegen.versions.json has pdomain-ops key with version and sha256', () => {
     const versionsPath = join(REPO_ROOT, 'codegen.versions.json');
     const versions = JSON.parse(readFileSync(versionsPath, 'utf-8')) as Record<string, unknown>;
-    expect(versions).toHaveProperty('pdomain-ocr-ops');
-    const entry = versions['pdomain-ocr-ops'] as Record<string, unknown>;
+    expect(versions).toHaveProperty('pdomain-ops');
+    const entry = versions['pdomain-ops'] as Record<string, unknown>;
     expect(entry).toHaveProperty('version');
     expect(entry).toHaveProperty('sha256');
   });
@@ -187,7 +187,7 @@ describe('codegen:fetch script', () => {
     // Run script in hash-check-only mode (no install, but hash must be verified)
     // CODEGEN_WHEEL_CACHE_DIR tells the script to use pre-downloaded wheels
     // CODEGEN_VERSIONS_PATH overrides which versions file to read
-    // --book-tools-only avoids needing pdomain-ocr-ops hash too
+    // --book-tools-only avoids needing pdomain-ops hash too
     const env = {
       ...process.env,
       CODEGEN_VERSIONS_PATH: versionsFile,

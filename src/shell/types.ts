@@ -2,13 +2,13 @@
  * AppShell type contract.
  *
  * Matches the surface defined in spec §6 of 2026-05-16-cross-cut-design.md.
- * `SuiteApp`, `InstalledApp`, `UIPrefs` live in /types once pdomain-ocr-ops codegen
+ * `SuiteApp`, `InstalledApp`, `UIPrefs` live in /types once pdomain-ops codegen
  * lands (M4 re-enable). Until then they are defined here as minimal local types
  * used only within the shell and stores subpaths.
  */
 import type * as React from 'react';
 
-// ─── Suite types (local stubs — will be replaced by codegen from pdomain-ocr-ops) ─
+// ─── Suite types (local stubs — will be replaced by codegen from pdomain-ops) ───
 
 /** An app that is part of the pdomain-suite (registered in pdomain-suite.json). */
 export interface SuiteApp {
@@ -182,7 +182,7 @@ export interface AppShellProps {
   /**
    * Deployment context. Default `'local'`.
    * `'hosted'` gates local-only affordances (desktop shortcuts, etc.).
-   * pdomain-ui itself never branches on this for real logic — adapters live in pdomain-ocr-ops.
+   * pdomain-ui itself never branches on this for real logic — adapters live in pdomain-ops.
    */
   deployMode?: 'local' | 'hosted';
   /**

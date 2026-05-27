@@ -1,4 +1,4 @@
-// Canonical job state derived from the pdomain-ocr-ops generated schema.
+// Canonical job state derived from the pdomain-ops generated schema.
 // JobState is the authoritative type for long-running job status across all pd-* apps.
 import type { components } from './generated/ocr-ops.js';
 
