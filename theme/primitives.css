@@ -774,6 +774,12 @@ a { color: inherit; text-decoration: none; }
 }
 
 .stage-strip__label-text {
+  font-size: 10.5px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--ink-4);
+}
 
 /* ─── StatTile ─────────────────────────────────────────── */
 
@@ -1098,6 +1104,7 @@ a { color: inherit; text-decoration: none; }
 .tabs-band__tab--active .tabs-band__count {
   background: color-mix(in srgb, var(--accent) 18%, transparent);
   color: var(--accent);
+}
 
 /* ── BulkActionBar ─────────────────────────────────────────────────── */
 /*
@@ -1148,6 +1155,9 @@ a { color: inherit; text-decoration: none; }
 
 .bulk-action-bar__count {
   font-size: 13px;
+  font-weight: 600;
+  color: var(--ink-1);
+}
 
 .stat-tile__value {
   margin-top: 6px;
@@ -1440,6 +1450,9 @@ a { color: inherit; text-decoration: none; }
 .bulk-action-bar__actions {
   display: flex;
   align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
+}
 
 .disk-cost-banner__prune {
   font-size: 11.5px;
