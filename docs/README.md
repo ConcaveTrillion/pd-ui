@@ -20,3 +20,9 @@ Empty folders are intentional and tracked via `.gitkeep`.
 Active docs map to GitHub issues — see this repo's issue tracker for status.
 This layout is workspace-standard; see
 `/workspaces/ocr-container/docs/README.md` for the master.
+
+## Usage docs
+
+| Doc | Purpose |
+|---|---|
+| [`usage/consumer-bootstrap.md`](usage/consumer-bootstrap.md) | Canonical bootstrap pattern for new SPAs consuming `@pdomain/pdomain-ui` — `main.tsx`, `index.css`, `App.tsx` provider order, `AppShell` props, `activeJobs` hook, anti-patterns, and checklist |
